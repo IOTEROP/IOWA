@@ -1,9 +1,16 @@
 /**********************************************
 *
-* Copyright (c) 2016-2018 IoTerop.
+* Copyright (c) 2016-2020 IoTerop.
 * All rights reserved.
 *
 **********************************************/
+
+/**********************************************
+ *
+ * This a a very simpple LwM2M Client
+ * abstraction functions for Linux and Windows.
+ *
+ **********************************************/
 
 // IOWA headers
 #include "iowa_client.h"
@@ -21,10 +28,9 @@
 // LwM2M Server details
 #define SERVER_SHORT_ID 1234
 #define SERVER_LIFETIME   50
-// #define SERVER_URI "coap://iowa-server.ioterop.com"         // to connect to IoTerop Connecticut test server
+#define SERVER_URI "coap://iowa-server.ioterop.com"         // to connect to IoTerop's Connecticut test server
+// #define SERVER_URI "coap://leshan.eclipseprojects.io"    // to connect to the Eclipse's Leshan server demo
 // #define SERVER_URI "coap://127.0.0.1:5683"               // to connect to a local server
-#define SERVER_URI "coap://leshan.eclipseprojects.io"    // to connect to the Eclipse Leshan server demo
-
 
 // As this sample does not use security, the LwM2M Server only relies
 // on the endpoint name to identify the LwM2M Client. Thus we need an

@@ -9,7 +9,9 @@ cmake_minimum_required(VERSION 2.8)
 
 project(simple_client C)
 
-include(${CMAKE_CURRENT_LIST_DIR}/../iowa/src/iowa.cmake)
+get_property(IOWA_DIR GLOBAL PROPERTY iowa_sdk_folder)
+
+include(${IOWA_DIR}/src/iowa.cmake)
 
 ############################################
 # Build project

@@ -1,16 +1,14 @@
 /**********************************************
 *
-* Copyright (c) 2016-2019 IoTerop.
+* Copyright (c) 2016-2020 IoTerop.
 * All rights reserved.
 *
 **********************************************/
 
 /**********************************************
  *
- * This file implements the IOWA system
+ * This file implements simple IOWA system
  * abstraction functions for Linux and Windows.
- *
- * This is tailored for the LwM2M Client.
  *
  **********************************************/
 
