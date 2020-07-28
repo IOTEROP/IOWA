@@ -7,7 +7,7 @@
 
 /**********************************************
  *
- * This file implements simple IOWA system
+ * This file implements simple IOWA connection
  * abstraction functions for Linux and Windows.
  *
  **********************************************/
@@ -24,53 +24,12 @@
 #include <Windows.h>
 #include <Winsock2.h>
 #include <ws2tcpip.h>
-#include <io.h>
 #else
 #include <unistd.h>
-#include <time.h>
 #include <netdb.h>
-#include <pthread.h>
 #include <errno.h>
 #endif
 
-
-// We bind this function directly to malloc().
-void * iowa_system_malloc(size_t size)
-{
-    return malloc(size);
-}
-
-// We bind this function directly to free().
-void iowa_system_free(void *pointer)
-{
-    free(pointer);
-}
-
-// We return the number of seconds since Epoch.
-int32_t iowa_system_gettime(void)
-{
-#ifdef _WIN32
-    return (int32_t)(GetTickCount() / 1000);
-#else
-    return (int32_t)time(NULL);
-#endif
-}
-
-// We fake a reboot by exiting the application.
-void iowa_system_reboot(void *userData)
-{
-    (void)userData;
-
-    fprintf(stdout, "\n\tFaking a reboot.\r\n\n");
-    exit(0);
-}
-
-// Traces are output on stderr.
-void iowa_system_trace(const char *format,
-                       va_list varArgs)
-{
-    vfprintf(stderr, format, varArgs);
-}
 
 // For POSIX platforms, we use BSD sockets.
 // The socket number (incremented by 1, 0 being a valid socket number) is cast as a void *.

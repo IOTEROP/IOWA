@@ -18,8 +18,9 @@ include(${IOWA_DIR}/src/iowa.cmake)
 #
 add_executable(${PROJECT_NAME}
                ${CMAKE_CURRENT_LIST_DIR}/main.c
-               ${CMAKE_CURRENT_LIST_DIR}/client_platform.c
                ${CMAKE_CURRENT_LIST_DIR}/iowa_config.h
+               ${CMAKE_CURRENT_LIST_DIR}/../common/core_abstraction.c
+               ${CMAKE_CURRENT_LIST_DIR}/../common/connection_abstraction.c
                ${IOWA_CLIENT_SOURCES}
                ${IOWA_CLIENT_HEADERS})
 
