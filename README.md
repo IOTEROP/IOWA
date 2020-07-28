@@ -62,11 +62,32 @@ Go to the 'samples' folder and type the commands 'cmake .' then 'make'.
 
 #### On Windows
 
-**Prerequisites:** Visual Studio with C++ support.
+##### Using Visual Studio Code
 
-1. In the Visual Studio menu bar, go to "File", "Open", "Folder". Select the IOWA SDK folder.
-1. In the "Solution Explorer" windows, expand the "samples" folder.
-1. Right-click on "CMakeList.txt" and choose "Set as Startup Item".
+1. Install the Microsoft C++ compiler as explained here: https://docs.microsoft.com/en-us/cpp/build/building-on-the-command-line?view=vs-2019
+   1. Select the "Build Tools for Visual Studio 2019".
+   2. In the Installer, make sure the following optional features are checked:
+      * MSVC v142 - VS 2019 C++ x64/x86 build tools (Note that the version may differ)
+      * Windows 10 SDK
+      * C++ CMake tools for Windows
+1. Install Visual Studio Code from https://code.visualstudio.com/
+1. Launch Visual Studio Code.
+1. Go to the "Extensions" panel (Ctrl+Shift+X) on the left side.
+1. Install the "C/C++", "CMake", and "CMake Tools" extensions
+1. Open the folder containing the IOWA Samples ("File" menu -> "Open Folder..." or "Ctrl+K Ctrl+O")
+1. Open the CMake panel on the left side.
+1. On the top bar of the CMake panel, click on the icon "Configure All Projects".
+1. When prompted to select a kit, choose one of the Visual Studio Build Tools.
+1. On the top bar of the CMake panel, click on the icon "Build All Projects".
+1. Click on the sample of your choice.
+1. Right-click on the application and select "Run in terminal"
+
+##### Using Visual Studio with C++ support.
+
+Visual Studio version must be at least 2017 for the CMake support.
+
+1. In the Visual Studio menu bar, go to "File", "Open", "Folder". Select the IOWA Samples folder.
+1. In the "Solution Explorer" windows, right-click on "CMakeList.txt" and choose "Set as Startup Item".
 1. In the Visual Studio menu bar, go to "Build", "Build All"
 
 
