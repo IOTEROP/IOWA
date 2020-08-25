@@ -28,11 +28,11 @@
 // LwM2M Server details
 #define SERVER_SHORT_ID 1234
 #define SERVER_LIFETIME   50
-#define SERVER_URI "coap://iowa-server.ioterop.com"         // to connect to IoTerop's Connecticut test server
-// #define SERVER_URI "coap://leshan.eclipseprojects.io"    // to connect to the Eclipse's Leshan server demo
-// #define SERVER_URI "coap://127.0.0.1:5683"               // to connect to a local server
+#define SERVER_URI      "coap://iowa-server.ioterop.com"      // to connect to IoTerop's Connecticut test server
+// #define SERVER_URI   "coap://leshan.eclipseprojects.io"    // to connect to the Eclipse's Leshan server demo
+// #define SERVER_URI   "coap://127.0.0.1:5683"               // to connect to a local server
 
-// As this sample does not use security, the LwM2M Server only relies
+// As this sample does not use security, the LwM2M Server relies only
 // on the endpoint name to identify the LwM2M Client. Thus we need an
 // unique name. This function generates one from your computer ID on
 // Linux or from your "C:" volume serial number on Windows.
@@ -104,8 +104,8 @@ int main(int argc,
 
     printf("Connecting to the LWM2M server at \"" SERVER_URI "\".\r\nUse Ctrl-C to stop.\r\n\n");
 
-    // Let IOWA run indefinitely
-    result = iowa_step(iowaH, -1);
+    // Let IOWA run for two minutes
+    result = iowa_step(iowaH, 120);
 
 cleanup:
     iowa_client_remove_server(iowaH, SERVER_SHORT_ID);

@@ -6,7 +6,7 @@ These samples require the IOWA SDK. This SDK is available from https://ioterop.c
 
 ## Content
 
-Numbered samples increased in complexity from the simplest LwM2M Client. Other samples demonstrate a particular feature.
+Numbered samples increase in complexity from the simplest LwM2M Client. Other samples demonstrate a particular feature.
 
 Each sample has its own README.md providing more details.
 
@@ -44,7 +44,7 @@ This samples can be used either on Linux or Windows.
 
 ### Preparation
 
-First either copy the IOWA SDK to the `iowa` folder.
+First, copy the IOWA SDK to the `iowa` folder.
 
 Alternatively, you can edit the root CMakeLists.txt to indicate the path to the IOWA SDK by modifying the line 12:
 
