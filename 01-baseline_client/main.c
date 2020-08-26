@@ -62,10 +62,6 @@ int main(int argc,
     (void)argc;
     (void)argv;
 
-    /******************
-     * Initialization
-     */
-
     printf("This a simple LwM2M Client.\r\n\n");
 
     // Initialize the IOWA stack.

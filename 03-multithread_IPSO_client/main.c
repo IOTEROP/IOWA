@@ -22,9 +22,15 @@
 #include <string.h>
 #ifdef _WIN32
 #include <windows.h>
+#include <strsafe.h>
 #else
 #include <unistd.h>
+#include <pthread.h>
 #endif
+
+// global variables
+static iowa_context_t iowaH = NULL;
+static iowa_sensor_t sensorId = IOWA_INVALID_SENSOR_ID;
 
 // LwM2M Server details
 #define SERVER_SHORT_ID 1234
@@ -52,23 +58,74 @@ static void prv_generate_unique_name(char *name)
     sprintf(name, "IOWA_simple_client_%ld", id);
 }
 
+// A simulated measure task launched in a separate thread
+#ifdef _WIN32
+DWORD WINAPI measure_routine(LPVOID arg)
+#else
+void * measure_routine(void *arg)
+#endif
+{
+    int i;
+    iowa_status_t result;
+
+    i = 0;
+    do
+    {
+#ifdef _WIN32
+        Sleep(3000);
+#else
+        usleep(3000000);
+#endif
+
+        result = iowa_client_IPSO_update_value(iowaH, sensorId, 20 + i%4);
+
+        i++;
+    } while (i < 40 && result == IOWA_COAP_NO_ERROR);
+
+    iowa_stop(iowaH);
+
+#ifdef _WIN32
+    return 0;
+#else
+    return NULL;
+#endif
+}
+
 int main(int argc,
          char *argv[])
 {
-    iowa_context_t iowaH;
     iowa_status_t result;
     char endpoint_name[64];
     iowa_device_info_t devInfo;
-    iowa_sensor_t sensorId;
-    int i;
+#ifdef _WIN32
+    DWORD  threadId;
+    HANDLE thread;
+    HANDLE mutex;
+#else
+    pthread_t thread;
+    pthread_attr_t attr;
+    pthread_mutex_t mutex;
+#endif
 
     (void)argc;
     (void)argv;
 
-    printf("This a simple LwM2M Client featuring an IPSO Temperature Object.\r\n\n");
+    printf("This a multithreaded LwM2M Client featuring an IPSO Temperature Object.\r\n\n");
 
-    // Initialize the IOWA stack.
-    iowaH = iowa_init(NULL);
+    // Create a mutex for the iowa_system_mutex_* functions
+#ifdef _WIN32
+    mutex = CreateMutex(NULL, FALSE, NULL);
+    if (mutex == NULL)
+#else
+    if (pthread_mutex_init(&mutex, NULL) != 0)
+#endif
+    {
+        fprintf(stderr, "Mutex creation failed.\r\n");
+        return 1;
+    }
+
+    // Initialize the IOWA stack using the mutex as the system abstraction functions user data.
+    iowaH = iowa_init(&mutex);
     if (iowaH == NULL)
     {
         fprintf(stderr, "IOWA context initialization failed.\r\n");
@@ -83,7 +140,7 @@ int main(int argc,
     memset(&devInfo, 0, sizeof(iowa_device_info_t));
     devInfo.manufacturer = "https://ioterop.com";
     devInfo.deviceType = "IOWA sample from https://github.com/IOTEROP/IOWA-Samples";
-    devInfo.modelNumber = "IPSO_client";
+    devInfo.modelNumber = "multithread_IPSO_client";
 
     // Configure the LwM2M Client
     result = iowa_client_configure(iowaH, endpoint_name, &devInfo, NULL);
@@ -109,19 +166,46 @@ int main(int argc,
         goto cleanup;
     }
 
+    // Start a thread for the measure task
+#ifdef _WIN32
+    thread = CreateThread(NULL, 0, measure_routine, NULL, 0, &threadId);
+    if (thread == NULL)
+#else
+    pthread_attr_init(&attr);
+    pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
+    if (pthread_create(&thread, &attr, measure_routine, NULL) != 0)
+#endif
+    {
+        fprintf(stderr, "Thread creation failed.");
+    }
+#ifndef _WIN32
+    pthread_attr_destroy(&attr);
+#endif
+
     printf("Registering to the LwM2M server at \"" SERVER_URI "\" under the Endpoint name \"%s\".\r\nUse Ctrl-C to stop.\r\n\n", endpoint_name);
 
-    // Let IOWA run for two minutes, updating the temperature value each 3 seconds
-    for (i = 0; i < 40 && result == IOWA_COAP_NO_ERROR; i++)
-    {
-        result = iowa_step(iowaH, 3);
-        result = iowa_client_IPSO_update_value(iowaH, sensorId, 20 + i%4);
-    }
+    // Let IOWA run indefinitely, the measure task will stop it.
+    result = iowa_step(iowaH, -1);
+
+    // Application specific: wait for the measure thread to finish
+#ifdef _WIN32
+    WaitForSingleObject(thread, INFINITE);
+#else
+    (void)pthread_join(thread, NULL);
+#endif
+
 
 cleanup:
     iowa_client_IPSO_remove_sensor(iowaH, sensorId);
     iowa_client_remove_server(iowaH, SERVER_SHORT_ID);
     iowa_close(iowaH);
+
+    // Close the mutex
+#ifdef _WIN32
+    CloseHandle(mutex);
+#else
+    pthread_mutex_destroy(&mutex);
+#endif
 
     return 0;
 }

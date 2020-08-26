@@ -13,6 +13,7 @@
  **********************************************/
 
 // IOWA header
+#include "iowa_config.h"
 #include "iowa_platform.h"
 
 // Platform specific headers
@@ -30,29 +31,11 @@
 #include <errno.h>
 #endif
 
-
 // For POSIX platforms, we use BSD sockets.
-// The socket number (incremented by 1, 0 being a valid socket number) is cast as a void *.
-static void * prv_sockToPointer(int sock)
-{
-    void *pointer;
-
-    pointer = NULL;
-    sock += 1;
-
-    memcpy(&pointer, &sock, sizeof(int));
-
-    return pointer;
-}
-
-static int prv_pointerToSock(void *pointer)
+typedef struct
 {
     int sock;
-
-    memcpy(&sock, &pointer, sizeof(int));
-
-    return sock - 1;
-}
+} sample_connection_t;
 
 // We consider only UDP connections.
 // We open an UDP socket binded to the the remote address.
@@ -68,18 +51,27 @@ void * iowa_system_connection_open(iowa_connection_type_t type,
     struct addrinfo *servinfo = NULL;
     struct addrinfo *p;
     int s;
+    sample_connection_t *connectionP;
 
     (void)userData;
 
-    // let's consider only UDP connection in this sample
-    if (type != IOWA_CONN_DATAGRAM)
-    {
-        return NULL;
-    }
-
     memset(&hints, 0, sizeof(hints));
     hints.ai_family = AF_INET;
-    hints.ai_socktype = SOCK_DGRAM;
+
+    switch (type)
+    {
+    case IOWA_CONN_DATAGRAM:
+        hints.ai_socktype = SOCK_DGRAM;
+        break;
+
+    case IOWA_CONN_STREAM:
+        hints.ai_socktype = SOCK_STREAM;
+        break;
+
+    default:
+        // let's consider only UDP and TCP connections in this sample
+        return NULL;
+    }
 
     if (0 != getaddrinfo(hostname, port, &hints, &servinfo)
         || servinfo == NULL)
@@ -117,7 +109,22 @@ void * iowa_system_connection_open(iowa_connection_type_t type,
         return NULL;
     }
 
-    return prv_sockToPointer(s);
+    connectionP = (sample_connection_t *)malloc(sizeof(sample_connection_t));
+    if (connectionP == NULL)
+    {
+#ifdef _WIN32
+        closesocket(s);
+#else
+        close(s);
+#endif
+    }
+    else
+    {
+        connectionP->sock = s;
+    }
+    
+
+    return connectionP;
 }
 
 // Since the socket is binded, we can use send() directly.
@@ -127,13 +134,13 @@ int iowa_system_connection_send(void *connP,
                                 void *userData)
 {
     int nbSent;
-    int sock;
+    sample_connection_t *connectionP;
 
     (void)userData;
 
-    sock = prv_pointerToSock(connP);
+    connectionP = (sample_connection_t *)connP;
 
-    nbSent = send(sock, buffer, length, 0);
+    nbSent = send(connectionP->sock, buffer, length, 0);
 
     return nbSent;
 }
@@ -145,13 +152,13 @@ int iowa_system_connection_recv(void *connP,
                                 void *userData)
 {
     int numBytes;
-    int sock;
+    sample_connection_t *connectionP;
 
     (void)userData;
 
-    sock = prv_pointerToSock(connP);
+    connectionP = (sample_connection_t *)connP;
 
-    numBytes = recv(sock, buffer, length, 0);
+    numBytes = recv(connectionP->sock, buffer, length, 0);
 #ifdef _WIN32
     if (numBytes == -1
         && WSAGetLastError() == WSAEMSGSIZE)
@@ -163,9 +170,28 @@ int iowa_system_connection_recv(void *connP,
     return numBytes;
 }
 
-// In this function, we use select on the sockets provided by IOWA
-// and on the sample_platform_data_t::pipeArray to be able to
-// interrupt the select() if required.
+void iowa_system_connection_close(void *connP,
+                                  void *userData)
+{
+    sample_connection_t *connectionP;
+
+    (void)userData;
+
+    connectionP = (sample_connection_t *)connP;
+
+#ifdef _WIN32
+    closesocket(connectionP->sock);
+#else
+    close(connectionP->sock);
+#endif
+
+    free(connectionP);
+}
+
+#ifndef IOWA_THREAD_SUPPORT
+
+// In this function, we use select on the sockets provided by IOWA.
+
 int iowa_system_connection_select(void **connArray,
                                   size_t connCount,
                                   int32_t timeout,
@@ -184,14 +210,17 @@ int iowa_system_connection_select(void **connArray,
     FD_ZERO(&readfds);
     maxFd = 0;
 
-    // Then the sockets requested by IOWA
+    // We monitor the sockets requested by IOWA
     for (i = 0; i < connCount; i++)
     {
-        fd = prv_pointerToSock(connArray[i]);
-        FD_SET(fd, &readfds);
-        if (fd > maxFd)
+        sample_connection_t *connectionP;
+
+        connectionP = (sample_connection_t *)connArray[i];
+
+        FD_SET(connectionP->sock, &readfds);
+        if (connectionP->sock > maxFd)
         {
-            maxFd = fd;
+            maxFd = connectionP->sock;
         }
     }
 
@@ -201,35 +230,167 @@ int iowa_system_connection_select(void **connArray,
     {
         for (i = 0; i < connCount; i++)
         {
-            if (!FD_ISSET(prv_pointerToSock(connArray[i]), &readfds))
+            sample_connection_t *connectionP;
+
+            connectionP = (sample_connection_t *)connArray[i];
+
+            if (!FD_ISSET(connectionP->sock, &readfds))
             {
                 connArray[i] = NULL;
             }
-        }
-    }
-    else if (result < 0)
-    {
-        if (errno == EINTR)
-        {
-            result = 0;
         }
     }
 
     return result;
 }
 
-void iowa_system_connection_close(void *connP,
+#else // IOWA_THREAD_SUPPORT is defined
+
+// A socket used only to interrupt the select()
+int g_interruptSocket = -1;
+
+// In this function, we use select on the sockets provided by IOWA
+// and on our socket to be able to interrupt the select() if required.
+int iowa_system_connection_select(void **connArray,
+                                  size_t connCount,
+                                  int32_t timeout,
                                   void *userData)
 {
-    int sock;
+    struct timeval tv;
+    fd_set readfds;
+    size_t i;
+    int result;
+    int maxFd;
+    int fd;
 
-    (void)userData;
+    tv.tv_sec = timeout;
+    tv.tv_usec = 0;
 
-    sock = prv_pointerToSock(connP);
+    FD_ZERO(&readfds);
+    maxFd = 0;
 
+    if (g_interruptSocket == -1)
+    {
 #ifdef _WIN32
-    closesocket(sock);
-#else
-    close(sock);
+    {
+        WSADATA wsaData;
+
+        if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0)
+        {
+            return -1;
+        }
+    }
 #endif
+        // we create the socket used to interrupt the select()
+        g_interruptSocket = socket(AF_INET, SOCK_DGRAM, 0);
+        if (g_interruptSocket != -1)
+        {
+            int res;
+            struct sockaddr_in sysAddr;
+
+            memset((char *)&sysAddr, 0, sizeof(sysAddr));
+
+            sysAddr.sin_family = AF_INET;
+            sysAddr.sin_port = 0;
+            sysAddr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+
+            // bind socket to port
+            res = bind(g_interruptSocket, (struct sockaddr *) &sysAddr, sizeof(sysAddr));
+            if (res != -1)
+            {
+                struct sockaddr_in realAddr;
+                int addrLen;
+
+                addrLen = sizeof(realAddr);
+                res = getsockname(g_interruptSocket, (struct sockaddr *)&realAddr, (socklen_t *)&addrLen);
+                if (res != -1)
+                {
+                    res = connect(g_interruptSocket, (struct sockaddr *)&realAddr, addrLen);
+                }
+            }
+            if (res == -1)
+            {
+#ifdef _WIN32
+                closesocket(g_interruptSocket);
+#else
+                close(g_interruptSocket);
+#endif
+                return -1;
+            }
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    // we add our socket to be able to interrupt the select()
+    FD_SET(g_interruptSocket, &readfds);
+    maxFd = g_interruptSocket;
+
+    // Then the sockets requested by IOWA
+    for (i = 0; i < connCount; i++)
+    {
+        sample_connection_t *connectionP;
+
+        connectionP = (sample_connection_t *)connArray[i];
+
+        FD_SET(connectionP->sock, &readfds);
+        if (connectionP->sock > maxFd)
+        {
+            maxFd = connectionP->sock;
+        }
+    }
+
+    result = select(maxFd + 1, &readfds, NULL, NULL, &tv);
+
+    if (result > 0)
+    {
+        for (i = 0; i < connCount; i++)
+        {
+            sample_connection_t *connectionP;
+
+            connectionP = (sample_connection_t *)connArray[i];
+
+            if (!FD_ISSET(connectionP->sock, &readfds))
+            {
+                connArray[i] = NULL;
+            }
+        }
+        if (FD_ISSET(g_interruptSocket, &readfds))
+        {
+            uint8_t buffer[1];
+            result--;
+
+            // flush the summy data
+            (void)recv(g_interruptSocket, buffer, 1, 0);
+        }
+    }
+
+    return result;
 }
+
+// To make the call to select() in iowa_system_connection_select() stops,
+// we write data to the dummy socket if it's empty.
+void iowa_system_connection_interrupt_select(void *userData)
+{
+    uint8_t buffer[1];
+    int len;
+
+    if (g_interruptSocket != -1)
+    {
+#ifdef _WIN32
+        ioctlsocket(g_interruptSocket, FIONREAD, &len);
+        if (len == 0)
+#else
+        len = recv(g_interruptSocket, buffer, 1, MSG_PEEK | MSG_DONTWAIT);
+        if (len == -1)
+#endif
+        {
+            buffer[0] = 'S';
+            len = send(g_interruptSocket, buffer, 1, 0);
+        }
+    }
+}
+
+#endif // IOWA_THREAD_SUPPORT
