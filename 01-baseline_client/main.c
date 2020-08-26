@@ -7,14 +7,13 @@
 
 /**************************************************
  *
- * This a a very simple LwM2M Client featuring an
- * IPSO Temperature sensor.
+ * This a a very simple LwM2M Client demonstrating
+ * IOWA ease-of-use.
  *
  **************************************************/
 
 // IOWA headers
 #include "iowa_client.h"
-#include "iowa_ipso.h"
 
 // Platform specific headers
 #include <stdio.h>
@@ -59,8 +58,6 @@ int main(int argc,
     iowa_status_t result;
     char endpoint_name[64];
     iowa_device_info_t devInfo;
-    iowa_sensor_t sensorId;
-    int i;
 
     (void)argc;
     (void)argv;
@@ -69,7 +66,7 @@ int main(int argc,
      * Initialization
      */
 
-    printf("This a simple LwM2M Client featuring an IPSO Temperature Object.\r\n\n");
+    printf("This a simple LwM2M Client.\r\n\n");
 
     // Initialize the IOWA stack.
     iowaH = iowa_init(NULL);
@@ -87,21 +84,13 @@ int main(int argc,
     memset(&devInfo, 0, sizeof(iowa_device_info_t));
     devInfo.manufacturer = "https://ioterop.com";
     devInfo.deviceType = "IOWA sample from https://github.com/IOTEROP/IOWA-Samples";
-    devInfo.modelNumber = "2-IPSO_client";
+    devInfo.modelNumber = "baseline_client";
 
     // Configure the LwM2M Client
     result = iowa_client_configure(iowaH, endpoint_name, &devInfo, NULL);
     if (result != IOWA_COAP_NO_ERROR)
     {
         fprintf(stderr, "IOWA Client configuration failed (%u.%02u).\r\n", (result & 0xFF) >> 5, (result & 0x1F));
-        goto cleanup;
-    }
-
-    // Add an IPSO Temperature Object
-    result = iowa_client_IPSO_add_sensor(iowaH, IOWA_IPSO_TEMPERATURE, 20, "Cel", "Test Temperature", -20.0, 50.0, &sensorId);
-    if (result != IOWA_COAP_NO_ERROR)
-    {
-        fprintf(stderr, "Adding the temperature sensor failed (%u.%02u).\r\n", (result & 0xFF) >> 5, (result & 0x1F));
         goto cleanup;
     }
 
@@ -115,15 +104,10 @@ int main(int argc,
 
     printf("Registering to the LwM2M server at \"" SERVER_URI "\" under the Endpoint name \"%s\".\r\nUse Ctrl-C to stop.\r\n\n", endpoint_name);
 
-    // Let IOWA run for two minutes, updating the temperature value each 3 seconds
-    for (i = 0; i < 40 && result == IOWA_COAP_NO_ERROR; i++)
-    {
-        result = iowa_step(iowaH, 3);
-        result = iowa_client_IPSO_update_value(iowaH, sensorId, 20 + i%4);
-    }
+    // Let IOWA run for two minutes
+    result = iowa_step(iowaH, 120);
 
 cleanup:
-    iowa_client_IPSO_remove_sensor(iowaH, sensorId);
     iowa_client_remove_server(iowaH, SERVER_SHORT_ID);
     iowa_close(iowaH);
 

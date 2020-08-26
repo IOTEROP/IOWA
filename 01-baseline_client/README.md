@@ -1,4 +1,4 @@
-# Simple Client
+# Baseline Client
 
 This is a minimal LwM2M Client connecting to one LwM2M Server and featuring only the required LwM2M Objects.
 

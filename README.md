@@ -6,23 +6,21 @@ These samples require the IOWA SDK. This SDK is available from https://ioterop.c
 
 ## Content
 
-Numbered samples increase in complexity from the simplest LwM2M Client. Other samples demonstrate a particular feature.
-
 Each sample has its own README.md providing more details.
 
-### 1-simple_client
+### 01-baseline_client
 
 A minimal LwM2M Client with one LwM2M Server and only the required LwM2M Objects in 4 API calls.
 
-### 2-IPSO_client
+### 02-IPSO_client
 
 A LwM2M Client with one LwM2M Server, the required LwM2M Objects, and an IPSO temperature sensor Object.
 
-### 3-IPSO_dynamic_client
+### 03-multithread_IPSO_client
 
-A LwM2M Client with one LwM2M Server, the required LwM2M Objects, and an IPSO temperature sensor Object with changing values. This sample demonstrate the multithread support.
+A LwM2M Client with one LwM2M Server, the required LwM2M Objects, and an IPSO temperature sensor Object. This sample demonstrate the multithread support.
 
-### 4-custom_object_client
+### 04-custom_object_client
 
 A LwM2M Client with one LwM2M Server, the required LwM2M Objects, and a custom LwM2M Object.
 
@@ -37,6 +35,10 @@ A LwM2M Client supporting the reception of Firmware Updates in push mode.
 ### secure_client
 
 A LwM2M Client using mbedtls to secure the communication with the LwM2M Server.
+
+### 00-abstraction_layer
+
+The system abstraction layer used by the samples.
 
 ## Usage
 
