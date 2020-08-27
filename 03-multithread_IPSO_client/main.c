@@ -184,7 +184,7 @@ int main(int argc,
 
     printf("Registering to the LwM2M server at \"" SERVER_URI "\" under the Endpoint name \"%s\".\r\nUse Ctrl-C to stop.\r\n\n", endpoint_name);
 
-    // Let IOWA run indefinitely, the measure task will stop it.
+    // Let IOWA run indefinitely, the measure routine will stop it.
     result = iowa_step(iowaH, -1);
 
     // Application specific: wait for the measure thread to finish
