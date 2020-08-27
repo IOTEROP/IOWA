@@ -7,7 +7,7 @@
 
 /**************************************************
  *
- * This a a very simple LwM2M Client demonstrating
+ * This is a very simple LwM2M Client demonstrating
  * IOWA ease-of-use.
  *
  **************************************************/

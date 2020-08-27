@@ -7,7 +7,7 @@
 
 /**************************************************
  *
- * This a a very simple LwM2M Client featuring an
+ * This is a very simple LwM2M Client featuring an
  * IPSO Temperature sensor.
  *
  **************************************************/
