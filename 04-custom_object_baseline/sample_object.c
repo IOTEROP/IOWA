@@ -32,22 +32,31 @@ iowa_status_t sample_object_dataCallback(iowa_dm_operation_t operation,
     // Retrieve our Object values
     objectValuesP = (sample_object_values_t *)userData;
 
-    switch (operation)
+    for (i = 0; i < numData; i++)
     {
-    case IOWA_DM_READ:
-        for (i = 0; i < numData; i++)
+        switch (dataP[i].resourceID)
         {
-            switch (dataP[i].resourceID)
+        case 5500:
+            if (operation == IOWA_DM_READ)
             {
-            case 5500:
                 dataP[i].value.asBoolean = objectValuesP->booleanValue;
-                break;
+            }
+            break;
 
-            case 5503:
+        case 5503:
+           if (operation == IOWA_DM_READ)
+            {
                 dataP[i].value.asInteger = objectValuesP->integerValue;
-                break;
+            }
+            else if (operation == IOWA_DM_WRITE)
+            {
+                objectValuesP->integerValue = dataP[i].value.asInteger;
+            }
+            break;
 
-            case 5750:
+        case 5750:
+            if (operation == IOWA_DM_READ)
+            {
                 if (objectValuesP->stringValue != NULL)
                 {
                     dataP[i].value.asBuffer.length = strlen(objectValuesP->stringValue);
@@ -57,25 +66,9 @@ iowa_status_t sample_object_dataCallback(iowa_dm_operation_t operation,
                     dataP[i].value.asBuffer.length = 0;
                 }
                 dataP[i].value.asBuffer.buffer = objectValuesP->stringValue;
-                break;
-
-            default:
-                // Should not happen
-                return IOWA_COAP_404_NOT_FOUND;
             }
-        }
-        break;
-
-    case IOWA_DM_WRITE:
-        for (i = 0; i < numData; i++)
-        {
-            switch (dataP[i].resourceID)
+            else if (operation == IOWA_DM_WRITE)
             {
-            case 5503:
-                objectValuesP->integerValue = dataP[i].value.asInteger;
-                break;
-
-            case 5750:
                 free(objectValuesP->stringValue);
                 objectValuesP->stringValue = (char *)malloc(dataP[i].value.asBuffer.length + 1);
                 if (objectValuesP->stringValue == NULL)
@@ -84,18 +77,13 @@ iowa_status_t sample_object_dataCallback(iowa_dm_operation_t operation,
                 }
                 memcpy(objectValuesP->stringValue, dataP[i].value.asBuffer.buffer, dataP[i].value.asBuffer.length);
                 objectValuesP->stringValue[dataP[i].value.asBuffer.length] = 0;
-                break;
+            }
+            break;
 
             default:
                 // Should not happen
                 return IOWA_COAP_404_NOT_FOUND;
-            }
         }
-        break;
-
-    default:
-        // Should not happen
-        return IOWA_COAP_405_METHOD_NOT_ALLOWED;
     }
 
     return IOWA_COAP_NO_ERROR;
