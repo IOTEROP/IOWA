@@ -133,5 +133,8 @@ cleanup:
     iowa_client_remove_server(iowaH, SERVER_SHORT_ID);
     iowa_close(iowaH);
 
+    // free our string value in case the LwM2M wrote something
+    free(objectValues.stringValue);
+
     return 0;
 }

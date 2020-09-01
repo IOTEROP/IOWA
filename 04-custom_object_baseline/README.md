@@ -221,7 +221,7 @@ The second argument is the same ID of the Object as in the call to `iowa_client_
 
 ### Object Data Callback
 
-IOWA takes care of all the necessary checks (Resource existence, operation rights, correct datatypes, etc...) when a LwM2M Server perform an operation on our Object. The Data Callback deals only with the actual Resource values.
+when a LwM2M Server perform an operation on our Object, IOWA takes care of all the necessary checks (Resource existence, operation rights, correct datatypes, etc...). The Data Callback deals only with the actual Resource values.
 
 ```c
 iowa_status_t sample_object_dataCallback(iowa_dm_operation_t operation,
@@ -232,7 +232,7 @@ iowa_status_t sample_object_dataCallback(iowa_dm_operation_t operation,
 {
 ```
 
-The parameters to the callback are the operation (IOWA_DM_READ, IOWA_DM_WRITE, or IOWA_DM_EXECUTE), an array of `iowa_lwm2m_data_t`, the user data passed as parameter to `iowa_client_add_custom_object()`, and the IOWA context.
+The parameters to the callback are the operation (**IOWA_DM_READ**, **IOWA_DM_WRITE**, **IOWA_DM_EXECUTE**, or **IOWA_DM_FREE**), an array of `iowa_lwm2m_data_t`, the user data passed as parameter to `iowa_client_add_custom_object()`, and the IOWA context.
 
 The first thing we do is retrieving the actual values we stored in the user data:
 
@@ -256,5 +256,68 @@ Then we iterate over all the targeted Resources:
 
 We do not check `dataP[i].objectID` and `dataP[i].instanceID` as the callback is used only by our Object. These need to be considered only when the Object has several instances or if the callback is shared among several custom Objects.
 
-For each Resource, if the operation is IOWA_DM_READ, we store the Resource value in the `iowa_lwm2m_data_t`. If the operation is IOWA_DM_WRITE, we update the Resource value with the value from the `iowa_lwm2m_data_t`.
+```c
+case 5503:
+	if (operation == IOWA_DM_READ)
+    {
+        dataP[i].value.asInteger = objectValuesP->integerValue;
+    }
+	else if (operation == IOWA_DM_WRITE)
+    {
+        objectValuesP->integerValue = dataP[i].value.asInteger;
+    }
+	break;
+```
 
+For each Resource, if the operation is **IOWA_DM_READ**, we store the Resource value in the `iowa_lwm2m_data_t`. If the operation is **IOWA_DM_WRITE**, we update the Resource value with the value from the `iowa_lwm2m_data_t`.
+
+#### The IOWA_DM_FREE Operation
+
+To handle the **IOWA_DM_READ** case, the callback may allocate memory. For instance the Resource could be the content of a log file. When IOWA has no longer the use of a resource value, it calls the callback with the operation **IOWA_DM_FREE**.
+
+This is illustrated in the sample by the Resource holding a string value (ID: 5750):
+
+```c
+case 5750:
+	if (operation == IOWA_DM_READ)
+	{
+    	if (objectValuesP->stringValue != NULL)
+    	{
+        	// For the sake of the example, we return a copy of our string value.
+        	dataP[i].value.asBuffer.length = strlen(objectValuesP->stringValue);
+        	dataP[i].value.asBuffer.buffer = strdup(objectValuesP->stringValue);
+            if (dataP[i].value.asBuffer.buffer == NULL)
+            {
+                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+            }
+    	}
+    	else
+    	{
+        	dataP[i].value.asBuffer.length = 0;
+        	dataP[i].value.asBuffer.buffer = NULL;
+    	}
+	}
+	else if (operation == IOWA_DM_WRITE)
+	{
+    	free(objectValuesP->stringValue);
+    	objectValuesP->stringValue = (char *)malloc(dataP[i].value.asBuffer.length + 1);
+    	if (objectValuesP->stringValue == NULL)
+    	{
+        	return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+    	}
+    	memcpy(objectValuesP->stringValue, dataP[i].value.asBuffer.buffer, dataP[i].value.asBuffer.length);
+    	objectValuesP->stringValue[dataP[i].value.asBuffer.length] = 0;
+	}
+	else if (operation == IOWA_DM_FREE)
+	{
+    	// IOWA has no longer use of the string value. We can free it.
+    	free(dataP[i].value.asBuffer.buffer);
+	}
+	break;
+```
+
+When the operation is **IOWA_DM_READ** (and there is a value to return), we allocate a new string and duplicate the value. We pass the pointer to this new string in the `iowa_lwm2m_data_t`.
+
+Then when the callback is called with **IOWA_DM_FREE**, we can free the duplicate string as the `iowa_lwm2m_data_t` still holds the pointer to it.
+
+> When handling the **IOWA_DM_READ** case, it is also possible for the callback to just return the pointer to our string value. IOWA will not modify it. In this case, there is nothing to do when the operation is **IOWA_DM_FREE**.

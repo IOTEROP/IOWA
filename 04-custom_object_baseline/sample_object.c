@@ -59,13 +59,19 @@ iowa_status_t sample_object_dataCallback(iowa_dm_operation_t operation,
             {
                 if (objectValuesP->stringValue != NULL)
                 {
+                    // For the sake of the example, we return a copy of our string value.
                     dataP[i].value.asBuffer.length = strlen(objectValuesP->stringValue);
+                    dataP[i].value.asBuffer.buffer = strdup(objectValuesP->stringValue);
+                    if (dataP[i].value.asBuffer.buffer == NULL)
+                    {
+                        return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+                    }
                 }
                 else
                 {
                     dataP[i].value.asBuffer.length = 0;
+                    dataP[i].value.asBuffer.buffer = NULL;
                 }
-                dataP[i].value.asBuffer.buffer = objectValuesP->stringValue;
             }
             else if (operation == IOWA_DM_WRITE)
             {
@@ -77,6 +83,11 @@ iowa_status_t sample_object_dataCallback(iowa_dm_operation_t operation,
                 }
                 memcpy(objectValuesP->stringValue, dataP[i].value.asBuffer.buffer, dataP[i].value.asBuffer.length);
                 objectValuesP->stringValue[dataP[i].value.asBuffer.length] = 0;
+            }
+            else if (operation == IOWA_DM_FREE)
+            {
+                // IOWA has no longer use of the string value. We can free it.
+                free(dataP[i].value.asBuffer.buffer);
             }
             break;
 
