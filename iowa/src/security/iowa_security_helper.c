@@ -58,5 +58,5 @@ iowa_security_session_t iowa_security_get_server_session(iowa_context_t contextP
 
     return securityS;
 }
-#endif // LWM2M_CLIENT_MODE
+#endif
 

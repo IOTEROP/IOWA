@@ -180,7 +180,7 @@ typedef struct
 * Common API
 **************************************************************/
 
-// This is a macro to fill an iowa_lwm2m_desc_t with the values of LWM2M Reusable Resources
+
 #define SET_LWM2M_DESC_T_TO_OBJECT_RSC(OBJECT, RES, desc, pt) \
 {                                                             \
     objectSetRscDesc(desc,                                    \
@@ -195,25 +195,25 @@ typedef struct
 
 #define OBJECT_LWM2M_RESOURCE_DESC(OBJECT, RES) { IOWA_LWM2M_##OBJECT##_ID_##RES, IOWA_LWM2M_##OBJECT##_TYPE_##RES, IOWA_LWM2M_##OBJECT##_OP_##RES, IOWA_LWM2M_##OBJECT##_FLAGS_##RES }
 
-// Add resource object information to buffer and increment its index
-// Parameters:
-// OBJECT: resource Object Name
-// RSC: resource Name
-// DEST: buffer of iowa_lwm2m_resource_desc_t
-// IND: buffer's index
-// Note: work like SET_LWM2M_DESC_T_TO_OBJECT_RSC but to configure object with multiple advanced type
+
+
+
+
+
+
+
 #define SET_LWM2M_RSC_FOR_NEW_OBJ_TO_DEST(OBJECT,RSC,DEST,IND)              \
 {                                                                           \
     SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_##OBJECT, RSC, DEST, IND);    \
 }
 
-// Add resource ID to buffer and increment its index
-// Parameters:
-// OBJECT: resource Object Name
-// RSC: resource Name
-// DEST: buffer of uint16_t
-// IND: buffer's index
-// Note: work like SET_LWM2M_DESC_T_TO_OBJECT_RSC but to add new instance of object with multiple advanced type
+
+
+
+
+
+
+
 #define SET_LWM2M_RSC_FOR_NEW_INST_OF_MULTI_OBJ_TO_DEST(OBJECT,RSC,DEST,IND)    \
 {                                                                               \
     DEST[IND] = IOWA_LWM2M_##OBJECT##_ID_##RSC;                                 \
@@ -237,4 +237,4 @@ void objectSetRscDesc(iowa_lwm2m_resource_desc_t *rscDescP,
                       uint8_t resOp,
                       uint8_t flags);
 
-#endif // _IOWA_PRV_OBJECT_INTERNALS_
+#endif

@@ -83,8 +83,6 @@ size_t option_getSerializedLength(iowa_coap_option_t *optionP,
     return length;
 }
 
-// This function does not test that buffer is large enough to contain the serialized options.
-// This is intentional as the caller should have used option_getSerializedLength().
 size_t option_serialize(iowa_coap_option_t *optionList,
                         uint8_t *buffer,
                         coap_option_callback_t isIntegerCallback)
@@ -136,7 +134,6 @@ size_t option_serialize(iowa_coap_option_t *optionList,
 
         if (isIntegerCallback(optionP))
         {
-            // 32-bit integer text value can not be more than 10
             valueLen = 0;
             if ((optionP->value.asInteger & 0xFF000000) != 0)
             {
@@ -449,7 +446,6 @@ bool iowa_coap_option_compare_to_path(const iowa_coap_option_t *optionP,
         case 0:
             if (path[i] == delimiter)
             {
-                // Skip the first delimiter to allow subpath compare
                 i++;
             }
             break;
@@ -462,7 +458,6 @@ bool iowa_coap_option_compare_to_path(const iowa_coap_option_t *optionP,
             i++;
         }
 
-        // Check the current segment
         for (j=0; j<optionP->length; j++)
         {
             if (path[i] == '\0'
@@ -475,7 +470,6 @@ bool iowa_coap_option_compare_to_path(const iowa_coap_option_t *optionP,
             i++;
         }
 
-        // Go to next option path
         optionP = optionP->next;
     }
 

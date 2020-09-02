@@ -27,9 +27,9 @@
  * and Eclipse Distribution License v1.0 which accompany this distribution.
  *
  * The Eclipse Public License is available at
- *    http://www.eclipse.org/legal/epl-v10.html
+ *    http:
  * The Eclipse Distribution License is available at
- *    http://www.eclipse.org/org/documents/edl-v10.php.
+ *    http:
  *
  * Contributors:
  *    David Navarro, Intel Corporation - initial API and implementation
@@ -149,8 +149,6 @@ void lwm2m_client_handle_out_of_bound_request(iowa_coap_peer_t *fromPeer,
             && uri.resourceId == IOWA_LWM2M_SERVER_ID_UPDATE
             && uri.resInstanceId == IOWA_LWM2M_ID_ALL)
         {
-            // This is the Registration Update Trigger
-            // Do not send back the response of the execute operation
             object_execute(contextP, &uri, IOWA_LWM2M_ID_ALL, requestP->payload.data, requestP->payload.length);
         }
         break;
@@ -169,7 +167,6 @@ void lwm2m_client_handle_request(iowa_coap_peer_t *fromPeer,
                                  void *userData,
                                  iowa_context_t contextP)
 {
-    // WARNING: This function is called in a critical section
     lwm2m_server_t *serverP;
     iowa_lwm2m_uri_t uri;
     lwm2m_uri_type_t type;

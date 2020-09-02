@@ -32,7 +32,7 @@ void coreServerEventCallback(iowa_context_t contextP,
                              lwm2m_server_t *serverP,
                              iowa_event_type_t eventType)
 {
-    // WARNING: This function is called in a critical section
+
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Entering with new event: %s", CORE_STR_EVENT_TYPE(eventType));
 
     if (contextP->eventCb != NULL)
@@ -43,7 +43,6 @@ void coreServerEventCallback(iowa_context_t contextP,
         event.serverShortId = serverP->shortId;
         event.eventType = eventType;
 
-        // Retrieve the server lifetime
         switch (eventType)
         {
         case IOWA_EVENT_REG_UNREGISTERED:
@@ -63,7 +62,7 @@ void coreObservationEventCallback(iowa_context_t contextP,
                                   lwm2m_observed_t *targetP,
                                   iowa_event_type_t eventType)
 {
-    // WARNING: This function is called in a critical section
+
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Entering with new event: %s", CORE_STR_EVENT_TYPE(eventType));
 
     if (contextP->eventCb != NULL)

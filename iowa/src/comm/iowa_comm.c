@@ -31,7 +31,7 @@ static comm_channel_t * prv_channelNew(iowa_context_t contextP,
                                        iowa_connection_type_t type,
                                        void *connP)
 {
-    // WARNING: This function is called in a critical section
+
     comm_channel_t *channelP;
     comm_channel_t **newChannelArray;
 
@@ -76,7 +76,7 @@ static comm_channel_t * prv_channelNew(iowa_context_t contextP,
 
 uint8_t commInit(iowa_context_t contextP)
 {
-    // WARNING: This function is called in a critical section
+
     IOWA_LOG_TRACE(IOWA_PART_COMM, "Entering.");
 
     contextP->commContextP = (comm_context_t)iowa_system_malloc(sizeof(struct _comm_context_t));
@@ -97,7 +97,7 @@ uint8_t commInit(iowa_context_t contextP)
 
 void commClose(iowa_context_t contextP)
 {
-    // WARNING: This function is called in a critical section
+
     size_t i;
 
     IOWA_LOG_TRACE(IOWA_PART_COMM, "Entering");
@@ -123,7 +123,7 @@ comm_channel_t * commChannelCreate(iowa_context_t contextP,
                                    comm_event_callback_t eventCallback,
                                    void *callbackUserData)
 {
-    // WARNING: This function is called in a critical section
+
     void * connP;
     comm_channel_t *channelP;
 
@@ -165,7 +165,7 @@ comm_channel_t * commChannelCreate(iowa_context_t contextP,
 void commChannelDelete(iowa_context_t contextP,
                        comm_channel_t *channelP)
 {
-    // WARNING: This function is called in a critical section
+
     size_t i;
     comm_channel_t **newChannelArray;
 
@@ -253,7 +253,7 @@ int commSend(iowa_context_t contextP,
              uint8_t *buffer,
              size_t length)
 {
-    // WARNING: This function is called in a critical section
+
     int result;
 
     IOWA_LOG_ARG_INFO(IOWA_PART_COMM, "On channelP: %p.", channelP);
@@ -273,7 +273,7 @@ int commRecv(iowa_context_t contextP,
              uint8_t *buffer,
              size_t length)
 {
-    // WARNING: This function is called in a critical section
+
     int result;
 
     IOWA_LOG_ARG_INFO(IOWA_PART_COMM, "Receiving %lu bytes on channelP: %p.", length, channelP);
@@ -294,7 +294,7 @@ int commRecv(iowa_context_t contextP,
 
 uint8_t commSelect(iowa_context_t contextP)
 {
-    // WARNING: This function is called in a critical section
+
     int result;
     void **connArray;
     size_t connCount;
@@ -326,7 +326,7 @@ uint8_t commSelect(iowa_context_t contextP)
         connCount = 0;
     }
 
-    currentTimeout = contextP->timeout; // Store the timeout before to leave the critical section to prevent a possible data race condition
+    currentTimeout = contextP->timeout;
 
     IOWA_LOG_ARG_INFO(IOWA_PART_COMM, "Calling iowa_system_connection_select() for %u connections with a timeout of %ds.", connCount, currentTimeout);
 
@@ -351,7 +351,6 @@ uint8_t commSelect(iowa_context_t contextP)
         comm_channel_t *channelP;
         size_t connIndex;
 
-        // Retrieve the current time before calling the callbacks
         CRIT_SECTION_LEAVE(contextP);
         currentTime = iowa_system_gettime();
         CRIT_SECTION_ENTER(contextP);

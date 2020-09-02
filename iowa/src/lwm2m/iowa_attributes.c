@@ -273,7 +273,6 @@ iowa_status_t attributesWrite(iowa_context_t contextP,
     {
         if (LWM2M_URI_ARE_EQUAL(&attributesP->uri, uriP))
         {
-            // Found existing attributes
             break;
         }
 
@@ -282,13 +281,11 @@ iowa_status_t attributesWrite(iowa_context_t contextP,
     if (attributesP != NULL)
     {
 
-        // Clear attributes
         attributesP->flags &= (uint8_t)(~toClear);
 
         if (attributesP->flags == 0
             && readAttr.flags == 0)
         {
-            // Remove the attributes if it's empty
             serverP->runtime.attributesList = (attributes_t *)IOWA_UTILS_LIST_REMOVE(serverP->runtime.attributesList, attributesP);
 
             iowa_system_free(attributesP);
@@ -320,7 +317,6 @@ iowa_status_t attributesWrite(iowa_context_t contextP,
             readAttr.flags |= LWM2M_ATTR_FLAG_MIN_PERIOD;
         }
     }
-    // Check Attributes Rules
     if ((readAttr.flags & ATTR_FLAG_NUMERIC) != 0)
     {
         iowa_lwm2m_data_type_t type;
@@ -330,7 +326,6 @@ iowa_status_t attributesWrite(iowa_context_t contextP,
             return IOWA_COAP_405_METHOD_NOT_ALLOWED;
         }
 
-        // Check resource type
         type = object_getResourceType(uriP->objectId, uriP->resourceId, contextP);
         if (type != IOWA_LWM2M_TYPE_INTEGER
             && type != IOWA_LWM2M_TYPE_FLOAT
@@ -340,7 +335,6 @@ iowa_status_t attributesWrite(iowa_context_t contextP,
             return IOWA_COAP_405_METHOD_NOT_ALLOWED;
         }
 
-        // Check rule: 'lt' value + 2*'st' value < 'gt' value
         if ((readAttr.flags & LWM2M_ATTR_FLAG_LESS_THAN) != 0
             && (readAttr.flags & LWM2M_ATTR_FLAG_GREATER_THAN) != 0
             && readAttr.lessThan + (2 * readAttr.step) >= readAttr.greaterThan)
@@ -360,7 +354,6 @@ iowa_status_t attributesWrite(iowa_context_t contextP,
 
     if (attributesP != NULL)
     {
-        // Set attributes
         attributesP->flags |= readAttr.flags;
         if ((readAttr.flags & LWM2M_ATTR_FLAG_MIN_PERIOD) != 0)
         {
@@ -395,14 +388,12 @@ iowa_status_t attributesWrite(iowa_context_t contextP,
             return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
         }
 #endif
-        // Copy the flags
         memcpy(newAttributesP, &readAttr, sizeof(attributes_t));
 
         newAttributesP->nextP = NULL;
         memcpy(&newAttributesP->uri, uriP, sizeof(iowa_lwm2m_uri_t));
         uriP->resInstanceId = IOWA_LWM2M_ID_ALL;
 
-        // Add the attributes
         serverP->runtime.attributesList = (attributes_t *)IOWA_UTILS_LIST_ADD(serverP->runtime.attributesList, newAttributesP);
     }
 
@@ -422,7 +413,6 @@ bool attributesGet(lwm2m_server_t *serverP,
 
     IOWA_LOG_TRACE(IOWA_PART_LWM2M, "Getting attributes.");
 
-    // Retrieve the attributes for object, instance and resource levels
     attributesP = serverP->runtime.attributesList;
     objAttrP = NULL;
     instAttrP = NULL;
@@ -464,7 +454,6 @@ bool attributesGet(lwm2m_server_t *serverP,
         attributesP = attributesP->nextP;
     }
 
-    // Set the attributes
     memset(attrP, 0, sizeof(attributes_t));
     if (useInheritance == true)
     {
@@ -486,12 +475,10 @@ bool attributesGet(lwm2m_server_t *serverP,
         prv_attributesSetFromInheritance(attrP, attributesP);
     }
 
-    // Check attributes
     if ((attrP->flags & LWM2M_ATTR_FLAG_MIN_PERIOD) != 0
         && (attrP->flags & LWM2M_ATTR_FLAG_MAX_PERIOD) != 0
         && attrP->maxPeriod < attrP->minPeriod)
     {
-        // Ignore Maximum Period if smaller than Minimum Period
         attrP->flags &= (uint8_t)(~LWM2M_ATTR_FLAG_MAX_PERIOD);
     }
 
@@ -524,4 +511,4 @@ void attributesRemoveFromServer(lwm2m_server_t *serverP)
     serverP->runtime.attributesList = NULL;
 }
 
-#endif // LWM2M_CLIENT_MODE
+#endif

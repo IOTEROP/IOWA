@@ -30,7 +30,7 @@ uint8_t messageSendUDP(iowa_context_t contextP,
                        coap_message_callback_t resultCallback,
                        void *userData)
 {
-    // WARNING: This function is called in a critical section
+
     coap_peer_datagram_t *peerP;
     size_t bufferLength;
     uint8_t *buffer;
@@ -86,7 +86,7 @@ void udpSecurityEventCb(iowa_security_session_t securityS,
                         void *userData,
                         iowa_context_t contextP)
 {
-    // WARNING: This function is called in a critical section
+
 
     coap_peer_datagram_t *peerP;
 
@@ -99,13 +99,10 @@ void udpSecurityEventCb(iowa_security_session_t securityS,
     switch (event)
     {
     case SECURITY_EVENT_CONNECTED:
-        // TODO: (in case of security) send any buffered message
-        // Propagate the signal to the upper layer
         PEER_CALL_EVENT_CALLBACK(contextP, peerP, COAP_EVENT_CONNECTED);
         break;
 
     case SECURITY_EVENT_DISCONNECTED:
-        // Propagate the signal to the upper layer
         PEER_CALL_EVENT_CALLBACK(contextP, peerP, COAP_EVENT_DISCONNECTED);
         break;
 
@@ -118,7 +115,6 @@ void udpSecurityEventCb(iowa_security_session_t securityS,
         if (bufferLength < 0)
         {
             PEER_CALL_EVENT_CALLBACK(contextP, peerP, COAP_EVENT_DISCONNECTED);
-            // Warning: do not use peerP after the callback since the peer can have been deleted
             break;
         }
         if (bufferLength > 0)
@@ -134,7 +130,6 @@ void udpSecurityEventCb(iowa_security_session_t securityS,
             if (result != IOWA_COAP_NO_ERROR)
             {
                 IOWA_LOG_ARG_WARNING(IOWA_PART_COAP, "Message parsing failed with error %u.%02u.", (result & 0xFF) >> 5, (result & 0x1F));
-                // ignore message
                 return;
             }
 
@@ -171,9 +166,8 @@ void udpSecurityEventCb(iowa_security_session_t securityS,
     break;
 
     default:
-        // Should not happen
         break;
     }
 }
 
-#endif // IOWA_UDP_SUPPORT
+#endif

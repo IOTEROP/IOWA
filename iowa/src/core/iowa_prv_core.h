@@ -65,8 +65,8 @@
 
 #define MSISDN_MAX_LENGTH 15
 
-// Internal only data types
-#define INTERNAL_LWM2M_TYPE_BLOCK  100    // used as a flag
+
+#define INTERNAL_LWM2M_TYPE_BLOCK  100
 #define IOWA_LWM2M_TYPE_URI_ONLY   10
 #define IOWA_LWM2M_TYPE_NULL       11
 
@@ -107,14 +107,14 @@ struct _iowa_context_t
 * Functions
 */
 
-// Implemented in iowa_client.c
+
 void clientNotificationLock(iowa_context_t contextP, bool enter);
 
-// Implemented in iowa_comms.c
+
 void coreObservationEventCallback(iowa_context_t contextP, lwm2m_observed_t *targetP, iowa_event_type_t eventType);
 void coreServerEventCallback(iowa_context_t contextP, lwm2m_server_t *serverP, iowa_event_type_t eventType);
 
-// Implemented in iowa_buffer.c
+
 iowa_buffer_t coreBufferNew(const uint8_t *dataP, size_t length);
 
-#endif // _IOWA_PRV_CORE_INCLUDE_
+#endif

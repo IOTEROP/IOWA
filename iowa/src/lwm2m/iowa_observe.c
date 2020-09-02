@@ -28,9 +28,9 @@
  * and Eclipse Distribution License v1.0 which accompany this distribution.
  *
  * The Eclipse Public License is available at
- *    http://www.eclipse.org/legal/epl-v10.html
+ *    http:
  * The Eclipse Distribution License is available at
- *    http://www.eclipse.org/org/documents/edl-v10.php.
+ *    http:
  *
  * Contributors:
  *    David Navarro, Intel Corporation - initial API and implementation
@@ -73,15 +73,8 @@
 
 #if defined(LWM2M_CLIENT_MODE)
 
-// T: threshold, N: new value, P: previous value
 #define TEST_THRESHOLD(T,N,P) (((N) < (T) && (P) >= (T)) || ((N) > (T) && (P) <= (T)))
 
-// Check if message received match with the observe set.
-// Returned value: true if message matched with observe or false if not.
-// Parameters:
-// - OBS: observe's information, lwm2m_observed_t.
-// - MSG: message received, iowa_coap_message_t.
-// Note: used it only as condition (if, while ...)
 #define PRV_OBSERVE_MATCH_TOKEN(OBS,MSG) ((MSG->tokenLength == OBS->tokenLen) && (memcmp(MSG->token, OBS->token, OBS->tokenLen) == 0))
 
 static void prv_addMID(lwm2m_observed_t * observedP,
@@ -93,11 +86,6 @@ static void prv_addMID(lwm2m_observed_t * observedP,
     observedP->lastMid[0] = mId;
 }
 
-// Check if message received match with one of the last notification.
-// Returned value: true if message matched with notification or false if not.
-// Parameters:
-// - observedP: observe's information.
-// - messageP: message received.
 static bool prv_notificationMatch(lwm2m_observed_t * observedP,
                                   iowa_coap_message_t * messageP)
 {
@@ -142,12 +130,6 @@ void observeRemoveFromServer(lwm2m_server_t *serverP)
     }
 }
 
-// Update observe according with its attributes.
-// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
-// Parameters:
-// - contextP: LwM2M context
-// - serverP: server's information.
-// - observedP: observe's information.
 iowa_status_t observe_updateObserve(iowa_context_t contextP,
                                     lwm2m_server_t *serverP,
                                     lwm2m_observed_t *observedP)
@@ -162,7 +144,6 @@ iowa_status_t observe_updateObserve(iowa_context_t contextP,
 
     for (ind = 0; ind < observedP->uriCount; ind++)
     {
-        // Get the attributes for the current observation
         if (attributesGet(serverP, &observedP->uriInfoP[ind].uri, &attr, true, true) == true)
         {
             if ((attr.flags & LWM2M_ATTR_FLAG_MIN_PERIOD) != 0
@@ -427,7 +408,6 @@ iowa_status_t observe_handleRequest(iowa_context_t contextP,
             return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
         }
 #endif
-        // Add the new observation to the list
         observedP->next = serverP->runtime.observedList;
         serverP->runtime.observedList = observedP;
 
@@ -538,7 +518,6 @@ iowa_status_t observe_setParameters(iowa_context_t contextP,
         {
             if (LWM2M_URI_IS_SET_RESOURCE(uriP))
             {
-                // Parameters have been set at resource level
                 if (observedP->uriInfoP[ind].uri.resourceId == uriP->resourceId
                     && observedP->uriInfoP[ind].uri.instanceId == uriP->instanceId
                     && observedP->uriInfoP[ind].uri.objectId == uriP->objectId)
@@ -548,7 +527,6 @@ iowa_status_t observe_setParameters(iowa_context_t contextP,
             }
             else if (LWM2M_URI_IS_SET_INSTANCE(uriP))
             {
-                // Parameters have been set at instance level
                 if (observedP->uriInfoP[ind].uri.instanceId == uriP->instanceId
                     && observedP->uriInfoP[ind].uri.objectId == uriP->objectId)
                 {
@@ -557,7 +535,6 @@ iowa_status_t observe_setParameters(iowa_context_t contextP,
             }
             else
             {
-                // Parameters have been set at object level
                 if (observedP->uriInfoP[ind].uri.objectId == uriP->objectId)
                 {
                     result = observe_updateObserve(contextP, serverP, observedP);
@@ -615,20 +592,12 @@ void lwm2m_resource_value_changed(iowa_context_t contextP,
     }
 }
 
-// Update observe according with its attributes.
-// Parameters:
-// - contextP: iowa context.
-// - serverP: server's information.
-// - observedP: observe's information.
-// - dataP: data to send.
-// - dataCount: number of data.
 static void prv_checkAndSendNotification(iowa_context_t contextP,
                                          lwm2m_server_t * serverP,
                                          lwm2m_observed_t * observedP,
                                          iowa_lwm2m_data_t * dataP,
                                          size_t dataCount)
 {
-    // WARNING: This function is called in a critical section
     iowa_status_t result;
     size_t ind;
     uint8_t *bufferP;
@@ -636,10 +605,8 @@ static void prv_checkAndSendNotification(iowa_context_t contextP,
 
     IOWA_LOG_TRACE(IOWA_PART_LWM2M, "Entering.");
 
-    // Update each lastValue when URI is resource and numeric
     for (ind = 0; ind < observedP->uriCount; ind++)
     {
-        //Check if it's a resource with no multiple instance && a numeric resource
         if (LWM2M_URI_IS_SET_RESOURCE(&observedP->uriInfoP[ind].uri)
             && !LWM2M_URI_IS_SET_RESOURCE_INSTANCE(&observedP->uriInfoP[ind].uri)
             && LWM2M_OBSERVE_IS_NUMERIC(&observedP->uriInfoP[ind]))
@@ -751,7 +718,6 @@ static void prv_checkAndSendNotification(iowa_context_t contextP,
 
 void observe_step(iowa_context_t contextP)
 {
-    // WARNING: This function is called in a critical section
     lwm2m_server_t *serverP;
 
     IOWA_LOG_TRACE(IOWA_PART_LWM2M, "Entering.");
@@ -773,11 +739,9 @@ void observe_step(iowa_context_t contextP)
 
             sendNotif = false;
             nextObs = false;
-            // if tag true
             if ((observedP->flags & LWM2M_OBSERVE_FLAG_UPDATE) != 0
                 && (contextP->lwm2mContextP->internalFlag & CONTEXT_FLAG_INSIDE_CALLBACK) == 0)
             {
-                //Check if there is timeAttribute
                 if (observedP->timeAttrP != NULL)
                 {
                     if ((observedP->timeAttrP->flags & LWM2M_ATTR_FLAG_MIN_PERIOD) != 0)
@@ -793,7 +757,6 @@ void observe_step(iowa_context_t contextP)
                 {
                     for (ind = 0; ind < observedP->uriCount; ind++)
                     {
-                        //Get value to send
                         result = object_read(contextP, &observedP->uriInfoP[ind].uri, serverP->shortId, &dataCount, &dataP);
                         {
                             if (result != IOWA_COAP_205_CONTENT)
@@ -802,7 +765,6 @@ void observe_step(iowa_context_t contextP)
                                 return;
                             }
                         }
-                        //Check if it's a resource with no multiple instance && a numeric resource && if there is a ST, LT, GT set
                         if (LWM2M_URI_IS_SET_RESOURCE(&observedP->uriInfoP[ind].uri)
                             && !LWM2M_URI_IS_SET_RESOURCE_INSTANCE(&observedP->uriInfoP[ind].uri)
                             && observedP->uriInfoP[ind].uriAttrP != NULL
@@ -870,7 +832,7 @@ void observe_step(iowa_context_t contextP)
                                     {
                                         diff = 0 - diff;
                                     }
-                                    if (diff >= observedP->uriInfoP[ind].uriAttrP->step) //Todo : check FLT_EPSILON
+                                    if (diff >= observedP->uriInfoP[ind].uriAttrP->step)
                                     {
                                         IOWA_LOG_INFO(IOWA_PART_LWM2M, "Notify on step condition.");
                                         sendNotif = true;
@@ -892,14 +854,12 @@ void observe_step(iowa_context_t contextP)
                     observedP->flags &= (uint8_t)~(LWM2M_OBSERVE_FLAG_UPDATE);
                 }
             }
-            else // Check pmax
+            else
             {
-                //Check if there is timeAttribute
                 if (observedP->timeAttrP != NULL)
                 {
                     if ((observedP->timeAttrP->flags & LWM2M_ATTR_FLAG_MAX_PERIOD) != 0)
                     {
-                        // Ignore pmax if lesser than pmin
                         if (((observedP->timeAttrP->flags & LWM2M_ATTR_FLAG_MIN_PERIOD) != 0
                             && observedP->timeAttrP->maxPeriod >= observedP->timeAttrP->minPeriod)
                             || ((observedP->timeAttrP->flags & LWM2M_ATTR_FLAG_MIN_PERIOD) == 0))
@@ -911,7 +871,6 @@ void observe_step(iowa_context_t contextP)
 
                                 for (ind = 0; ind < observedP->uriCount; ind++)
                                 {
-                                    //Get value to send
                                     result = object_read(contextP, &observedP->uriInfoP[ind].uri, serverP->shortId, &dataCount, &dataP);
                                     {
                                         if (result != IOWA_COAP_205_CONTENT)
@@ -932,7 +891,6 @@ void observe_step(iowa_context_t contextP)
             if (observedP->timeAttrP != NULL
                 && (observedP->timeAttrP->flags & LWM2M_ATTR_FLAG_MAX_PERIOD) != 0)
             {
-                // Ignore pmax if lesser than pmin
                 if (((observedP->timeAttrP->flags & LWM2M_ATTR_FLAG_MIN_PERIOD) != 0
                     && observedP->timeAttrP->maxPeriod >= observedP->timeAttrP->minPeriod)
                     || ((observedP->timeAttrP->flags & LWM2M_ATTR_FLAG_MIN_PERIOD) == 0))
@@ -951,5 +909,5 @@ void observe_step(iowa_context_t contextP)
     }
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Exiting with timeoutP: %ds.", contextP->timeout);
 }
-#endif // LWM2M_CLIENT_MODE
+#endif
 

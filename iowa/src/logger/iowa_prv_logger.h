@@ -59,4 +59,4 @@
 #define IOWA_LOG_ERROR_MALLOC(size)  IOWA_LOG_ARG_ERROR(IOWA_PART_SYSTEM, "Allocation of %u bytes failed.", (size))
 #define IOWA_LOG_ERROR_GETTIME(time) IOWA_LOG_ARG_ERROR(IOWA_PART_SYSTEM, "Bad returned time: %d.", (time))
 
-#endif // _IOWA_PRV_LOGGER_INCLUDE_
+#endif

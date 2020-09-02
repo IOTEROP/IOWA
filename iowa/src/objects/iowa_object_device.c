@@ -127,11 +127,11 @@ static iowa_status_t prv_deviceObjectCallback(iowa_dm_operation_t operation,
             {
                 device_power_source_t *powerSourceP;
 
-                // Find corresponding resource instance
+
                 powerSourceP = deviceDataP->powerSourceListP;
                 while (powerSourceP != NULL)
                 {
-                    // If resource's instance found, memorize its type
+
                     if (dataP[i].resInstanceID == powerSourceP->resInstanceId)
                     {
                         dataP[i].value.asInteger = (int)powerSourceP->type;
@@ -153,11 +153,11 @@ static iowa_status_t prv_deviceObjectCallback(iowa_dm_operation_t operation,
             {
                 device_power_source_t *powerSourceP;
 
-                // Find corresponding resource instance
+
                 powerSourceP = deviceDataP->powerSourceListP;
                 while (powerSourceP != NULL)
                 {
-                    // If resource's instance found, memorize its type
+
                     if (dataP[i].resInstanceID == powerSourceP->resInstanceId)
                     {
                         dataP[i].value.asInteger = (int64_t)powerSourceP->voltageValue;
@@ -179,11 +179,11 @@ static iowa_status_t prv_deviceObjectCallback(iowa_dm_operation_t operation,
             {
                 device_power_source_t *powerSourceP;
 
-                // Find corresponding resource instance
+
                 powerSourceP = deviceDataP->powerSourceListP;
                 while (powerSourceP != NULL)
                 {
-                    // If resource's instance found, memorize its type
+
                     if (dataP[i].resInstanceID == powerSourceP->resInstanceId)
                     {
                         dataP[i].value.asInteger = (int64_t)powerSourceP->currentValue;
@@ -277,7 +277,7 @@ static iowa_status_t prv_deviceObjectCallback(iowa_dm_operation_t operation,
 #endif
 
             default:
-                // Should not happen
+
                 break;
             }
         }
@@ -335,7 +335,7 @@ static iowa_status_t prv_deviceObjectCallback(iowa_dm_operation_t operation,
 #endif
 
                 default:
-                    // Should not happen
+
                     break;
                 }
             }
@@ -352,7 +352,7 @@ static iowa_status_t prv_deviceObjectCallback(iowa_dm_operation_t operation,
         {
             if (dataP[i].type != IOWA_LWM2M_TYPE_UNDEFINED)
             {
-                // dataP[i].type can only be IOWA_LWM2M_TYPE_UNDEFINED or IOWA_LWM2M_TYPE_STRING with an Execute operation
+
                 IOWA_LOG_ARG_WARNING(IOWA_PART_OBJECT, "No argument should be provided. Found: \"%.*s\".", dataP[i].value.asBuffer.length, dataP[i].value.asBuffer.buffer);
                 result = IOWA_COAP_400_BAD_REQUEST;
                 break;
@@ -371,7 +371,7 @@ static iowa_status_t prv_deviceObjectCallback(iowa_dm_operation_t operation,
 #endif
 
             default:
-                // Should not happen
+
                 break;
             }
         }
@@ -404,7 +404,7 @@ static iowa_status_t prv_deviceResInstanceCallback(uint16_t objectID,
 
     CRIT_SECTION_ENTER(contextP);
 
-    // Get number of ressource instance
+
     switch (resourceID)
     {
     case IOWA_LWM2M_DEVICE_ID_ERROR_CODE:
@@ -412,7 +412,7 @@ static iowa_status_t prv_deviceResInstanceCallback(uint16_t objectID,
         *nbResInstanceP = prv_getNumberOfBit(deviceDataP->errorCodesFlag);
         if (*nbResInstanceP == 0)
         {
-            *nbResInstanceP = 1;// there is always a res instance id for no error code
+            *nbResInstanceP = 1;
         }
     }
         break;
@@ -437,18 +437,18 @@ static iowa_status_t prv_deviceResInstanceCallback(uint16_t objectID,
 #endif
 
     default:
-        // Should not happen
+
         break;
     }
 
-    // Don't allocate an array with a length of zero
+
     if (*nbResInstanceP == 0)
     {
         CRIT_SECTION_LEAVE(contextP);
         return IOWA_COAP_NO_ERROR;
     }
 
-    // Allocate the array
+
     *resInstanceArrayP = (uint16_t *)iowa_system_malloc(*nbResInstanceP * sizeof(uint16_t));
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
     if (*resInstanceArrayP == NULL)
@@ -459,7 +459,7 @@ static iowa_status_t prv_deviceResInstanceCallback(uint16_t objectID,
     }
 #endif
 
-    // Retrieve the ressource instance ID
+
     switch (resourceID)
     {
     case IOWA_LWM2M_DEVICE_ID_ERROR_CODE:
@@ -491,7 +491,7 @@ static iowa_status_t prv_deviceResInstanceCallback(uint16_t objectID,
 #endif
 
     default:
-        // Should not happen
+
         break;
     }
 
@@ -522,7 +522,7 @@ iowa_status_t objectDeviceInit(iowa_context_t contextP,
         return IOWA_COAP_412_PRECONDITION_FAILED;
     }
 
-    // Get the resources list
+
     resourcesNb = 3;
 
     if (deviceInfo != NULL)
@@ -818,22 +818,22 @@ iowa_status_t objectDeviceInit(iowa_context_t contextP,
     deviceDataP->powerSourceListP = NULL;
 #endif
 
-    // Set error code flag to no error
+
     deviceDataP->errorCodesFlag = 0x00;
 
-    // Retrieve the binding
+
     deviceDataP->binding = ""
-    // In LwM2M 1.0: list of transports supported + Queue mode
+
 #if !defined(IOWA_UDP_SUPPORT) && !defined(IOWA_TCP_SUPPORT) && !defined(IOWA_LORAWAN_SUPPORT)
                            "SQ"
 #else
 #ifdef IOWA_UDP_SUPPORT
                            "UQ"
 #endif
-#endif // !defined(IOWA_UDP_SUPPORT) && !defined(IOWA_TCP_SUPPORT) && !defined(IOWA_LORAWAN_SUPPORT)
+#endif
                              ;
 
-    // Inform the stack
+
     result = customObjectAdd(contextP,
                              IOWA_LWM2M_DEVICE_OBJECT_ID,
                              OBJECT_SINGLE,
@@ -851,17 +851,17 @@ iowa_status_t objectDeviceInit(iowa_context_t contextP,
 
 iowa_status_t objectDeviceClose(iowa_context_t contextP)
 {
-    // WARNING: This function is called in a critical section
+
     iowa_status_t result;
     device_object_t *deviceDataP;
 
     IOWA_LOG_INFO(IOWA_PART_OBJECT, "Removing device object.");
 
-    // Remove the instance
+
     deviceDataP = (device_object_t *)objectGetData(contextP, IOWA_LWM2M_DEVICE_OBJECT_ID);
     if (deviceDataP == NULL)
     {
-        // No error should occur if the object is not created
+
         return IOWA_COAP_NO_ERROR;
     }
 
@@ -873,7 +873,7 @@ iowa_status_t objectDeviceClose(iowa_context_t contextP)
 #endif
     iowa_system_free(deviceDataP);
 
-    // Inform the stack
+
     result = customObjectRemove(contextP, IOWA_LWM2M_DEVICE_OBJECT_ID);
 
     IOWA_LOG_ARG_INFO(IOWA_PART_OBJECT, "Exiting with code %u.%02u.", (result & 0xFF) >> 5, (result & 0x1F));
@@ -883,7 +883,7 @@ iowa_status_t objectDeviceClose(iowa_context_t contextP)
 
 void objectDeviceFactoryReset(iowa_context_t contextP)
 {
-    // WARNING: This function is called in a critical section
+
     device_object_t *deviceDataP;
 
     IOWA_LOG_INFO(IOWA_PART_OBJECT, "Initiating Factory Reset.");
@@ -916,7 +916,7 @@ iowa_status_t iowa_client_device_update_battery(iowa_context_t contextP,
     IOWA_LOG_INFO(IOWA_PART_OBJECT, "Updating device battery.");
 
 #ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
-    // Check arguments
+
     if (batteryLevel > 100)
     {
         IOWA_LOG_ARG_ERROR(IOWA_PART_OBJECT, "Battery level %u is outside the range [0, 100].", batteryLevel);
@@ -1094,7 +1094,7 @@ iowa_status_t iowa_client_add_device_power_source(iowa_context_t contextP,
         return IOWA_COAP_405_METHOD_NOT_ALLOWED;
     }
 
-    // Find resource instance non used
+
     resInstanceId = 0;
     powerSourceP = deviceDataP->powerSourceListP;
 
@@ -1111,7 +1111,7 @@ iowa_status_t iowa_client_add_device_power_source(iowa_context_t contextP,
         }
     }
 
-    // Create new power source
+
     powerSourceP = (device_power_source_t *)iowa_system_malloc(sizeof(device_power_source_t));
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
     if (powerSourceP == NULL)
@@ -1122,14 +1122,14 @@ iowa_status_t iowa_client_add_device_power_source(iowa_context_t contextP,
     }
 #endif
 
-    // Add new power source values
+
     powerSourceP->nextP = NULL;
     powerSourceP->resInstanceId = resInstanceId;
     powerSourceP->type = type;
     powerSourceP->voltageValue = voltageValue;
     powerSourceP->currentValue = currentValue;
 
-    // Add new power source to list
+
     deviceDataP->powerSourceListP = (device_power_source_t *)IOWA_UTILS_LIST_ADD(deviceDataP->powerSourceListP, powerSourceP);
 
     (*idP) = OBJECT_INSTANCE_ID_TO_SENSOR(IOWA_LWM2M_DEVICE_OBJECT_ID, resInstanceId);
@@ -1155,7 +1155,7 @@ iowa_status_t iowa_client_remove_device_power_source(iowa_context_t contextP,
     device_power_source_t *powerSourceP;
 
 #ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
-    // Check Object Id
+
     if (GET_OBJECT_ID_FROM_SENSOR(id) != IOWA_LWM2M_DEVICE_OBJECT_ID)
     {
         IOWA_LOG_ERROR(IOWA_PART_OBJECT, "id is wrong.");
@@ -1163,7 +1163,7 @@ iowa_status_t iowa_client_remove_device_power_source(iowa_context_t contextP,
     }
 #endif
 
-    // Check Object and Object instance
+
     CRIT_SECTION_ENTER(contextP);
     deviceDataP = (device_object_t *)objectGetData(contextP, IOWA_LWM2M_DEVICE_OBJECT_ID);
     if (deviceDataP == NULL)
@@ -1181,7 +1181,7 @@ iowa_status_t iowa_client_remove_device_power_source(iowa_context_t contextP,
         return IOWA_COAP_405_METHOD_NOT_ALLOWED;
     }
 
-    // Find corresponding resource instance
+
     powerSourceP = deviceDataP->powerSourceListP;
     while (powerSourceP != NULL
            && powerSourceP->resInstanceId != GET_INSTANCE_ID_FROM_SENSOR(id))
@@ -1195,7 +1195,7 @@ iowa_status_t iowa_client_remove_device_power_source(iowa_context_t contextP,
         return IOWA_COAP_404_NOT_FOUND;
     }
 
-    // Remove power source from list
+
     deviceDataP->powerSourceListP = (device_power_source_t *)IOWA_UTILS_LIST_REMOVE(deviceDataP->powerSourceListP, powerSourceP);
     iowa_system_free(powerSourceP);
 
@@ -1223,7 +1223,7 @@ iowa_status_t iowa_client_update_device_power_source(iowa_context_t contextP,
     device_power_source_t *powerSourceP;
 
 #ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
-    // Check Object Id
+
     if (GET_OBJECT_ID_FROM_SENSOR(id) != IOWA_LWM2M_DEVICE_OBJECT_ID)
     {
         IOWA_LOG_ERROR(IOWA_PART_OBJECT, "id is wrong.");
@@ -1231,7 +1231,7 @@ iowa_status_t iowa_client_update_device_power_source(iowa_context_t contextP,
     }
 #endif
 
-    // Check Object and Object instance
+
     CRIT_SECTION_ENTER(contextP);
     deviceDataP = (device_object_t *)objectGetData(contextP, IOWA_LWM2M_DEVICE_OBJECT_ID);
     if (deviceDataP == NULL)
@@ -1249,7 +1249,7 @@ iowa_status_t iowa_client_update_device_power_source(iowa_context_t contextP,
         return IOWA_COAP_405_METHOD_NOT_ALLOWED;
     }
 
-    // Find corresponding resource instance
+
     powerSourceP = deviceDataP->powerSourceListP;
     while (powerSourceP != NULL
            && powerSourceP->resInstanceId != GET_INSTANCE_ID_FROM_SENSOR(id))
@@ -1291,7 +1291,7 @@ iowa_status_t iowa_client_update_device_time_information(iowa_context_t contextP
 {
     device_object_t *deviceDataP;
 
-    // Check Object and Object instance
+
     CRIT_SECTION_ENTER(contextP);
     deviceDataP = (device_object_t *)objectGetData(contextP, IOWA_LWM2M_DEVICE_OBJECT_ID);
     if (deviceDataP == NULL)
@@ -1349,4 +1349,4 @@ iowa_status_t iowa_client_update_device_time_information(iowa_context_t contextP
     return IOWA_COAP_NO_ERROR;
 }
 
-#endif // LWM2M_CLIENT_MODE
+#endif

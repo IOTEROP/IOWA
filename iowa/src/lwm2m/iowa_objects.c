@@ -27,9 +27,9 @@
  * and Eclipse Distribution License v1.0 which accompany this distribution.
  *
  * The Eclipse Public License is available at
- *    http://www.eclipse.org/legal/epl-v10.html
+ *    http:
  * The Eclipse Distribution License is available at
- *    http://www.eclipse.org/org/documents/edl-v10.php.
+ *    http:
  *
  * Contributors:
  *    David Navarro, Intel Corporation - initial API and implementation
@@ -77,12 +77,6 @@
 
 #include "iowa_access_control_list.h"
 
-// Call object's data callback by getting out critical section.
-// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
-// Parameters:
-// - op: The operation to perform on the resource among **IOWA_DM_READ**, **IOWA_DM_FREE**, **IOWA_DM_WRITE** and **IOWA_DM_EXECUTE**.
-// - objectP: object's information
-// - dataCount, dataP: data concerning by the operation
 static iowa_status_t prv_callDataCb(iowa_context_t contextP,
                                     iowa_dm_operation_t op,
                                     lwm2m_object_t *objectP,
@@ -104,7 +98,6 @@ static iowa_status_t prv_getResourceDimension(iowa_context_t contextP,
                                               uint16_t *nbResInstanceP,
                                               uint16_t **resInstanceArrayP)
 {
-    // WARNING: This function is called in a critical section
     iowa_status_t result;
 
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Calling resInstanceCb(%u, %u, %u).", objectP->objID, objectP->instanceArray[instanceIndex].id, objectP->resourceArray[resourceIndex].id);
@@ -281,7 +274,6 @@ static uint16_t prv_getResourceIndex(lwm2m_object_t *objectP,
     if (instIndex < objectP->instanceCount
         && objectP->instanceArray[instIndex].resArray != NULL)
     {
-        // check if resource exists in this instance
         for (i = 0; i < objectP->instanceArray[instIndex].resCount; i++)
         {
             if (objectP->instanceArray[instIndex].resArray[i] == id)
@@ -294,8 +286,6 @@ static uint16_t prv_getResourceIndex(lwm2m_object_t *objectP,
             IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Resource %u not found in Object %u, instance index: %u.", id, objectP->objID, instIndex);
             return objectP->resourceCount;
         }
-
-        // resource exists, now return its index in the resource description array.
     }
 
     for (i = 0; i < objectP->resourceCount; i++)
@@ -384,7 +374,6 @@ static iowa_status_t prv_addResourceToDataArray(iowa_context_t contextP,
 
     if (IS_RSC_MULTIPLE(objectP->resourceArray[resIndex]))
     {
-        // multiple resource
         iowa_status_t result;
         uint16_t nbResInstance;
         uint16_t *resInstanceArray;
@@ -492,8 +481,6 @@ static iowa_status_t prv_getResourceReadableArray(iowa_context_t contextP,
 
     if (uriP->instanceId != IOWA_LWM2M_ID_ALL)
     {
-        // single instance read
-
         instIndex = object_getInstanceIndex(objectP, uriP->instanceId);
         if (instIndex == objectP->instanceCount)
         {
@@ -530,8 +517,6 @@ static iowa_status_t prv_getResourceReadableArray(iowa_context_t contextP,
         }
         else
         {
-            // multiple resource read
-
             iowaDataArraySize = objectP->resourceCount;
             iowaDataArray = (iowa_lwm2m_data_t *)iowa_system_malloc(iowaDataArraySize * sizeof(iowa_lwm2m_data_t));
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
@@ -567,7 +552,6 @@ static iowa_status_t prv_getResourceReadableArray(iowa_context_t contextP,
     }
     else
     {
-        // multiple object instances read
         iowaDataArraySize = (size_t)(objectP->instanceCount * objectP->resourceCount);
         iowaDataArray = (iowa_lwm2m_data_t *)iowa_system_malloc(iowaDataArraySize * sizeof(iowa_lwm2m_data_t));
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
@@ -623,7 +607,6 @@ static iowa_status_t prv_getResourceReadableArray(iowa_context_t contextP,
     return result;
 }
 
-// TODO: Temporary function
 static iowa_status_t prv_convertAttributes(attributes_t *paramP,
                                            attribute_t **attrP)
 {
@@ -767,12 +750,11 @@ static iowa_status_t prv_adaptCreatePayload(lwm2m_object_t *objectP,
                                             iowa_lwm2m_data_t *dataArray,
                                             bool bootstapWrite)
 {
-    size_t dataIndex;          // index in dataArray
+    size_t dataIndex;
     uint16_t resourceIndex;
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Checking %u resources. bootstapWrite: %s.", *dataCountP, bootstapWrite ? "true" : "false");
 
-    // check that we have only one Object and, if not allowed, one Object Instance
     for (dataIndex = 1; dataIndex < *dataCountP; dataIndex++)
     {
         if (dataArray[dataIndex].objectID != dataArray[0].objectID
@@ -794,7 +776,6 @@ static iowa_status_t prv_adaptCreatePayload(lwm2m_object_t *objectP,
 
             IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Remove the Resource %u from the list.", dataArray[dataIndex].resourceID);
 
-            // Move the resource not found at the end of the list and decrement the data count
             data = dataArray[dataIndex];
             dataArray[dataIndex] = dataArray[*dataCountP-1];
             dataArray[*dataCountP-1] = data;
@@ -816,7 +797,6 @@ static iowa_status_t prv_adaptCreatePayload(lwm2m_object_t *objectP,
 
     if (bootstapWrite == false)
     {
-        // check that all mandatory resources are present
         for (resourceIndex = 0; resourceIndex < objectP->resourceCount; resourceIndex++)
         {
             if (IS_RSC_MANDATORY(objectP->resourceArray[resourceIndex])
@@ -848,7 +828,6 @@ static iowa_status_t prv_writeData(iowa_context_t contextP,
                                    size_t dataCount,
                                    iowa_lwm2m_data_t *dataArrayP)
 {
-    // WARNING: This function is called in a critical section
     iowa_status_t result;
 
     (void)serverShortId;
@@ -880,7 +859,6 @@ static iowa_status_t prv_create(iowa_context_t contextP,
                                 size_t dataCount,
                                 iowa_lwm2m_data_t *dataP)
 {
-    // WARNING: This function is called in a critical section
     iowa_status_t result;
     uint16_t instanceId;
 
@@ -1204,8 +1182,6 @@ bool object_isAsynchronous(iowa_context_t contextP,
     lwm2m_object_t *objectP;
     uint16_t index;
 
-    // This function only check the flags. Presence of the targeted URI will be checked in object_readRequest() or object_read()
-
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "URI: /%u/%u/%u", uriP->objectId, uriP->instanceId, uriP->resourceId);
 
     objectP = (lwm2m_object_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->objectList, listFindCallbackBy16bitsId, &(uriP->objectId));
@@ -1266,7 +1242,6 @@ iowa_status_t object_read(iowa_context_t contextP,
                           size_t *dataCountP,
                           iowa_lwm2m_data_t **dataArrayP)
 {
-    // WARNING: This function is called in a critical section
     iowa_status_t result;
     lwm2m_object_t *objectP;
 
@@ -1318,7 +1293,6 @@ iowa_status_t object_readBlock(iowa_context_t contextP,
                                size_t *dataCountP,
                                iowa_lwm2m_data_t **dataArrayP)
 {
-    // WARNING: This function is called in a critical section
     iowa_status_t result;
     lwm2m_object_t *objectP;
     uint16_t instIndex;
@@ -1435,7 +1409,6 @@ iowa_status_t object_bootstrapRead(iowa_context_t contextP,
                                    size_t *dataCountP,
                                    iowa_lwm2m_data_t **dataArrayP)
 {
-    // WARNING: This function is called in a critical section
     iowa_status_t result;
     lwm2m_object_t *objectP;
 
@@ -1531,7 +1504,6 @@ iowa_status_t object_readRequest(iowa_context_t contextP,
                                  iowa_lwm2m_uri_t *uriP,
                                  uint16_t serverShortId)
 {
-    // WARNING: This function is called in a critical section
     iowa_status_t result;
     lwm2m_object_t *objectP;
     size_t dataCount;
@@ -1570,7 +1542,7 @@ iowa_status_t object_checkWritePayload(iowa_context_t contextP,
                                        size_t dataCount,
                                        iowa_lwm2m_data_t *dataArray)
 {
-    size_t dataIndex;          // index in dataArray
+    size_t dataIndex;
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Checking %u resources", dataCount);
 
@@ -1585,11 +1557,11 @@ iowa_status_t object_checkWritePayload(iowa_context_t contextP,
     while (dataIndex < dataCount)
     {
         lwm2m_object_t *objectP;
-        size_t objLen;           // number of data_t matching an Object
-        size_t resIndex;         // index of a data_t matching a Resource of an Object or Object Instance in dataArray
-        uint16_t instanceIndex;  // index of an Instance inside a lwm2m_object_t
-        uint16_t resourceIndex;  // index of a Resource inside a lwm2m_object_t
-        size_t instIndex;        // index of the first data_t matching the beginning of an Object Instance in dataArray
+        size_t objLen;
+        size_t resIndex;
+        uint16_t instanceIndex;
+        uint16_t resourceIndex;
+        size_t instIndex;
 
         objectP = (lwm2m_object_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->objectList, listFindCallbackBy16bitsId, &dataArray[dataIndex].objectID);
         if (NULL == objectP)
@@ -1605,7 +1577,6 @@ iowa_status_t object_checkWritePayload(iowa_context_t contextP,
             objLen++;
         }
 
-        // check that the targeted instance exists
         instanceIndex = object_getInstanceIndex(objectP, dataArray[dataIndex].instanceID);
 
         if (instanceIndex == objectP->instanceCount)
@@ -1617,7 +1588,7 @@ iowa_status_t object_checkWritePayload(iowa_context_t contextP,
         instIndex = dataIndex;
         while (instIndex < objLen)
         {
-            size_t instLen;   // number of data_t matching an Object Instance
+            size_t instLen;
 
             instLen = 1;
             while (instIndex + instLen < objLen
@@ -1630,7 +1601,6 @@ iowa_status_t object_checkWritePayload(iowa_context_t contextP,
             {
                 iowa_status_t result;
 
-                // check the resource exists in the Object Instance
                 resourceIndex = prv_getResourceIndex(objectP, instanceIndex, dataArray[resIndex].resourceID);
 
                 if (resourceIndex == objectP->resourceCount)
@@ -1805,7 +1775,6 @@ iowa_status_t object_execute(iowa_context_t contextP,
                              uint8_t *buffer,
                              size_t length)
 {
-    // WARNING: This function is called in a critical section
     iowa_status_t result;
     lwm2m_object_t * objectP;
     uint16_t instIndex;
@@ -1920,7 +1889,6 @@ iowa_status_t object_delete(iowa_context_t contextP,
                             iowa_lwm2m_uri_t *uriP,
                             uint16_t serverShortId)
 {
-    // WARNING: This function is called in a critical section
     lwm2m_object_t *objectP;
     iowa_status_t result;
 
@@ -1957,7 +1925,6 @@ iowa_status_t object_delete(iowa_context_t contextP,
     }
     else
     {
-        // Loop on all Object Instances
         result = IOWA_COAP_202_DELETED;
 
         while (objectP->instanceCount != 0
@@ -1996,7 +1963,6 @@ iowa_status_t object_getList(iowa_context_t contextP,
 
     *nbLinkP = 0;
 
-    // Count the number of link.
     switch (objectId)
     {
     case IOWA_LWM2M_ID_ALL:
@@ -2033,7 +1999,6 @@ iowa_status_t object_getList(iowa_context_t contextP,
         }
     }
 
-    // Allocate the links.
     *linkP = (link_t *)iowa_system_malloc(*nbLinkP * sizeof(link_t));
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
     if (*linkP == NULL)
@@ -2044,16 +2009,13 @@ iowa_status_t object_getList(iowa_context_t contextP,
 #endif
     memset(*linkP, 0, *nbLinkP * sizeof(link_t));
 
-    // Set the links URI
     linkIndex = 0;
     switch (objectId)
     {
     case IOWA_LWM2M_ID_ALL:
-        // Add Root URI
         LWM2M_URI_RESET(&(*linkP)[linkIndex].uri);
         linkIndex++;
 
-        // Add Objects URI
         for (objectP = contextP->lwm2mContextP->objectList; objectP != NULL; objectP = objectP->next)
         {
             if (objectP->instanceCount > 0)
@@ -2115,7 +2077,6 @@ iowa_status_t object_getTree(iowa_context_t contextP,
 
     uriDepth = dataUtilsGetUriDepth(uriP);
 
-    // Check arguments
 #ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
     switch (uriDepth)
     {
@@ -2129,7 +2090,6 @@ iowa_status_t object_getTree(iowa_context_t contextP,
     }
 #endif
 
-    // Count the number of link.
     objectP = (lwm2m_object_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->objectList, listFindCallbackBy16bitsId, &uriP->objectId);
     if (objectP == NULL)
     {
@@ -2191,7 +2151,6 @@ iowa_status_t object_getTree(iowa_context_t contextP,
         break;
 
     case LWM2M_URI_DEPTH_RESOURCE:
-        // Handle resource cases.
         instanceIndex = object_getInstanceIndex(objectP, uriP->instanceId);
         if (instanceIndex == objectP->instanceCount)
         {
@@ -2212,7 +2171,6 @@ iowa_status_t object_getTree(iowa_context_t contextP,
         return IOWA_COAP_405_METHOD_NOT_ALLOWED;
     }
 
-    // Allocate the links.
     *linkP = (link_t *)iowa_system_malloc(*nbLinkP * sizeof(link_t));
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
     if (*linkP == NULL)
@@ -2223,7 +2181,6 @@ iowa_status_t object_getTree(iowa_context_t contextP,
 #endif
     memset(*linkP, 0, *nbLinkP * sizeof(link_t));
 
-    // Set the links URI and their attributes
     linkIndex = 0;
     switch (uriDepth)
     {
@@ -2238,7 +2195,6 @@ iowa_status_t object_getTree(iowa_context_t contextP,
         {
             iowa_status_t result;
 
-            // No inheritance
             result = prv_convertAttributes(&attr, &(*linkP)[linkIndex].attrP);
             if (result != IOWA_COAP_NO_ERROR)
             {
@@ -2325,7 +2281,6 @@ iowa_status_t object_getTree(iowa_context_t contextP,
                 (*linkP)[linkIndex].uri.instanceId = uriP->instanceId;
                 (*linkP)[linkIndex].uri.resourceId = objectP->instanceArray[instanceIndex].resArray[resourceIndex];
 
-                // No inheritance
                 resIndex = prv_getResourceIndex(objectP, instanceIndex, objectP->instanceArray[instanceIndex].resArray[resourceIndex]);
                 result = prv_getResourceAttributes(contextP, objectP, serverP, &(*linkP)[linkIndex], instanceIndex, resIndex, false);
                 if (result != IOWA_COAP_NO_ERROR)
@@ -2347,7 +2302,6 @@ iowa_status_t object_getTree(iowa_context_t contextP,
                 (*linkP)[linkIndex].uri.instanceId = uriP->instanceId;
                 (*linkP)[linkIndex].uri.resourceId = objectP->resourceArray[resourceIndex].id;
 
-                // No inheritance
                 result = prv_getResourceAttributes(contextP, objectP, serverP, &(*linkP)[linkIndex], instanceIndex, resourceIndex, false);
                 if (result != IOWA_COAP_NO_ERROR)
                 {
@@ -2372,7 +2326,6 @@ iowa_status_t object_getTree(iowa_context_t contextP,
         (*linkP)[linkIndex].uri.instanceId = uriP->instanceId;
         (*linkP)[linkIndex].uri.resourceId = uriP->resourceId;
 
-        // Inheritance from object and object instance level
         result = prv_getResourceAttributes(contextP, objectP, serverP, &(*linkP)[linkIndex], instanceIndex, resourceIndex, true);
         if (result != IOWA_COAP_NO_ERROR)
         {
@@ -2402,7 +2355,6 @@ iowa_status_t customObjectAdd(iowa_context_t contextP,
                               iowa_RI_callback_t resInstanceCallback,
                               void *userData)
 {
-    // WARNING: This function is called in a critical section
     lwm2m_object_t *objectP;
 
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Adding new custom object with ID: %u, instanceCount: %u and resourceCount: %u", objectID, instanceCount, resourceCount);
@@ -2550,7 +2502,6 @@ void customObjectDelete(lwm2m_object_t *objectP)
 iowa_status_t customObjectRemove(iowa_context_t contextP,
                                  uint16_t objectID)
 {
-    // WARNING: This function is called in a critical section
     lwm2m_object_t *objectP;
 
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Removing custom object with ID: %u", objectID);
@@ -2582,7 +2533,6 @@ void customObjectResourceChanged(iowa_context_t contextP,
                                  uint16_t instanceID,
                                  uint16_t resourceID)
 {
-    // WARNING: This function is called in a critical section
     iowa_lwm2m_uri_t uri;
 
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Ressource %u on object /%u/%u changed", resourceID, objectID, instanceID);
@@ -2607,7 +2557,6 @@ iowa_status_t objectAddInstance(iowa_context_t contextP,
                                 uint16_t resourceCount,
                                 uint16_t *resourceArray)
 {
-    // WARNING: This function is called in a critical section
     lwm2m_object_t * objectP;
     iowa_status_t result;
 
@@ -2675,7 +2624,6 @@ iowa_status_t objectRemoveInstance(iowa_context_t contextP,
                                    uint16_t objectID,
                                    uint16_t instanceID)
 {
-    // WARNING: This function is called in a critical section
     lwm2m_object_t * objectP;
     iowa_status_t result;
 
@@ -2696,7 +2644,6 @@ iowa_status_t objectRemoveInstance(iowa_context_t contextP,
         switch (objectID)
         {
         case IOWA_LWM2M_SECURITY_OBJECT_ID:
-            // No need to update registration for objects not exposed to the Server
             break;
 
         default:

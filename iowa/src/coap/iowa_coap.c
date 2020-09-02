@@ -59,7 +59,6 @@ void coapClose(iowa_context_t contextP)
     {
         iowa_coap_peer_t *nextPeerP;
 
-        // Keep the next peer address
         nextPeerP = peerP->base.next;
 
         coapPeerDelete(contextP, peerP);
@@ -90,7 +89,6 @@ uint8_t coapStep(iowa_context_t contextP)
 
         IOWA_LOG_ARG_TRACE(IOWA_PART_COAP, "Peer %p.", peerP);
 
-        // Save the next peer since the step function can delete the current peer.
         peerNextP = peerP->base.next;
         switch (peerP->base.type)
         {
@@ -119,7 +117,7 @@ uint8_t coapSend(iowa_context_t contextP,
                  coap_message_callback_t resultCallback,
                  void *userData)
 {
-    // WARNING: This function is called in a critical section
+
     uint8_t result;
 
     IOWA_LOG_TRACE(IOWA_PART_COAP, "Entering.");
@@ -363,7 +361,7 @@ void coapSendResponse(iowa_context_t contextP,
                       iowa_coap_message_t *messageP,
                       uint8_t code)
 {
-    // WARNING: This function is called in a critical section
+
     iowa_coap_message_t *responseP;
 
 
@@ -394,7 +392,7 @@ void coapSendReset(iowa_context_t contextP,
                    iowa_coap_peer_t *peerP,
                    iowa_coap_message_t *messageP)
 {
-    // WARNING: This function is called in a critical section
+
     iowa_coap_message_t *responseP;
 
 
@@ -450,7 +448,7 @@ iowa_status_t iowa_coap_uri_parse(const char *uri,
         IOWA_LOG_ERROR(IOWA_PART_LWM2M, "uri is nil.");
         return IOWA_COAP_400_BAD_REQUEST;
     }
-#endif // IOWA_CONFIG_SKIP_ARGS_CHECK
+#endif
 
     uriLen = strlen(uri);
 

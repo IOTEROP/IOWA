@@ -103,12 +103,12 @@ iowa_status_t securityStep(iowa_context_t contextP)
 
         IOWA_LOG_ARG_TRACE(IOWA_PART_SECURITY, "Entering with Security state: %s for securityS: %p.", STR_SECURITY_STATE(securityS->state), securityS);
 
-        // Save the next Security session since the step could delete it
+
         nextSecurityS = (iowa_security_session_t)securityS->nextP;
 
         if (securityS->isSecure == true)
         {
-            // Should not happen
+
             result = IOWA_COAP_501_NOT_IMPLEMENTED;
         }
 
@@ -138,7 +138,7 @@ iowa_security_session_t securityClientNewSession(iowa_context_t contextP,
     securityS = NULL;
 
 #ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
-    // Check security mode with the security layer
+
     switch (securityMode)
     {
 #ifdef IOWA_SECURITY_CERTIFICATE_SUPPORT
@@ -155,7 +155,7 @@ iowa_security_session_t securityClientNewSession(iowa_context_t contextP,
         IOWA_LOG_ARG_ERROR(IOWA_PART_SECURITY, "Security mode %d is not supported with the current security layer.", securityMode);
         return NULL;
     }
-#endif // IOWA_CONFIG_SKIP_ARGS_CHECK
+#endif
 
     result = iowa_coap_uri_parse(uri, &type, &hostname, &port, NULL, NULL, &isSecure);
     if (result != IOWA_COAP_NO_ERROR)
@@ -164,7 +164,7 @@ iowa_security_session_t securityClientNewSession(iowa_context_t contextP,
         return NULL;
     }
 
-    // Check security mode with is secure
+
     switch (securityMode)
     {
     case IOWA_SEC_NONE:
@@ -183,7 +183,7 @@ iowa_security_session_t securityClientNewSession(iowa_context_t contextP,
         }
     }
 
-    // Create the security session
+
     securityS = (struct _iowa_security_session_t *)iowa_system_malloc(sizeof(struct _iowa_security_session_t));
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
     if (securityS == NULL)
@@ -204,7 +204,7 @@ iowa_security_session_t securityClientNewSession(iowa_context_t contextP,
 #endif
     securityS->contextP = contextP;
 
-    // Create the communication channel
+
     channelP = commChannelCreate(contextP, type, hostname, port, prv_commEventCb, (void *)securityS);
     if (channelP == NULL)
     {
@@ -219,7 +219,7 @@ iowa_security_session_t securityClientNewSession(iowa_context_t contextP,
 
     if (securityS->isSecure == true)
     {
-        // Should not happen
+
         result = IOWA_COAP_501_NOT_IMPLEMENTED;
 
         if (result != IOWA_COAP_NO_ERROR)
@@ -230,7 +230,7 @@ iowa_security_session_t securityClientNewSession(iowa_context_t contextP,
         }
     }
 
-    // Add the security session to the list
+
     contextP->securityContextP->sessionList = (iowa_security_session_t)IOWA_UTILS_LIST_ADD(contextP->securityContextP->sessionList, securityS);
 
     IOWA_LOG_INFO(IOWA_PART_SECURITY, "Client security session created.");
@@ -272,7 +272,7 @@ void securityDeleteSession(iowa_context_t contextP,
 {
     IOWA_LOG_ARG_INFO(IOWA_PART_SECURITY, "Deleting security session %p.", securityS);
 
-    // Remove the session from the list
+
     contextP->securityContextP->sessionList = (iowa_security_session_t)IOWA_UTILS_LIST_REMOVE(contextP->securityContextP->sessionList, securityS);
 
     if (securityS->isSecure == true)
@@ -336,7 +336,7 @@ int securitySend(iowa_context_t contextP,
                  uint8_t *buffer,
                  size_t length)
 {
-    // WARNING: This function is called in a critical section
+
     int bufferSend;
 
     (void)contextP;
@@ -349,7 +349,7 @@ int securitySend(iowa_context_t contextP,
     }
     else
     {
-        // Should not happen
+
         bufferSend = 0;
     }
 
@@ -361,7 +361,7 @@ int securityRecv(iowa_context_t contextP,
                  uint8_t *buffer,
                  size_t length)
 {
-    // WARNING: This function is called in a critical section
+
     int bufferReceived;
 
     (void)contextP;
@@ -374,7 +374,7 @@ int securityRecv(iowa_context_t contextP,
     }
     else
     {
-        // Should not happen
+
         bufferReceived = 0;
     }
 

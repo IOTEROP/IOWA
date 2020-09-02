@@ -23,9 +23,6 @@
 #include "iowa_prv_data_internals.h"
 #include <float.h>
 
-// Allow maskage on double value
-// Elements:
-// - convert: converted value
 typedef struct
 {
     union
@@ -59,7 +56,6 @@ static int prv_parseUriNumber(const uint8_t *uriString,
 
     if (uriString[*headP] == '/')
     {
-        // empty Object Instance ID with resource ID is not allowed
         return -1;
     }
 
@@ -105,11 +101,6 @@ static size_t prv_bufferCopy(uint8_t *buffer,
     return bufferLength;
 }
 
-// Get buffer part into integer
-// Returned value: index to when the part stopped (when buffer contains a character not between '0' and '9')
-// Parameters:
-// - buffer, length: buffer to look
-// - dataP: OUT. integer got.
 static size_t prv_partBufferToInt(uint8_t *buffer,
                                   size_t length,
                                   int64_t *dataP)
@@ -152,11 +143,6 @@ static size_t prv_partBufferToInt(uint8_t *buffer,
     return i;
 }
 
-// Get buffer part into integer
-// Returned value: sign value (-1 or 1) or 0 if error
-// Parameters:
-// - buffer: buffer to look
-// - indexP: INOUT. buffer index to look.
 static int prv_getSignFromBufferToNumber(uint8_t *buffer,
                                          size_t *indexP)
 {
@@ -184,8 +170,6 @@ static int prv_getSignFromBufferToNumber(uint8_t *buffer,
     return 0;
 }
 
-// change value and indicate exponent if it is possible for integer value
-// return exponent if possible or 0
 static int prv_isExponentPossibleForIntPart(int64_t *valueP)
 {
     int cpt;
@@ -224,9 +208,6 @@ static int prv_isExponentPossibleForIntPart(int64_t *valueP)
     return 0;
 }
 
-
-// change value and indicate exponent if it is possible for decimal part of value
-// return exponent if possible or 0
 static int prv_isExponentPossibleForDecPart(double *valueP)
 {
     int cpt;
@@ -282,8 +263,6 @@ static int prv_isExponentPossibleForDecPart(double *valueP)
     return 0;
 }
 
-// get the length of the conversion of an integer into a buffer
-// return the length of the conversion
 static size_t prv_intToBufferLength(int64_t data)
 {
     size_t cpt;
@@ -309,8 +288,6 @@ static size_t prv_intToBufferLength(int64_t data)
     return cpt;
 }
 
-// Convert an integer value (data) into a buffer
-// return the length of the conversion
 static size_t prv_intToBuffer(int64_t data,
                               uint8_t *buffer,
                               size_t length)
@@ -341,7 +318,6 @@ static size_t prv_intToBuffer(int64_t data,
 
     if (data > 0)
     {
-        // Out of the buffer
         return 0;
     }
 
@@ -395,8 +371,6 @@ double dataUtilsPower(double number, int64_t power)
     return result;
 }
 
-// Determine if value has only integer part or not
-// return true if value has only integer part, else false
 bool dataUtilsIsInt(double value)
 {
     int64_t intVal;
@@ -683,7 +657,6 @@ size_t dataUtilsFloatToBufferLength(double data,
 
         if (intPart == 0 && data < 0)
         {
-            // deal with numbers between -1 and 0
             intLength = 2;
         }
         else
@@ -699,7 +672,6 @@ size_t dataUtilsFloatToBufferLength(double data,
             {
                 setExponent = true;
             }
-            // Call the utils function to take exponent in account
             intLength = dataUtilsIntToBufferLength(intPart, setExponent);
         }
 
@@ -713,7 +685,7 @@ size_t dataUtilsFloatToBufferLength(double data,
             {
                 decPart *= 10;
                 noiseFloor *= 10;
-            } while (decPart - (double)((int64_t)decPart) > noiseFloor);  // Compare the integer part of decPart with possible noise
+            } while (decPart - (double)((int64_t)decPart) > noiseFloor);
 
             decLength = prv_intToBufferLength((int64_t)decPart);
         }
@@ -788,11 +760,10 @@ size_t dataUtilsFloatToBuffer(double data,
 
         if (intPart == 0 && data < 0)
         {
-            // deal with numbers between -1 and 0
             if (length < 4)
             {
                 IOWA_LOG_TRACE(IOWA_PART_DATA, "buffer length too short.");
-                return 0;   // "-0.n"
+                return 0;
             }
             buffer[0] = '-';
             buffer[1] = '0';
@@ -811,7 +782,6 @@ size_t dataUtilsFloatToBuffer(double data,
             {
                 setExponent = true;
             }
-            // Call the utils function to take exponent in account
             intLength = dataUtilsIntToBuffer(intPart, buffer, length, setExponent);
 
             if (intLength == 0)
@@ -836,7 +806,7 @@ size_t dataUtilsFloatToBuffer(double data,
             {
                 decPart *= 10;
                 noiseFloor *= 10;
-            } while (decPart - (double)((int64_t)decPart) > noiseFloor); // Compare the integer part of decPart with possible noise
+            } while (decPart - (double)((int64_t)decPart) > noiseFloor);
 
             decLength = prv_intToBuffer((int64_t)decPart, buffer + intLength, length - intLength);
             if (decLength <= 1)
@@ -845,7 +815,6 @@ size_t dataUtilsFloatToBuffer(double data,
                 return 0;
             }
 
-            // replace the leading 1 with a dot
             buffer[intLength] = '.';
         }
 
@@ -978,11 +947,9 @@ size_t dataUtilsBufferToUri(const char *buffer,
         return 0;
     }
 
-    // Skip any white space
     head = 0;
     LWM2M_URI_RESET(uriP);
 
-    // Check the URI starts with a '/'
     if (buffer[head] != '/')
     {
         return 0;
@@ -994,7 +961,6 @@ size_t dataUtilsBufferToUri(const char *buffer,
         return head;
     }
 
-    // Read object ID
     readNum = prv_parseUriNumber((const uint8_t *)buffer, bufferLength, &head);
     if (readNum < 0 || readNum > IOWA_LWM2M_ID_ALL)
     {
@@ -1017,7 +983,6 @@ size_t dataUtilsBufferToUri(const char *buffer,
         }
     }
 
-    // Read instance ID
     readNum = prv_parseUriNumber((const uint8_t *)buffer, bufferLength, &head);
     if (readNum < 0 || readNum >= IOWA_LWM2M_ID_ALL)
     {
@@ -1040,7 +1005,6 @@ size_t dataUtilsBufferToUri(const char *buffer,
         }
     }
 
-    // Read resource ID
     readNum = prv_parseUriNumber((const uint8_t *)buffer, bufferLength, &head);
     if (readNum < 0 || readNum >= IOWA_LWM2M_ID_ALL)
     {
@@ -1063,7 +1027,6 @@ size_t dataUtilsBufferToUri(const char *buffer,
         }
     }
 
-    // Read resource instance ID
     readNum = prv_parseUriNumber((const uint8_t *)buffer, bufferLength, &head);
     if (readNum < 0
         || readNum >= IOWA_LWM2M_ID_ALL)
@@ -1099,7 +1062,6 @@ size_t dataUtilsUriToBuffer(iowa_lwm2m_uri_t *uriP,
     {
         size_t res;
 
-        // Add the Object ID
         res = prv_intToBuffer(uriP->objectId, buffer + head, bufferLength - head);
         if (res == 0)
         {
@@ -1115,7 +1077,6 @@ size_t dataUtilsUriToBuffer(iowa_lwm2m_uri_t *uriP,
 
         if (uriP->instanceId != IOWA_LWM2M_ID_ALL)
         {
-            // Add the Instance Object ID
             buffer[head] = '/';
             head++;
             res = prv_intToBuffer(uriP->instanceId, buffer + head, bufferLength - head);
@@ -1133,7 +1094,6 @@ size_t dataUtilsUriToBuffer(iowa_lwm2m_uri_t *uriP,
 
             if (uriP->resourceId != IOWA_LWM2M_ID_ALL)
             {
-                // Add the Resource ID
                 buffer[head] = '/';
                 head++;
                 res = prv_intToBuffer(uriP->resourceId, buffer + head, bufferLength - head);
@@ -1151,7 +1111,6 @@ size_t dataUtilsUriToBuffer(iowa_lwm2m_uri_t *uriP,
 
                 if (uriP->resInstanceId != IOWA_LWM2M_ID_ALL)
                 {
-                    // Add the Resource Instance ID
                     buffer[head] = '/';
                     head++;
                     res = prv_intToBuffer(uriP->resInstanceId, buffer + head, bufferLength - head);
@@ -1188,13 +1147,10 @@ size_t dataUtilsUriToBufferLength(iowa_lwm2m_uri_t *uriP)
     {
     case LWM2M_URI_DEPTH_RESOURCE_INSTANCE:
         length += dataUtilsIntToBufferLength(uriP->resInstanceId, false) + 1;
-        // Fall through
     case LWM2M_URI_DEPTH_RESOURCE:
         length += dataUtilsIntToBufferLength(uriP->resourceId, false) + 1;
-        // Fall through
     case LWM2M_URI_DEPTH_OBJECT_INSTANCE:
         length += dataUtilsIntToBufferLength(uriP->instanceId, false) + 1;
-        // Fall through
     case LWM2M_URI_DEPTH_OBJECT:
         length += dataUtilsIntToBufferLength(uriP->objectId, false) + 1;
         break;
@@ -1203,7 +1159,6 @@ size_t dataUtilsUriToBufferLength(iowa_lwm2m_uri_t *uriP)
         break;
 
     default:
-        // Do nothing
         break;
     }
 
@@ -1303,19 +1258,16 @@ bool dataUtilsGetBaseUri(iowa_lwm2m_data_t *dataP,
             {
                 uriP->resInstanceId = IOWA_LWM2M_ID_ALL;
             }
-            // Fall through
         case LWM2M_URI_DEPTH_RESOURCE:
             if (uriP->resourceId != dataP[index].resourceID)
             {
                 uriP->resourceId = IOWA_LWM2M_ID_ALL;
             }
-            // Fall through
         case LWM2M_URI_DEPTH_OBJECT_INSTANCE:
             if (uriP->instanceId != dataP[index].instanceID)
             {
                 uriP->instanceId = IOWA_LWM2M_ID_ALL;
             }
-            // Fall through
         case LWM2M_URI_DEPTH_OBJECT:
             if (uriP->objectId != dataP[index].objectID)
             {
@@ -1351,19 +1303,16 @@ bool dataUtilsIsInBaseUri(iowa_lwm2m_data_t *dataP,
         {
             return false;
         }
-        // Fall through
     case LWM2M_URI_DEPTH_RESOURCE:
         if (dataP->resourceID != baseUriP->resourceId)
         {
             return false;
         }
-        // Fall through
     case LWM2M_URI_DEPTH_OBJECT_INSTANCE:
         if (dataP->instanceID != baseUriP->instanceId)
         {
             return false;
         }
-        // Fall through
     case LWM2M_URI_DEPTH_OBJECT:
         if (dataP->objectID != baseUriP->objectId)
         {
@@ -1420,7 +1369,6 @@ iowa_status_t dataUtilsConvertUndefinedValue(uint8_t *bufferP,
 
     if (resTypeCb != NULL)
     {
-        // Check if the application knows the type of the resource
         IOWA_LOG_ARG_TRACE(IOWA_PART_DATA, "Calling resource type callback with object ID: %d and resource ID: %d.", dataP->objectID, dataP->resourceID);
         dataP->type = resTypeCb(dataP->objectID, dataP->resourceID, userDataP);
     }
@@ -1498,7 +1446,6 @@ iowa_status_t dataUtilsConvertUndefinedValue(uint8_t *bufferP,
             size_t colonPos;
             int64_t intFromBuffer;
 
-            // Valid Object Link in String: xxxxx:xxxxx
             if (bufferLength < 3
                 || bufferLength > 11)
             {
@@ -1513,10 +1460,10 @@ iowa_status_t dataUtilsConvertUndefinedValue(uint8_t *bufferP,
                     break;
                 }
             }
-            if (colonPos == 0 // Colon at the beginning
-                || colonPos == bufferLength // Colon at the end
-                || colonPos > 5 // First integer part has more than 5 characters
-                || bufferLength - 1 - colonPos > 5) // Second integer part has more than 5 characters
+            if (colonPos == 0
+                || colonPos == bufferLength
+                || colonPos > 5 
+                || bufferLength - 1 - colonPos > 5)
             {
                 IOWA_LOG_ERROR(IOWA_PART_DATA, "Invalid string Object Link.");
                 return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
@@ -1783,7 +1730,6 @@ bool dataUtilsCompareFloatingPointNumbers(double num1,
 
     assert(epsilon >= 0.f);
 
-    // Check if the number are already equals
     if (num1 == num2)
     {
         return true;
@@ -1811,102 +1757,4 @@ bool dataUtilsCompareFloatingPointNumbers(double num1,
     }
 
     return ulp.convert.asDouble <= epsilon;
-}
-
-/**************************************************************
- * Half float conversion
- **************************************************************/
-
-// Allow maskage on float value
-// Elements:
-// - convert: converted value
-typedef struct
-{
-    union
-    {
-        float asFloat;
-        int32_t asInteger;
-    } convert;
-} prv_float_convert_t;
-
-// Half Float: sign (15) ; exponent (14-10) ; mantissa (9-0)
-// Float: sign (31) ; exponent (30-23) ; mantissa (22-0)
-#define PRV_HALF_FLOAT_SIGN_BIT_MASK                0x8000
-#define PRV_HALF_FLOAT_EXPONENT_BIT_MASK            0x7c00
-#define PRV_HALF_FLOAT_MANTISSA_BIT_MASK            0x03FF
-
-#define PRV_HALF_FLOAT_SIGN_POS_DIFF_FLOAT          16 // 31 - 15
-#define PRV_HALF_FLOAT_EXPONENT_POS_DIFF_FLOAT      13 // 23 - 10
-#define PRV_HALF_FLOAT_MANTISSA_POS_DIFF_FLOAT      13 // 22 - 9
-#define PRV_HALF_FLOAT_EXPONENT_BIAS_DIFF_FLOAT     0x38000000 // 127 (exponent mask float) - 15 (exponent mask half float)
-#define PRV_HALF_FLOAT_EXPONENT_BIAS_SUB_DIFF_FLOAT 0x38800000 // 127 (exponent mask float) - 14 (exponent mask half float)
-
-#define PRV_FLOAT_VALUE_ZERO                        0
-#define PRV_FLOAT_VALUE_INFINITY                    0x7F800000
-#define PRV_FLOAT_VALUE_NAN_MASK                    0x7F800000 // Not a Number
-#define PRV_FLOAT_EXPONENT_POS                      (1<<23)
-
-// Convert subnormal half float data into float data
-// Returned value: float conversion
-// Parameters:
-// - halfFloat: 16bits of a subnormal half float data (between 1 and -1 not included).
-// Note: half float mantissa must not be nil.
-static int32_t prv_convertHalfFloatToFloatSubnormalNumber(uint16_t halfFloat)
-{
-    uint32_t mantissa;
-    uint32_t exponent;
-
-    mantissa = (uint32_t)(halfFloat << PRV_HALF_FLOAT_MANTISSA_POS_DIFF_FLOAT);
-    exponent = 0;
-
-    while((mantissa & PRV_FLOAT_EXPONENT_POS) == 0)
-    {
-        exponent -= PRV_FLOAT_EXPONENT_POS;
-        mantissa = mantissa << 1;
-    }
-
-    mantissa = (uint32_t)(mantissa & (uint32_t)(~(PRV_FLOAT_EXPONENT_POS)));
-    exponent += PRV_HALF_FLOAT_EXPONENT_BIAS_SUB_DIFF_FLOAT;
-
-    return (int32_t)((halfFloat & PRV_HALF_FLOAT_SIGN_BIT_MASK) << PRV_HALF_FLOAT_SIGN_POS_DIFF_FLOAT)
-            | (int32_t)exponent
-            | (int32_t)mantissa;
-}
-
-float dataUtilsConvertHalfFloatToFloat(uint16_t halfFloat)
-{
-    prv_float_convert_t number;
-
-    if ((halfFloat & PRV_HALF_FLOAT_EXPONENT_BIT_MASK) == 0)
-    {
-        if ((halfFloat & PRV_HALF_FLOAT_MANTISSA_BIT_MASK)  == 0)
-        {
-            number.convert.asFloat = PRV_FLOAT_VALUE_ZERO;
-        }
-        else
-        {
-            number.convert.asInteger = prv_convertHalfFloatToFloatSubnormalNumber(halfFloat);
-        }
-    }
-    else if ((halfFloat & PRV_HALF_FLOAT_EXPONENT_BIT_MASK) == PRV_HALF_FLOAT_EXPONENT_BIT_MASK)
-    {
-        if ((halfFloat & PRV_HALF_FLOAT_MANTISSA_BIT_MASK) == 0)
-        {
-            number.convert.asFloat = PRV_FLOAT_VALUE_INFINITY;
-            number.convert.asInteger |= ((halfFloat & PRV_HALF_FLOAT_SIGN_BIT_MASK) << PRV_HALF_FLOAT_SIGN_POS_DIFF_FLOAT);
-        }
-        else
-        {
-            number.convert.asInteger = ((halfFloat & PRV_HALF_FLOAT_SIGN_BIT_MASK) << PRV_HALF_FLOAT_SIGN_POS_DIFF_FLOAT)
-                                        | ((halfFloat & PRV_HALF_FLOAT_MANTISSA_BIT_MASK) << PRV_HALF_FLOAT_MANTISSA_POS_DIFF_FLOAT);
-            number.convert.asInteger |= PRV_FLOAT_VALUE_NAN_MASK;
-        }
-    }
-    else
-    {
-        number.convert.asInteger = ((halfFloat & PRV_HALF_FLOAT_SIGN_BIT_MASK) << PRV_HALF_FLOAT_SIGN_POS_DIFF_FLOAT)
-                                    | (((halfFloat & PRV_HALF_FLOAT_EXPONENT_BIT_MASK) << PRV_HALF_FLOAT_EXPONENT_POS_DIFF_FLOAT) + PRV_HALF_FLOAT_EXPONENT_BIAS_DIFF_FLOAT)
-                                    | ((halfFloat & PRV_HALF_FLOAT_MANTISSA_BIT_MASK) << PRV_HALF_FLOAT_MANTISSA_POS_DIFF_FLOAT);
-    }
-    return number.convert.asFloat;
 }

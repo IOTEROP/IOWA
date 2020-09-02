@@ -85,7 +85,6 @@ static size_t prv_encodeInt(int64_t data,
         value = (int16_t)data;
         length = 2;
 
-        // Keep in mind that shifting negative value is platform dependent
         dataBuffer[0] = (uint8_t)((value >> 8) & 0xFF);
         dataBuffer[1] = (uint8_t)(value & 0xFF);
     }
@@ -218,7 +217,6 @@ static size_t prv_lwm2mDecodeTlv(uint8_t *buffer,
 
     if ((buffer[0] & 0x20) == 0x20)
     {
-        // id is 16 bits long
         if (bufferLength < 3)
         {
             return 0;
@@ -228,7 +226,6 @@ static size_t prv_lwm2mDecodeTlv(uint8_t *buffer,
     }
     else
     {
-        // id is 8 bits long
         *oId = buffer[1];
     }
     IOWA_LOG_ARG_TRACE(IOWA_PART_DATA, "ID: %u.", *oId);
@@ -236,12 +233,10 @@ static size_t prv_lwm2mDecodeTlv(uint8_t *buffer,
     switch (buffer[0] & 0x18)
     {
     case 0x00:
-        // no length field
         *oDataLength = buffer[0] & 0x07;
         break;
 
     case 0x08:
-        // length field is 8 bits long
         if (bufferLength < *oDataIndex + 1)
         {
             return 0;
@@ -251,7 +246,6 @@ static size_t prv_lwm2mDecodeTlv(uint8_t *buffer,
         break;
 
     case 0x10:
-        // length field is 16 bits long
         if (bufferLength < *oDataIndex + 2)
         {
             return 0;
@@ -261,7 +255,6 @@ static size_t prv_lwm2mDecodeTlv(uint8_t *buffer,
         break;
 
     case 0x18:
-        // length field is 24 bits long
         if (bufferLength < *oDataIndex + 3)
         {
             return 0;
@@ -271,7 +264,6 @@ static size_t prv_lwm2mDecodeTlv(uint8_t *buffer,
         break;
 
     default:
-        // can't happen
         return 0;
     }
     IOWA_LOG_ARG_TRACE(IOWA_PART_DATA, "Data index: %u, length: %u bytes.", *oDataIndex, *oDataLength);
@@ -311,14 +303,11 @@ static iowa_status_t prv_getLength(iowa_lwm2m_uri_t *baseUriP,
     {
         uint16_t resId;
 
-        // Check if data has to be added
         if (dataUtilsIsInBaseUri(dataP + i, baseUriP, uriDepth) == false)
         {
-            // Loop on next element
             continue;
         }
 
-        // Check if this is a new instance
         if (i > 0
             && dataP[i].instanceID != dataP[i-1].instanceID)
         {
@@ -326,7 +315,6 @@ static iowa_status_t prv_getLength(iowa_lwm2m_uri_t *baseUriP,
             instanceDataLength = 0;
         }
 
-        // Check if this is a multiple resource
         if (dataP[i].resInstanceID != IOWA_LWM2M_ID_ALL)
         {
             resId = dataP[i].resInstanceID;
@@ -350,7 +338,6 @@ static iowa_status_t prv_getLength(iowa_lwm2m_uri_t *baseUriP,
                 IOWA_LOG_ARG_WARNING(IOWA_PART_DATA, "Unsigned integer value has a negative value: %d", dataP[i].value.asInteger);
                 return IOWA_COAP_400_BAD_REQUEST;
             }
-            // Fall through
         case IOWA_LWM2M_TYPE_INTEGER:
         case IOWA_LWM2M_TYPE_TIME:
         {
@@ -381,12 +368,10 @@ static iowa_status_t prv_getLength(iowa_lwm2m_uri_t *baseUriP,
         }
 
         case IOWA_LWM2M_TYPE_BOOLEAN:
-            // Booleans are always encoded on one byte
             resourceDataLength += prv_getHeaderLength(resId, 1) + 1;
             break;
 
         case IOWA_LWM2M_TYPE_OBJECT_LINK:
-            // Object Link are always encoded on four bytes
             resourceDataLength += prv_getHeaderLength(resId, 4) + 4;
             break;
 
@@ -396,10 +381,8 @@ static iowa_status_t prv_getLength(iowa_lwm2m_uri_t *baseUriP,
             return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
         }
 
-        // Check if this is a multiple resource
         if (dataP[i].resInstanceID != IOWA_LWM2M_ID_ALL)
         {
-            // Check if this is a new multiple resource
             if (i + 1 == size
                 || dataP[i].resourceID != dataP[i+1].resourceID)
             {
@@ -465,7 +448,6 @@ static size_t prv_checkFormatAndGetDataCount(uint8_t level,
             if (instanceCount == 0
                 && dataLength != 0)
             {
-                // Propagate the error
                 return 0;
             }
             dataCount += instanceCount;
@@ -548,7 +530,6 @@ static size_t prv_tlvToLwm2mData(iowa_lwm2m_uri_t *baseUriP,
             }
             else
             {
-                // This is a multiple resource
                 dataP[iData].resourceID = baseUriP->resourceId;
                 dataP[iData].resInstanceID = id;
             }
@@ -576,7 +557,6 @@ iowa_status_t tlvSerialize(iowa_lwm2m_uri_t *baseUriP,
                            uint8_t **bufferP,
                            size_t *bufferLengthP)
 {
-    // Warning: 'dataP' must be in order to convert correctly
     iowa_status_t result;
     iowa_lwm2m_uri_t baseUri;
     lwm2m_uri_depth_t uriDepth;
@@ -635,14 +615,11 @@ iowa_status_t tlvSerialize(iowa_lwm2m_uri_t *baseUriP,
         uint16_t resId;
         uint8_t resType;
 
-        // Check if data has to be added
         if (dataUtilsIsInBaseUri(dataP + i, &baseUri, uriDepth) == false)
         {
-            // Loop on next element
             continue;
         }
 
-        // Check if this is a new instance
         if (i > 0
             && dataP[i].instanceID != dataP[i-1].instanceID)
         {
@@ -655,7 +632,6 @@ iowa_status_t tlvSerialize(iowa_lwm2m_uri_t *baseUriP,
             instanceDataLength = 0;
         }
 
-        // Check if this is a multiple resource
         if (dataP[i].resInstanceID != IOWA_LWM2M_ID_ALL)
         {
             resId = dataP[i].resInstanceID;
@@ -713,7 +689,6 @@ iowa_status_t tlvSerialize(iowa_lwm2m_uri_t *baseUriP,
         }
 
         case IOWA_LWM2M_TYPE_BOOLEAN:
-            // Booleans are always encoded on one byte
             headerLen = prv_createHeader(*bufferP + index, resType, resId, 1);
             index += headerLen;
             (*bufferP)[index] = dataP[i].value.asBoolean ? 1 : 0;
@@ -724,7 +699,6 @@ iowa_status_t tlvSerialize(iowa_lwm2m_uri_t *baseUriP,
 
         case IOWA_LWM2M_TYPE_OBJECT_LINK:
         {
-            // Object Link are always encoded on four bytes
             uint8_t buf[4];
 
             buf[0] = (uint8_t)((dataP[i].value.asObjLink.objectId & 0xFF00) >> 8);
@@ -732,7 +706,6 @@ iowa_status_t tlvSerialize(iowa_lwm2m_uri_t *baseUriP,
             buf[2] = (uint8_t)((dataP[i].value.asObjLink.instanceId & 0xFF00) >> 8);
             buf[3] = (uint8_t)(dataP[i].value.asObjLink.instanceId & 0x00FF);
 
-            // Keep encoding as buffer
             headerLen = prv_createHeader(*bufferP + index, resType, resId, 4);
             index += headerLen;
             memcpy(*bufferP + index, buf, 4);
@@ -747,10 +720,8 @@ iowa_status_t tlvSerialize(iowa_lwm2m_uri_t *baseUriP,
             goto exit_function;
         }
 
-        // Check if this is a multiple resource
         if (dataP[i].resInstanceID != IOWA_LWM2M_ID_ALL)
         {
-            // Check if this is a new multiple resource
             if (i + 1 == size
                 || dataP[i].resourceID != dataP[i+1].resourceID)
             {
@@ -859,4 +830,4 @@ iowa_status_t tlvDeserialize(iowa_lwm2m_uri_t *baseUriP,
     return IOWA_COAP_NO_ERROR;
 }
 
-#endif // LWM2M_SUPPORT_TLV
+#endif

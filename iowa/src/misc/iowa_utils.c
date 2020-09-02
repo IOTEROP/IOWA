@@ -216,8 +216,8 @@ size_t iowa_utils_base64_get_decoded_size(uint8_t *base64Buffer,
 
     resultLen = (base64BufferLen >> 2) * 3;
 
-    // Check the padding and adjust the raw length. The length of the base64BufferLen is > 0 and % 4
-    // Maximum Base64 padding is 2
+
+
     resultLen -= (size_t)(base64Buffer[base64BufferLen - 1] == BASE64_PADDING) + (size_t)(base64Buffer[base64BufferLen - 2] == BASE64_PADDING);
 
     return resultLen;
@@ -256,7 +256,7 @@ size_t iowa_utils_base64_encode(uint8_t * rawBuffer,
         switch (rawBufferLen - dataIndex)
         {
         case 0:
-            // should never happen
+
             break;
         case 1:
             base64Buffer[resultIndex] = (uint8_t)(b64Alphabet[rawBuffer[dataIndex] >> 2]);
@@ -315,7 +315,7 @@ size_t iowa_utils_base64_decode(uint8_t * base64Buffer,
         return 0;
     }
 
-    // Remove padding
+
     while (base64Buffer[base64BufferLen - 1] == BASE64_PADDING)
     {
         base64BufferLen--;
@@ -534,7 +534,7 @@ bool utilsCmpBufferWithString(const uint8_t *buffer,
         return false;
     }
 
-    // Both are non null and have the same size
+
     return memcmp(buffer, str, size) == 0;
 }
 

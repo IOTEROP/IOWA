@@ -29,10 +29,10 @@
 *************************************************************************************/
 #define PRV_ADD_RES_ID_TO_ARRAY(array, pt, RES) (array)[(pt)] = (IPSO_RSC_ID_##RES); (pt) += 1
 
-// Free instance of this object
-// Returned value: none.
-// Parameters:
-// - instanceP: address of the instance to free
+
+
+
+
 static void prv_freeInstance(ipso_instance_t *instanceP)
 {
     if (instanceP != NULL)
@@ -368,7 +368,7 @@ static uint16_t prv_getResourceList(iowa_IPSO_ID_t type,
         break;
 
     case IOWA_IPSO_LEVEL_CONTROL:
-        // TODO: handle On Time and Off Time
+
         resCount = 3;
         if (withAppType == true)
         {
@@ -517,7 +517,7 @@ static iowa_status_t prv_ipsoObjectCallback(iowa_dm_operation_t operation,
         if (i == 0
             || dataP[i].instanceID != dataP[i - 1].instanceID)
         {
-            // No need to check if the instance has been find
+
             instanceP = (ipso_instance_t *)IOWA_UTILS_LIST_FIND(objDataP->instanceList, listFindCallbackBy16bitsId, &dataP[i].instanceID);
         }
 
@@ -586,7 +586,7 @@ static iowa_status_t prv_ipsoObjectCallback(iowa_dm_operation_t operation,
                 break;
 
             case IPSO_RSC_ID_SENSOR_UNITS:
-                // 'instanceP->unit' can not be nil
+
                 dataP[i].value.asBuffer.buffer = (uint8_t*)instanceP->unit;
                 dataP[i].value.asBuffer.length = strlen(instanceP->unit);
                 break;
@@ -711,7 +711,7 @@ static iowa_status_t prv_ipsoObjectCallback(iowa_dm_operation_t operation,
 
             if (dataP[i].type != IOWA_LWM2M_TYPE_UNDEFINED)
             {
-                // dataP[i].type can only be IOWA_LWM2M_TYPE_UNDEFINED or IOWA_LWM2M_TYPE_STRING with an Execute operation
+
                 IOWA_LOG_ARG_WARNING(IOWA_PART_OBJECT, "No argument should be provided. Found: \"%.*s\".", dataP[i].value.asBuffer.length, dataP[i].value.asBuffer.buffer);
                 result = IOWA_COAP_400_BAD_REQUEST;
                 break;
@@ -766,7 +766,7 @@ static iowa_status_t prv_checkResourceValue(iowa_IPSO_ID_t type,
 {
     switch (type)
     {
-    //Sensors using Percentage
+
     case IOWA_IPSO_LEVEL_CONTROL:
         if (value < 0.f || value > 100.f)
         {
@@ -775,12 +775,12 @@ static iowa_status_t prv_checkResourceValue(iowa_IPSO_ID_t type,
         }
         break;
 
-    // Sensors using Booleans
+
     case IOWA_IPSO_DIGITAL_INPUT:
     case IOWA_IPSO_PRESENCE:
     case IOWA_IPSO_ON_OFF_SWITCH:
     case IOWA_IPSO_PUSH_BUTTON:
-        // Reject if value is not exactly 0 (false) or 1 (true) with FLT_EPSILON margin
+
         if (dataUtilsCompareFloatingPointNumbers((double)value, 0., FLT_EPSILON) == false
             && dataUtilsCompareFloatingPointNumbers((double)value, 1., FLT_EPSILON) == false)
         {
@@ -815,7 +815,7 @@ static void prv_updateResourceValues(iowa_context_t contextP,
 
         for (index = 0; index < valueCount; index++)
         {
-            // Value is not changed if the difference between the old and the new value is not strictly superior to FLT_EPSILON
+
             if ((prevValue > valueArray[index].value && prevValue - valueArray[index].value > FLT_EPSILON)
                 || (valueArray[index].value > prevValue && valueArray[index].value - prevValue > FLT_EPSILON))
             {
@@ -904,7 +904,7 @@ iowa_status_t iowa_client_IPSO_add_sensor(iowa_context_t contextP,
     IOWA_LOG_ARG_INFO(IOWA_PART_OBJECT, "Adding IPSO sensor with type: %u, value: %f, unit: \"%s\", appType: \"%s\", rangeMin: %f, rangeMax: %f.", type, (double)value, unit, appType, (double)rangeMin, (double)rangeMax);
 
 #ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
-    // Check if the value is valid
+
     result = prv_checkResourceValue(type, value);
     if (result != IOWA_COAP_NO_ERROR)
     {
@@ -1124,7 +1124,7 @@ iowa_status_t iowa_client_IPSO_update_value(iowa_context_t contextP,
     objectId = GET_OBJECT_ID_FROM_SENSOR(id);
 
 #ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
-    // Check if the value is valid
+
     result = prv_checkResourceValue((iowa_IPSO_ID_t)objectId, value);
     if (result != IOWA_COAP_NO_ERROR)
     {
@@ -1153,7 +1153,7 @@ iowa_status_t iowa_client_IPSO_update_value(iowa_context_t contextP,
 
     clientNotificationLock(contextP, true);
 
-    // Update the resources value
+
     valueToUpdate.value = value;
     valueToUpdate.timestamp = 0;
     prv_updateResourceValues(contextP, id, instanceP, 1, &valueToUpdate);

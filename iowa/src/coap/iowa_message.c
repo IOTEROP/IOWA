@@ -58,7 +58,7 @@ size_t coapMessageSerializeDatagram(iowa_coap_message_t *messageP,
 
     IOWA_LOG_TRACE(IOWA_PART_COAP, "Entering");
 
-    // Compute serialized length
+
     bufferLength = PRV_DATAGRAM_MSG_HEADER_LENGTH + (size_t)messageP->tokenLength + messageP->payload.length;
 
     if (messageP->payload.length != 0)
@@ -80,7 +80,7 @@ size_t coapMessageSerializeDatagram(iowa_coap_message_t *messageP,
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_COAP, "Estimated length: %u", bufferLength);
 
-    // Allocate buffer for serialized packet
+
     buffer = (uint8_t *)iowa_system_malloc(bufferLength);
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
     if (buffer == NULL)
@@ -91,13 +91,13 @@ size_t coapMessageSerializeDatagram(iowa_coap_message_t *messageP,
 #endif
     memset(buffer, 0, bufferLength);
 
-    // Set CoAP header
+
     buffer[0] = (uint8_t)(PRV_DATAGRAM_MSG_HEADER_VERSION + (messageP->type << PRV_DATAGRAM_MSG_HEADER_TYPE_SHIFT) + messageP->tokenLength);
     buffer[1] = messageP->code;
     buffer[2] = (uint8_t)((messageP->id & 0xFF00) >> 8);
     buffer[3] = (uint8_t)(messageP->id & 0xFF);
 
-    // Add token if any
+
     if (messageP->tokenLength > 0 && messageP->tokenLength <= COAP_MSG_TOKEN_MAX_LEN)
     {
         memcpy(buffer + PRV_DATAGRAM_MSG_TOKEN_OFFSET, messageP->token, messageP->tokenLength);
@@ -111,7 +111,7 @@ size_t coapMessageSerializeDatagram(iowa_coap_message_t *messageP,
 
     index += option_serialize(messageP->optionList, buffer + index, iowa_coap_option_is_integer);
 
-    // Add payload if any
+
     if (messageP->payload.length != 0)
     {
         buffer[index] = PRV_MSG_PAYLOAD_MARKER;
@@ -240,7 +240,7 @@ size_t coapMessageSerializeStream(iowa_coap_message_t *messageP,
 
     IOWA_LOG_TRACE(IOWA_PART_COAP, "Entering");
 
-    // Compute conservative serialized length
+
     bufferLength = (size_t)(PRV_STREAM_MSG_MAX_HEADER_LENGTH + messageP->tokenLength);
     if (messageP->payload.length != 0)
     {
@@ -261,7 +261,7 @@ size_t coapMessageSerializeStream(iowa_coap_message_t *messageP,
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_COAP, "Estimated length: %u", bufferLength);
 
-    // Allocate buffer for serialized packet
+
     buffer = (uint8_t *)iowa_system_malloc(bufferLength);
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
     if (buffer == NULL)
@@ -272,12 +272,12 @@ size_t coapMessageSerializeStream(iowa_coap_message_t *messageP,
 #endif
     memset(buffer, 0, bufferLength);
 
-    // Serialize option in a temporary spot
+
     optionIndex = (size_t)(PRV_STREAM_MSG_MAX_HEADER_LENGTH + messageP->tokenLength);
     optionLength = option_serialize(messageP->optionList, buffer + optionIndex, iowa_coap_option_is_integer);
     IOWA_LOG_ARG_TRACE(IOWA_PART_COAP, "Serialized options length: %u.", optionLength);
 
-    // Compute length field (options + payload)
+
     messageLength = optionLength + messageP->payload.length;
     if (messageLength < optionLength)
     {
@@ -291,7 +291,7 @@ size_t coapMessageSerializeStream(iowa_coap_message_t *messageP,
     }
     IOWA_LOG_ARG_TRACE(IOWA_PART_COAP, "Message length: %u.", messageLength);
 
-    // Set CoAP TCP header
+
 
     if (messageLength >= PRV_STREAM_MSG_LENGTH_LIMIT_3)
     {
@@ -329,7 +329,7 @@ size_t coapMessageSerializeStream(iowa_coap_message_t *messageP,
     buffer[index] = messageP->code;
     index++;
 
-    // Add token if any
+
     if (messageP->tokenLength > 0 && messageP->tokenLength <= COAP_MSG_TOKEN_MAX_LEN)
     {
         memcpy(buffer + index, messageP->token, messageP->tokenLength);
@@ -340,14 +340,14 @@ size_t coapMessageSerializeStream(iowa_coap_message_t *messageP,
         messageP->tokenLength = 0;
     }
 
-    // Move options to the right place
+
     if (optionLength != 0)
     {
         memmove(buffer + index, buffer + optionIndex, optionLength);
         index += optionLength;
     }
 
-    // Add payload marker if needed
+
     if (messageP->payload.length != 0)
     {
         buffer[index] = PRV_MSG_PAYLOAD_MARKER;
@@ -382,7 +382,7 @@ uint8_t messageStreamParseLengthField(uint8_t lenField)
         break;
 
     default:
-        // At least one remaining byte for the code
+
         headerLength = 1;
         break;
     }
@@ -466,7 +466,7 @@ uint8_t messageStreamParseHeader(uint8_t *buffer,
 #endif
     memset(*messageP, 0, sizeof(iowa_coap_message_t));
 
-    // On stream, mark all messages as NON so higher layer don't have to check the peer type
+
     (*messageP)->type = IOWA_COAP_TYPE_NON_CONFIRMABLE;
 
     (*messageP)->code = buffer[index];

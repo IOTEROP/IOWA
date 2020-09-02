@@ -32,13 +32,12 @@ iowa_timer_t *coreTimerNew(iowa_context_t contextP,
                            timer_callback_t callback,
                            void *userData)
 {
-    // WARNING: This function is called in a critical section
+
     iowa_timer_t *timerP;
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_BASE, "Entering with delay: %ds, callback: %p, userData: %p, currentTime: %ds.", delay, callback, userData, contextP->currentTime);
 
 #ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
-    // Check arguments
     if (delay <= 0)
     {
         IOWA_LOG_ARG_WARNING(IOWA_PART_BASE, "Invalid delay: %ds.", delay);
@@ -81,7 +80,7 @@ iowa_timer_t *coreTimerNew(iowa_context_t contextP,
 void coreTimerDelete(iowa_context_t contextP,
                      iowa_timer_t *timerP)
 {
-    // WARNING: This function is called in a critical section
+
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_BASE, "Entering with iowa_timer_t %p.", timerP);
 
@@ -96,12 +95,11 @@ iowa_status_t coreTimerReset(iowa_context_t contextP,
                              iowa_timer_t *timerP,
                              int32_t delay)
 {
-    // WARNING: This function is called in a critical section
+
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_BASE, "Entering with timerP: %p, delay: %ds, currentTime: %d.", timerP, delay, contextP->currentTime);
 
 #ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
-    // Check arguments
     if (delay <= 0)
     {
         IOWA_LOG_ARG_WARNING(IOWA_PART_BASE, "Invalid delay: %ds.", delay);
@@ -123,7 +121,7 @@ iowa_status_t coreTimerReset(iowa_context_t contextP,
 
 void coreTimerStep(iowa_context_t contextP)
 {
-    // WARNING: This function is called in a critical section
+
     iowa_timer_t *timerP;
     iowa_timer_t *parentTimerP;
 
@@ -179,7 +177,7 @@ void coreTimerStep(iowa_context_t contextP)
 
 void coreTimerClose(iowa_context_t contextP)
 {
-    // WARNING: This function is called in a critical section
+
     IOWA_LOG_TRACE(IOWA_PART_BASE, "Entering.");
 
     IOWA_UTILS_LIST_FREE(contextP->timerList, iowa_system_free);

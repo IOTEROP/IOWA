@@ -48,4 +48,4 @@ iowa_status_t coreTimerReset(iowa_context_t contextP, iowa_timer_t *timerP, int3
 void coreTimerStep(iowa_context_t contextP);
 void coreTimerClose(iowa_context_t contextP);
 
-#endif // _IOWA_PRV_TIMER_INCLUDE_
+#endif

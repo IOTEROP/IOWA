@@ -27,9 +27,9 @@
  * and Eclipse Distribution License v1.0 which accompany this distribution.
  *
  * The Eclipse Public License is available at
- *    http://www.eclipse.org/legal/epl-v10.html
+ *    http:
  * The Eclipse Distribution License is available at
- *    http://www.eclipse.org/org/documents/edl-v10.php.
+ *    http:
  *
  * Contributors:
  *    David Navarro, Intel Corporation - initial API and implementation
@@ -93,11 +93,9 @@ iowa_status_t lwm2m_init(iowa_context_t contextP)
 
 void lwm2m_close(iowa_context_t contextP)
 {
-    // WARNING: This function is called in a critical section
     IOWA_LOG_TRACE(IOWA_PART_LWM2M, "Entering");
 
 #ifdef LWM2M_CLIENT_MODE
-    // Remove all the LwM2M servers
     while (contextP->lwm2mContextP->serverList != NULL)
     {
         lwm2m_server_t *serverP;
@@ -122,7 +120,7 @@ void lwm2m_close(iowa_context_t contextP)
     }
 
     iowa_system_free(contextP->lwm2mContextP->endpointName);
-#endif // LWM2M_CLIENT_MODE
+#endif
 
     iowa_system_free(contextP->lwm2mContextP);
     contextP->lwm2mContextP = NULL;
@@ -157,7 +155,6 @@ void lwm2m_server_close(iowa_context_t contextP,
                         lwm2m_server_t *serverP,
                         bool sendDeregistration)
 {
-    // WARNING: This function is called in a critical section
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Close the LwM2M Server %d.", serverP->shortId);
 
     if (sendDeregistration == true)
@@ -181,11 +178,10 @@ void lwm2m_server_close(iowa_context_t contextP,
     attributesRemoveFromServer(serverP);
     observeRemoveFromServer(serverP);
 }
-#endif // LWM2M_CLIENT_MODE
+#endif
 
 iowa_status_t lwm2m_step(iowa_context_t contextP)
 {
-    // WARNING: This function is called in a critical section
     iowa_status_t result;
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Entering with timeout: %u.", contextP->timeout);
@@ -202,7 +198,6 @@ iowa_status_t lwm2m_step(iowa_context_t contextP)
 
         if (contextP->lwm2mContextP->serverList == NULL)
         {
-            // Do nothing else, since there is no server
             break;
         }
 
@@ -219,7 +214,7 @@ iowa_status_t lwm2m_step(iowa_context_t contextP)
         if (result != IOWA_COAP_NO_ERROR)
         {
             IOWA_LOG_ERROR(IOWA_PART_LWM2M, "No longer registered.");
-            contextP->lwm2mContextP->state = STATE_INITIAL; // Reset LwM2M FSM
+            contextP->lwm2mContextP->state = STATE_INITIAL;
 
             registration_resetServersStatus(contextP);
             contextP->timeout = 0;
@@ -230,7 +225,6 @@ iowa_status_t lwm2m_step(iowa_context_t contextP)
         break;
 
     default:
-        // Should not happen
         break;
     }
 

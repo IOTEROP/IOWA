@@ -96,10 +96,9 @@ static iowa_status_t prv_calculateLinkLength(link_t *linkP,
     for (index = 0; index < nbLink; index++)
     {
         attribute_t *currAttrP;
-        *lengthP += dataUtilsUriToBufferLength(&linkP[index].uri) + 2; // '<' + 'URI' + '>'
+        *lengthP += dataUtilsUriToBufferLength(&linkP[index].uri) + 2;
         for (currAttrP = linkP[index].attrP; currAttrP != NULL; currAttrP = currAttrP->nextP)
         {
-            // *lengthP += ';' + 'KEY' + '=' + 'VALUE'
             switch (currAttrP->key)
             {
             case KEY_LWM2M_VERSION:
@@ -111,7 +110,7 @@ static iowa_status_t prv_calculateLinkLength(link_t *linkP,
                 break;
 
             case KEY_SERVER_URI:
-                *lengthP += PRV_ATTR_URI_LEN + 4 + currAttrP->value.asBuffer.length; // ... + '"' + '"'
+                *lengthP += PRV_ATTR_URI_LEN + 4 + currAttrP->value.asBuffer.length;
                 break;
 
             case KEY_CONTENT_FORMAT:
@@ -199,7 +198,7 @@ static iowa_status_t prv_calculateLinkLength(link_t *linkP,
 
         if (index + 1 < nbLink)
         {
-            (*lengthP)++; // ','
+            (*lengthP)++;
         }
     }
 
@@ -400,7 +399,6 @@ static size_t prv_countLink(const uint8_t *buffer,
         }
     }
 
-    // Add the last element which has no end delimiter
     nbLink++;
 
     return nbLink;
@@ -467,17 +465,14 @@ static iowa_status_t prv_deserializeLinkUri(const uint8_t *buffer,
 {
     *bufferSizeP = 0;
 
-    // Look for starting delimiter
     if (buffer[0] != PRV_LINK_ITEM_START)
     {
         IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Starting delimiter '%s' not found.", PRV_LINK_ITEM_START_STR);
 
-        // This is a hack for the Bootstrap Discover operation.
         LWM2M_URI_RESET(uriP);
         return IOWA_COAP_NO_ERROR;
     }
 
-    // Look for ending delimiter
     for (*bufferSizeP = 0; *bufferSizeP < bufferLength; (*bufferSizeP)++)
     {
         if (buffer[*bufferSizeP] == PRV_LINK_ITEM_END)
@@ -491,7 +486,6 @@ static iowa_status_t prv_deserializeLinkUri(const uint8_t *buffer,
         return IOWA_COAP_406_NOT_ACCEPTABLE;
     }
 
-    // Remove the delimiters when converting back the buffer URI.
     if (dataUtilsBufferToUri((const char *)buffer + 1, *bufferSizeP - 1, uriP) == 0)
     {
         IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to convert buffer to URI.");

@@ -26,7 +26,7 @@
 
 #include "iowa_prv_core.h"
 
-#include "iowa_prv_core_check_config.h" // This include checks the IOWA config
+#include "iowa_prv_core_check_config.h"
 
 #define PAUSE_TIME_BUFFER 5
 
@@ -64,21 +64,21 @@ uint32_t clientGetMaxDelayOperation(iowa_context_t contextP);
 iowa_status_t clientAddServer(iowa_context_t contextP, lwm2m_server_t *serverP);
 iowa_status_t clientRemoveServer(iowa_context_t contextP, lwm2m_server_t *serverP);
 
-// defined in iowa_context.c
 
-// Save the current IOWA context.
-// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
-// Parameters:
-// - contextP: returned by iowa_init().
-// - isSnapshot: boolean to save the runtime information.
+
+
+
+
+
+
 iowa_status_t saveContext(iowa_context_t contextP, bool isSnapshot);
 
-// Load a saved IOWA context.
-// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
-// Parameters:
-// - contextP: returned by iowa_init().
-// - bufferP: pointer to the buffer to load.
-// - bufferLength: length of the buffer.
+
+
+
+
+
+
 iowa_status_t loadContext(iowa_context_t contextP, uint8_t * bufferP, size_t bufferLength);
 
 #endif

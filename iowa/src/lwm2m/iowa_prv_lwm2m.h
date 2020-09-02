@@ -27,9 +27,9 @@
  * and Eclipse Distribution License v1.0 which accompany this distribution.
  *
  * The Eclipse Public License is available at
- *    http://www.eclipse.org/legal/epl-v10.html
+ *    http:
  * The Eclipse Distribution License is available at
- *    http://www.eclipse.org/org/documents/edl-v10.php.
+ *    http:
  *
  * Contributors:
  *    David Navarro, Intel Corporation - initial API and implementation
@@ -108,27 +108,21 @@
 #define LWM2M_REVISION_VERSION 2
 
 #ifndef IOWA_PEER_IDENTIFIER_SIZE
-#define IOWA_PEER_IDENTIFIER_SIZE 32 // Default value
+#define IOWA_PEER_IDENTIFIER_SIZE 32
 #endif
 
-// TLV must be support LwM2M version 1.0 is not removed
 #ifndef LWM2M_VERSION_1_0_REMOVE
 #ifndef LWM2M_SUPPORT_TLV
 #define LWM2M_SUPPORT_TLV
 #endif
-#endif // LWM2M_VERSION_1_0_REMOVE
+#endif
 
-
-// LwM2M Servers support all the content formats and LwM2M Clients must at least support one of the following content formats (by priority order):
-// - CBOR
-// - SenML JSON
-// - In 1.0, default format is TLV
 #ifdef LWM2M_CLIENT_MODE
 
 #if   defined(LWM2M_SUPPORT_TLV)
 #define LWM2M_DEFAULT_CONTENT_FORMAT IOWA_CONTENT_FORMAT_TLV
 #else
-#error "Default content format not found." // Should never happen
+#error "Default content format not found."
 #endif
 
 #define LWM2M_DEFAULT_CONTENT_SINGLE_FORMAT LWM2M_DEFAULT_CONTENT_FORMAT
@@ -141,7 +135,7 @@
 #define IOWA_SERVER_RSC_COMMUNICATION_ATTEMPTS_REMOVE
 #endif
 
-#else // Not LWM2M_CLIENT_MODE
+#else
 
 #ifndef LWM2M_VERSION_1_0_REMOVE
 #define LWM2M_DEFAULT_CONTENT_FORMAT IOWA_CONTENT_FORMAT_TLV
@@ -149,11 +143,9 @@
 #else
 #define LWM2M_DEFAULT_CONTENT_FORMAT IOWA_CONTENT_FORMAT_SENML_CBOR
 #define LWM2M_DEFAULT_CONTENT_SINGLE_FORMAT IOWA_CONTENT_FORMAT_CBOR
-#endif // LWM2M_VERSION_1_0_REMOVE
-
 #endif
 
-// If Observe-composite is support, then Read-composite is support too
+#endif
 
 #define LWM2M_OBSERVATION_MID_ARRAY_SIZE 4
 
@@ -165,13 +157,6 @@
 
 #define LWM2M_CONTENT_FORMAT_CORE_LINK 40
 
-/*
- * URI
- *
- * objectId is always set
- * instanceId or resourceId are set according to the flag bit-field
- *
- */
 
 #define LWM2M_URI_IS_SET_OBJECT(uri)            ((uri)->objectId != IOWA_LWM2M_ID_ALL)
 #define LWM2M_URI_IS_SET_INSTANCE(uri)          ((uri)->instanceId != IOWA_LWM2M_ID_ALL)
@@ -191,27 +176,27 @@
 
 typedef enum
 {
-    STATE_DISCONNECTED = 0,        // connection not initialized
-    STATE_WAITING_CONNECTION,      // connection initialized
-    STATE_REG_REGISTERING,         // registration request pending
-    STATE_REG_REGISTERED,          // successfully registered
-    STATE_REG_FAILED,              // last registration failed
-    STATE_REG_UPDATE_PENDING,      // registration update pending
-    STATE_BS_HOLD_OFF,             // bootstrap hold off time
-    STATE_BS_REQUEST_PENDING,      // bootstrap request pending
-    STATE_BS_BOOTSTRAPPING,        // boostrap ongoing
-    STATE_BS_FINISHED,             // bootstrap done
-    STATE_BS_FAILED                // bootstrap failed
+    STATE_DISCONNECTED = 0,
+    STATE_WAITING_CONNECTION,
+    STATE_REG_REGISTERING,
+    STATE_REG_REGISTERED,
+    STATE_REG_FAILED,
+    STATE_REG_UPDATE_PENDING,
+    STATE_BS_HOLD_OFF,
+    STATE_BS_REQUEST_PENDING,
+    STATE_BS_BOOTSTRAPPING,
+    STATE_BS_FINISHED,
+    STATE_BS_FAILED
 } lwm2m_status_t;
 
 typedef uint8_t lwm2m_binding_t;
 
 #define BINDING_UNKNOWN 0x00
-#define BINDING_U       0x01 // UDP
-#define BINDING_T       0x02 // TCP
-#define BINDING_S       0x04 // SMS
-#define BINDING_N       0x08 // Non-IP
-#define BINDING_Q       0x10 // Queue mode
+#define BINDING_U       0x01
+#define BINDING_T       0x02
+#define BINDING_S       0x04
+#define BINDING_N       0x08
+#define BINDING_Q       0x10
 
 /*
  * LWM2M result callback
@@ -231,8 +216,8 @@ typedef void (*lwm2m_result_callback_t) (uint32_t clientID, iowa_lwm2m_uri_t *ur
 
 typedef struct _lwm2m_observation_
 {
-    struct _lwm2m_observation_  *next;  // matches lwm2m_list_t::next
-    uint16_t                     id;    // matches lwm2m_list_t::id
+    struct _lwm2m_observation_  *next;
+    uint16_t                     id;
     struct _lwm2m_client_       *clientP;
     size_t                       uriCount;
     iowa_lwm2m_uri_t            *uriP;
@@ -274,8 +259,8 @@ typedef struct _attributes_t
 
 typedef struct _lwm2m_client_
 {
-    struct _lwm2m_client_         *next;       // matches lwm2m_list_t::next
-    uint32_t                       internalID; // matches lwm2m_list_t::id
+    struct _lwm2m_client_         *next;
+    uint32_t                       internalID;
     char                          *name;
     lwm2m_binding_t                binding;
     char                          *msisdn;
@@ -310,14 +295,14 @@ typedef struct
 
 typedef struct
 {
-    uint8_t     flags; // possibilities: LWM2M_ATTR_FLAG_MIN_PERIOD; LWM2M_ATTR_FLAG_MAX_PERIOD
+    uint8_t     flags;
     uint32_t    minPeriod;
     uint32_t    maxPeriod;
 } lwm2m_time_attributes_t;
 
 typedef struct
 {
-    uint8_t     flags; // possibilities: LWM2M_ATTR_FLAG_GREATER_THAN; LWM2M_ATTR_FLAG_LESS_THAN; LWM2M_ATTR_FLAG_STEP; LWM2M_ATTR_FLAG_MIN_PERIOD; LWM2M_ATTR_FLAG_MAX_PERIOD; LWM2M_ATTR_FLAG_MIN_EVAL_PERIOD; LWM2M_ATTR_FLAG_MAX_EVAL_PERIOD
+    uint8_t     flags;
     double      greaterThan;
     double      lessThan;
     double      step;
@@ -325,10 +310,9 @@ typedef struct
 
 typedef struct
 {
-    uint8_t                     flags; // possibilities: LWM2M_OBSERVE_FLAG_FLOAT; LWM2M_OBSERVE_FLAG_INTEGER; LWM2M_OBSERVE_FLAG_URI_UNSET; LWM2M_OBSERVE_FLAG_UPDATE
+    uint8_t                     flags;
     iowa_lwm2m_uri_t            uri;
     lwm2m_uri_attributes_t     *uriAttrP;
-    // Use only if observe on resourceId if tansmission failed stockage of last LWM2M_VALUE_ARRAY_SIZE values
     union
     {
         int64_t asInteger;
@@ -340,7 +324,7 @@ typedef struct _lwm2m_observed_
 {
     struct _lwm2m_observed_ *next;
 
-    uint8_t                     flags; // possibilities: LWM2M_OBSERVE_FLAG_UPDATE
+    uint8_t                     flags;
     size_t                      uriCount;
     lwm2m_observed_uri_info_t  *uriInfoP;
     lwm2m_time_attributes_t    *timeAttrP;
@@ -356,7 +340,7 @@ typedef struct _lwm2m_async_operation_
 {
     struct _lwm2m_async_operation_ *next;
 
-    uint8_t                 flags; // possibilities: LWM2M_OBSERVE_FLAG_UPDATE
+    uint8_t                 flags;
     iowa_content_format_t   format;
     uint8_t                 token[COAP_MSG_TOKEN_MAX_LEN];
     uint8_t                 tokenLen;
@@ -389,15 +373,15 @@ typedef struct
     int32_t initialDelayTimer;
     bool blockOnFailure;
     bool bootstrapOnFailure;
-#endif // IOWA_SERVER_RSC_REGISTRATION_BEHAVIOUR_REMOVE
+#endif
 #ifndef IOWA_SERVER_RSC_COMMUNICATION_ATTEMPTS_REMOVE
     uint8_t retryCount;
     int32_t retryDelayTimer;
     uint8_t sequenceRetryCount;
     int32_t sequenceDelayTimer;
-#endif // IOWA_SERVER_RSC_COMMUNICATION_ATTEMPTS_REMOVE
+#endif
 } lwm2m_server_registration_t;
-#endif // !defined(IOWA_SERVER_RSC_REGISTRATION_BEHAVIOUR_REMOVE) || !defined(IOWA_SERVER_RSC_COMMUNICATION_ATTEMPTS_REMOVE)
+#endif
 
 #define LWM2M_OSCORE_FLAG_SECURITY_DATA_ADDED              0x01
 #define LWM2M_OSCORE_FLAG_SECURITY_DATA_CLIENT_APPLICATION 0x02
@@ -435,19 +419,19 @@ typedef struct
 #ifndef IOWA_SERVER_RSC_COMMUNICATION_ATTEMPTS_REMOVE
     uint8_t                  retryCount;
     uint8_t                  sequenceRetryCount;
-#endif // IOWA_SERVER_RSC_COMMUNICATION_ATTEMPTS_REMOVE
+#endif
 } lwm2m_server_runtime_t;
 
 typedef struct _lwm2m_server_
 {
-    struct _lwm2m_server_        *next;         // matches lwm2m_list_t::next
-    uint16_t                      shortId;      // matches lwm2m_list_t::id
+    struct _lwm2m_server_        *next;
+    uint16_t                      shortId;
     uint16_t                      secObjInstId;
     uint16_t                      srvObjInstId;
     char                         *uri;
     iowa_lwm2m_protocol_version_t lwm2mVersion;
-    int32_t                       lifetime;     // lifetime of the registration in sec or 0 if default value (86400 sec), also used as hold off time for bootstrap servers
-    lwm2m_binding_t               binding;      // client connection mode with this server
+    int32_t                       lifetime;
+    lwm2m_binding_t               binding;
 #ifndef IOWA_SERVER_RSC_DEFAULT_PERIODS_REMOVE
     uint32_t                      defaultPmin;
     uint32_t                      defaultPmax;
@@ -487,20 +471,12 @@ typedef struct _lwm2m_acl_t
 /*
  * LWM2M Context
  */
-
-// In all the following APIs, the session handle MUST uniquely identify a peer.
-
-// LWM2M bootstrap callback
-// When a LWM2M client requests bootstrap information, the callback is called with status IOWA_COAP_NO_ERROR, uriP is nil and
-// name is set. The callback must return a IOWA_COAP_* error code. IOWA_COAP_204_CHANGED for success.
-// After a lwm2m_bootstrap_delete() or a lwm2m_bootstrap_write(), the callback is called with the status returned by the
-// client, the URI of the operation (may be nil) and name is nil.
 typedef void (*lwm2m_bootstrap_callback_t) (uint32_t clientId, iowa_status_t status, iowa_lwm2m_uri_t *uriP, void *userData);
 
 typedef void (*lwm2m_bootstrap_result_callback_t) (uint32_t clientID, iowa_lwm2m_uri_t *uriP, iowa_status_t status, void *userData, iowa_context_t contextP);
 
-// Internal resource flags
-#define INTERNAL_RESOURCE_FLAG_FRAGMENTATION_SUPPORT 0x80 // The resource supports fragmentation
+
+#define INTERNAL_RESOURCE_FLAG_FRAGMENTATION_SUPPORT 0x80
 
 #define IS_RSC_USEABLE(R)      ((R).operations != IOWA_OPERATION_NONE)
 #define IS_RSC_READABLE(R)     (((R).operations & IOWA_OPERATION_READ) == IOWA_OPERATION_READ)
@@ -556,49 +532,37 @@ struct _lwm2m_context_t
     lwm2m_server_t       *serverList;
     lwm2m_object_t       *objectList;
     uint8_t               internalFlag;
-#endif // LWM2M_CLIENT_MODE
+#endif
     void                 *userData;
 };
 
 #define LWM2M_CLIENT_FLAG_CLOSED      0x01
 
-// initialize a LwM2M context.
 iowa_status_t lwm2m_init(iowa_context_t contextP);
 
-// close a LwM2M context.
 void lwm2m_close(iowa_context_t contextP);
 
-// perform any required pending operation and adjust timeoutP to the maximal time interval to wait in seconds.
 iowa_status_t lwm2m_step(iowa_context_t contextP);
 
-// configure the client side with the Endpoint Name, binding, MSISDN (can be nil), alternative path
-// for objects (can be nil) and a list of objects.
-// LWM2M Security Object (ID 0) must be present with either a bootstrap server or a LWM2M server and
-// its matching LWM2M Server Object (ID 1) instance
 iowa_status_t lwm2m_configure(iowa_context_t contextP, const char * endpointName, const char * msisdn);
 
 #define LWM2M_UPDATE_FLAG_NONE     0x00
 #define LWM2M_UPDATE_FLAG_OBJECTS  0x01
 #define LWM2M_UPDATE_FLAG_LIFETIME 0x02
 
-// Send a registration update to a server or to all the connected servers if the pointer is nil.
 void lwm2mUpdateRegistration(iowa_context_t contextP, lwm2m_server_t *serverP, uint8_t update);
 
 void lwm2m_resource_value_changed(iowa_context_t contextP, iowa_lwm2m_uri_t *uriP);
 
-// Device Management APIs
 int lwm2m_dm_discover(iowa_context_t contextP, uint32_t clientID, iowa_lwm2m_uri_t * uriP, lwm2m_result_callback_t callback, void * userData);
 int lwm2m_dm_execute(iowa_context_t contextP, uint32_t clientID, iowa_lwm2m_uri_t * uriP, iowa_content_format_t format, uint8_t * buffer, int length, lwm2m_result_callback_t callback, void * userData);
 int lwm2m_dm_create(iowa_context_t contextP, uint32_t clientID, iowa_lwm2m_uri_t * uriP, iowa_content_format_t format, uint8_t * buffer, int length, lwm2m_result_callback_t callback, void * userData);
 int lwm2m_dm_delete(iowa_context_t contextP, uint32_t clientID, iowa_lwm2m_uri_t * uriP, lwm2m_result_callback_t callback, void * userData);
 
-// Boostrap Interface APIs
-// if uriP is nil, a "Delete /" is sent to the client
 int lwm2m_bootstrap_delete(iowa_context_t contextP, uint32_t clientId, iowa_lwm2m_uri_t *uriP, lwm2m_bootstrap_result_callback_t resultCallback, void *userData);
 int lwm2m_bootstrap_write(iowa_context_t contextP, uint32_t clientId, iowa_lwm2m_uri_t *uriP, iowa_content_format_t format, uint8_t *buffer, size_t length, lwm2m_bootstrap_result_callback_t resultCallback, void *userData);
 int lwm2m_bootstrap_finish(iowa_context_t contextP, uint32_t clientId, lwm2m_bootstrap_result_callback_t resultCallback, void *userData);
 
-// Server APIs
 void lwm2m_bootstrap_server_close(iowa_context_t contextP, lwm2m_server_t *serverP);
 void lwm2m_server_close(iowa_context_t contextP, lwm2m_server_t *serverP, bool sendDeregistration);
 
@@ -612,7 +576,6 @@ iowa_status_t customObjectRemove(iowa_context_t contextP, uint16_t objectID);
 void customObjectResourceChanged(iowa_context_t contextP, uint16_t objectID, uint16_t instanceID, uint16_t resourceID);
 bool customObjectHasResource(iowa_context_t contextP, uint16_t objectID, uint16_t instanceID, uint16_t resourceID);
 
-// CoRE Link APIs
 typedef enum
 {
     KEY_UNKNOWN,
@@ -654,103 +617,24 @@ typedef struct
     attribute_t *attrP;
 } link_t;
 
-// Serialize the link array
-// Returned value: IOWA_COAP_NO_ERROR or an error.
-// Parameters:
-// - linkP: pointer to the array.
-// - nbLink: number of element in the array.
-// - bufferP, bufferLengthP: OUT. serialized, dynamically allocated payload.
 iowa_status_t coreLinkSerialize(link_t *linkP, size_t nbLink, uint8_t **bufferP, size_t *bufferLengthP);
 
-// Serialize the link array
-// Returned value: IOWA_COAP_NO_ERROR or an error.
-// Parameters:
-// - buffer: buffer to deserialize.
-// - bufferLength: length of the buffer.
-// - linkP, nbLinkP: OUT. deserialized, dynamically allocated link array.
 iowa_status_t coreLinkDeserialize(uint8_t *buffer, size_t bufferLength, link_t **linkP, size_t *nbLinkP);
 
 void lwm2m_uri_set(iowa_lwm2m_uri_t *uriP, uint16_t objectId, uint16_t instanceId, uint16_t resourceId, uint16_t resInstanceId);
 
-// Add a buffer attribute to the link.
-// Returned value: IOWA_COAP_NO_ERROR or an error.
-// Parameters:
-// - linkP: pointer to the link.
-// - key: the key of the attribute.
-// - buffer: buffer to copy.
-// - bufferLength: size of the buffer.
-// - addQuotes: if quotes has to be added to the buffer.
 iowa_status_t coreLinkAddBufferAttribute(link_t *linkP, attribute_key_t key, const uint8_t *buffer, size_t bufferLength, bool addQuotes);
 
-// Add an integer attribute to the link.
-// Returned value: IOWA_COAP_NO_ERROR or an error.
-// Parameters:
-// - linkP: pointer to the link.
-// - key: the key of the attribute.
-// - value: value of the attribute.
 iowa_status_t coreLinkAddIntegerAttribute(link_t *linkP, attribute_key_t key, int64_t value);
 
-// Find a specific attribute inside a link.
-// Returned value: an attribute_t or null in case of error.
-// Parameters:
-// - linkP: pointer to the link.
-// - key: the key of the desired attribute.
 attribute_t * coreLinkFind(link_t *linkP, attribute_key_t key);
 
-// Free a link array and their attributes.
-// Returned value: none.
-// Parameters:
-// - linkP: pointer to the array.
-// - nbLink: number of element in the array.
 void coreLinkFree(link_t *linkP, size_t nbLink);
 
-// Misc APIs
-
-// Free Client and remove related timer, peer and observations on Server mode.
-// Returned value: none.
-// Parameters:
-// - contextP: as returned by iowa_init().
-// - clientP: client to free.
-// Note: only if LWM2M_BOOTSTRAP_SERVER_MODE or LWM2M_SERVER_MODE is defined
 void utils_freeClient(iowa_context_t contextP, lwm2m_client_t *clientP);
 
-// Get binding from string.
-// Returned value: strBindingLen is succeed or 0 if any error.
-// Parameters:
-// - strBinding, strBindingLen: string which should contain binding information.
-// - bindingP: OUT. binding which can be from BINDING_U, BINDING_T, BINDING_S, BINDING_N and/or BINDING_Q
 size_t utils_stringToBinding(uint8_t *strBinding, size_t strBindingLen, lwm2m_binding_t *bindingP);
 
-// Generate the binding parameter string.
-// Returned value: binding string length.
-// Parameters:
-// - binding: binding which is a combination of BINDING_U, BINDING_T, BINDING_S, and BINDING_N
-// - queueMode: indicate if there is queue mode or not
-// - strBindingP: pointer to store the generated string. To be freed by the caller.
 size_t utils_bindingToString(lwm2m_binding_t binding, bool queueMode, uint8_t **strBindingP);
 
-/****************************
- * Data push operation
- */
-
-// For send API if LWM2M_CLIENT_MODE is defined
-typedef struct
-{
-    lwm2m_server_t *serverP;
-    iowa_response_callback_t responseCb;
-    void *userDataP;
-} client_operation_data_t;
-
-// Check data push validity on LwM2M Server.
-// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
-// Parameters:
-// - contextP: as returned by iowa_init().
-// - clientP: request's client.
-// - fromPeerP: peer source.
-// - requestP: request CoAP message.
-iowa_status_t lwm2mServerDataPushCheck(iowa_context_t contextP,
-                                       lwm2m_client_t *clientP,
-                                       iowa_coap_peer_t *fromPeerP,
-                                       iowa_coap_message_t *requestP);
-
-#endif // _IOWA_PRV_LWM2M_INCLUDE_
+#endif

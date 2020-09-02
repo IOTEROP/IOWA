@@ -27,9 +27,9 @@
  * and Eclipse Distribution License v1.0 which accompany this distribution.
  *
  * The Eclipse Public License is available at
- *    http://www.eclipse.org/legal/epl-v10.html
+ *    http:
  * The Eclipse Distribution License is available at
- *    http://www.eclipse.org/org/documents/edl-v10.php.
+ *    http:
  *
  * Contributors:
  *    David Navarro, Intel Corporation - initial API and implementation
@@ -80,7 +80,7 @@ static int prv_parseNumber(uint8_t * uriString,
 
     if (uriString[*headP] == '/')
     {
-        // empty Object Instance ID with resource ID is not allowed
+
         return -1;
     }
     while (*headP < uriLength && uriString[*headP] != '/')
@@ -160,7 +160,7 @@ lwm2m_uri_type_t uri_decode(iowa_coap_message_t *messageP,
     {
         int readNum;
 
-        // Read object ID
+
         readNum = uri_getNumber(optionP->value.asBuffer, optionP->length);
         if (readNum < 0
             || readNum >= IOWA_LWM2M_ID_ALL)
@@ -173,7 +173,7 @@ lwm2m_uri_type_t uri_decode(iowa_coap_message_t *messageP,
         if (optionP != NULL
             && optionP->number == number)
         {
-            // Read object instance ID
+
             readNum = uri_getNumber(optionP->value.asBuffer, optionP->length);
             if (readNum < 0
                 || readNum >= IOWA_LWM2M_ID_ALL)
@@ -186,7 +186,7 @@ lwm2m_uri_type_t uri_decode(iowa_coap_message_t *messageP,
             if (optionP != NULL
                 && optionP->number == number)
             {
-                // Read resource ID
+
                 readNum = uri_getNumber(optionP->value.asBuffer, optionP->length);
                 if (readNum < 0
                     || readNum >= IOWA_LWM2M_ID_ALL)
@@ -231,7 +231,7 @@ iowa_coap_option_t * uri_encode(uint16_t number,
 
     optionP = resultP;
 
-    // length of a text version of a LwM2M ID is always less than an uint16_t max value
+
     if(uriP->objectId == IOWA_LWM2M_ID_ALL)
     {
         optionP->length = 0;
@@ -263,7 +263,7 @@ iowa_coap_option_t * uri_encode(uint16_t number,
 #endif
         optionP = optionP->next;
 
-        // length of a text version of a LwM2M ID is always less than an uint16_t max value
+
         optionP->length = (uint16_t)dataUtilsIntToBuffer(uriP->instanceId, buffer + index, PRV_URI_BUFFER_SIZE - index, false);
         if (optionP->length == 0)
         {
@@ -286,7 +286,7 @@ iowa_coap_option_t * uri_encode(uint16_t number,
 #endif
             optionP = optionP->next;
 
-            // length of a text version of a LwM2M ID is always less than an uint16_t max value
+
             optionP->length = (uint16_t)dataUtilsIntToBuffer(uriP->resourceId, buffer + index, PRV_URI_BUFFER_SIZE - index, false);
             if (optionP->length == 0)
             {

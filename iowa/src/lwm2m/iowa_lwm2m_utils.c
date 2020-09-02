@@ -27,9 +27,9 @@
  * and Eclipse Distribution License v1.0 which accompany this distribution.
  *
  * The Eclipse Public License is available at
- *    http://www.eclipse.org/legal/epl-v10.html
+ *    http:
  * The Eclipse Distribution License is available at
- *    http://www.eclipse.org/org/documents/edl-v10.php.
+ *    http:
  *
  * Contributors:
  *    David Navarro, Intel Corporation - initial API and implementation
@@ -129,7 +129,6 @@ size_t utils_bindingToString(lwm2m_binding_t binding,
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Entering with binding: %d, queueMode: %s.", binding, queueMode?"true":"false");
 
-    // Calculate the str length
     if (queueMode == true)
     {
         index = 1;
@@ -203,7 +202,6 @@ iowa_content_format_t utils_getMediaType(iowa_coap_message_t *messageP,
         return IOWA_CONTENT_FORMAT_UNSET;
     }
 
-    // CoAP formats are encoded on 16 bits
     format = (uint16_t)(optionP->value.asInteger);
     switch (format)
     {
@@ -272,8 +270,6 @@ void utilsDisconnectServer(iowa_context_t contextP,
 void utilsFreeServer(iowa_context_t contextP,
                      lwm2m_server_t *serverP)
 {
-    // WARNING: This function is called in a critical section
-
     iowa_system_free(serverP->runtime.location);
     iowa_system_free(serverP->uri);
     iowa_system_free(serverP);
@@ -329,5 +325,5 @@ iowa_status_t lwm2mMergeData(iowa_lwm2m_data_t **dataP,
     return IOWA_COAP_205_CONTENT;
 }
 
-#endif // LWM2M_CLIENT_MODE
+#endif
 

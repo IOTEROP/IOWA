@@ -23,7 +23,7 @@
 #include "iowa_prv_data_internals.h"
 
 #define PRV_STR_LENGTH                 32
-#define PRV_OBJECT_LINK_TEXT_MAX_LEN   (size_t)11 // 65535:65535
+#define PRV_OBJECT_LINK_TEXT_MAX_LEN   (size_t)11
 
 /*************************************************************************************
 ** Public functions
@@ -35,7 +35,7 @@ iowa_status_t textSerialize(iowa_lwm2m_data_t *dataP,
 {
     IOWA_LOG_ARG_TRACE(IOWA_PART_DATA, "Entering with data type: %s.", STR_LWM2M_TYPE(dataP->type));
 
-    // dataP array length is assumed to be 1.
+
     switch (dataP->type)
     {
     case IOWA_LWM2M_TYPE_STRING:
@@ -68,12 +68,12 @@ iowa_status_t textSerialize(iowa_lwm2m_data_t *dataP,
         }
         else
         {
-            // Only encode in Base64 if buffer is not nil
+
             size_t bufferLength;
 
             bufferLength = iowa_utils_base64_get_encoded_size(dataP->value.asBuffer.length);
 
-            // 'bufferLength' cannot be equal to zero
+
             *bufferP = (uint8_t *)iowa_system_malloc(bufferLength);
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
             if (NULL == *bufferP)
@@ -98,7 +98,7 @@ iowa_status_t textSerialize(iowa_lwm2m_data_t *dataP,
             IOWA_LOG_ARG_WARNING(IOWA_PART_DATA, "Unsigned integer value has a negative value: %d", dataP->value.asInteger);
             return IOWA_COAP_400_BAD_REQUEST;
         }
-        // Fall through
+
     case IOWA_LWM2M_TYPE_INTEGER:
     case IOWA_LWM2M_TYPE_TIME:
     {
@@ -213,7 +213,7 @@ iowa_status_t textDeserialize(iowa_lwm2m_uri_t *baseUriP,
     *dataCountP = 0;
     *dataP = NULL;
 
-    // Check arguments
+
     if (baseUriP == NULL)
     {
         IOWA_LOG_INFO(IOWA_PART_DATA, "No base URI provided.");
@@ -279,7 +279,7 @@ iowa_status_t opaqueSerialize(iowa_lwm2m_data_t *dataP,
     }
     else
     {
-        // dataP array length is assumed to be 1.
+
         *bufferP = (uint8_t *)iowa_system_malloc(dataP->value.asBuffer.length);
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
         if (*bufferP == NULL)
@@ -311,7 +311,7 @@ iowa_status_t opaqueDeserialize(iowa_lwm2m_uri_t *baseUriP,
     *dataCountP = 0;
     *dataP = NULL;
 
-    // Check arguments
+
     if (baseUriP == NULL)
     {
         IOWA_LOG_INFO(IOWA_PART_DATA, "No base URI provided.");

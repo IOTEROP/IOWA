@@ -65,7 +65,6 @@ static void prv_logBuffer(const uint8_t *buffer,
 
         prv_printf("  ");
 
-        // Print the buffer by byte
         for (j = 0; j < 16 && i + j < bufferLength; j++)
         {
             prv_printf("%02X ", buffer[i + j]);
@@ -75,8 +74,7 @@ static void prv_logBuffer(const uint8_t *buffer,
             }
         }
 
-        // Complete the line with whitespace if there are not 16 bytes
-        while (j < 16) // keep the previous value for the variable 'j'
+        while (j < 16)
         {
             prv_printf("   ");
             if (j % 4 == 3)
@@ -88,7 +86,6 @@ static void prv_logBuffer(const uint8_t *buffer,
 
         prv_printf(" |");
 
-        // Print the buffer with writable character if possible
         for (j = 0; j < 16 && i + j < bufferLength; j++)
         {
             if (isprint(buffer[i + j])

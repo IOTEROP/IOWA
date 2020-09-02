@@ -162,13 +162,12 @@ void iowa_close(iowa_context_t contextP)
     CRIT_SECTION_ENTER(contextP);
 
 #ifdef LWM2M_CLIENT_MODE
-    // Prevent the LwM2M stack from updating the registration
     contextP->lwm2mContextP->state = STATE_INITIAL;
 
     objectDeviceClose(contextP);
     objectSecurityClose(contextP);
     objectServerClose(contextP);
-#endif // LWM2M_CLIENT_MODE
+#endif
 
 #if defined(LWM2M_CLIENT_MODE) || defined(LWM2M_SERVER_MODE) || defined(LWM2M_BOOTSTRAP_SERVER_MODE)
     lwm2m_close(contextP);
@@ -258,7 +257,7 @@ iowa_status_t iowa_step(iowa_context_t contextP,
         }
 #endif
 
-#endif // LWM2M_CLIENT_MODE
+#endif
 
         CRIT_SECTION_LEAVE(contextP);
 
@@ -324,12 +323,10 @@ iowa_status_t iowa_step(iowa_context_t contextP,
         }
         else if (timeout == 0)
         {
-            // immediate
             remainingTime = 0;
         }
         else
         {
-            // infinite
             remainingTime = 1;
         }
     } while (remainingTime > 0);
@@ -380,7 +377,6 @@ iowa_status_t iowa_flush_before_pause(iowa_context_t contextP,
     }
 #endif
 
-    // Add some time for resuming
     duration += PAUSE_TIME_BUFFER;
     if (duration < PAUSE_TIME_BUFFER)
     {
@@ -391,7 +387,6 @@ iowa_status_t iowa_flush_before_pause(iowa_context_t contextP,
     CRIT_SECTION_ENTER(contextP);
 
 #ifdef LWM2M_CLIENT_MODE
-    // Check the duration is inferior to all registered servers lifetime
     for (targetP = contextP->lwm2mContextP->serverList; targetP != NULL; targetP = targetP->next)
     {
         if (targetP->runtime.status == STATE_REG_REGISTERED)
@@ -426,7 +421,6 @@ iowa_status_t iowa_flush_before_pause(iowa_context_t contextP,
     contextP->currentTime = currentTime;
 
 #ifdef LWM2M_CLIENT_MODE
-    // Check if we need to send a registration update before pausing
     for (targetP = contextP->lwm2mContextP->serverList; targetP != NULL; targetP = targetP->next)
     {
         if (targetP->runtime.status == STATE_REG_REGISTERED)

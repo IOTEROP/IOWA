@@ -44,7 +44,7 @@ iowa_status_t objectSecurityInit(iowa_context_t contextP)
 
     IOWA_LOG_INFO(IOWA_PART_OBJECT, "Init security object");
 
-    // Get the resources list
+
     currentPt = 0;
 
     SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SECURITY, URI, resources, currentPt);
@@ -58,7 +58,7 @@ iowa_status_t objectSecurityInit(iowa_context_t contextP)
     SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SECURITY, HOLD_OFF, resources, currentPt);
     SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SECURITY, BOOTSTRAP_TIMEOUT, resources, currentPt);
 
-    // Inform the stack
+
     result = customObjectAdd(contextP,
                              IOWA_LWM2M_SECURITY_OBJECT_ID,
                              OBJECT_MULTIPLE,
@@ -98,7 +98,7 @@ iowa_status_t objectSecurityRemove(iowa_context_t contextP,
 
     IOWA_LOG_ARG_INFO(IOWA_PART_OBJECT, "Removing security object (instance: %d)", id);
 
-    // There is no need to check the parameter 'id' since the information is obtained from the lwm2m_server_t structure
+
     result = objectRemoveInstance(contextP,
                                   IOWA_LWM2M_SECURITY_OBJECT_ID,
                                   id);
@@ -110,7 +110,7 @@ iowa_status_t objectSecurityRemove(iowa_context_t contextP,
 
 iowa_status_t objectSecurityClose(iowa_context_t contextP)
 {
-    // WARNING: This function is called in a critical section
+
     iowa_status_t result;
 
     IOWA_LOG_INFO(IOWA_PART_OBJECT, "Closing security object");

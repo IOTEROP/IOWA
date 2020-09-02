@@ -123,4 +123,4 @@ void tinydtlsDisconnect(iowa_security_session_t securityS);
 int tinydtlsSend(iowa_security_session_t securityS, uint8_t *buffer, size_t length);
 int tinydtlsRecv(iowa_security_session_t securityS, uint8_t *buffer, size_t length);
 
-#endif // _IOWA_SECURITY_INTERNALS_INCLUDE_
+#endif

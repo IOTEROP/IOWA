@@ -26,12 +26,6 @@
 ** Private functions
 *************************************************************************************/
 
-// Use Insertion Algorithm to sort iowa_lwm2m_data_t
-// Returned value: None.
-// Parameters:
-// - dataCount: data Array size.
-// - dataArrayP: data to sort.
-// - level: level to sort data.
 static void prv_dataInsertionSortSmallToLarge(size_t dataCount,
                                               iowa_lwm2m_data_t *dataArrayP)
 {
@@ -108,14 +102,12 @@ iowa_status_t dataLwm2mSerialize(iowa_lwm2m_uri_t *baseUriP,
     *bufferP = NULL;
     *bufferLengthP = 0;
 
-    // Check arguments
     if (dataCount == 0)
     {
         IOWA_LOG_INFO(IOWA_PART_DATA, "No data to serialize. Exiting.");
         return IOWA_COAP_NO_ERROR;
     }
 
-    // Check content format
     switch (*contentFormatP)
     {
     case IOWA_CONTENT_FORMAT_TEXT:
@@ -145,11 +137,9 @@ iowa_status_t dataLwm2mSerialize(iowa_lwm2m_uri_t *baseUriP,
         IOWA_LOG_ARG_WARNING(IOWA_PART_DATA, "New content format: %s.", STR_MEDIA_TYPE(*contentFormatP));
     }
 
-    // Check the data
     sortedDataP = dataP;
     sortedDataCount = dataCount;
 
-    // Serialize the data
     switch (*contentFormatP)
     {
     case IOWA_CONTENT_FORMAT_TEXT:
@@ -168,7 +158,6 @@ iowa_status_t dataLwm2mSerialize(iowa_lwm2m_uri_t *baseUriP,
 #endif
 
     default:
-        // Should not happen
         result = IOWA_COAP_400_BAD_REQUEST;
     }
 

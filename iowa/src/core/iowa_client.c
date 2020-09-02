@@ -43,10 +43,8 @@
 static iowa_status_t prv_sendHearbeat(iowa_context_t contextP,
                                       lwm2m_server_t *targetP)
 {
-    // WARNING: This function is called in a critical section
-    iowa_status_t result;
 
-    // targetP cannot be nil.
+    iowa_status_t result;
 
     if (targetP->runtime.peerP == NULL)
     {
@@ -68,13 +66,13 @@ static iowa_status_t prv_sendHearbeat(iowa_context_t contextP,
     return result;
 }
 
-// Check CoAP URI with security mode and obtain binding if wanted.
-// Returned value: IOWA_COAP_NO_ERROR if CoAP URI is valid or an error status.
-// Parameters:
-// - uri: IN. the CoAP URI to check.
-// - securityMode: IN. security mode.
-// - bindingP: INOUT. Binding set in uri. If nil, not set.
-// - typeP: INOUT. Connection type set in uri. If nil, not set.
+
+
+
+
+
+
+
 static iowa_status_t prv_checkCoAPUri(const char *uri,
                                       iowa_security_mode_t securityMode,
                                       lwm2m_binding_t *bindingP,
@@ -157,7 +155,7 @@ static iowa_status_t prv_checkSecurityModeFromParameters(iowa_security_mode_t se
 void clientNotificationLock(iowa_context_t contextP,
                             bool enter)
 {
-    // WARNING: This function is called in a critical section
+
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Notification lock: %s", (enter==true)?"true":"false");
 
     if (enter == true)
@@ -173,13 +171,12 @@ void clientNotificationLock(iowa_context_t contextP,
 iowa_status_t clientAddServer(iowa_context_t contextP,
                               lwm2m_server_t *serverP)
 {
-    // WARNING: This function is called in a critical section
+
     iowa_status_t result;
     lwm2m_server_t *nodeP;
 
     IOWA_LOG_TRACE(IOWA_PART_LWM2M, "Entering");
 
-    // Find free Security Object instance ID and Server Object instance ID
     nodeP = contextP->lwm2mContextP->serverList;
     while (nodeP != NULL)
     {
@@ -209,7 +206,6 @@ iowa_status_t clientAddServer(iowa_context_t contextP,
         }
     }
 
-    // Create the objects
     result = objectSecurityCreate(contextP, serverP->secObjInstId);
     if (result != IOWA_COAP_NO_ERROR)
     {
@@ -232,7 +228,7 @@ iowa_status_t clientAddServer(iowa_context_t contextP,
 iowa_status_t clientRemoveServer(iowa_context_t contextP,
                                  lwm2m_server_t *serverP)
 {
-    // WARNING: This function is called in a critical section
+
     iowa_status_t result;
 
     IOWA_LOG_TRACE(IOWA_PART_LWM2M, "Entering");
@@ -247,7 +243,7 @@ iowa_status_t clientRemoveServer(iowa_context_t contextP,
     {
         result = objectServerRemove(contextP, serverP->srvObjInstId);
         if (result != IOWA_COAP_NO_ERROR
-            && result != IOWA_COAP_412_PRECONDITION_FAILED) // Error 4.12 happens when the server currently removed was the only one configured
+            && result != IOWA_COAP_412_PRECONDITION_FAILED)
         {
             IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to remove the object Server");
             return result;
@@ -261,7 +257,7 @@ iowa_status_t clientRemoveServer(iowa_context_t contextP,
 
 uint32_t clientGetMaxDelayOperation(iowa_context_t contextP)
 {
-    // WARNING: This function is called in a critical section
+
     lwm2m_server_t *serverP;
     uint32_t delay;
 
@@ -407,7 +403,6 @@ iowa_status_t iowa_client_add_server(iowa_context_t contextP,
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Adding LwM2M Server to the client. short ID: %u, URI: \"%s\", lifetime: %us, flags: %X, security mode: %d.", shortId, uri, lifetime, configFlags, securityMode);
 
 #ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
-    // Check arguments
     if (shortId == LWM2M_RESERVED_FIRST_ID
         || shortId == IOWA_LWM2M_ID_ALL)
     {
@@ -421,7 +416,6 @@ iowa_status_t iowa_client_add_server(iowa_context_t contextP,
     }
 #endif
 
-    // Check URI and Get binding
     binding = 0;
     result = prv_checkCoAPUri(uri, securityMode, &binding, &type);
     if (result != IOWA_COAP_NO_ERROR)
@@ -449,7 +443,6 @@ iowa_status_t iowa_client_add_server(iowa_context_t contextP,
         return IOWA_COAP_403_FORBIDDEN;
     }
 
-    // Create the server structure
     targetP = (lwm2m_server_t *)iowa_system_malloc(sizeof(lwm2m_server_t));
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
     if (targetP == NULL)
@@ -552,7 +545,6 @@ iowa_status_t iowa_client_set_server_registration_behaviour(iowa_context_t conte
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Setting the registration behaviour for Server ID %u. priorityOrder: %u, initialDelayTimer: %d, blockOnFailure: %d, bootstrapOnFailure: %d.", shortId, priorityOrder, initialDelayTimer, blockOnFailure, bootstrapOnFailure);
 
 #ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
-    // Check arguments
     if (shortId == LWM2M_RESERVED_FIRST_ID
         || shortId == IOWA_LWM2M_ID_ALL)
     {
@@ -597,7 +589,7 @@ iowa_status_t iowa_client_set_server_registration_behaviour(iowa_context_t conte
 
     return IOWA_COAP_NO_ERROR;
 }
-#endif // IOWA_SERVER_RSC_REGISTRATION_BEHAVIOUR_REMOVE
+#endif
 
 #ifndef IOWA_SERVER_RSC_COMMUNICATION_ATTEMPTS_REMOVE
 iowa_status_t iowa_client_set_server_communication_attempts(iowa_context_t contextP,
@@ -612,7 +604,6 @@ iowa_status_t iowa_client_set_server_communication_attempts(iowa_context_t conte
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Setting the communication attempts for Server ID %u. retryCount: %u, retryDelayTimer: %u, sequenceRetryCount: %u, sequenceDelayTimer: %u.", shortId, retryCount, retryDelayTimer, sequenceRetryCount, sequenceDelayTimer);
 
 #ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
-    // Check arguments
     if (shortId == LWM2M_RESERVED_FIRST_ID
         || shortId == IOWA_LWM2M_ID_ALL)
     {
@@ -667,7 +658,7 @@ iowa_status_t iowa_client_set_server_communication_attempts(iowa_context_t conte
 
     return IOWA_COAP_NO_ERROR;
 }
-#endif // IOWA_SERVER_RSC_COMMUNICATION_ATTEMPTS_REMOVE
+#endif
 
 iowa_status_t iowa_client_remove_server(iowa_context_t contextP,
                                         uint16_t shortId)
@@ -756,7 +747,6 @@ iowa_status_t iowa_client_set_notification_default_periods(iowa_context_t contex
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Server short ID %u, minPeriod: %us, maxPeriod: %us.", shortId, minPeriod, maxPeriod);
 
 #ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
-    // Check arguments
     if (shortId == LWM2M_RESERVED_FIRST_ID)
     {
         IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Short ID zero is reserved.");
@@ -825,7 +815,6 @@ iowa_status_t iowa_client_use_reliable_notifications(iowa_context_t contextP,
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Server Short ID %u, enable: %s", shortId, enable?"true":"false");
 
 #ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
-    // Check arguments
     if (shortId == LWM2M_RESERVED_FIRST_ID)
     {
         IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Short ID must not be equal to zero.");
@@ -888,7 +877,6 @@ iowa_status_t iowa_client_add_custom_object(iowa_context_t contextP,
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Object ID : %u, instanceCount : %u, resourceCount : %u", objectID, instanceCount, resourceCount);
 
 #ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
-    // Check arguments
     switch (objectID)
     {
     case IOWA_LWM2M_SECURITY_OBJECT_ID:
@@ -1010,7 +998,6 @@ iowa_status_t iowa_client_remove_custom_object(iowa_context_t contextP,
     IOWA_LOG_INFO(IOWA_PART_LWM2M, "Entering");
 
 #ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
-    // Check arguments
     switch (objectID)
     {
     case IOWA_LWM2M_SECURITY_OBJECT_ID:
@@ -1045,7 +1032,6 @@ iowa_status_t iowa_client_object_resource_changed(iowa_context_t contextP,
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "objectID: %u, instanceID: %u, resourceID: %u", objectID, instanceID, resourceID);
 
 #ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
-    // Check arguments
     switch (objectID)
     {
     case IOWA_LWM2M_SECURITY_OBJECT_ID:
@@ -1151,7 +1137,6 @@ iowa_status_t iowa_client_send_heartbeat(iowa_context_t contextP,
 
     if (shortId == IOWA_LWM2M_ID_ALL)
     {
-        // Send heartbeat to all servers
         result = IOWA_COAP_412_PRECONDITION_FAILED;
 
         for (targetP = contextP->lwm2mContextP->serverList; targetP != NULL; targetP = targetP->next)
@@ -1191,4 +1176,4 @@ iowa_status_t iowa_client_send_heartbeat(iowa_context_t contextP,
     return result;
 }
 
-#endif // LWM2M_CLIENT_MODE
+#endif

@@ -27,9 +27,9 @@
  * and Eclipse Distribution License v1.0 which accompany this distribution.
  *
  * The Eclipse Public License is available at
- *    http://www.eclipse.org/legal/epl-v10.html
+ *    http:
  * The Eclipse Distribution License is available at
- *    http://www.eclipse.org/org/documents/edl-v10.php.
+ *    http:
  *
  * Contributors:
  *    David Navarro, Intel Corporation - initial API and implementation
@@ -78,7 +78,6 @@ void dm_handleRequest(iowa_context_t contextP,
                       lwm2m_server_t *serverP,
                       iowa_coap_message_t *messageP)
 {
-    // WARNING: This function is called in a critical section
     iowa_content_format_t responseFormat;
     iowa_content_format_t requestFormat;
     iowa_coap_option_t *optionP;
@@ -123,7 +122,6 @@ void dm_handleRequest(iowa_context_t contextP,
     dataCount = 0;
     optionObserveP = iowa_coap_message_find_option(messageP, IOWA_COAP_OPTION_OBSERVE);
 
-    // Get the request message format
     requestFormat = utils_getMediaType(messageP, IOWA_COAP_OPTION_CONTENT_FORMAT);
     switch (requestFormat)
     {
@@ -158,7 +156,6 @@ void dm_handleRequest(iowa_context_t contextP,
             goto error;
         }
 
-        // Check the possible format for the response
         responseFormat = utils_getMediaType(messageP, IOWA_COAP_OPTION_ACCEPT);
 
         if (responseFormat == LWM2M_CONTENT_FORMAT_CORE_LINK)
@@ -217,7 +214,7 @@ void dm_handleRequest(iowa_context_t contextP,
                     {
                         object_free(contextP, dataCount, dataP);
                         iowa_system_free(dataP);
-                        dataP = NULL; // Set pointer to NULL to prevent calling dataLwm2mFree at the end of the function
+                        dataP = NULL;
                     }
                 }
             }
@@ -269,7 +266,7 @@ void dm_handleRequest(iowa_context_t contextP,
 
 #if defined(LWM2M_SUPPORT_TLV) || defined(LWM2M_SUPPORT_JSON)
             addLocationPath = (dataP[0].instanceID == IOWA_LWM2M_ID_ALL);
-#endif // LWM2M_SUPPORT_TLV || LWM2M_SUPPORT_JSON
+#endif
 
             result = object_create(contextP, serverP->shortId, dataCount, dataP);
             if (result == IOWA_COAP_201_CREATED)
@@ -277,7 +274,6 @@ void dm_handleRequest(iowa_context_t contextP,
 #if defined(LWM2M_SUPPORT_TLV) || defined(LWM2M_SUPPORT_JSON)
                 if (addLocationPath == true)
                 {
-                    // Here, "uriP->instanceId" is equal to IOWA_LWM2M_ID_ALL. So, override the ID with the newly created Instance ID
                     uriP->instanceId = dataP[0].instanceID;
 
                     responseP->optionList = uri_encode(IOWA_COAP_OPTION_LOCATION_PATH, uriP, uriBufferP);
@@ -288,7 +284,7 @@ void dm_handleRequest(iowa_context_t contextP,
                         break;
                     }
                 }
-#endif // LWM2M_SUPPORT_TLV || LWM2M_SUPPORT_JSON
+#endif
 
                 lwm2mUpdateRegistration(contextP, NULL, LWM2M_UPDATE_FLAG_OBJECTS);
             }
@@ -409,8 +405,6 @@ error:
 
             if (IOWA_COAP_413_REQUEST_ENTITY_TOO_LARGE == coapSend(contextP, serverP->runtime.peerP, responseP, NULL, NULL))
             {
-                // an error message was sent back to the LwM2M Server
-                // if the request was an Observation, remove it.
                 optionP = iowa_coap_message_find_option(messageP, IOWA_COAP_OPTION_OBSERVE);
 
                 if (result == IOWA_COAP_205_CONTENT
@@ -419,9 +413,7 @@ error:
                 {
                     lwm2m_observed_t *observedP;
 
-                    // Memorize previous observe
                     observedP = serverP->runtime.observedList->next;
-                    // Delete last observe
                     observe_delete(serverP->runtime.observedList);
                     serverP->runtime.observedList = observedP;
                 }

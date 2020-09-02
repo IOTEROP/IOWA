@@ -36,7 +36,6 @@ static bool prv_removeExchange(iowa_coap_peer_t *peerP,
 {
     bool found;
 
-    // Remove the exchange from the list if it is still here
     found = false;
 
     if (peerP->base.exchangeList == exchangeP)
@@ -97,7 +96,7 @@ static uint8_t prv_send(iowa_context_t contextP,
                         coap_message_callback_t resultCallback,
                         void *userData)
 {
-    // WARNING: This function is called in a critical section
+
     uint8_t result;
 
 #if !defined(IOWA_UDP_SUPPORT) && !defined(IOWA_LORAWAN_SUPPORT) && !defined(IOWA_SMS_SUPPORT)
@@ -139,7 +138,7 @@ static uint8_t prv_send(iowa_context_t contextP,
     case IOWA_CONN_DATAGRAM:
         result = messageSendUDP(contextP, peerP, messageP, resultCallback, userData);
         break;
-#endif // IOWA_UDP_SUPPORT
+#endif
 
     default:
         IOWA_LOG_ARG_ERROR(IOWA_PART_COAP, "Unsupported connection type: %d.", peerP->base.type);
@@ -276,7 +275,6 @@ iowa_coap_peer_t *coapPeerCreate(iowa_context_t contextP,
 #endif
 
     default:
-        // Should not happen
         securityEventCallback = NULL;
         break;
     }
@@ -309,7 +307,7 @@ iowa_coap_peer_t *coapPeerCreate(iowa_context_t contextP,
 
     return peerP;
 }
-#endif // IOWA_COAP_CLIENT_MODE
+#endif
 
 void coapPeerDelete(iowa_context_t contextP,
                     iowa_coap_peer_t *peerP)
@@ -321,7 +319,6 @@ void coapPeerDelete(iowa_context_t contextP,
     {
         iowa_connection_type_t savedType;
 
-        // Mark the peer has being deleted in case a transaction callback would delete the peer.
         savedType = peerP->base.type;
         peerP->base.type = IOWA_CONN_UNDEFINED;
 
@@ -426,7 +423,7 @@ uint8_t peerSend(iowa_context_t contextP,
                  coap_message_callback_t resultCallback,
                  void *userData)
 {
-    // WARNING: This function is called in a critical section
+
     uint8_t result;
     coap_exchange_t *exchangeP;
     coap_message_callback_t intermediateCallback;
@@ -470,7 +467,6 @@ uint8_t peerSend(iowa_context_t contextP,
         if (exchangeP != NULL
             && messageP->type == IOWA_COAP_TYPE_CONFIRMABLE)
         {
-            // We need to intercept the result from the transport for separate response or reliable transport
             intermediateCallback = prv_datagramSendResult;
             intermediateUserdata = exchangeP;
         }
@@ -487,13 +483,11 @@ uint8_t peerSend(iowa_context_t contextP,
     {
         if (exchangeP != NULL)
         {
-            // Send was successful, enqueue the exchange
             peerP->base.exchangeList = (coap_exchange_t *)IOWA_UTILS_LIST_ADD(peerP->base.exchangeList, exchangeP);
         }
     }
     else
     {
-        // an error occurred, free the exchange
         prv_freeExchange(exchangeP);
     }
 
@@ -527,7 +521,7 @@ int peerSendBuffer(iowa_context_t contextP,
                    uint8_t *buffer,
                    size_t bufferLength)
 {
-    // WARNING: This function is called in a critical section
+
     return securitySend(contextP, peerP->base.securityS, buffer, bufferLength);
 }
 
@@ -541,7 +535,6 @@ int peerRecvBuffer(iowa_context_t contextP,
 
 int32_t coapPeerGetMaxTxWait(iowa_coap_peer_t *peerP)
 {
-    // peerP->transmitWait is contained inside a uint16_t. And thus, by definition, UINT16_MAX (65535) can be stored inside a int32_t
     switch (peerP->base.type)
     {
 #ifdef IOWA_UDP_SUPPORT
@@ -562,7 +555,7 @@ void peerHandleMessage(iowa_context_t contextP,
                        bool truncated,
                        size_t maxPayloadSize)
 {
-    // WARNING: This function is called in a critical section
+
     uint8_t code;
 
     IOWA_LOG_ARG_INFO(IOWA_PART_COAP, "peerP: %p, truncated: %s, maxPayloadSize: %u.", peerP, truncated ? "true" : "false", maxPayloadSize);
@@ -584,7 +577,6 @@ void peerHandleMessage(iowa_context_t contextP,
         && code == IOWA_COAP_CODE_EMPTY
         && messageP->type == IOWA_COAP_TYPE_ACKNOWLEDGEMENT)
     {
-        // ignore
         goto exit;
     }
 #endif
@@ -634,7 +626,6 @@ void peerHandleMessage(iowa_context_t contextP,
     }
     else if (truncated == true)
     {
-        // This is a request too big for our MTU
         iowa_coap_message_t *responseP;
 
         responseP = iowa_coap_message_prepare_response(messageP, IOWA_COAP_413_REQUEST_ENTITY_TOO_LARGE);
@@ -654,7 +645,6 @@ void peerHandleMessage(iowa_context_t contextP,
 
     IOWA_LOG_INFO(IOWA_PART_COAP, "No matching exchange found.");
 
-    // Either this is request or no matching exchange was found
     if (peerP->base.requestCallback != NULL)
     {
         peerP->base.requestCallback(peerP, code, messageP, peerP->base.userData, contextP);
@@ -673,7 +663,6 @@ void coapPeerGenerateToken(iowa_coap_peer_t *peerP,
     uint8_t newToken[COAP_MSG_TOKEN_MAX_LEN];
     coap_exchange_t *exchangeP;
 
-    // generate some number
     curTime = iowa_system_gettime();
     curTime = (curTime * (size_t)peerP) + curTime;
     memcpy(newToken, &curTime, 4);
@@ -681,7 +670,6 @@ void coapPeerGenerateToken(iowa_coap_peer_t *peerP,
     curTime = (curTime * (size_t)tokenP) + curTime;
     memcpy(newToken + 4, &curTime, 4);
 
-    // check it is not already in use
     i = 0;
     exchangeP = peerP->base.exchangeList;
     while (exchangeP != NULL)
@@ -691,14 +679,12 @@ void coapPeerGenerateToken(iowa_coap_peer_t *peerP,
         {
             uint8_t temp;
 
-            // change the token
             i++;
             i = i % COAP_MSG_TOKEN_MAX_LEN;
             temp = newToken[length - 1];
             newToken[length - 1] = newToken[i] + 1;
             newToken[i] = temp;
 
-            // retest
             exchangeP = peerP->base.exchangeList;
         }
         else

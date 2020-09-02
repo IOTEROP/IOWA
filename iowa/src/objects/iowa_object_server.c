@@ -101,12 +101,12 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
                 break;
 
             case IOWA_LWM2M_SERVER_ID_BINDING:
-                // In LwM2M 1.0: Server transports + Server Queue mode
+
                 dataP[i].value.asBuffer.length = utils_bindingToString(targetP->binding, (targetP->binding & BINDING_Q) != 0, &dataP[i].value.asBuffer.buffer);
                 break;
 
             default:
-                // Should not happen
+
                 break;
             }
         }
@@ -122,7 +122,7 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
                 break;
 
             default:
-                // Do nothing
+
                 break;
             }
         }
@@ -226,7 +226,7 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
                 break;
 
             default:
-                // Should not happen
+
                 break;
             }
         }
@@ -237,7 +237,7 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
         {
             if (dataP[i].type != IOWA_LWM2M_TYPE_UNDEFINED)
             {
-                // dataP[i].type can only be IOWA_LWM2M_TYPE_UNDEFINED or IOWA_LWM2M_TYPE_STRING with an Execute operation
+
                 IOWA_LOG_ARG_WARNING(IOWA_PART_OBJECT, "No argument should be provided. Found: \"%.*s\".", dataP[i].value.asBuffer.length, dataP[i].value.asBuffer.buffer);
                 result = IOWA_COAP_400_BAD_REQUEST;
                 break;
@@ -289,7 +289,7 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
 #endif
 
             default:
-                // Should not happen
+
                 break;
             }
         }
@@ -332,7 +332,7 @@ iowa_status_t objectServerInit(iowa_context_t contextP)
 
     IOWA_LOG_INFO(IOWA_PART_OBJECT, "Entering");
 
-    // Get the resource list
+
     currentPt = 0;
 
     SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SERVER, SHORT_ID, resources, currentPt);
@@ -361,7 +361,7 @@ iowa_status_t objectServerInit(iowa_context_t contextP)
     SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SERVER, COMM_SEQUENCE_COUNT, resources, currentPt);
 #endif
 
-    // Inform the stack
+
     result = customObjectAdd(contextP,
                              IOWA_LWM2M_SERVER_OBJECT_ID,
                              OBJECT_MULTIPLE,
@@ -403,7 +403,7 @@ iowa_status_t objectServerRemove(iowa_context_t contextP,
 
     IOWA_LOG_ARG_INFO(IOWA_PART_OBJECT, "Removing server object (instance: %d)", id);
 
-    // There is no need to check the parameter 'id' since the information is obtained from the lwm2m_server_t structure
+
     result = objectRemoveInstance(contextP,
                                   IOWA_LWM2M_SERVER_OBJECT_ID,
                                   id);
@@ -415,7 +415,7 @@ iowa_status_t objectServerRemove(iowa_context_t contextP,
 
 iowa_status_t objectServerClose(iowa_context_t contextP)
 {
-    // WARNING: This function is called in a critical section
+
     iowa_status_t result;
 
     IOWA_LOG_INFO(IOWA_PART_OBJECT, "Closing server object");
