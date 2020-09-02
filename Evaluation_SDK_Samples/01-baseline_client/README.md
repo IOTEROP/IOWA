@@ -31,11 +31,11 @@ It then registers to the LwM2M Server. You should see it in the "Clients List" o
 
 ![Client registered](../../.images/baseline_client.jpg)
 
->  We are using IoTerop's [Connecticut test server](https://iowa-server.ioterop.com/device). The procedures are similar using other Servers.
+>  We are using IoTerop's [CONNECTicut](https://iowa-server.ioterop.com/) testing server.. The procedures are similar using other Servers.
 
 Two LwM2M Objects are visible to the LwM2M Server: the Server Object (ID: 1) configuring parameters associated to the LwM2M Server, and the Device Object (ID: 3) describing the device.
 
-From Here, you can perform Discover, Read, and Write-Attributes operations, or set Observations on the Objects, Object Instances, and Resources. You can perform Write operations on some of the Server Object's Resources.
+From here, you can perform Discover, Read, and Write-Attributes operations, or set Observations on the Objects, Object Instances, and Resources. You can perform Write operations on some of the Server Object's Resources.
 
 You can also perform an Execute operation on the Reboot Resource of the Device Object (URI: /3/0/4). Note that will make *baseline_client* exit.
 
@@ -126,7 +126,7 @@ The first argument is the IOWA context created in the first step.
 
 The second argument is an numeric identifier of the LwM2M Server. This identifier is named "Short Server ID" in the LwM2M protocol. Other IOWA APIs use this identifier to reference the LwM2M Server.
 
-The third argument is the LwM2M Server URI. By default this sample Client connects to IoTerop's [Connecticut test server](https://iowa-server.ioterop.com/device). You can change the URI to point to other LwM2M Servers like the Eclipse's [Leshan test server sandbox](https://leshan.eclipseprojects.io/#/clients), or a locally deployed LwM2M Server.
+The third argument is the LwM2M Server URI.  By default the baseline Client has been configured to use IoTerop's [CONNECTicut](https://iowa-server.ioterop.com/) testing server. You can change the URI to point to other LwM2M Servers like the Eclipse's [Leshan test server sandbox](https://leshan.eclipseprojects.io/#/clients), or a locally deployed LwM2M Server.
 
 The fourth argument is the registration lifetime in seconds. The LwM2M lifetime is the validity period of a LwM2M Client registration to the LwM2M Server. When this lifetime expires, the Server considers the Client as unreachable. Regularly, the Client sends Registration Update messages to the Server to renew its registration validity period.
 
