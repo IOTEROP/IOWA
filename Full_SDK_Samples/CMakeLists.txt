@@ -9,4 +9,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(IOWA_Full_SDK_samples C)
 
-# The list of samples.
+# The list of samples.a
+
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/01-multithread_IPSO_client)
+

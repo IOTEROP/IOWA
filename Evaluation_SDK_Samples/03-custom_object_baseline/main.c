@@ -12,14 +12,13 @@
 
 /**************************************************
  *
- * This is a very simple LwM2M Client featuring an
- * IPSO Temperature sensor.
+ * This is a very simple LwM2M Client featuring a
+ * custom LwM2M Object.
  *
  **************************************************/
 
 // IOWA headers
 #include "iowa_client.h"
-#include "iowa_ipso.h"
 
 // Platform specific headers
 #include <stdio.h>
@@ -27,15 +26,12 @@
 #include <string.h>
 #ifdef _WIN32
 #include <windows.h>
-#include <strsafe.h>
 #else
 #include <unistd.h>
-#include <pthread.h>
 #endif
 
-// global variables
-static iowa_context_t iowaH = NULL;
-static iowa_sensor_t sensorId = IOWA_INVALID_SENSOR_ID;
+// Header file containing the definition of the sample custom Object
+#include "sample_object.h"
 
 // LwM2M Server details
 #define SERVER_SHORT_ID 1234
@@ -60,77 +56,26 @@ static void prv_generate_unique_name(char *name)
     id = gethostid();
 #endif
 
-    sprintf(name, "IOWA_simple_client_%ld", id);
-}
-
-// A simulated measure task launched in a separate thread
-#ifdef _WIN32
-DWORD WINAPI measure_routine(LPVOID arg)
-#else
-void * measure_routine(void *arg)
-#endif
-{
-    int i;
-    iowa_status_t result;
-
-    i = 0;
-    do
-    {
-#ifdef _WIN32
-        Sleep(3000);
-#else
-        usleep(3000000);
-#endif
-
-        result = iowa_client_IPSO_update_value(iowaH, sensorId, 20 + i%4);
-
-        i++;
-    } while (i < 40 && result == IOWA_COAP_NO_ERROR);
-
-    iowa_stop(iowaH);
-
-#ifdef _WIN32
-    return 0;
-#else
-    return NULL;
-#endif
+    sprintf(name, "IOWA_sample_client_%ld", id);
 }
 
 int main(int argc,
          char *argv[])
 {
+    iowa_context_t iowaH;
     iowa_status_t result;
     char endpoint_name[64];
     iowa_device_info_t devInfo;
-#ifdef _WIN32
-    DWORD  threadId;
-    HANDLE thread;
-    HANDLE mutex;
-#else
-    pthread_t thread;
-    pthread_attr_t attr;
-    pthread_mutex_t mutex;
-#endif
+    iowa_lwm2m_resource_desc_t sample_object_resources[SAMPLE_RES_COUNT] = SAMPLE_RES_DESCRIPTION;
+    sample_object_values_t objectValues;
 
     (void)argc;
     (void)argv;
 
-    printf("This a multithreaded LwM2M Client featuring an IPSO Temperature Object.\r\n\n");
+    printf("This a simple LwM2M Client featuring an IPSO Temperature Object.\r\n\n");
 
-    // Create a mutex for the iowa_system_mutex_* functions
-#ifdef _WIN32
-    mutex = CreateMutex(NULL, FALSE, NULL);
-    if (mutex == NULL)
-#else
-    if (pthread_mutex_init(&mutex, NULL) != 0)
-#endif
-    {
-        fprintf(stderr, "Mutex creation failed.\r\n");
-        return 1;
-    }
-
-    // Initialize the IOWA stack using the mutex as the system abstraction functions user data.
-    iowaH = iowa_init(&mutex);
+    // Initialize the IOWA stack.
+    iowaH = iowa_init(NULL);
     if (iowaH == NULL)
     {
         fprintf(stderr, "IOWA context initialization failed.\r\n");
@@ -145,7 +90,7 @@ int main(int argc,
     memset(&devInfo, 0, sizeof(iowa_device_info_t));
     devInfo.manufacturer = "https://ioterop.com";
     devInfo.deviceType = "IOWA sample from https://github.com/IOTEROP/IOWA-Samples";
-    devInfo.modelNumber = "multithread_IPSO_client";
+    devInfo.modelNumber = "custom_single_object_client";
 
     // Configure the LwM2M Client
     result = iowa_client_configure(iowaH, endpoint_name, &devInfo, NULL);
@@ -155,11 +100,23 @@ int main(int argc,
         goto cleanup;
     }
 
-    // Add an IPSO Temperature Object
-    result = iowa_client_IPSO_add_sensor(iowaH, IOWA_IPSO_TEMPERATURE, 20, "Cel", "Test Temperature", -20.0, 50.0, &sensorId);
+    // Create of a custom object with a single instance and 3 resources
+    // Actual values are stored in a struct sample_object_values_t
+    objectValues.booleanValue = true;
+    objectValues.integerValue = 10;
+    objectValues.stringValue = NULL;
+
+    result = iowa_client_add_custom_object(iowaH,
+                                           SAMPLE_OBJECT_ID,                            // The ID of our custom object
+                                           0, NULL,                                     // This is a single instance object
+                                           SAMPLE_RES_COUNT, sample_object_resources,   // the object's resources description
+                                           sample_object_dataCallback,                  // the callback to handle operations on Resources
+                                           NULL,                                        // the server can not create new instances
+                                           NULL,                                        // there are no multiple instances Resources
+                                           &objectValues);                              // to access our values from the callback
     if (result != IOWA_COAP_NO_ERROR)
     {
-        fprintf(stderr, "Adding the temperature sensor failed (%u.%02u).\r\n", (result & 0xFF) >> 5, (result & 0x1F));
+        fprintf(stderr, "Adding a custom object failed (%u.%02u).\r\n", (result & 0xFF) >> 5, (result & 0x1F));
         goto cleanup;
     }
 
@@ -171,46 +128,18 @@ int main(int argc,
         goto cleanup;
     }
 
-    // Start a thread for the measure task
-#ifdef _WIN32
-    thread = CreateThread(NULL, 0, measure_routine, NULL, 0, &threadId);
-    if (thread == NULL)
-#else
-    pthread_attr_init(&attr);
-    pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
-    if (pthread_create(&thread, &attr, measure_routine, NULL) != 0)
-#endif
-    {
-        fprintf(stderr, "Thread creation failed.");
-    }
-#ifndef _WIN32
-    pthread_attr_destroy(&attr);
-#endif
-
     printf("Registering to the LwM2M server at \"" SERVER_URI "\" under the Endpoint name \"%s\".\r\nUse Ctrl-C to stop.\r\n\n", endpoint_name);
 
-    // Let IOWA run indefinitely, the measure routine will stop it.
-    result = iowa_step(iowaH, -1);
-
-    // Application specific: wait for the measure thread to finish
-#ifdef _WIN32
-    WaitForSingleObject(thread, INFINITE);
-#else
-    (void)pthread_join(thread, NULL);
-#endif
-
+    // Let IOWA run for two minutes
+    result = iowa_step(iowaH, 120);
 
 cleanup:
-    iowa_client_IPSO_remove_sensor(iowaH, sensorId);
+    iowa_client_remove_custom_object(iowaH, SAMPLE_OBJECT_ID);
     iowa_client_remove_server(iowaH, SERVER_SHORT_ID);
     iowa_close(iowaH);
 
-    // Close the mutex
-#ifdef _WIN32
-    CloseHandle(mutex);
-#else
-    pthread_mutex_destroy(&mutex);
-#endif
+    // free our string value in case the LwM2M wrote something
+    free(objectValues.stringValue);
 
     return 0;
 }
