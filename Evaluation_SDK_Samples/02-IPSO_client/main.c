@@ -1,9 +1,14 @@
 /**********************************************
-*
-* Copyright (c) 2020 IoTerop.
-* All rights reserved.
-*
-**********************************************/
+ *
+ * Copyright (c) 2016-2020 IoTerop.
+ * All rights reserved.
+ *
+ * This program and the accompanying materials
+ * are made available under the terms of
+ * IoTerop’s IOWA License (LICENSE.TXT) which
+ * accompany this distribution.
+ *
+ **********************************************/
 
 /**************************************************
  *
