@@ -1,70 +1,82 @@
+
+
+![IOWA Logo](.images/iowa_logo.png)
+
 # IOWA Samples
 
 This repository contains sample applications illustrating how to use IOWA.
 
-These samples require the IOWA SDK. This SDK is available from https://ioterop.com/iowa/
+Two kinds of samples depending on your SDK.
 
-## Content
+Evaluation SDK is included in the repo
 
-Each sample has its own README.md providing more details.
+Full SDK is available from https://ioterop.com/iowa/
+
+Warning this is not open source code
+
+Whatever your SDK version, start with the sample 01-baseline_client
+
+Each sample has its own README.md explaining it.
+
+## IOWA Evaluation SDK Samples
 
 ### 01-baseline_client
 
-A minimal LwM2M Client with one LwM2M Server and only the required LwM2M Objects in 4 API calls.
+The baseline to create a working LwM2M Client with IOWA.
+
+### Custom Object Samples
+
+These samples explain how to add custom LwM2M Objects to your LwM2M Client.
+
+#### 04-custom_object_baseline_client
+
+How to add a simple custom LwM2M Object.
+
+#### 05-custom_object_dynamic
+
+How to make the values exposed by the Object dynamic.
+
+> #### custom_object_multiple_instances
+>
+> A LwM2M Object with multiple Instances.
+>
+> #### custom_object_multiple_resources
+>
+> A LwM2M Object containing a multiple Resource.
+
+## IOWA Full SDK Samples
 
 ### 02-IPSO_client
 
-A LwM2M Client with one LwM2M Server, the required LwM2M Objects, and an IPSO temperature sensor Object.
+How to add an IPSO temperature sensor Object.
 
 ### 03-multithread_IPSO_client
 
-A LwM2M Client with one LwM2M Server, the required LwM2M Objects, and an IPSO temperature sensor Object. This sample demonstrate the multithread support.
+This sample demonstrate the multithread support.
 
-### 04-custom_object_client
+> ### Firmware Update Samples
+>
+> #### fwupdate_push_client
+>
+> A LwM2M Client supporting the reception of Firmware Updates in push mode.
+>
+> #### fwupdate_pull_client
+>
+> A LwM2M Client supporting the reception of Firmware Updates in pull mode. This sample demonstrate the CoAP APIs.
 
-A LwM2M Client with one LwM2M Server, the required LwM2M Objects, and a custom LwM2M Object.
 
-### fwupdate_pull_client
 
-A LwM2M Client supporting the reception of Firmware Updates in pull mode. This sample demonstrate the CoAP APIs.
+## Compile Samples
 
-### fwupdate_push_client
-
-A LwM2M Client supporting the reception of Firmware Updates in push mode.
-
-### secure_client
-
-A LwM2M Client using mbedtls to secure the communication with the LwM2M Server.
-
-### 00-abstraction_layer
-
-The system abstraction layer used by the samples.
-
-## Usage
-
-This samples can be used either on Linux or Windows.
-
-### Preparation
-
-First, copy the IOWA SDK to the `iowa` folder.
-
-Alternatively, you can edit the root CMakeLists.txt to indicate the path to the IOWA SDK by modifying the line 12:
-
-```
-set_property(GLOBAL PROPERTY iowa_sdk_folder "PATH_TO_THE_IOWA_SDK")
-```
-
-### Compilation
-
-#### On Linux
+### On Linux
 
 **Prerequisites:** The `cmake` utility, the `make` utility and a C compiler.
 
 Go to the 'samples' folder and type the commands 'cmake .' then 'make'.
 
-#### On Windows
+### On Windows
 
-##### Using Visual Studio Code
+#### Using Visual Studio Code
 
 1. Install the Microsoft C++ compiler as explained here: https://docs.microsoft.com/en-us/cpp/build/building-on-the-command-line?view=vs-2019
    1. Select the "Build Tools for Visual Studio 2019".
@@ -84,7 +96,7 @@ Go to the 'samples' folder and type the commands 'cmake .' then 'make'.
 1. Click on the sample of your choice.
 1. Right-click on the application and select "Run in terminal"
 
-##### Using Visual Studio with C++ support.
+#### Using Visual Studio with C++ support.
 
 Visual Studio version must be at least 2017 for the CMake support.
 
@@ -92,7 +104,5 @@ Visual Studio version must be at least 2017 for the CMake support.
 1. In the "Solution Explorer" windows, right-click on "CMakeList.txt" and choose "Set as Startup Item".
 1. In the Visual Studio menu bar, go to "Build", "Build All"
 
-
-
-
+## Let's Get Programming
 
