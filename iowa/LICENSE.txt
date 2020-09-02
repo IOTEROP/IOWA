@@ -1,0 +1,182 @@
+IOWA - EVALUATION LICENSE
+
+
+1. SUBJECT
+
+By clicking on "I accept the present general conditions of License", the user subscribes with SAS IoTerop an evaluation
+license agreement (hereafter "the License") for internal exploration and prototyping purposes. The following provisions
+define and organize the rights and obligations provided for in the License.
+
+
+2. IMPORTANT INFORMATION ABOUT THE LICENSE
+
+2.1
+The user may test and develop prototypes with the License, but the License may contain only part of the functionality
+of IOWA, be composed of non-finished elements, or be under development which may contain significant errors.
+
+2.2
+Any commercial exploitation of the functionality of IOWA under this License is therefore prohibited.
+
+
+3. RIGHTS AND OBLIGATIONS OF THE USER
+
+3.1
+The Licensee is presumed to be the person downloading and/or first using the License.
+
+3.2
+The user may carry out internal evaluations, explorations, prototyping by IOWA on its own products.
+
+3.3
+The user is granted a non-exclusive, non-transferable license, revocable at any time, which does not transfer any
+ownership rights to the user.
+
+3.4
+The user may not grant sub-licenses or make IOWA available to third parties.
+
+3.5
+The License is granted for a period of 3 months. At the end of this period, it is automatically terminated and the
+User is obliged to destroy the IOWA trial version given to him by IoTerop at the conclusion of the Agreement.
+
+3.6
+At the end of these operations the User provides IoTerop with a sworn statement of this destruction. Any violation of
+this obligation is likely to characterize the offence of counterfeiting provided for and punished by articles L332.2
+and following of the intellectual property code.
+
+3.7
+Any use of IOWA that is not explicitly authorized by the License is prohibited.
+
+3.8
+Any copy of IOWA made for purposes contrary to the provisions of article L122-6-1 of the Intellectual Property Code
+and to the License is prohibited.
+
+3.9
+The evaluation version of IOWA is made available in source code. The User therefore takes care in all circumstances
+not to test IOWA in a configuration likely to affect IoTerop's intellectual property rights, such as, without this
+being exhaustive, association with another source code under open source licenses whose legal provisions would be
+likely to degrade IoTerop's rights, in particular by the effect of legal contamination. The User assumes all the
+consequences - in particular financial - resulting from the violation of this clause.
+
+
+4. RESPECT OF IOTEROP'S PATERNITY RIGHTS
+
+4.1
+The User shall leave the IOWA copyright notices in a prominent place at all times without changing them.
+
+4.2
+These mentions are as follows: 
+" * Copyright (c) IoTerop.
+* All rights reserved.
+*
+* This program and the accompanying materials
+* are made available under the terms of
+* IoTerop’s IOWA License (LICENSE.TXT) which
+* accompany this distribution."
+
+
+5. THIRD PARTY RIGHTS
+
+5.1
+IOWA uses functionalities subject to open source license compliance (information provided in the documentation
+accompanying IOWA).
+
+5.2
+IOWA respects the contents of these open source licenses and assumes responsibility for any action, claim, demand
+or opposition that may be made by a right holder under these licenses in connection with the provision of the IOWA
+trial version. 
+
+5.3
+The user shall also ensure that the content of the open source licenses is respected.
+
+5.4
+If the user violates the provisions of the open source licenses, he alone assumes all legal and financial consequences
+without attempting to engage the responsibility of IoTerop.
+
+
+6. WARRANTY DISCLAIMER
+
+6.1
+Given the purpose of this License and the exclusion of any possibility of production, commercial exploitation or legal
+operation other than that defined by the License, the proper functioning of IOWA is not guaranteed in its trial
+version.
+
+6.2
+The user therefore waives any action of any nature whatsoever aimed at seeking the liability of SAS IoTerop due to
+direct or indirect malfunctioning of IOWA, the absence of expected operating results from IOWA and more generally any
+impossibility of obtaining the desired results from IOWA in the context of the evaluation.
+
+6.3
+The user agrees to test IOWA at its own risk and shall bear any harmful consequences of the tests conducted. It is the
+responsibility of the user to take all necessary precautions to carry out the tests in an environment that preserves
+its installations and/or data.
+
+6.4
+The user waives the right to take any action against SAS IoTerop in order to obtain its condemnation, in particular, but
+without this being exhaustive, for loss or alteration of data or any other economic or financial damage such as loss of
+profits, loss of contracts, loss of profit, loss of image directly or indirectly caused by IOWA.
+
+6.5
+This Agreement does not grant the User any maintenance rights of any kind whatsoever.
+
+6.6
+The User shall ensure the security of its connections against intrusion, hacking and other malicious acts. He shall be
+solely liable for any damage that may be caused in this way. 
+
+
+7. TERMINATION 
+
+7.1
+At the end of the 3-month period, the License is automatically terminated.
+
+7.2
+SAS IoTerop may terminate the Licence, 8 working days after a prior formal notice sent by email, in the event of failure
+by the user to fulfil any of his obligations.
+
+7.3
+Any continued use of the Licence after its expiry is prohibited and is likely to constitute an offence of counterfeiting
+as provided for and punishable under articles L335-1 and following of the Intellectual Property Code.
+
+
+8. CONFIDENTIALITY
+
+8.1
+The user is subject to an obligation of confidentiality concerning the technologies developed by IoTerop.
+
+8.2
+The confidential information obtained by the user under the License remains the property of IoTerop.
+
+8.3
+This confidential information includes in particular commercial and technical information concerning IOWA : 
+- its characteristics and its operating mode, 
+- know-how, 
+- inventions, 
+- techniques, processes, programs, ideas, algorithms, schematics,
+- test procedures and results, 
+- the appearance of the program and its architecture, 
+- the code, the internal documentation, 
+- function and appearance specifications, 
+- reports of difficulties, 
+- analysis and performance information
+- any other information, data, plan or other, of a technical, professional, marketing or financial nature, related to
+  IOWA or IoTerop's activity. 
+
+8.4
+The obligation of confidentiality is incumbent on the user and all persons working directly or indirectly for or with
+him and/or in all the subsidiaries of the group to which he belongs.
+
+8.5
+The duration of the obligation of confidentiality is 3 years from the termination of the License. 
+
+
+9. GENERAL PROVISIONS
+
+9.1
+The License is subject to French law.
+
+9.2
+In the event of a dispute, the competent courts are those of the Montpellier Court of Appeal, notwithstanding plurality
+of defendants or third parties.
+
+9.1
+In the event that any provision of the contract is declared null and void or inapplicable by a final court decision, the
+parties agree to attempt to limit as far as possible the scope of such nullity or inapplicability so that the other
+contractual provisions remain in force.

@@ -24,6 +24,10 @@ Each sample has its own README.md explaining it.
 
 The baseline to create a working LwM2M Client with IOWA.
 
+### 02-IPSO_client
+
+How to add an IPSO temperature sensor Object.
+
 ### Custom Object Samples
 
 These samples explain how to add custom LwM2M Objects to your LwM2M Client.
@@ -45,10 +49,6 @@ How to make the values exposed by the Object dynamic.
 > A LwM2M Object containing a multiple Resource.
 
 ## IOWA Full SDK Samples
-
-### 02-IPSO_client
-
-How to add an IPSO temperature sensor Object.
 
 ### 03-multithread_IPSO_client
 
