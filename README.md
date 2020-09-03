@@ -70,9 +70,30 @@ This sample demonstrate the multi-thread support.
 
 ### On Linux
 
-**Prerequisites:** The `cmake` utility, the `make` utility and a C compiler.
+**Prerequisites:** An x86-64 computer with a Linux distribution installed, the `cmake` utility, the `make` utility and a C compiler.
 
-Go to the 'samples' folder and type the commands 'cmake .' then 'make'.
+1. Create a build folder
+
+   `mkdir build`
+
+2. Go to this folder
+
+   `cd build`
+
+3. Launch cmake in debug mode
+
+   `cmake -DCMAKE_BUILD_TYPE=Debug ..`
+
+   (the last parameter point to the folder containing the CMakeLists.txt file of your target. In this case the one at the root of the repo including all the samples)
+
+4. Build the client and the server
+
+   `make -j 4`
+
+   ( the `-j 4` parameter enables four parallel compilations)
+
+After making some modifications to the code, only the step 4 is required.
+
 
 ### On Windows
 
