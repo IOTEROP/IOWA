@@ -90,7 +90,7 @@ int main(int argc,
     memset(&devInfo, 0, sizeof(iowa_device_info_t));
     devInfo.manufacturer = "https://ioterop.com";
     devInfo.deviceType = "IOWA sample from https://github.com/IOTEROP/IOWA-Samples";
-    devInfo.modelNumber = "custom_single_object_client";
+    devInfo.modelNumber = "custom_object_baseline_client";
 
     // Configure the LwM2M Client
     result = iowa_client_configure(iowaH, endpoint_name, &devInfo, NULL);

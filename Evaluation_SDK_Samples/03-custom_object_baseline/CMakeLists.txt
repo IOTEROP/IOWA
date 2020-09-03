@@ -7,7 +7,7 @@
 
 cmake_minimum_required(VERSION 2.8)
 
-project(custom_single_object_client C)
+project(custom_object_baseline_client C)
 
 get_property(IOWA_DIR GLOBAL PROPERTY iowa_sdk_folder)
 

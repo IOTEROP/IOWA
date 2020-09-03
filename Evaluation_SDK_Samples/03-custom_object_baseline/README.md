@@ -18,12 +18,28 @@ This is the Baseline Client featuring an additional LwM2M Object with the follow
 >
 > When designing a custom Object for your application, you must communicate your Object definition to the LwM2M Server out-of-band. One way to achieve this is by registering your Object to the [OMNA LwM2M Repository](https://openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html).
 >
-> In this sample we reuse a registered Object: Digital Input (ID: 3200) to make sure it is known by the LwM2M Server we are testing with. In a real-world application, one can use the `iowa_client_IPSO_add_sensor()` API.
+> In this sample we reuse a registered Object: Digital Input (ID: 3200) to make sure it is known by the LwM2M Server we are testing with. In a real-world application needing this specific IPSO Object, you can use the `iowa_client_IPSO_add_sensor()` API.
 
 The following API will be explained:
 
 - `iowa_client_add_custom_object()`
 - `iowa_client_remove_custom_object()`
+
+## Usage
+
+The usage is the same as the Baseline Client sample.
+
+When registered to the LwM2M Server, you will notice that the *custom_object_baseline_client* features the additional LwM2M Object described above:
+
+![Custom Object Baseline Client](../../.images/custom_object_baseline_client.jpg)
+
+The Resource names displayed by the LwM2M Server are the names registered for the Object with this specific ID at the [OMNA LwM2M Repository](https://openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html). As explained, we are using this Object ID to make sure it is known by the LwM2M Server. Of course, the Resources do not reflect any real process.
+
+From here, you can test the LwM2M operations on the Resources. You will notice that you can not write the "Digital Input State" Resource (URI: /3200/0/5500).
+
+If you set an Observation on the Object or the Object Instance, when you write a new value for the "Digital Input Debounce" Resource (URI: /3200/0/5503) or the "Application Type" Resource (URI: /3200/0/5750), you will receive a notification.
+
+After two minutes,  *custom_object_baseline_client* unregisters from the LwM2M Server.
 
 ## Breakdown
 
@@ -321,3 +337,7 @@ When the operation is **IOWA_DM_READ** (and there is a value to return), we allo
 Then when the callback is called with **IOWA_DM_FREE**, we can free the duplicate string as the `iowa_lwm2m_data_t` still holds the pointer to it.
 
 > When handling the **IOWA_DM_READ** case, it is also possible for the callback to just return the pointer to our string value. IOWA will not modify it. In this case, there is nothing to do when the operation is **IOWA_DM_FREE**.
+
+## Next Steps
+
+The sample illustrates only the baseline of the creation of a custom LwM2M Object. The other custom object samples dive into more useful concepts.
