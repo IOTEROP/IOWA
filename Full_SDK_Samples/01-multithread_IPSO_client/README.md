@@ -12,6 +12,10 @@ Running IOWA in a multithreaded environment requires you to do the followings be
 * implement the system abstraction function `iowa_system_connection_interrupt_select()`
 * implement the system abstraction functions  `iowa_system_mutex_lock()` and `iowa_system_mutex_unlock()`
 
+## Usage
+
+The usage is exactly the same as the IPSO Client from the Evaluation SDK samples.
+
 ## Breakdown
 
 ### Client Pseudo Code
