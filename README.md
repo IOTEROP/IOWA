@@ -6,11 +6,11 @@ This repository contains sample applications illustrating how to use IOWA.
 
 Two kinds of samples are available depending on your SDK. One set of samples for the Evaluation SDK and a second set for the Full SDK
 
-The Evaluation SDK is available in the repository below. 
+The Evaluation SDK is available in the repository below.
 
 The full SDK and additional information is available from https://ioterop.com/iowa/.
 
-Additional technical content and how-to's may be found at https://ioterop.com/LwM2MDev247/.
+Additional technical contents and how-to's may be found at https://ioterop.com/LwM2MDev247/.
 
 Please note: **Neither the SDK nor the samples are open source software but commercial software.**
 
@@ -79,7 +79,7 @@ This sample demonstrate the multi-thread support.
 * **secure_client**
 
   How to use secure communications.
-  
+
 * **fwupdate_push_client**
 
   How to receive Firmware Updates in push mode.
@@ -140,7 +140,6 @@ This sample demonstrate the multi-thread support.
 
 After making some modifications to the code, only the step 4 is required.
 
-
 ### On Windows
 
 #### Using Visual Studio Code
@@ -172,7 +171,5 @@ Visual Studio version must be at least 2017 for the CMake support.
 1. In the Visual Studio menu bar, go to "Build", "Build All"
 
 ## Let's Get Programming
-
-
 
 ![IoTerop Logo](.images/IoTerop_logo.jpg)

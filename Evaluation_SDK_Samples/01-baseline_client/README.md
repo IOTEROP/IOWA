@@ -31,7 +31,7 @@ It then registers to the LwM2M Server. You should see it in the "Clients List" o
 
 ![Client registered](../../.images/baseline_client.jpg)
 
->  We are using IoTerop's [CONNECTicut](https://iowa-server.ioterop.com/) testing server.. The procedures are similar using other Servers.
+> We are using IoTerop's [CONNECTicut](https://iowa-server.ioterop.com/) testing server. The procedures are similar using other Servers.
 
 Two LwM2M Objects are visible to the LwM2M Server: the Server Object (ID: 1) configuring parameters associated to the LwM2M Server, and the Device Object (ID: 3) describing the device.
 
@@ -52,16 +52,16 @@ main()
 {
     // Initialization
     iowa_init();
-    
+
     // LwM2M Client configuration
     iowa_client_configure(CLIENT_NAME);
-    
+
     // LwM2M Server declaration
     iowa_client_add_server(SERVER_SHORT_ID, SERVER_URI, SERVER_LIFETIME);
 
     // "Main loop"
     iowa_step(120);
-    
+
     // Cleanup
     iowa_client_remove_server(SERVER_SHORT_ID);
     iowa_close();
@@ -121,12 +121,11 @@ Finally, to configure a LwM2M Server on the Client, the API `iowa_client_add_ser
 result = iowa_client_add_server(iowaH, SERVER_SHORT_ID, SERVER_URI, SERVER_LIFETIME, 0, IOWA_SEC_NONE);
 ```
 
-
 The first argument is the IOWA context created in the first step.
 
 The second argument is an numeric identifier of the LwM2M Server. This identifier is named "Short Server ID" in the LwM2M protocol. Other IOWA APIs use this identifier to reference the LwM2M Server.
 
-The third argument is the LwM2M Server URI.  By default the baseline Client has been configured to use IoTerop's [CONNECTicut](https://iowa-server.ioterop.com/) testing server. You can change the URI to point to other LwM2M Servers like the Eclipse's [Leshan test server sandbox](https://leshan.eclipseprojects.io/#/clients), or a locally deployed LwM2M Server.
+The third argument is the LwM2M Server URI. By default the baseline Client has been configured to use IoTerop's [CONNECTicut](https://iowa-server.ioterop.com/) testing server. You can change the URI to point to other LwM2M Servers like the Eclipse's [Leshan test server sandbox](https://leshan.eclipseprojects.io/#/clients), or a locally deployed LwM2M Server.
 
 The fourth argument is the registration lifetime in seconds. The LwM2M lifetime is the validity period of a LwM2M Client registration to the LwM2M Server. When this lifetime expires, the Server considers the Client as unreachable. Regularly, the Client sends Registration Update messages to the Server to renew its registration validity period.
 
@@ -166,6 +165,5 @@ Finally, the IOWA context can be closed with `iowa_close()`.
 ## Next Steps
 
 To fulfill real-world needs, a LwM2M Client needs application LwM2M Objects. You can look at the 02-IPSO_client sample to learn how to add IPSO sensors, or at the 03-custom_object_baseline sample to learn how to add a custom LwM2M Object to your Client.
-
 
 ![IoTerop Logo](../../.images/IoTerop_logo.jpg)

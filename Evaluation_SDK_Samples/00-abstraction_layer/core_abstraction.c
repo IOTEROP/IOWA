@@ -29,7 +29,6 @@
 #include <time.h>
 #endif
 
-
 // We bind this function directly to malloc().
 void * iowa_system_malloc(size_t size)
 {
