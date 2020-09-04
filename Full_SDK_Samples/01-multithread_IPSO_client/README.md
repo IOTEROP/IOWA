@@ -12,6 +12,16 @@ Running IOWA in a multithreaded environment requires you to do the followings be
 * implement the system abstraction function `iowa_system_connection_interrupt_select()`
 * implement the system abstraction functions  `iowa_system_mutex_lock()` and `iowa_system_mutex_unlock()`
 
+## Preparation
+
+To use this sample, you need the [IOWA Full SDK](https://ioterop.com/iowa/).
+
+You can either copy the IOWA Full SDK to the **iowa** folder at the root of the repo, or you can edit the root **CMakeLists.txt** to indicate the path to the IOWA Full SDK by modifying the line 14:
+
+```
+set_property(GLOBAL PROPERTY iowa_sdk_folder "PATH_TO_THE_IOWA_SDK")
+```
+
 ## Usage
 
 The usage is exactly the same as the IPSO Client from the Evaluation SDK samples.

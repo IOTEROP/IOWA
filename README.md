@@ -32,39 +32,81 @@ How to add an IPSO temperature sensor Object.
 
 These samples explain how to create, define, and add custom LwM2M Objects to your LwM2M Client.
 
-#### 04-custom_object_baseline_client
+#### 03-custom_object_baseline_client
 
 How to add a simple custom LwM2M Object.
 
-#### 05-custom_object_dynamic
+### COMING SOON
 
-How to make the values exposed by the Object dynamic.
+* **custom_object_dynamic**
 
-> #### custom_object_multiple_instances
->
-> A LwM2M Object with multiple Instances.
->
-> #### custom_object_multiple_resources
->
-> A LwM2M Object containing a multiple Resource.
+  How to make the values exposed by the custom Object dynamic.
+
+* **custom_object_multiple_instances**
+
+  A LwM2M Object with multiple Instances.
+
+* **custom_object_multiple_resources**
+
+  A LwM2M Object containing a multiple Resource.
+
+* **event_callback**
+
+  How to monitor the LwM2M Operations from the application.
 
 ## IOWA Full SDK Samples
 
-### 03-multithread_IPSO_client
+### Preparation
+
+To use these samples, you need the [IOWA Full SDK](https://ioterop.com/iowa/).
+
+You can either copy the IOWA Full SDK to the **iowa** folder at the root of the repo, or you can edit the root **CMakeLists.txt** to indicate the path to the IOWA Full SDK by modifying the line 14:
+
+```
+set_property(GLOBAL PROPERTY iowa_sdk_folder "PATH_TO_THE_IOWA_SDK")
+```
+
+### 01-multithread_IPSO_client
 
 This sample demonstrate the multi-thread support.
 
-> ### Firmware Update Samples
->
-> #### fwupdate_push_client
->
-> A LwM2M Client supporting the reception of Firmware Updates in push mode.
->
-> #### fwupdate_pull_client
->
-> A LwM2M Client supporting the reception of Firmware Updates in pull mode. This sample demonstrate the CoAP APIs.
+### COMING SOON
 
+* **secure_client**
 
+  How to use secure communications.
+  
+* **fwupdate_push_client**
+
+  How to receive Firmware Updates in push mode.
+
+* **fwupdate_pull_client**
+
+  How to receive Firmware Updates in pull mode. This sample demonstrates the CoAP APIs.
+
+* **timestamp_IPSO**
+
+  How to timestamp values in IPSO sensors.
+
+* **timestamp_custom_objects**
+
+  How to timestamp values in custom LwM2M Objects.
+
+* **streamable_resources**
+
+  How to work with large values like images or file contents.
+
+* **asynchronous_resources**
+
+  How to work with time consuming value retrieval.
+
+* **low_MTU_client**
+
+  How to use adapt to limited network MTU.
+
+* **adaptative_client**
+
+  How to adapt to degraded network conditions by modifying the CoAP timers.
 
 ## Compile Samples
 
