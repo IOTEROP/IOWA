@@ -1,4 +1,4 @@
-![IOWA Logo](.images/iowa_logo.png)
+![IOWA Logo](.images/IoTerop_logo.jpg)
 
 # IOWA Samples
 
@@ -8,7 +8,7 @@ Two kinds of samples are available depending on your SDK. One set of samples for
 
 The Evaluation SDK is available in the repository below. 
 
-The full SDK and additional informaiton is available from https://ioterop.com/iowa/.
+The full SDK and additional information is available from https://ioterop.com/iowa/.
 
 Additional technical content and how-to's may be found at https://ioterop.com/LwM2MDev247/.
 
@@ -108,7 +108,7 @@ This sample demonstrate the multi-thread support.
 
   How to use adapt to limited network MTU.
 
-* **adaptative_client**
+* **adaptive_client**
 
   How to adapt to degraded network conditions by modifying the CoAP timers.
 
