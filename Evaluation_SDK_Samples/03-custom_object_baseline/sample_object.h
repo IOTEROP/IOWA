@@ -14,19 +14,18 @@
  *
  * This is the header file for a simple custom
  * LwM2M Object with the following definition:
- * 
+ *
  * ID: 3200
  * Single instance
- * 
+ *
  * Resources:
  * |  ID  | Type    | Operations | Multiple | Description                         |
  * +------+---------+------------+----------+-------------------------------------+
  * | 5500 | Boolean |   R        | Single   | A read-only boolean value           |
  * | 5750 | String  |   R/W      | Single   | A writable string                   |
  * | 5503 | Integer |   R/W      | Single   | A writable integer value            |
- * 
+ *
  *********************************************************************************/
-
 
 // IOWA headers
 #include "iowa_client.h"
@@ -56,4 +55,3 @@ iowa_status_t sample_object_dataCallback(iowa_dm_operation_t operation,
                                          size_t numData,
                                          void *userData,
                                          iowa_context_t iowaH);
-

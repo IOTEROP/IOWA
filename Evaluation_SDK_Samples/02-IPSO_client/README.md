@@ -37,10 +37,10 @@ main()
 {
     // Initialization
     iowa_init();
-    
+
     // LwM2M Client configuration
     iowa_client_configure(CLIENT_NAME);
-    
+
     // IPSO Temperature Object enabling
     iowa_client_IPSO_add_sensor(IOWA_IPSO_TEMPERATURE);
 
@@ -87,7 +87,7 @@ The third argument is the initial value of the sensor. Depending on the sensor t
 
 The fourth argument is an optional human readable representation of the unit used by the sensor. It has not impact on the behavior of the Object.
 
-The fifth argument is also an optional human readable string known as the "Application Type".  It is useful for the LwM2M Server to discriminate between the sensors if the Client features several sensors of the same type. Note that not all sensor Objects feature this resource.
+The fifth argument is also an optional human readable string known as the "Application Type". It is useful for the LwM2M Server to discriminate between the sensors if the Client features several sensors of the same type. Note that not all sensor Objects feature this resource.
 
 The sixth and seventh arguments are the minimum and maximum values that can be measured by the sensor. This arguments are also optional. If they are both set to zero, the matching resources are not exposed by the Temperature Object Instance.
 

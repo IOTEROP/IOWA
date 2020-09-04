@@ -14,7 +14,7 @@ This is the Baseline Client featuring an additional LwM2M Object with the follow
 | 5750 | String |  R/W   | Single  | A writable string          |
 | 5503 | Integer |  R/W   | Single  | A writable integer value      |
 
-> In the LightweigthM2M protocol, the Objects and the Resources are only characterized by their ID and there is no metadata exchanges between the LwM2M Clients and the LwM2M Server. This means that the LwM2M Server must know the layout of the Object and the characteristics of their Resources. (Note that the LwM2M Server can perform a Discovery operation on the Object that will return the list of **instantiated** Resources in each Object Instance.) 
+> In the LightweigthM2M protocol, the Objects and the Resources are only characterized by their ID and there is no metadata exchanges between the LwM2M Clients and the LwM2M Server. This means that the LwM2M Server must know the layout of the Object and the characteristics of their Resources. (Note that the LwM2M Server can perform a Discovery operation on the Object that will return the list of **instantiated** Resources in each Object Instance.)
 >
 > When designing a custom Object for your application, you must communicate your Object definition to the LwM2M Server out-of-band. One way to achieve this is by registering your Object to the [OMNA LwM2M Repository](https://openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html).
 >
@@ -39,7 +39,7 @@ From here, you can test the LwM2M operations on the Resources. You will notice t
 
 If you set an Observation on the Object or the Object Instance, when you write a new value for the "Digital Input Debounce" Resource (URI: /3200/0/5503) or the "Application Type" Resource (URI: /3200/0/5750), you will receive a notification.
 
-After two minutes,  *custom_object_baseline_client* unregisters from the LwM2M Server.
+After two minutes, *custom_object_baseline_client* unregisters from the LwM2M Server.
 
 ## Breakdown
 
@@ -52,10 +52,10 @@ main()
 {
     // Initialization
     iowa_init();
-    
+
     // LwM2M Client configuration
     iowa_client_configure(CLIENT_NAME);
-    
+
     // Custom Object addition
     iowa_client_add_custom_object(OBJECT_ID, resourceDescription, dataCallback);
 
@@ -79,9 +79,9 @@ dataCallback(operation, targetedResources)
 {
     for each targetedResources
         if operation is READ
-        	then targetedResources.value = resource value
+            then targetedResources.value = resource value
         if operation is WRITE
-			then resource value = targetedResources.value
+            then resource value = targetedResources.value
 }
 ```
 
@@ -103,7 +103,7 @@ typedef struct
 } iowa_lwm2m_resource_desc_t;
 ```
 
-`id` is the numerical ID of the Resource. This ID must be unique  among the Object Resource IDs.
+`id` is the numerical ID of the Resource. This ID must be unique among the Object Resource IDs.
 
 `type` is the data type of the Resource value.
 
@@ -274,15 +274,15 @@ We do not check `dataP[i].objectID` and `dataP[i].instanceID` as the callback is
 
 ```c
 case 5503:
-	if (operation == IOWA_DM_READ)
+    if (operation == IOWA_DM_READ)
     {
         dataP[i].value.asInteger = objectValuesP->integerValue;
     }
-	else if (operation == IOWA_DM_WRITE)
+    else if (operation == IOWA_DM_WRITE)
     {
         objectValuesP->integerValue = dataP[i].value.asInteger;
     }
-	break;
+    break;
 ```
 
 For each Resource, if the operation is **IOWA_DM_READ**, we store the Resource value in the `iowa_lwm2m_data_t`. If the operation is **IOWA_DM_WRITE**, we update the Resource value with the value from the `iowa_lwm2m_data_t`.
@@ -295,41 +295,41 @@ This is illustrated in the sample by the Resource holding a string value (ID: 57
 
 ```c
 case 5750:
-	if (operation == IOWA_DM_READ)
-	{
-    	if (objectValuesP->stringValue != NULL)
-    	{
-        	// For the sake of the example, we return a copy of our string value.
-        	dataP[i].value.asBuffer.length = strlen(objectValuesP->stringValue);
-        	dataP[i].value.asBuffer.buffer = strdup(objectValuesP->stringValue);
+    if (operation == IOWA_DM_READ)
+    {
+        if (objectValuesP->stringValue != NULL)
+        {
+            // For the sake of the example, we return a copy of our string value.
+            dataP[i].value.asBuffer.length = strlen(objectValuesP->stringValue);
+            dataP[i].value.asBuffer.buffer = strdup(objectValuesP->stringValue);
             if (dataP[i].value.asBuffer.buffer == NULL)
             {
                 return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
             }
-    	}
-    	else
-    	{
-        	dataP[i].value.asBuffer.length = 0;
-        	dataP[i].value.asBuffer.buffer = NULL;
-    	}
-	}
-	else if (operation == IOWA_DM_WRITE)
-	{
-    	free(objectValuesP->stringValue);
-    	objectValuesP->stringValue = (char *)malloc(dataP[i].value.asBuffer.length + 1);
-    	if (objectValuesP->stringValue == NULL)
-    	{
-        	return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-    	}
-    	memcpy(objectValuesP->stringValue, dataP[i].value.asBuffer.buffer, dataP[i].value.asBuffer.length);
-    	objectValuesP->stringValue[dataP[i].value.asBuffer.length] = 0;
-	}
-	else if (operation == IOWA_DM_FREE)
-	{
-    	// IOWA has no longer use of the string value. We can free it.
-    	free(dataP[i].value.asBuffer.buffer);
-	}
-	break;
+        }
+        else
+        {
+            dataP[i].value.asBuffer.length = 0;
+            dataP[i].value.asBuffer.buffer = NULL;
+        }
+    }
+    else if (operation == IOWA_DM_WRITE)
+    {
+        free(objectValuesP->stringValue);
+        objectValuesP->stringValue = (char *)malloc(dataP[i].value.asBuffer.length + 1);
+        if (objectValuesP->stringValue == NULL)
+        {
+            return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+        }
+        memcpy(objectValuesP->stringValue, dataP[i].value.asBuffer.buffer, dataP[i].value.asBuffer.length);
+        objectValuesP->stringValue[dataP[i].value.asBuffer.length] = 0;
+    }
+    else if (operation == IOWA_DM_FREE)
+    {
+        // IOWA has no longer use of the string value. We can free it.
+        free(dataP[i].value.asBuffer.buffer);
+    }
+    break;
 ```
 
 When the operation is **IOWA_DM_READ** (and there is a value to return), we allocate a new string and duplicate the value. We pass the pointer to this new string in the `iowa_lwm2m_data_t`.

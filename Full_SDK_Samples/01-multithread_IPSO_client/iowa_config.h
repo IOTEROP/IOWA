@@ -98,5 +98,4 @@
 // #define LWM2M_SERVER_MODE
 // #define LWM2M_BOOTSTRAP_SERVER_MODE
 
-
 #endif

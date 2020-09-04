@@ -199,7 +199,6 @@ int main(int argc,
     (void)pthread_join(thread, NULL);
 #endif
 
-
 cleanup:
     iowa_client_IPSO_remove_sensor(iowaH, sensorId);
     iowa_client_remove_server(iowaH, SERVER_SHORT_ID);

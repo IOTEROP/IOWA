@@ -10,7 +10,7 @@ Running IOWA in a multithreaded environment requires you to do the followings be
 
 * set the compilation flag **IOWA_THREAD_SUPPORT**
 * implement the system abstraction function `iowa_system_connection_interrupt_select()`
-* implement the system abstraction functions  `iowa_system_mutex_lock()` and `iowa_system_mutex_unlock()`
+* implement the system abstraction functions `iowa_system_mutex_lock()` and `iowa_system_mutex_unlock()`
 
 ## Preparation
 
@@ -37,10 +37,10 @@ main()
 {
     // Initialization
     iowa_init();
-    
+
     // LwM2M Client configuration
     iowa_client_configure(CLIENT_NAME);
-    
+
     // IPSO Temperature Object enabling
     iowa_client_IPSO_add_sensor(IOWA_IPSO_TEMPERATURE);
 
@@ -49,7 +49,7 @@ main()
 
     // Measure task start
     start thread measure_routine()
-        
+
     // "Main loop"
     iowa_step(-1);
 
