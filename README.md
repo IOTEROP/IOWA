@@ -127,3 +127,6 @@ Visual Studio version must be at least 2017 for the CMake support.
 
 ## Let's Get Programming
 
+
+
+![IoTerop Logo](.images/IoTerop_logo.jpg)

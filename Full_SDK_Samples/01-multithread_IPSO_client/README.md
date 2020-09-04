@@ -168,3 +168,5 @@ iowa_stop(iowaH);
 ```
 
 The only argument is as usual the IOWA context created in the Initialization step.
+
+![IoTerop Logo](../../.images/IoTerop_logo.jpg)
