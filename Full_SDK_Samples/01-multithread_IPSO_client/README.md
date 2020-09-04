@@ -67,9 +67,9 @@ measure_routine()
 {
     for (120s)
     {
-    	sleep(3s);
+        sleep(3s);
         // Temperature value update
-    	iowa_client_IPSO_update_value()
+        iowa_client_IPSO_update_value()
     }
 
     // IOWA stop

@@ -50,8 +50,8 @@ main()
     // "Main loop"
     for (120s)
     {
-    	iowa_step(3);
-    	iowa_client_IPSO_update_value()
+        iowa_step(3);
+        iowa_client_IPSO_update_value()
     }
 
     // Cleanup
