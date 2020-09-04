@@ -141,4 +141,6 @@ IOWA implements a lot of LwM2M Objects natively and provides high-level APIS to 
 
 If you want to implement your own LwM2M Objects, look at the Custom Object samples.
 
+------------------------------------------------------------
+
 ![IoTerop Logo](../../.images/IoTerop_logo.jpg)

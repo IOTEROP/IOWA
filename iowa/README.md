@@ -16,4 +16,6 @@ To read more about the [IOWA SDKs](https://ioterop.com/iowa/).
 
 To get the [Full IOWA SDK specification sheet](https://cdn2.hubspot.net/hubfs/1727672/IOWA brochure.pdf).
 
+------------------------------------------------------------
+
 ![IoTerop Logo](../.images/IoTerop_logo.jpg)

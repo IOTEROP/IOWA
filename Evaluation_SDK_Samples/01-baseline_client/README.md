@@ -166,4 +166,6 @@ Finally, the IOWA context can be closed with `iowa_close()`.
 
 To fulfill real-world needs, a LwM2M Client needs application LwM2M Objects. You can look at the 02-IPSO_client sample to learn how to add IPSO sensors, or at the 03-custom_object_baseline sample to learn how to add a custom LwM2M Object to your Client.
 
+------------------------------------------------------------
+
 ![IoTerop Logo](../../.images/IoTerop_logo.jpg)

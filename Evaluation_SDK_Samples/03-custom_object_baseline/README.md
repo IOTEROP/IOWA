@@ -342,4 +342,6 @@ Then when the callback is called with **IOWA_DM_FREE**, we can free the duplicat
 
 The sample illustrates only the baseline of the creation of a custom LwM2M Object. The other custom object samples dive into more useful concepts.
 
+------------------------------------------------------------
+
 ![IoTerop Logo](../../.images/IoTerop_logo.jpg)

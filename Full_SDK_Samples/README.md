@@ -8,4 +8,6 @@ You can either copy the IOWA Full SDK to the **iowa** folder at the root of the 
 set_property(GLOBAL PROPERTY iowa_sdk_folder "PATH_TO_THE_IOWA_SDK")
 ```
 
+------------------------------------------------------------
+
 ![IoTerop Logo](../.images/IoTerop_logo.jpg)
