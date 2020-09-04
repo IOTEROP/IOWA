@@ -54,6 +54,10 @@ How to add a simple custom LwM2M Object.
 
   How to monitor the LwM2M Operations from the application.
 
+* **sleeping_client**
+
+  How to make the device enter sleep state without disturbing the LwM2M session.
+
 ## IOWA Full SDK Samples
 
 ### Preparation
