@@ -4,7 +4,7 @@
 
 This folder contains the *IOWA Evaluation SDK*.
 
-Please note **There are two versions of the IOWA SDK.**
+Please note **there are two versions of the IOWA SDK.**
 
 The *IOWA Evaluation SDK* is intended to let users get a hands experience of how LwM2M services may be used to create IoT solutions. The *IOWA Evaluation SDK* provided in the **iowa** folder of this Git repository.
 
