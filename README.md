@@ -4,7 +4,7 @@
 
 This repository contains sample applications illustrating how to use IOWA.
 
-Two kinds of samples are available depending on your SDK. One set of samples for the Evaluation SDK and a second set for the Full SDK
+Two kinds of samples are available depending on your SDK. One set of samples for the Evaluation SDK and a second set for the Full SDK.
 
 The Evaluation SDK is available in the repository below.
 
