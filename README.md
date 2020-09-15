@@ -4,13 +4,13 @@
 
 This repository contains sample applications illustrating how to use IOWA.
 
-Two kinds of samples are available depending on your SDK. One set of samples for the Evaluation SDK and a second set for the Full SDK
+Two kinds of samples are available depending on your SDK. One set of samples for the Evaluation SDK and a second set for the Full SDK.
 
 The Evaluation SDK is available in the repository below.
 
 The full SDK and additional information is available from [https://ioterop.com/iowa/](https://ioterop.com/iowa/).
 
-Additional technical contents and how-to's may be found at [https://ioterop.com/IoTDev247/](https://ioterop.com/IoTDev247/).
+Additional technical contents and how-to's may be found at [https://ioterop.com/iot-dev-24-7/](https://ioterop.com/iot-dev-24-7/).
 
 Please note: **Neither the SDK nor the samples are open source software but commercial software.**
 
