@@ -1,6 +1,6 @@
 # IPSO Client
 
-This is the Baseline Client featuring an additional IPSO Temperature Object (ID: 3303).
+This is the [Baseline Client](../01-baseline_client) featuring an additional IPSO Temperature Object (ID: 3303).
 
 Among the IPSO-defined Objects, several of them, representing ambient sensors, have the same Resources. IOWA provides a single set of APIs to manipulate these Objects.
 
