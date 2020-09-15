@@ -1,6 +1,6 @@
 # Custom Object Baseline
 
-This is the Baseline Client featuring an additional LwM2M Object with the following definition:
+This is the [Baseline Client](../01-baseline_client) featuring an additional LwM2M Object with the following definition:
 
 *ID:* *3200*
 

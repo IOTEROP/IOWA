@@ -1,6 +1,6 @@
 # Custom Object Dynamic
 
-This is the Custom Object Baseline Client with dynamic Resource values. The  Clients still features the same custom LwM2M Object:
+This is the [Custom Object Baseline Client](../03-baseline_custom_object_client) with dynamic Resource values. The  Clients still features the same custom LwM2M Object:
 
 *ID:* *3200*
 

@@ -36,11 +36,11 @@ These samples explain how to create, define, and add custom LwM2M Objects to you
 
 How to add a simple custom LwM2M Object.
 
+#### 04-custom_object_dynamic
+
+How to make the values exposed by the custom Object dynamic.
+
 ### COMING SOON
-
-* **custom_object_dynamic**
-
-  How to make the values exposed by the custom Object dynamic.
 
 * **custom_object_multiple_instances**
 
