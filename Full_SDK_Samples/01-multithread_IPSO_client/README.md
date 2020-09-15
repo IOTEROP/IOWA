@@ -1,6 +1,6 @@
 # Multithreaded IPSO Client
 
-This is the [IPSO Client](../Evaluation_SDK_Samples/02-IPSO_client) using a separate thread to update the sensor value.
+This is the [IPSO Client](../../Evaluation_SDK_Samples/02-IPSO_client) using a separate thread to update the sensor value.
 
 The following API will be explained:
 
