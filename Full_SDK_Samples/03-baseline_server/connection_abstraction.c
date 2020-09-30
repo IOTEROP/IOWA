@@ -123,7 +123,6 @@ void close_udp_socket()
 }
 
 // This function open UDP and interrupt sockets and store iowa context inside platform variable.
-
 int open_udp_socket(void *iowaContextP)
 {
     struct addrinfo hints;
@@ -203,6 +202,7 @@ int open_udp_socket(void *iowaContextP)
         return -1;
     }
 
+    //Need IOWA context in select().
     g_serverData.contextP = (iowa_context_t) iowaContextP;
 
     return 0;

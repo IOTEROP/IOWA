@@ -12,7 +12,7 @@
 
 /**************************************************
  *
- * This is a very simple LwM2M Client demonstrating
+ * This is a very simple LwM2M Server demonstrating
  * IOWA ease-of-use.
  *
  **************************************************/
@@ -77,7 +77,6 @@ int main(int argc,
 {
     iowa_status_t result;
     iowa_context_t iowaH;
-    int udpSocket;
     uint8_t i;
 
     (void)argc;
@@ -96,8 +95,7 @@ int main(int argc,
     }
 
     //Open UDP Socket
-    udpSocket = open_udp_socket(iowaH);
-    if (udpSocket < 0)
+    if (open_udp_socket(iowaH) < 0)
     {
         fprintf(stderr, "UDP Socket opening failed.\r\n");
         goto cleanup;
@@ -116,7 +114,7 @@ int main(int argc,
     /******************
      * "Main loop"
      */
-    for (i = 0; i < 40; i++)
+    for (i = 0; i < 40 && result == IOWA_COAP_NO_ERROR; i++)
     {
         result = iowa_step(iowaH, 3);
     }
