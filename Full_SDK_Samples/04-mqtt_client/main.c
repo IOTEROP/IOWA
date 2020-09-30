@@ -45,7 +45,7 @@ static void prv_generate_unique_name(char *name)
     sprintf(name, "IOWA_sample_client_%ld", id);
 }
 
-// The callback called by IOWA there's an operation by a Server on an MQTT Broker
+// The callback called by IOWA when there's an operation by a Server on an MQTT Broker
 void brokerCB(iowa_dm_operation_t operation, iowa_sensor_t brokerId, iowa_mqtt_broker_t *brokerDetailsP, void *userData, iowa_context_t contextP)
 {
     // Display information on the LwM2M Client
@@ -73,7 +73,7 @@ void brokerCB(iowa_dm_operation_t operation, iowa_sensor_t brokerId, iowa_mqtt_b
     return;
 }
 
-// The callback called by IOWA there's an operationby a Server on an MQTT Publication
+// The callback called by IOWA when there's an operation by a Server on an MQTT Publication
 void publicationCB(iowa_dm_operation_t operation, iowa_sensor_t publicationId, iowa_mqtt_publication_t *publicationDetailsP, void *userData, iowa_context_t contextP)
 {
     iowa_mqtt_broker_t *brokerDetailsP;
