@@ -12,3 +12,4 @@ project(IOWA_Full_SDK_samples C)
 # The list of samples.a
 
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/01-multithread_IPSO_client)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/05-streamable_resource_client)
