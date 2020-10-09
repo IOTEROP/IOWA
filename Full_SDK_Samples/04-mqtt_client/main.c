@@ -7,7 +7,8 @@
 
 // IOWA headers
 #include "iowa_client.h"
-#include "iowa_mqtt_objects.h"
+#include "iowa_ipso.h"
+#include "mqtt_user_functions.h"
 
 // Platform specific headers
 #include <stdio.h>
@@ -18,6 +19,8 @@
 #else
 #include <unistd.h>
 #endif
+
+// This is a sample of a simple MQTT Client that support only one broker with one publication.
 
 // LwM2M Server details
 #define SERVER_SHORT_ID 1234
@@ -42,74 +45,7 @@ static void prv_generate_unique_name(char *name)
     id = gethostid();
 #endif
 
-    sprintf(name, "IOWA_sample_client_%ld", id);
-}
-
-// The callback called by IOWA when there's an operation by a Server on an MQTT Broker
-void brokerCB(iowa_dm_operation_t operation, iowa_sensor_t brokerId, iowa_mqtt_broker_t *brokerDetailsP, void *userData, iowa_context_t contextP)
-{
-    // Display information on the LwM2M Client
-    printf("Broker callback called.\r\n");
-    printf("Operation: ");
-    switch (operation)
-    {
-    case IOWA_DM_CREATE:
-        printf("IOWA_DM_CREATE\r\n");
-        break;
-    case IOWA_DM_WRITE:
-        printf("IOWA_DM_WRITE\r\n");
-        break;
-    case IOWA_DM_DELETE:
-        printf("IOWA_DM_DELETE\r\n");
-        break;
-    default:
-        printf("unexpected (%d)\r\n", (int)operation);
-        break;
-    }
-
-    printf("Broker Id %u \r\n", brokerId);
-    printf("Broker client Id \"%s\" \r\n", brokerDetailsP->clientId);
-
-    return;
-}
-
-// The callback called by IOWA when there's an operation by a Server on an MQTT Publication
-void publicationCB(iowa_dm_operation_t operation, iowa_sensor_t publicationId, iowa_mqtt_publication_t *publicationDetailsP, void *userData, iowa_context_t contextP)
-{
-    iowa_mqtt_broker_t *brokerDetailsP;
-
-    // Display information on the LwM2M Client
-    printf("Publication callback called.\r\n");
-    printf("Operation: ");
-    switch (operation)
-    {
-    case IOWA_DM_CREATE:
-        printf("IOWA_DM_CREATE\r\n");
-        break;
-    case IOWA_DM_WRITE:
-        printf("IOWA_DM_WRITE\r\n");
-        break;
-    case IOWA_DM_DELETE:
-        printf("IOWA_DM_DELETE\r\n");
-        break;
-    default:
-        printf("unexpected (%d)\r\n", (int)operation);
-        break;
-    }
-
-    printf("Publication Id %u \r\n", publicationId);
-    brokerDetailsP = iowa_client_get_mqtt_broker(contextP, publicationDetailsP->brokerId);
-
-    if (brokerDetailsP != NULL)
-    {
-        printf("Publication's Broker client Id \"%s\". \r\n", brokerDetailsP->clientId);
-    }
-    else
-    {
-        printf("Publication is not related to any available Broker.\r\n");
-    }
-
-    return;
+    sprintf(name, "IOWA_sample_mqtt_client_%ld", id);
 }
 
 int main(int argc,
@@ -119,16 +55,16 @@ int main(int argc,
     iowa_status_t result;
     char endpoint_name[64];
     iowa_device_info_t devInfo;
-    iowa_sensor_t brokerId;
-    iowa_sensor_t publicationId;
-    iowa_mqtt_broker_t brokerInfo;
-    iowa_mqtt_publication_t publicationInfo;
-    int i;
+    user_mqtt_info mqttUserData;
+    iowa_sensor_t sensorId;
+    uint8_t i;
 
     (void)argc;
     (void)argv;
 
-    printf("This a simple LwM2M Client featuring an MQTT Object.\r\n\n");
+    printf("This a simple LwM2M Client featuring two MQTT Objects.\r\n\n");
+
+    memset(&mqttUserData, 0, sizeof(mqttUserData));
 
     // Initialize the IOWA stack.
     iowaH = iowa_init(NULL);
@@ -146,7 +82,7 @@ int main(int argc,
     memset(&devInfo, 0, sizeof(iowa_device_info_t));
     devInfo.manufacturer = "https://ioterop.com";
     devInfo.deviceType = "IOWA sample from https://github.com/IOTEROP/IOWA-Samples";
-    devInfo.modelNumber = "bear_selection_client";
+    devInfo.modelNumber = "mqtt_client";
 
     // Configure the LwM2M Client
     result = iowa_client_configure(iowaH, endpoint_name, &devInfo, NULL);
@@ -157,48 +93,26 @@ int main(int argc,
     }
 
     // Enable MQTT Broker management
-    result = iowa_client_enable_mqtt_broker(iowaH, brokerCB, NULL);
+    result = iowa_client_enable_mqtt_broker(iowaH, mqttBrokerCallback, &mqttUserData);
     if (result != IOWA_COAP_NO_ERROR)
     {
         fprintf(stderr, "Enabling MQTT Broker failed (%u.%02u).\r\n", (result & 0xFF) >> 5, (result & 0x1F));
         goto cleanup;
     }
 
-    memset(&brokerInfo, 0, sizeof(iowa_mqtt_broker_t));
-
-    brokerInfo.uri = "tcp://127.0.0.1";
-    brokerInfo.clientId = "MQTT_Sample";
-    brokerInfo.keepAlive = 120;
-    brokerInfo.securityMode = IOWA_SEC_NONE;
-
-    // Add an MQTT Broker object
-    result = iowa_client_add_mqtt_broker(iowaH, 0x00, &brokerInfo, &brokerId);
-    if (result != IOWA_COAP_NO_ERROR)
-    {
-        fprintf(stderr, "Adding an MQTT Broker failed (%u.%02u).\r\n", (result & 0xFF) >> 5, (result & 0x1F));
-        goto cleanup;
-    }
-
     // Enable MQTT Publication management
-    result = iowa_client_enable_mqtt_publication(iowaH, publicationCB, NULL);
+    result = iowa_client_enable_mqtt_publication(iowaH, mqttPublicationCallback, &mqttUserData);
     if (result != IOWA_COAP_NO_ERROR)
     {
         fprintf(stderr, "Enabling MQTT Publication failed (%u.%02u).\r\n", (result & 0xFF) >> 5, (result & 0x1F));
         goto cleanup;
     }
 
-    memset(&publicationInfo, 0, sizeof(iowa_mqtt_publication_t));
-
-    publicationInfo.topic = "/sensors/tmp0";
-    publicationInfo.source = "</3303/0>";
-    publicationInfo.brokerId = brokerId;
-    publicationInfo.encoding = IOWA_CONTENT_FORMAT_CBOR;
-
-    // Add an MQTT Publication object.
-    result = iowa_client_add_mqtt_publication(iowaH, IOWA_MQTT_PUBLICATION_RSC_ENCODING, &publicationInfo, &publicationId);
+    // Add an IPSO Temperature Object
+    result = iowa_client_IPSO_add_sensor(iowaH, IOWA_IPSO_TEMPERATURE, 20, "Cel", "Test Temperature", -20.0, 50.0, &sensorId);
     if (result != IOWA_COAP_NO_ERROR)
     {
-        fprintf(stderr, "Adding an MQTT Publication failed (%u.%02u).\r\n", (result & 0xFF) >> 5, (result & 0x1F));
+        fprintf(stderr, "Adding the temperature sensor failed (%u.%02u).\r\n", (result & 0xFF) >> 5, (result & 0x1F));
         goto cleanup;
     }
 
@@ -216,11 +130,16 @@ int main(int argc,
     for (i = 0; i < 40 && result == IOWA_COAP_NO_ERROR; i++)
     {
         result = iowa_step(iowaH, 3);
+        mqttUserData.sensorValue = 20 + i%4;
+        result |= iowa_client_IPSO_update_value(iowaH, sensorId, (uint16_t)mqttUserData.sensorValue);
+        result |= user_mqtt_publish(&mqttUserData);
     }
 
 cleanup:
+    user_mqtt_disconnect(&(mqttUserData.mqttClientP));
     iowa_client_disable_mqtt_broker(iowaH);
     iowa_client_disable_mqtt_publication(iowaH);
+    iowa_client_IPSO_remove_sensor(iowaH, sensorId);
     iowa_client_remove_server(iowaH, SERVER_SHORT_ID);
     iowa_close(iowaH);
 
