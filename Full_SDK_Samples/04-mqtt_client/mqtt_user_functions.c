@@ -13,7 +13,7 @@
 #include "mqtt_user_functions.h"
 #include <string.h>
 
-#define MQTT_TEMP_SENSOR_SOURCE "</3303/0/5700>"
+#define MQTT_TEMP_SENSOR_SOURCE "</3303>"
 
 // Connect to an MQTT Broker.
 int user_mqtt_connect(MQTTClient **mqttClientP, iowa_mqtt_broker_t *brokerDetailsP)
@@ -90,12 +90,12 @@ int user_mqtt_publish(user_mqtt_info *mqttUserData)
 
         if (strcmp(mqttUserData->source, MQTT_TEMP_SENSOR_SOURCE) != 0)
         {
-            printf("This sample work only with a topic source equal to </3303/0/5700>.\r\n");
+            printf("This sample work only with a topic source equal to </3303>.\r\n");
             return 0;
         }
         memset(payload, 0, 20*sizeof(uint8_t));
 
-        pubmsg.payloadlen = sprintf(payload, "temp value : %d °C", mqttUserData->sensorValue);
+        pubmsg.payloadlen = sprintf(payload, "data: %d °C", mqttUserData->sensorValue);
         // If we have something to publish, use paho.
         pubmsg.payload = (void*)payload;
         pubmsg.qos = 1;
@@ -184,7 +184,7 @@ void mqttPublicationCallback(iowa_dm_operation_t operation, iowa_sensor_t public
 
     mqttUserData = (user_mqtt_info *)userData;
 
-    mqttUserData->source = (const char*)publicationDetailsP->source; // This sample work only with a topic source equal to </3303/0/5700>
+    mqttUserData->source = (const char*)publicationDetailsP->source; // This sample work only with a topic source equal to </3303>
     mqttUserData->topic = (const char*)publicationDetailsP->topic;
     mqttUserData->active = true;
 

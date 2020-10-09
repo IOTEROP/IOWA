@@ -1,6 +1,6 @@
 # Sample Code
 
-This is an example implementation of the LwM2M Objects MQTT Broker.
+This is an example implementation of the LwM2M MQTT Objects.
 
 The following API will be explained:
 
@@ -46,6 +46,10 @@ On the broker, you should see a new connection with the Client ID "iowa". For in
 1572887271: New connection from 127.0.0.1 on port 1883.
 1572887271: New client connected from 127.0.0.1 as iowa (c1, k12594).
 ```
+
+On an MQTT Client connected to the same MQTT Broker and subscribed to the topic configured in the MQTT Publication Object Instance, you should receive the publication from *mqtt_client*.
+
+![MQTT Messages](images/Paho.jpg)
 
 ## Breakdown
 
