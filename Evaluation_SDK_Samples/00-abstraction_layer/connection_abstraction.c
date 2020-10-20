@@ -59,6 +59,12 @@ void * iowa_system_connection_open(iowa_connection_type_t type,
 
     (void)userData;
 
+#ifdef _WIN32
+    // Initialize Winsock
+    if(WSAStartup(MAKEWORD(2,2), &wd)!= 0)
+        return NULL;
+#endif
+
     memset(&hints, 0, sizeof(hints));
     hints.ai_family = AF_INET;
 
@@ -94,6 +100,7 @@ void * iowa_system_connection_open(iowa_connection_type_t type,
             {
 #ifdef _WIN32
                 closesocket(s);
+                WSACleanup();
 #else
                 close(s);
 #endif
@@ -185,6 +192,7 @@ void iowa_system_connection_close(void *connP,
 
 #ifdef _WIN32
     closesocket(connectionP->sock);
+    WSACleanup();
 #else
     close(connectionP->sock);
 #endif
@@ -224,6 +232,12 @@ int iowa_system_connection_select(void **connArray,
             maxFd = connectionP->sock;
         }
     }
+
+#ifdef _WIN32
+    // Needed to keep compatibility on Winsock
+    if (tv.tv_sec ==0) 
+        return 0;
+#endif
 
     result = select(maxFd + 1, &readfds, NULL, NULL, &tv);
 
