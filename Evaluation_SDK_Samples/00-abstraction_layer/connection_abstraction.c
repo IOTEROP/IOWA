@@ -235,7 +235,7 @@ int iowa_system_connection_select(void **connArray,
 
 #ifdef _WIN32
     // Needed to keep compatibility on Winsock
-    if (tv.tv_sec ==0) 
+    if (tv.tv_sec == 0) 
         return 0;
 #endif
 
