@@ -1,0 +1,1819 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Common API Reference &mdash; Iowa documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Client Mode API Reference" href="ClientAPI.html" />
+    <link rel="prev" title="System Abstraction Layer" href="AbstractionLayer.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Lite version:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#id1">2020-09.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#behavior-changes">Behavior Changes {-}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#sdk-changes">SDK Changes {-}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#bug-fixes">Bug Fixes {-}</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#id2">2020-09</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#new-features">New Features {-}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id3">Behavior Changes {-}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id4">SDK Changes {-}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id5">Bug Fixes {-}</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#id6">2020-06.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id7">Bug Fixes {-}</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#id8">2020-06.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id9">Behavior Changes {-}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id10">Bug Fixes {-}</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#id11">2020-06</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id12">New Features {-}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id13">Behavior Changes {-}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id14">SDK Changes {-}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id15">Bug Fixes {-}</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#id16">2020-03.6</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id17">Bug Fixes {-}</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#id18">2020-03.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id19">Bug Fixes {-}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id20">Behavior Changes {-}</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#id21">2020-03.4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id22">Bug Fixes {-}</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#id23">2020-03.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id24">Bug Fixes {-}</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#id25">2020-03.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id26">Bug Fixes {-}</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#id27">2020-03.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id28">Bug Fixes {-}</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#id29">2020-03</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id30">New Features {-}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id31">Behavior Changes {-}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id32">SDK Changes {-}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id33">Bug Fixes {-}</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#id34">2019-12.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id35">Bug fixes {-}</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#id36">2019-12</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id37">New Features {-}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id38">Behavior Changes {-}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id39">SDK Changes {-}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#advanced-features">Advanced Features {-}</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#id40">2019-08</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id41">New Features {-}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id42">Behavior Changes {-}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id43">SDK Changes {-}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#experimental-features">Experimental Features {-}</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Changelog.html#id44">2019-05</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id45">New Features {-}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id46">Behavior Changes {-}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Changelog.html#id47">SDK Changes {-}</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="LwM2MOverview.html">LwM2M Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="LwM2MOverview.html#lwm2m-concepts">LwM2M Concepts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#lwm2m-client-device">LwM2M Client/Device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#lwm2m-server">LwM2M Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#lwm2m-bootstrap-server">LwM2M Bootstrap Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#lwm2m-resource">LwM2M Resource</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#lwm2m-objects">LwM2M Objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#lwm2m-object-instance">LwM2M Object Instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#lwm2m-uri">LwM2M URI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#server-account">Server Account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#bootstrap">Bootstrap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#registration">Registration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#observation">Observation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#lifetime">Lifetime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#queue-mode">Queue Mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#sms-trigger">SMS Trigger</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="LwM2MOverview.html#lwm2m-operations-overview">LwM2M Operations Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#id1">Bootstrap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#id2">Registration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#device-management-and-service-enablement">Device Management and Service Enablement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#information-reporting">Information Reporting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="LwM2MOverview.html#standardized-lwm2m-objects">Standardized LwM2M Objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#security-object">Security Object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#server-object">Server Object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#access-control-list-object">Access Control List Object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#device-object">Device Object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#connectivity-monitoring-object">Connectivity Monitoring Object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#firmware-update-object">Firmware Update Object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#location-object">Location Object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#connectivity-statistics-object">Connectivity Statistics Object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#software-management-object">Software Management Object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#cellular-connectivity-object">Cellular Connectivity Object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#apn-connection-profile-object">APN Connection Profile Object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#bearer-selection-object">Bearer selection Object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#software-component-object">Software Component Object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LwM2MOverview.html#lwm2m-oscore">LwM2M OSCORE</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="EvaluationKit.html">IOWA Evaluation Kit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="EvaluationKit.html#content">Content</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EvaluationKit.html#samples">Samples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EvaluationKit.html#compilation">Compilation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EvaluationKit.html#testing">Testing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="EvaluationKit.html#without-security">Without Security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EvaluationKit.html#with-psk-security">With PSK security</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="AbstractionLayer.html">System Abstraction Layer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="AbstractionLayer.html#presentation">Presentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AbstractionLayer.html#data-types">Data types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-connection-type-t">iowa_connection_type_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-security-operation-t">iowa_security_operation_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-psk-data-t">iowa_psk_data_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-certificate-data-t">iowa_certificate_data_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-rpk-data-t">iowa_rpk_data_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-oscore-data-t">iowa_oscore_data_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-security-data-t">iowa_security_data_t</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="AbstractionLayer.html#api">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-malloc">iowa_system_malloc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-free">iowa_system_free</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-gettime">iowa_system_gettime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-reboot">iowa_system_reboot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-trace">iowa_system_trace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-connection-open">iowa_system_connection_open</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-connection-send">iowa_system_connection_send</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-connection-get-peer-identifier">iowa_system_connection_get_peer_identifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-connection-recv">iowa_system_connection_recv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-connection-select">iowa_system_connection_select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-connection-interrupt-select">iowa_system_connection_interrupt_select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-connection-close">iowa_system_connection_close</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-queue-create">iowa_system_queue_create</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-queue-delete">iowa_system_queue_delete</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-queue-enqueue">iowa_system_queue_enqueue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-queue-dequeue">iowa_system_queue_dequeue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-queue-peek">iowa_system_queue_peek</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-queue-remove">iowa_system_queue_remove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-queue-backup">iowa_system_queue_backup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-queue-restore">iowa_system_queue_restore</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-store-context">iowa_system_store_context</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-retrieve-context">iowa_system_retrieve_context</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-mutex-lock">iowa_system_mutex_lock</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-mutex-unlock">iowa_system_mutex_unlock</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-random-vector-generator">iowa_system_random_vector_generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractionLayer.html#iowa-system-security-data">iowa_system_security_data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Common API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#presentation">Presentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-types">Data types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-status-t">iowa_status_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-context-t">iowa_context_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-dm-operation-t">iowa_dm_operation_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-bootstrap-operation-t">iowa_bootstrap_operation_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-lwm2m-data-type-t">iowa_lwm2m_data_type_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-lwm2m-data-t">iowa_lwm2m_data_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-lwm2m-object-link-t">iowa_lwm2m_object_link_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-content-format-t">iowa_content_format_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-lwm2m-uri-t">iowa_lwm2m_uri_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-response-content-t">iowa_response_content_t</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#callbacks">Callbacks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-response-callback-t">iowa_response_callback_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-load-callback-t">iowa_load_callback_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-save-callback-t">iowa_save_callback_t</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#api">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-init">iowa_init</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-step">iowa_step</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-flush-before-pause">iowa_flush_before_pause</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-stop">iowa_stop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-close">iowa_close</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-clock-reset">iowa_clock_reset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-save-context">iowa_save_context</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-save-context-snapshot">iowa_save_context_snapshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-load-context">iowa_load_context</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-backup-register-callback">iowa_backup_register_callback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-backup-deregister-callback">iowa_backup_deregister_callback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-connection-closed">iowa_connection_closed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-data-get-block-info">iowa_data_get_block_info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iowa-data-set-block-info">iowa_data_set_block_info</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ClientAPI.html">Client Mode API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#client-pseudo-code">Client pseudo code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#data-types">Data types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-server-setting-id-t">iowa_server_setting_id_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-lwm2m-binding-t">iowa_lwm2m_binding_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-server-info-t">iowa_server_info_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-device-info-t">iowa_device_info_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-event-type-t">iowa_event_type_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-event-t">iowa_event_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-device-time-info-t">iowa_device_time_info_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-ipso-timed-value-t">iowa_ipso_timed_value_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-sensor-t">iowa_sensor_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-lwm2m-resource-desc-t">iowa_lwm2m_resource_desc_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-sensor-uri-t">iowa_sensor_uri_t</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#callbacks">Callbacks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-event-callback-t">iowa_event_callback_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-time-update-callback-t">iowa_client_time_update_callback_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-factory-reset-callback-t">iowa_client_factory_reset_callback_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-rwe-callback-t">iowa_RWE_callback_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-cd-callback-t">iowa_CD_callback_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-ri-callback-t">iowa_RI_callback_t</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#api">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-configure">iowa_client_configure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-new-incoming-connection">iowa_client_new_incoming_connection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-add-bootstrap-server">iowa_client_add_bootstrap_server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-remove-bootstrap-server">iowa_client_remove_bootstrap_server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-set-bootstrap-server-hold-off">iowa_client_set_bootstrap_server_hold_off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-get-bootstrap-server-coap-peer">iowa_client_get_bootstrap_server_coap_peer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-add-server">iowa_client_add_server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-remove-server">iowa_client_remove_server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-set-server-configuration">iowa_client_set_server_configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-set-server-msisdn">iowa_client_set_server_msisdn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-set-server-registration-behaviour">iowa_client_set_server_registration_behaviour</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-set-server-communication-attempts">iowa_client_set_server_communication_attempts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-get-server-count">iowa_client_get_server_count</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-get-server-array">iowa_client_get_server_array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-get-server-coap-peer">iowa_client_get_server_coap_peer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-set-notification-default-periods">iowa_client_set_notification_default_periods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-use-reliable-notifications">iowa_client_use_reliable_notifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-object-set-mode">iowa_client_object_set_mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-device-update-battery">iowa_client_device_update_battery</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-add-device-power-source">iowa_client_add_device_power_source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-remove-device-power-source">iowa_client_remove_device_power_source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-update-device-power-source">iowa_client_update_device_power_source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-update-device-information">iowa_client_update_device_information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-set-device-error-code">iowa_client_set_device_error_code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-clear-device-error-code">iowa_client_clear_device_error_code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-update-device-time-information">iowa_client_update_device_time_information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-add-custom-object">iowa_client_add_custom_object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-remove-custom-object">iowa_client_remove_custom_object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-object-resource-changed">iowa_client_object_resource_changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-object-instance-changed">iowa_client_object_instance_changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-notification-lock">iowa_client_notification_lock</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-send-heartbeat">iowa_client_send_heartbeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-send-sensor-data">iowa_client_send_sensor_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-send-data">iowa_client_send_data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#accelerometer-object-api">Accelerometer Object API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-add-accelerometer-object">iowa_client_add_accelerometer_object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-remove-accelerometer-object">iowa_client_remove_accelerometer_object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-accelerometer-update-axis">iowa_client_accelerometer_update_axis</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#access-control-list-object-api">Access Control List Object API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-acl-rights-server-set">iowa_client_acl_rights_server_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-acl-rights-server-clear">iowa_client_acl_rights_server_clear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-acl-rights-object-clear">iowa_client_acl_rights_object_clear</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#apn-connection-profile-object-api">APN Connection Profile Object API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#data-structures-and-constants">Data Structures and Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id227">Callbacks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id229">API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#at-command-object-api">AT Command Object API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id264">Callbacks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id267">API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#bearer-selection-object-api">Bearer Selection Object API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id285">Data Structures and Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id286">Callbacks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id288">API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#cellular-connectivity-object-api">Cellular Connectivity Object API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id306">Data Structures and Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id307">Callbacks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id309">API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#connectivity-monitoring-object-api">Connectivity Monitoring Object API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id327">Data Structures and Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id328">API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#connectivity-statistics-object-api">Connectivity Statistics Object API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-add-connectivity-stats-object">iowa_client_add_connectivity_stats_object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-remove-connectivity-stats-object">iowa_client_remove_connectivity_stats_object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-connectivity-stats-update-sms">iowa_client_connectivity_stats_update_sms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-connectivity-stats-update-ip-data">iowa_client_connectivity_stats_update_ip_data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#digital-output-object-api">Digital Output Object API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id369">Callbacks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id371">API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#dimmer-object-api">Dimmer Object API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id388">Callbacks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id390">API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#firmware-update-object-api">Firmware Update Object API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id412">Data Structures and Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id413">Callbacks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id415">API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#gps-object-api">GPS Object API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-add-gps-object">iowa_client_add_gps_object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-remove-gps-object">iowa_client_remove_gps_object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-gps-update-location">iowa_client_gps_update_location</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-gps-update-location-full">iowa_client_gps_update_location_full</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#gyrometer-object-api">Gyrometer Object API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-add-gyrometer-object">iowa_client_add_gyrometer_object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-remove-gyrometer-object">iowa_client_remove_gyrometer_object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-gyrometer-update-axis">iowa_client_gyrometer_update_axis</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#ipso-objects">IPSO Objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-ipso-add-sensor">iowa_client_IPSO_add_sensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-ipso-update-value">iowa_client_IPSO_update_value</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-ipso-update-values">iowa_client_IPSO_update_values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-ipso-remove-sensor">iowa_client_IPSO_remove_sensor</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#ligth-control-object-api">Ligth Control Object API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id494">Callbacks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id496">API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#location-object-api">Location Object API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-add-location-object">iowa_client_add_location_object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-remove-location-object">iowa_client_remove_location_object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-location-update">iowa_client_location_update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-location-update-full">iowa_client_location_update_full</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#magnetometer-object-api">Magnetometer Object API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-add-magnetometer-object">iowa_client_add_magnetometer_object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-remove-magnetometer-object">iowa_client_remove_magnetometer_object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#iowa-client-magnetometer-update-values">iowa_client_magnetometer_update_values</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#software-component-object-api">Software Component Object API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id551">Data Structures and Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id552">Callbacks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id555">API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#software-management-object-api">Software Management Object API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id583">Data Structures and Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id584">Callbacks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id587">API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ClientAPI.html#mqtt-object-api">MQTT Object API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id619">Data Structures and Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id620">Callbacks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClientAPI.html#id621">API</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ServerAPI.html">Server Mode API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ServerAPI.html#server-pseudo-code">Server pseudo code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ServerAPI.html#data-types">Data types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-supported-format-t">iowa_supported_format_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-lwm2m-protocol-version-t">iowa_lwm2m_protocol_version_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-client-t">iowa_client_t</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ServerAPI.html#callbacks">Callbacks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-result-callback-t">iowa_result_callback_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-monitor-callback-t">iowa_monitor_callback_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-resource-type-callback-t">iowa_resource_type_callback_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-verify-client-callback-t">iowa_verify_client_callback_t</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ServerAPI.html#api">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-server-configure">iowa_server_configure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-server-set-verify-client-callback">iowa_server_set_verify_client_callback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-server-new-incoming-connection">iowa_server_new_incoming_connection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-server-configure-data-push">iowa_server_configure_data_push</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-server-read">iowa_server_read</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-server-observe">iowa_server_observe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-server-observe-cancel">iowa_server_observe_cancel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-server-write">iowa_server_write</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-server-write-attributes-string">iowa_server_write_attributes_string</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-server-dm-exec">iowa_server_dm_exec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-server-dm-create">iowa_server_dm_create</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-server-dm-delete">iowa_server_dm_delete</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-server-dm-discover">iowa_server_dm_discover</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-server-set-response-format">iowa_server_set_response_format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-server-set-payload-format">iowa_server_set_payload_format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-server-create-registration-update-trigger-message">iowa_server_create_registration_update_trigger_message</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerAPI.html#iowa-server-close-client-connection">iowa_server_close_client_connection</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="BootstrapServerAPI.html">Bootstrap Server Mode API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="BootstrapServerAPI.html#bootstrap-server-pseudo-code">Bootstrap Server pseudo code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BootstrapServerAPI.html#callbacks">Callbacks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="BootstrapServerAPI.html#iowa-bootstrap-result-callback-t">iowa_bootstrap_result_callback_t</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="BootstrapServerAPI.html#api">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="BootstrapServerAPI.html#iowa-bootstrap-server-configure">iowa_bootstrap_server_configure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BootstrapServerAPI.html#iowa-bootstrap-server-new-incoming-connection">iowa_bootstrap_server_new_incoming_connection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BootstrapServerAPI.html#iowa-bootstrap-server-read">iowa_bootstrap_server_read</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BootstrapServerAPI.html#iowa-bootstrap-server-write">iowa_bootstrap_server_write</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BootstrapServerAPI.html#iowa-bootstrap-server-delete">iowa_bootstrap_server_delete</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BootstrapServerAPI.html#iowa-bootstrap-server-discover">iowa_bootstrap_server_discover</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BootstrapServerAPI.html#iowa-bootstrap-server-finish">iowa_bootstrap_server_finish</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BootstrapServerAPI.html#iowa-bootstrap-server-add-server">iowa_bootstrap_server_add_server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BootstrapServerAPI.html#iowa-bootstrap-server-remove-server">iowa_bootstrap_server_remove_server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BootstrapServerAPI.html#iowa-bootstrap-server-add-bootstrap-server">iowa_bootstrap_server_add_bootstrap_server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BootstrapServerAPI.html#iowa-bootstrap-server-remove-bootstrap-server">iowa_bootstrap_server_remove_bootstrap_server</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="UtilsAPI.html">Utils API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="UtilsAPI.html#data-types">Data types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="UtilsAPI.html#iowa-list-t">iowa_list_t</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="UtilsAPI.html#callbacks">Callbacks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="UtilsAPI.html#iowa-list-node-free-callback-t">iowa_list_node_free_callback_t</a></li>
+<li class="toctree-l3"><a class="reference internal" href="UtilsAPI.html#iowa-list-node-find-callback-t">iowa_list_node_find_callback_t</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="UtilsAPI.html#api">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="UtilsAPI.html#iowa-utils-base64-get-encoded-size">iowa_utils_base64_get_encoded_size</a></li>
+<li class="toctree-l3"><a class="reference internal" href="UtilsAPI.html#iowa-utils-base64-get-decoded-size">iowa_utils_base64_get_decoded_size</a></li>
+<li class="toctree-l3"><a class="reference internal" href="UtilsAPI.html#iowa-utils-base64-encode">iowa_utils_base64_encode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="UtilsAPI.html#iowa-utils-base64-decode">iowa_utils_base64_decode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="UtilsAPI.html#iowa-utils-uri-to-sensor">iowa_utils_uri_to_sensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="UtilsAPI.html#iowa-utils-sensor-to-uri">iowa_utils_sensor_to_uri</a></li>
+<li class="toctree-l3"><a class="reference internal" href="UtilsAPI.html#iowa-utils-list-add">iowa_utils_list_add</a></li>
+<li class="toctree-l3"><a class="reference internal" href="UtilsAPI.html#iowa-utils-list-remove">iowa_utils_list_remove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="UtilsAPI.html#iowa-utils-list-free">iowa_utils_list_free</a></li>
+<li class="toctree-l3"><a class="reference internal" href="UtilsAPI.html#iowa-utils-list-find">iowa_utils_list_find</a></li>
+<li class="toctree-l3"><a class="reference internal" href="UtilsAPI.html#iowa-utils-list-find-and-remove">iowa_utils_list_find_and_remove</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="UtilsAPI.html#example-linked-list-usage">Example: Linked List usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DeprecatedAPI.html">Deprecated API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DeprecatedAPI.html#deprecated-compilation-flags">Deprecated Compilation Flags</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DeprecatedAPI.html#iowa-single-connection-mode">IOWA_SINGLE_CONNECTION_MODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DeprecatedAPI.html#lwm2m-single-server-mode">LWM2M_SINGLE_SERVER_MODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DeprecatedAPI.html#lwm2m-old-content-format-support">LWM2M_OLD_CONTENT_FORMAT_SUPPORT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DeprecatedAPI.html#iowa-lorawan-minimal-support">IOWA_LORAWAN_MINIMAL_SUPPORT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DeprecatedAPI.html#lwm2m-notification-queue-size">LWM2M_NOTIFICATION_QUEUE_SIZE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DeprecatedAPI.html#lwm2m-storage-queue-peek-support">LWM2M_STORAGE_QUEUE_PEEK_SUPPORT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DeprecatedAPI.html#lwm2m-features-removal">LwM2M features removal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DeprecatedAPI.html#deprecated-enumeration-values">Deprecated Enumeration Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DeprecatedAPI.html#iowa-ipso-level-control">IOWA_IPSO_LEVEL_CONTROL</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DeprecatedAPI.html#deprecated-api">Deprecated API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DeprecatedAPI.html#iowa-server-configuration-set">iowa_server_configuration_set</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="OpenSourceLicenses.html">Appendix A</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Iowa (Lite version)</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Common API Reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/iowa_docs/CommonAPI.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="common-api-reference">
+<h1>Common API Reference<a class="headerlink" href="#common-api-reference" title="Permalink to this headline">¶</a></h1>
+<p>The functions explained below are defined inside the file <em>include/iowa.h</em>.</p>
+<div class="section" id="presentation">
+<h2>Presentation<a class="headerlink" href="#presentation" title="Permalink to this headline">¶</a></h2>
+<p>Whatever the role of your application (Client or Server), it builds on the following skeleton:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;iowa.h&quot;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span>
+         <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">iowa_context_t</span> <span class="n">iowaH</span><span class="p">;</span>
+    <span class="n">iowa_status_t</span> <span class="n">result</span><span class="p">;</span>
+
+    <span class="cm">/******************</span>
+<span class="cm">     * Initialization</span>
+<span class="cm">     */</span>
+
+    <span class="n">iowaH</span> <span class="o">=</span> <span class="n">iowa_init</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+
+    <span class="cm">/******************</span>
+<span class="cm">     * &quot;Main loop&quot;</span>
+<span class="cm">     */</span>
+
+    <span class="k">do</span>
+    <span class="p">{</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">iowa_step</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">IOWA_COAP_NO_ERROR</span><span class="p">)</span>
+
+    <span class="n">iowa_close</span><span class="p">(</span><span class="n">iowaH</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="data-types">
+<h2>Data types<a class="headerlink" href="#data-types" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="iowa-status-t">
+<h3>iowa_status_t<a class="headerlink" href="#iowa-status-t" title="Permalink to this headline">¶</a></h3>
+<p>This is the return type of most of the IOWA APIs. This is an enumeration matching the CoAP status codes, similar to the HTTP status codes.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">uint8_t</span> <span class="n">iowa_status_t</span><span class="p">;</span>
+
+<span class="cp">#define IOWA_COAP_NO_ERROR                        0x00</span>
+<span class="cp">#define IOWA_COAP_201_CREATED                     0x41</span>
+<span class="cp">#define IOWA_COAP_202_DELETED                     0x42</span>
+<span class="cp">#define IOWA_COAP_203_VALID                       0x43</span>
+<span class="cp">#define IOWA_COAP_204_CHANGED                     0x44</span>
+<span class="cp">#define IOWA_COAP_205_CONTENT                     0x45</span>
+<span class="cp">#define IOWA_COAP_231_CONTINUE                    0x5F</span>
+<span class="cp">#define IOWA_COAP_400_BAD_REQUEST                 0x80</span>
+<span class="cp">#define IOWA_COAP_401_UNAUTHORIZED                0x81</span>
+<span class="cp">#define IOWA_COAP_402_BAD_OPTION                  0x82</span>
+<span class="cp">#define IOWA_COAP_403_FORBIDDEN                   0x83</span>
+<span class="cp">#define IOWA_COAP_404_NOT_FOUND                   0x84</span>
+<span class="cp">#define IOWA_COAP_405_METHOD_NOT_ALLOWED          0x85</span>
+<span class="cp">#define IOWA_COAP_406_NOT_ACCEPTABLE              0x86</span>
+<span class="cp">#define IOWA_COAP_408_REQUEST_ENTITY_INCOMPLETE   0x88</span>
+<span class="cp">#define IOWA_COAP_409_CONFLICT                    0x89</span>
+<span class="cp">#define IOWA_COAP_412_PRECONDITION_FAILED         0x8C</span>
+<span class="cp">#define IOWA_COAP_413_REQUEST_ENTITY_TOO_LARGE    0x8D</span>
+<span class="cp">#define IOWA_COAP_415_UNSUPPORTED_CONTENT_FORMAT  0x8F</span>
+<span class="cp">#define IOWA_COAP_422_UNPROCESSABLE_ENTITY        0x96</span>
+<span class="cp">#define IOWA_COAP_429_TOO_MANY_REQUESTS           0x9D</span>
+<span class="cp">#define IOWA_COAP_500_INTERNAL_SERVER_ERROR       0xA0</span>
+<span class="cp">#define IOWA_COAP_501_NOT_IMPLEMENTED             0xA1</span>
+<span class="cp">#define IOWA_COAP_502_BAD_GATEWAY                 0xA2</span>
+<span class="cp">#define IOWA_COAP_503_SERVICE_UNAVAILABLE         0xA3</span>
+<span class="cp">#define IOWA_COAP_504_GATEWAY_TIMEOUT             0xA4</span>
+<span class="cp">#define IOWA_COAP_505_PROXYING_NOT_SUPPORTED      0xA5</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="iowa-context-t">
+<h3>iowa_context_t<a class="headerlink" href="#iowa-context-t" title="Permalink to this headline">¶</a></h3>
+<p>This opaque type is used to store the context of the IOWA stack engine. It is created by calling [<code class="docutils literal notranslate"><span class="pre">iowa_init()</span></code>][iowa_init] and destroyed by calling [<code class="docutils literal notranslate"><span class="pre">iowa_close()</span></code>][iowa_close].</p>
+<p>Multiple <code class="docutils literal notranslate"><span class="pre">iowa_context_t</span></code> can be created within the same process.</p>
+</div>
+<div class="section" id="iowa-dm-operation-t">
+<h3>iowa_dm_operation_t<a class="headerlink" href="#iowa-dm-operation-t" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">uint8_t</span> <span class="n">iowa_dm_operation_t</span><span class="p">;</span>
+
+<span class="cp">#define IOWA_DM_UNDEFINED        0</span>
+<span class="cp">#define IOWA_DM_READ             1</span>
+<span class="cp">#define IOWA_DM_FREE             2</span>
+<span class="cp">#define IOWA_DM_WRITE            3</span>
+<span class="cp">#define IOWA_DM_EXECUTE          4</span>
+<span class="cp">#define IOWA_DM_CREATE           5</span>
+<span class="cp">#define IOWA_DM_DELETE           6</span>
+<span class="cp">#define IOWA_DM_DISCOVER         7</span>
+<span class="cp">#define IOWA_DM_WRITE_ATTRIBUTES 8</span>
+<span class="cp">#define IOWA_DM_NOTIFY           9</span>
+<span class="cp">#define IOWA_DM_CANCEL           10</span>
+<span class="cp">#define IOWA_DM_DATA_PUSH        11</span>
+<span class="cp">#define IOWA_DM_READ_REQUEST     12</span>
+</pre></div>
+</div>
+<p>This is an enumeration of the following values:</p>
+<p>IOWA_DM_UNDEFINED
+: No specific LwM2M operation, this should never be used and only serves as a non default operation.</p>
+<p>IOWA_DM_READ
+: LwM2M Read operation is used to access the value of an Object, Object Instances, and Resources.</p>
+<p>IOWA_DM_FREE
+: Free operation is used to clean the allocated memory on <em>IOWA_DM_READ</em> operation.</p>
+<p>IOWA_DM_WRITE
+: LwM2M Write operation is used to change the value of an Object, Object Instances, and Resources.</p>
+<p>IOWA_DM_EXECUTE
+: LwM2M Execute operation is used to initiate some action, and can only be performed on individual Resources.</p>
+<p>IOWA_DM_CREATE
+: LwM2M Create operation is used to create Object Instance(s).</p>
+<p>IOWA_DM_DELETE
+: LwM2M Delete operation is used to delete an Object Instance.</p>
+<p>IOWA_DM_DISCOVER
+: LwM2M Discover operation is used to discover LwM2M Attributes attached to an Object, Object Instances, and Resources.</p>
+<p>IOWA_DM_WRITE_ATTRIBUTES
+: LwM2M Write-Attributes operation is used to change the LwM2M Attributes of an Object, Object Instances, and Resources.</p>
+<p>IOWA_DM_NOTIFY
+: LwM2M Notify operation is used to notify the change of a value during a valid Observation on an Object Instance or Resource.</p>
+<p>IOWA_DM_CANCEL
+: LwM2M Cancel operation is used to end an Observation.</p>
+<p>IOWA_DM_DATA_PUSH
+: LwM2M Data push operation is used when LwM2M Server receives the value of an Object, Object Instances, and Resources without requested it.</p>
+<p>IOWA_DM_READ_REQUEST
+: On the Client side, inform a custom Object that a LwM2M Server will perform a READ operation. See [iowa_lwm2m_resource_desc_t][iowa_lwm2m_resource_desc_t].</p>
+<div class="section" id="notes">
+<h4>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h4>
+<p>This enumeration is used on both Server and Client side. But not all the values are used depending of the side.</p>
+<p>Server callbacks can be called with:</p>
+<ul class="simple">
+<li><p>IOWA_DM_READ</p></li>
+<li><p>IOWA_DM_WRITE</p></li>
+<li><p>IOWA_DM_EXECUTE</p></li>
+<li><p>IOWA_DM_CREATE</p></li>
+<li><p>IOWA_DM_DELETE</p></li>
+<li><p>IOWA_DM_DISCOVER</p></li>
+<li><p>IOWA_DM_WRITE_ATTRIBUTES</p></li>
+<li><p>IOWA_DM_NOTIFY</p></li>
+<li><p>IOWA_DM_DATA_PUSH</p></li>
+</ul>
+<p>Client callbacks can be called with:</p>
+<ul class="simple">
+<li><p>IOWA_DM_READ</p></li>
+<li><p>IOWA_DM_FREE</p></li>
+<li><p>IOWA_DM_WRITE</p></li>
+<li><p>IOWA_DM_EXECUTE</p></li>
+<li><p>IOWA_DM_CREATE</p></li>
+<li><p>IOWA_DM_DELETE</p></li>
+<li><p>IOWA_DM_DATA_PUSH</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="iowa-bootstrap-operation-t">
+<h3>iowa_bootstrap_operation_t<a class="headerlink" href="#iowa-bootstrap-operation-t" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">uint8_t</span> <span class="n">iowa_bootstrap_operation_t</span><span class="p">;</span>
+
+<span class="cp">#define IOWA_BOOTSTRAP_UNDEFINED               0</span>
+<span class="cp">#define IOWA_BOOTSTRAP_READ                    101</span>
+<span class="cp">#define IOWA_BOOTSTRAP_WRITE                   102</span>
+<span class="cp">#define IOWA_BOOTSTRAP_DELETE                  103</span>
+<span class="cp">#define IOWA_BOOTSTRAP_DISCOVER                104</span>
+<span class="cp">#define IOWA_BOOTSTRAP_FINISH                  105</span>
+<span class="cp">#define IOWA_BOOTSTRAP_ADD_SERVER              106</span>
+<span class="cp">#define IOWA_BOOTSTRAP_REMOVE_SERVER           107</span>
+<span class="cp">#define IOWA_BOOTSTRAP_ADD_BOOTSTRAP_SERVER    108</span>
+<span class="cp">#define IOWA_BOOTSTRAP_REMOVE_BOOTSTRAP_SERVER 109</span>
+</pre></div>
+</div>
+<p>This is an enumeration of the following values:</p>
+<p>IOWA_BOOTSTRAP_UNDEFINED
+: No specific LwM2M operation, this should never be used and only serves as a non default operation.</p>
+<p>IOWA_BOOTSTRAP_READ
+: LwM2M Read operation is used to access the value of an Object, Object Instances, and Resources.</p>
+<p>IOWA_BOOTSTRAP_WRITE
+: LwM2M Write operation is used to change the value of an Object, and Object Instances regardless of an existence of the targeted Object Instance(s).</p>
+<p>IOWA_BOOTSTRAP_DELETE
+: LwM2M Delete operation is used to delete any Object Instance or all Instances of any Object including the Security Object (ID:0).</p>
+<p>IOWA_BOOTSTRAP_DISCOVER
+: LwM2M Bootstrap Discover operation is used to discover which LwM2M Objects and Object Instances are supported on a LwM2M Client. In particular, the list of Security Object Instances (ID:0) is reported.</p>
+<p>IOWA_BOOTSTRAP_FINISH
+: LwM2M Finish operation is used to terminate the Bootstrap Sequence.</p>
+<p>IOWA_BOOTSTRAP_ADD_SERVER
+: Custom LwM2M Bootstrap Add Server operation is used to write the proper Object Instances of Security Object (ID:0) and Server Object (ID:1) to add a LwM2M Server Account.</p>
+<p>IOWA_BOOTSTRAP_REMOVE_SERVER
+: Custom LwM2M Bootstrap Remove Server operation is used to delete the proper Object Instances of Security Object (ID:0) and Server Object (ID:1) associated to a LwM2M Server Account.</p>
+<p>IOWA_BOOTSTRAP_ADD_BOOTSTRAP_SERVER
+: Custom LwM2M Bootstrap Add Bootstrap Server operation is used to write the proper Object Instance of Security Object (ID:0) add a LwM2M Bootstrap Server Account.</p>
+<p>IOWA_BOOTSTRAP_REMOVE_BOOTSTRAP_SERVER
+: Custom LwM2M Bootstrap Remove Bootstrap Server operation is used to delete the proper Object Instance of Security Object (ID:0) associated to a LwM2M Bootstrap Server Account.</p>
+</div>
+<div class="section" id="iowa-lwm2m-data-type-t">
+<h3>iowa_lwm2m_data_type_t<a class="headerlink" href="#iowa-lwm2m-data-type-t" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">uint8_t</span> <span class="n">iowa_lwm2m_data_type_t</span><span class="p">;</span>
+
+<span class="cp">#define IOWA_LWM2M_TYPE_UNDEFINED        0</span>
+<span class="cp">#define IOWA_LWM2M_TYPE_STRING           1</span>
+<span class="cp">#define IOWA_LWM2M_TYPE_OPAQUE           2</span>
+<span class="cp">#define IOWA_LWM2M_TYPE_INTEGER          3</span>
+<span class="cp">#define IOWA_LWM2M_TYPE_FLOAT            4</span>
+<span class="cp">#define IOWA_LWM2M_TYPE_BOOLEAN          5</span>
+<span class="cp">#define IOWA_LWM2M_TYPE_CORE_LINK        6</span>
+<span class="cp">#define IOWA_LWM2M_TYPE_OBJECT_LINK      7</span>
+<span class="cp">#define IOWA_LWM2M_TYPE_TIME             8</span>
+<span class="cp">#define IOWA_LWM2M_TYPE_UNSIGNED_INTEGER 9</span>
+</pre></div>
+</div>
+<p>This is an enumeration of the following values:</p>
+<p>IOWA_LWM2M_TYPE_UNDEFINED
+: No specific data type: it is only used for Executable Resource.</p>
+<p>IOWA_LWM2M_TYPE_STRING
+: A UTF-8 string.</p>
+<p>IOWA_LWM2M_TYPE_OPAQUE
+: A sequence of binary octets.</p>
+<p>IOWA_LWM2M_TYPE_INTEGER
+: An 64-bit signed integer.</p>
+<p>IOWA_LWM2M_TYPE_FLOAT
+: A 32 or 64-bit floating point value.</p>
+<p>IOWA_LWM2M_TYPE_BOOLEAN
+: An unsigned integer with the value 0 for false and the value 1 for true.</p>
+<p>IOWA_LWM2M_TYPE_CORE_LINK
+: A UTF-8 string representing the relation between resources and links.</p>
+<p>IOWA_LWM2M_TYPE_OBJECT_LINK
+: Reference to an Instance of a given Object.</p>
+<p>IOWA_LWM2M_TYPE_TIME
+: A signed integer representing the number of seconds.</p>
+<p>IOWA_LWM2M_TYPE_UNSIGNED_INTEGER
+: An unsigned integer.</p>
+</div>
+<div class="section" id="iowa-lwm2m-data-t">
+<h3>iowa_lwm2m_data_t<a class="headerlink" href="#iowa-lwm2m-data-t" title="Permalink to this headline">¶</a></h3>
+<p>When the LwM2M Server and the LwM2M Client exchange data, at the application level, they are presented in <code class="docutils literal notranslate"><span class="pre">iowa_lwm2m_data_t</span></code> structures.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span>
+<span class="p">{</span>
+    <span class="kt">uint16_t</span> <span class="n">objectID</span><span class="p">;</span>
+    <span class="kt">uint16_t</span> <span class="n">instanceID</span><span class="p">;</span>
+    <span class="kt">uint16_t</span> <span class="n">resourceID</span><span class="p">;</span>
+    <span class="kt">uint16_t</span> <span class="n">resInstanceID</span><span class="p">;</span>
+    <span class="n">iowa_lwm2m_data_type_t</span> <span class="n">type</span><span class="p">;</span>
+    <span class="k">union</span>
+    <span class="p">{</span>
+        <span class="kt">bool</span>    <span class="n">asBoolean</span><span class="p">;</span>
+        <span class="kt">int64_t</span> <span class="n">asInteger</span><span class="p">;</span>
+        <span class="kt">double</span>  <span class="n">asFloat</span><span class="p">;</span>
+        <span class="k">struct</span>
+        <span class="p">{</span>
+            <span class="kt">size_t</span>   <span class="n">length</span><span class="p">;</span>
+            <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">buffer</span><span class="p">;</span>
+        <span class="p">}</span> <span class="n">asBuffer</span><span class="p">;</span>
+        <span class="n">iowa_lwm2m_object_link_t</span> <span class="n">asObjLink</span><span class="p">;</span>
+    <span class="p">}</span> <span class="n">value</span><span class="p">;</span>
+    <span class="kt">int32_t</span> <span class="n">timestamp</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">iowa_lwm2m_data_t</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This structure contains the value of a LwM2M resource along its complete URI.</p>
+<p>objectID
+: ID of the Object containing the resource.</p>
+<p>instanceID
+: ID of the Object Instance containing the resource.</p>
+<p>resourceID
+: ID of the resource.</p>
+<p>resInstanceID
+: ID of the resource instance. For single instance resource, this is always <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
+<p>type
+: The datatype of the resource.</p>
+<p>value.asBoolean
+: The value of the resource when type is <strong>IOWA_LWM2M_TYPE_BOOLEAN</strong>.</p>
+<p>value.asInteger
+: The value of the resource when type is <strong>IOWA_LWM2M_TYPE_INTEGER</strong>, <strong>IOWA_LWM2M_TYPE_TIME</strong> or <strong>IOWA_LWM2M_TYPE_UNSIGNED_INTEGER</strong>.</p>
+<p>value.asFloat
+: The value of the resource when type is <strong>IOWA_LWM2M_TYPE_FLOAT</strong>.</p>
+<p>value.asBuffer
+: The value of the resource when type is <strong>IOWA_LWM2M_TYPE_CORE_LINK</strong>, <strong>IOWA_LWM2M_TYPE_STRING</strong>, <strong>IOWA_LWM2M_TYPE_OPAQUE</strong> or <strong>IOWA_LWM2M_TYPE_UNDEFINED</strong>.</p>
+<p>value.asObjLink
+: The value of the resource when type is <strong>IOWA_LWM2M_TYPE_OBJECT_LINK</strong>.</p>
+<p>timestamp
+: The timestamp value in seconds. Time is always absolute, and timestamp is present when the value is greater than zero. This can not be negative.</p>
+</div>
+<div class="section" id="iowa-lwm2m-object-link-t">
+<h3>iowa_lwm2m_object_link_t<a class="headerlink" href="#iowa-lwm2m-object-link-t" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span>
+<span class="p">{</span>
+    <span class="kt">uint16_t</span> <span class="n">objectId</span><span class="p">;</span>
+    <span class="kt">uint16_t</span> <span class="n">instanceId</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">iowa_lwm2m_object_link_t</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="iowa-content-format-t">
+<h3>iowa_content_format_t<a class="headerlink" href="#iowa-content-format-t" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">uint16_t</span> <span class="n">iowa_content_format_t</span><span class="p">;</span>
+
+<span class="cp">#define IOWA_CONTENT_FORMAT_TEXT       0</span>
+<span class="cp">#define IOWA_CONTENT_FORMAT_OPAQUE     42</span>
+<span class="cp">#define IOWA_CONTENT_FORMAT_CBOR       60</span>
+<span class="cp">#define IOWA_CONTENT_FORMAT_SENML_JSON 110</span>
+<span class="cp">#define IOWA_CONTENT_FORMAT_SENML_CBOR 112</span>
+<span class="cp">#define IOWA_CONTENT_FORMAT_TLV_OLD    1542</span>
+<span class="cp">#define IOWA_CONTENT_FORMAT_JSON_OLD   1543</span>
+<span class="cp">#define IOWA_CONTENT_FORMAT_TLV        11542</span>
+<span class="cp">#define IOWA_CONTENT_FORMAT_JSON       11543</span>
+<span class="cp">#define IOWA_CONTENT_FORMAT_UNSET      0xFFFF</span>
+</pre></div>
+</div>
+<p>This is an enumeration of the following values:</p>
+<p>IOWA_CONTENT_FORMAT_TEXT
+: Plain text encoding (e.g. “123”, “-123.45”). Usable only for single resource encoding.</p>
+<p>IOWA_CONTENT_FORMAT_OPAQUE
+: A sequence of binary octets. Usable only for single resource encoding which data type is <strong>Opaque</strong>.</p>
+<p>IOWA_CONTENT_FORMAT_CBOR
+: CBOR encoding. Usable only for single resource encoding.</p>
+<p>IOWA_CONTENT_FORMAT_SENML_JSON
+: LwM2M specific SenML JSON encoding. This may not be supported by all Clients. See [<code class="docutils literal notranslate"><span class="pre">iowa_client_t</span></code>][iowa_client_t].</p>
+<p>IOWA_CONTENT_FORMAT_SENML_CBOR
+: LwM2M specific SenML CBOR encoding. This may not be supported by all Clients. See [<code class="docutils literal notranslate"><span class="pre">iowa_client_t</span></code>][iowa_client_t].</p>
+<p>IOWA_CONTENT_FORMAT_TLV_OLD
+: LwM2M specific binary Type-Length-Value format. Usually the most compact one. This one is not anymore used, it only serves as backward compatibility with old LwM2M stack implementation (previous 1.0).</p>
+<p>IOWA_CONTENT_FORMAT_JSON_OLD
+: LwM2M specific JSON encoding. This may not be supported by all Clients. See [<code class="docutils literal notranslate"><span class="pre">iowa_client_t</span></code>][iowa_client_t]. This one is not anymore used, it only serves as backward compatibility with old LwM2M stack implementation (previous 1.0).</p>
+<p>IOWA_CONTENT_FORMAT_TLV
+: LwM2M specific binary Type-Length-Value format. Usually the most compact one.</p>
+<p>IOWA_CONTENT_FORMAT_JSON
+: LwM2M specific JSON encoding. This may not be supported by all Clients. See [<code class="docutils literal notranslate"><span class="pre">iowa_client_t</span></code>][iowa_client_t].</p>
+<p>IOWA_CONTENT_FORMAT_UNSET
+: Used to reset the encoding to the default one.</p>
+</div>
+<div class="section" id="iowa-lwm2m-uri-t">
+<h3>iowa_lwm2m_uri_t<a class="headerlink" href="#iowa-lwm2m-uri-t" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span>
+<span class="p">{</span>
+    <span class="kt">uint16_t</span> <span class="n">objectId</span><span class="p">;</span>
+    <span class="kt">uint16_t</span> <span class="n">instanceId</span><span class="p">;</span>
+    <span class="kt">uint16_t</span> <span class="n">resourceId</span><span class="p">;</span>
+    <span class="kt">uint16_t</span> <span class="n">resInstanceId</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">iowa_lwm2m_uri_t</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This structure represents a LwM2M URI.</p>
+<p>In the LwM2M resource model, resources are grouped into Objects. These Objects have instances. Hence the URI of a resource is in the form <strong><code class="docutils literal notranslate"><span class="pre">/{Object}/{Object</span> <span class="pre">Instance}/{Resource}</span></code></strong>. Moreover some resources, described are <em>multiple</em>, can have several instances, leading to URI in the form <strong><code class="docutils literal notranslate"><span class="pre">/{Object}/{Object</span> <span class="pre">Instance}/{Resource}/{Resource</span> <span class="pre">Instance}</span></code></strong>.</p>
+<p><em>objectId</em>
+: ID of a LwM2M Object.</p>
+<p><em>instanceId</em>
+: ID of the Object Instance.</p>
+<p><em>resourceId</em>
+: ID of the resource.</p>
+<p><em>resInstanceId</em>
+: ID of the resource instance.</p>
+<p>When a segment of the URI is not set, the value of the corresponding field is set to <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
+<p>For instance, the URI <code class="docutils literal notranslate"><span class="pre">/3/0/9</span></code> is represented as:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">iowa_lwm2m_uri_t</span><span class="o">::</span><span class="n">objectId</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">iowa_lwm2m_uri_t</span><span class="o">::</span><span class="n">instanceId</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">iowa_lwm2m_uri_t</span><span class="o">::</span><span class="n">resourceId</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">iowa_lwm2m_uri_t</span><span class="o">::</span><span class="n">resInstanceId</span> <span class="o">=</span> <span class="n">IOWA_LWM2M_ID_ALL</span>
+</pre></div>
+</div>
+<p>the URI <code class="docutils literal notranslate"><span class="pre">/5</span></code> is represented as:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">iowa_lwm2m_uri_t</span><span class="o">::</span><span class="n">objectId</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">iowa_lwm2m_uri_t</span><span class="o">::</span><span class="n">instanceId</span> <span class="o">=</span> <span class="n">IOWA_LWM2M_ID_ALL</span>
+<span class="n">iowa_lwm2m_uri_t</span><span class="o">::</span><span class="n">resourceId</span> <span class="o">=</span> <span class="n">IOWA_LWM2M_ID_ALL</span>
+<span class="n">iowa_lwm2m_uri_t</span><span class="o">::</span><span class="n">resInstanceId</span> <span class="o">=</span> <span class="n">IOWA_LWM2M_ID_ALL</span>
+</pre></div>
+</div>
+<p>\clearpage</p>
+</div>
+<div class="section" id="iowa-response-content-t">
+<h3>iowa_response_content_t<a class="headerlink" href="#iowa-response-content-t" title="Permalink to this headline">¶</a></h3>
+<p>This structure contains the response content from [<code class="docutils literal notranslate"><span class="pre">iowa_response_callback_t()</span></code>][iowa_response_callback_t] according to its requested <em>operation</em>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span>
+<span class="p">{</span>
+    <span class="k">union</span>
+    <span class="p">{</span>
+        <span class="k">struct</span>
+        <span class="p">{</span>
+            <span class="kt">size_t</span> <span class="n">dataCount</span><span class="p">;</span>
+            <span class="n">iowa_lwm2m_data_t</span> <span class="o">*</span><span class="n">dataP</span><span class="p">;</span>
+        <span class="p">}</span> <span class="n">read</span><span class="p">;</span>
+        <span class="k">struct</span>
+        <span class="p">{</span>
+            <span class="kt">uint32_t</span> <span class="n">notificationNumber</span><span class="p">;</span>
+            <span class="kt">size_t</span> <span class="n">dataCount</span><span class="p">;</span>
+            <span class="n">iowa_lwm2m_data_t</span> <span class="o">*</span><span class="n">dataP</span><span class="p">;</span>
+        <span class="p">}</span> <span class="n">observe</span><span class="p">;</span>
+        <span class="k">struct</span>
+        <span class="p">{</span>
+            <span class="kt">size_t</span> <span class="n">dataCount</span><span class="p">;</span>
+            <span class="n">iowa_lwm2m_data_t</span> <span class="o">*</span><span class="n">dataP</span><span class="p">;</span>
+        <span class="p">}</span> <span class="n">dataPush</span><span class="p">;</span>
+    <span class="p">}</span> <span class="n">details</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">iowa_response_content_t</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>details.read
+: The information related to <strong>IOWA_DM_READ</strong> operation.</p>
+<p>details.read.dataCount
+: The number of elements in the <em>details.read.dataP</em>. This may be 0.</p>
+<p>details.read.dataP
+: An array containing the Resource values returned by the Client. This may be nil.</p>
+<p>details.observe
+: The information related to <strong>IOWA_DM_NOTIFY</strong> operation.</p>
+<p>details.observe.notificationNumber
+: The notification counter.</p>
+<p>details.observe.dataCount
+: The number of elements in the <em>details.observe.dataP</em>. This may be 0.</p>
+<p>details.observe.dataP
+: An array containing the Resource values returned by the Client. This may be nil.</p>
+<p>details.dataPush
+: The information related to <strong>IOWA_DM_DATA_PUSH</strong> operation.</p>
+<p>details.dataPush.dataCount
+: The number of elements in the <em>details.dataPush.dataP</em>. This may be 0.</p>
+<p>details.dataPush.dataP
+: An array containing the Resource values send by the Client. This may be nil.</p>
+<p>\clearpage</p>
+</div>
+</div>
+<div class="section" id="callbacks">
+<h2>Callbacks<a class="headerlink" href="#callbacks" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="iowa-response-callback-t">
+<h3>iowa_response_callback_t<a class="headerlink" href="#iowa-response-callback-t" title="Permalink to this headline">¶</a></h3>
+<p>The device management APIs ([<code class="docutils literal notranslate"><span class="pre">iowa_server_read()</span></code>][iowa_server_read], [<code class="docutils literal notranslate"><span class="pre">iowa_server_observe()</span></code>][iowa_server_observe], [<code class="docutils literal notranslate"><span class="pre">iowa_server_write()</span></code>][iowa_server_write], [<code class="docutils literal notranslate"><span class="pre">iowa_server_write_attributes_string()</span></code>][iowa_server_write_attributes_string], [<code class="docutils literal notranslate"><span class="pre">iowa_server_configure_data_push()</span></code>][iowa_server_configure_data_push], [<code class="docutils literal notranslate"><span class="pre">iowa_bootstrap_server_read()</span></code>][iowa_bootstrap_server_read], [<code class="docutils literal notranslate"><span class="pre">iowa_client_send_sensor_data()</span></code>][iowa_client_send_sensor_data], [<code class="docutils literal notranslate"><span class="pre">iowa_client_send_data()</span></code>][iowa_client_send_data]) are using an <code class="docutils literal notranslate"><span class="pre">iowa_response_callback_t</span></code> to asynchronously return the result of the operation.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="nf">void</span><span class="p">(</span><span class="o">*</span><span class="n">iowa_response_callback_t</span><span class="p">)</span> <span class="p">(</span><span class="kt">uint32_t</span> <span class="n">sourceId</span><span class="p">,</span>
+                                         <span class="kt">uint8_t</span> <span class="n">operation</span><span class="p">,</span>
+                                         <span class="n">iowa_status_t</span> <span class="n">status</span><span class="p">,</span>
+                                         <span class="n">iowa_response_content_t</span> <span class="o">*</span><span class="n">contentP</span><span class="p">,</span>
+                                         <span class="kt">void</span> <span class="o">*</span><span class="n">userDataP</span><span class="p">,</span>
+                                         <span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><em>sourceId</em>
+: The ID of the client targeted by the command for the server APIs ([<code class="docutils literal notranslate"><span class="pre">iowa_server_read()</span></code>][iowa_server_read], [<code class="docutils literal notranslate"><span class="pre">iowa_server_observe()</span></code>][iowa_server_observe], [<code class="docutils literal notranslate"><span class="pre">iowa_server_write()</span></code>][iowa_server_write], [<code class="docutils literal notranslate"><span class="pre">iowa_server_write_attributes_string()</span></code>][iowa_server_write_attributes_string], [<code class="docutils literal notranslate"><span class="pre">iowa_server_configure_data_push()</span></code>][iowa_server_configure_data_push]).
+: The ID of the server targeted by the command for the client APIs ([<code class="docutils literal notranslate"><span class="pre">iowa_client_send_sensor_data()</span></code>][iowa_client_send_sensor_data], [<code class="docutils literal notranslate"><span class="pre">iowa_client_send_data()</span></code>][iowa_client_send_data]).</p>
+<p><em>operation</em>
+: The type of command matching this result.</p>
+<p><em>status</em>
+: The status of the command.</p>
+<p><em>contentP</em>
+: The content of the operation. It is nil for <strong>IOWA_DM_WRITE</strong>, <strong>IOWA_DM_EXECUTE</strong>, <strong>IOWA_DM_CREATE</strong>, <strong>IOWA_DM_DELETE</strong> and <strong>IOWA_DM_WRITE_ATTRIBUTES</strong> operations.
+: It is also nil for <strong>IOWA_DM_DATA_PUSH</strong> if operation comes from the client APIs.
+: It is also nil for <strong>IOWA_DM_READ</strong>, <strong>IOWA_DM_NOTIFY</strong>, <strong>IOWA_DM_DISCOVER</strong> and <strong>IOWA_DM_DATA_PUSH</strong> if the the <em>status</em> is different from <strong>IOWA_205_COAP_CONTENT</strong></p>
+<p><em>userDataP</em>
+: A pointer to application specific data. This is a parameter of the matching device management API.</p>
+<p><em>contextP</em>
+: The IOWA context on which the device management API was called.</p>
+<div class="section" id="id1">
+<h4>Notes {-}<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>The status can have the following values:</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IOWA_COAP_201_CREATED</td>
+<td><strong>IOWA_DM_CREATE</strong> operation completed successfully</td>
+</tr>
+<tr>
+<td>IOWA_COAP_202_DELETED</td>
+<td><strong>IOWA_DM_DELETE</strong> operation completed successfully</td>
+</tr>
+<tr>
+<td>IOWA_COAP_204_CHANGED</td>
+<td><strong>IOWA_DM_WRITE</strong>, <strong>IOWA_DM_EXECUTE</strong>, or <strong>IOWA_DM_WRITE_ATTRIBUTES</strong> operation completed successfully</td>
+</tr>
+<tr>
+<td>IOWA_COAP_205_CONTENT</td>
+<td><strong>IOWA_DM_READ</strong>, <strong>IOWA_DM_NOTIFY</strong>, <strong>IOWA_DM_DISCOVER</strong>, or <strong>IOWA_DM_DATA_PUSH</strong> operation completed successfully</td>
+</tr>
+<tr>
+<td>IOWA_COAP_400_BAD_REQUEST</td>
+<td>Undetermined error occurred, when the request is ill-formed</td>
+</tr>
+<tr>
+<td>IOWA_COAP_401_UNAUTHORIZED</td>
+<td>Access Right Permission Denied</td>
+</tr>
+<tr>
+<td>IOWA_COAP_404_NOT_FOUND</td>
+<td>URI of the operation is not found</td>
+</tr>
+<tr>
+<td>IOWA_COAP_405_METHOD_NOT_ALLOWED</td>
+<td>Target is not allowed for the operation</td>
+</tr>
+<tr>
+<td>IOWA_COAP_406_NOT_ACCEPTABLE</td>
+<td>None of the preferred Content-Formats can be returned</td>
+</tr>
+<tr>
+<td>IOWA_COAP_408_REQUEST_ENTITY_INCOMPLETE</td>
+<td>The request or answer is incomplete</td>
+</tr>
+<tr>
+<td>IOWA_COAP_413_REQUEST_ENTITY_TOO_LARGE</td>
+<td>The request or answer is too large for the system</td>
+</tr>
+<tr>
+<td>IOWA_COAP_415_UNSUPPORTED_CONTENT_FORMAT</td>
+<td>The specified format is not supported</td>
+</tr>
+<tr>
+<td>IOWA_COAP_500_INTERNAL_SERVER_ERROR</td>
+<td>An internal server error occurred</td>
+</tr>
+</tbody>
+</table><p>\clearpage</p>
+</div>
+</div>
+<div class="section" id="iowa-load-callback-t">
+<h3>iowa_load_callback_t<a class="headerlink" href="#iowa-load-callback-t" title="Permalink to this headline">¶</a></h3>
+<p>This callback is called during a context load with the data stored inside the context backup.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="nf">void</span><span class="p">(</span><span class="o">*</span><span class="n">iowa_load_callback_t</span><span class="p">)</span> <span class="p">(</span><span class="kt">uint16_t</span> <span class="n">callbackId</span><span class="p">,</span>
+                                     <span class="kt">uint8_t</span> <span class="o">*</span> <span class="n">buffer</span><span class="p">,</span>
+                                     <span class="kt">size_t</span> <span class="n">bufferLength</span><span class="p">,</span>
+                                     <span class="kt">void</span> <span class="o">*</span><span class="n">userDataP</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><em>callbackId</em>
+: The identifier of the callback as passed to [<code class="docutils literal notranslate"><span class="pre">iowa_backup_register_callback()</span></code>][iowa_backup_register_callback].</p>
+<p><em>buffer</em>
+: The data loaded from the backup. This can be nil.</p>
+<p><em>bufferLength</em>
+: The length of <em>buffer</em> in bytes.</p>
+<p><em>userDataP</em>
+: A pointer to application specific data as passed to [<code class="docutils literal notranslate"><span class="pre">iowa_backup_register_callback()</span></code>][iowa_backup_register_callback].</p>
+<p>\clearpage</p>
+</div>
+<div class="section" id="iowa-save-callback-t">
+<h3>iowa_save_callback_t<a class="headerlink" href="#iowa-save-callback-t" title="Permalink to this headline">¶</a></h3>
+<p>This callback is called during a context save. It is called first to retrieve the length of the data to save, then a second time with an allocated buffer to fill with the data to save.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="nf">size_t</span><span class="p">(</span><span class="o">*</span><span class="n">iowa_save_callback_t</span><span class="p">)</span> <span class="p">(</span><span class="kt">uint16_t</span> <span class="n">callbackId</span><span class="p">,</span>
+                                       <span class="kt">uint8_t</span> <span class="o">*</span> <span class="n">buffer</span><span class="p">,</span>
+                                       <span class="kt">size_t</span> <span class="n">bufferLength</span><span class="p">,</span>
+                                       <span class="kt">void</span> <span class="o">*</span><span class="n">userDataP</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><em>callbackId</em>
+: The identifier of the callback as passed to [<code class="docutils literal notranslate"><span class="pre">iowa_backup_register_callback()</span></code>][iowa_backup_register_callback].</p>
+<p><em>buffer</em>
+: A buffer to store the data. This can be nil.</p>
+<p><em>bufferLength</em>
+: The length of <em>buffer</em> in bytes.</p>
+<p><em>userDataP</em>
+: A pointer to application specific data as passed to [<code class="docutils literal notranslate"><span class="pre">iowa_backup_register_callback()</span></code>][iowa_backup_register_callback].</p>
+<p>\clearpage</p>
+</div>
+</div>
+<div class="section" id="api">
+<h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="iowa-init">
+<h3>iowa_init<a class="headerlink" href="#iowa-init" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="prototype">
+<h4>Prototype {-}<a class="headerlink" href="#prototype" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">iowa_context_t</span> <span class="nf">iowa_init</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span> <span class="n">userData</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="description">
+<h4>Description {-}<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">iowa_init()</span></code> initializes an IOWA context.</p>
+</div>
+<div class="section" id="arguments">
+<h4>Arguments {-}<a class="headerlink" href="#arguments" title="Permalink to this headline">¶</a></h4>
+<p><em>userData</em>
+: Pointer to application-specific data. This is passed as argument to the Communication Abstraction Interface functions. This can be nil.</p>
+</div>
+<div class="section" id="return-value">
+<h4>Return Value {-}<a class="headerlink" href="#return-value" title="Permalink to this headline">¶</a></h4>
+<p>An [<code class="docutils literal notranslate"><span class="pre">iowa_context_t</span></code>][iowa_context_t] in case of success or NULL in case of memory allocation error.</p>
+</div>
+<div class="section" id="header-file">
+<h4>Header File {-}<a class="headerlink" href="#header-file" title="Permalink to this headline">¶</a></h4>
+<p>iowa.h</p>
+<p>\clearpage</p>
+</div>
+</div>
+<div class="section" id="iowa-step">
+<h3>iowa_step<a class="headerlink" href="#iowa-step" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h4>Prototype {-}<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">iowa_status_t</span> <span class="nf">iowa_step</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
+                        <span class="kt">int32_t</span> <span class="n">timeout</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h4>Description {-}<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">iowa_step()</span></code> runs the stack engine during the specified time.</p>
+</div>
+<div class="section" id="id4">
+<h4>Arguments {-}<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<p><em>contextP</em>
+: An [<code class="docutils literal notranslate"><span class="pre">iowa_context_t</span></code>][iowa_context_t] as returned by [<code class="docutils literal notranslate"><span class="pre">iowa_init()</span></code>][iowa_init]. Not checked at runtime.</p>
+<p><em>timeout</em>
+: The allowed time to run in seconds.</p>
+</div>
+<div class="section" id="id5">
+<h4>Return Value {-}<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<p>IOWA_COAP_NO_ERROR
+: success.</p>
+<p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
+: either:
+: - a memory allocation failed.
+: - [<code class="docutils literal notranslate"><span class="pre">iowa_system_gettime()</span></code>][iowa_system_gettime] returned an error.</p>
+<p>IOWA_COAP_503_SERVICE_UNAVAILABLE
+: one of the [<code class="docutils literal notranslate"><span class="pre">iowa_system_connection...()</span></code>][iowa_system_connection_open] functions returned an error.
+: LwM2M Client only: when the Client failed to connect to any Server. ([iowa_event_callback_t][iowa_event_callback_t] is called with a <strong>IOWA_EVENT_REG_FAILED</strong> event.)</p>
+</div>
+<div class="section" id="id6">
+<h4>Header File {-}<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>iowa.h</p>
+</div>
+<div class="section" id="id7">
+<h4>Notes {-}<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<p>If <em>timeout</em> is a negative value:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">iowa_step()</span></code> will return only in case of error.</p></li>
+<li><p>[<code class="docutils literal notranslate"><span class="pre">iowa_system_connection_select()</span></code>][iowa_system_connection_select] will be called with <strong>INT32_MAX</strong>.</p></li>
+</ul>
+<p>For LwM2M Clients: if <code class="docutils literal notranslate"><span class="pre">iowa_step()</span></code> returns an <strong>IOWA_COAP_503_SERVICE_UNAVAILABLE</strong> error because it is not registered to any LwM2M Server, subsequent call to <code class="docutils literal notranslate"><span class="pre">iowa_step()</span></code>, will retry to register to the known LwM2M Servers.</p>
+<p>[<code class="docutils literal notranslate"><span class="pre">iowa_stop()</span></code>][iowa_stop] can be used to make <code class="docutils literal notranslate"><span class="pre">iowa_step()</span></code>return immediately.</p>
+<p>\clearpage</p>
+</div>
+</div>
+<div class="section" id="iowa-flush-before-pause">
+<h3>iowa_flush_before_pause<a class="headerlink" href="#iowa-flush-before-pause" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h4>Prototype {-}<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">iowa_status_t</span> <span class="nf">iowa_flush_before_pause</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
+                                      <span class="kt">int32_t</span> <span class="n">duration</span><span class="p">,</span>
+                                      <span class="kt">uint32_t</span> <span class="o">*</span><span class="n">delayP</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h4>Description {-}<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">iowa_flush_before_pause()</span></code> is used to inform the stack that the device will pause. <code class="docutils literal notranslate"><span class="pre">iowa_flush_before_pause()</span></code> performs all the pending and required operations of the stack engine before returning.</p>
+</div>
+<div class="section" id="id10">
+<h4>Arguments {-}<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<p><em>contextP</em>
+: An [<code class="docutils literal notranslate"><span class="pre">iowa_context_t</span></code>][iowa_context_t] as returned by [<code class="docutils literal notranslate"><span class="pre">iowa_init()</span></code>][iowa_init]. Not checked at runtime.</p>
+<p><em>duration</em>
+: The duration of the planned pause in seconds.</p>
+<p><em>delayP</em>
+: The delay before the next IOWA scheduled operation.</p>
+</div>
+<div class="section" id="id11">
+<h4>Return Value {-}<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<p>IOWA_COAP_NO_ERROR
+: success.</p>
+<p>IOWA_COAP_406_NOT_ACCEPTABLE
+: either:
+: - <em>duration</em> is negative.
+: - for a LwM2M Client: <em>duration</em> is longer than one of the LwM2M Server registration lifetime.</p>
+<p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
+: either:
+: - a memory allocation failed.
+: - [<code class="docutils literal notranslate"><span class="pre">iowa_system_gettime()</span></code>][iowa_system_gettime] returned an error.</p>
+<p>IOWA_COAP_503_SERVICE_UNAVAILABLE
+: one of the [<code class="docutils literal notranslate"><span class="pre">iowa_system_connection...()</span></code>][iowa_system_connection_open] functions returned an error.</p>
+</div>
+<div class="section" id="id12">
+<h4>Header File {-}<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<p>iowa.h</p>
+</div>
+<div class="section" id="id13">
+<h4>Notes {-}<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+<p>In LwM2M Client mode: if no server are configured, the function returns immediately with no error.</p>
+<p>A LwM2M Server should never stop. For a LwM2M Server, <code class="docutils literal notranslate"><span class="pre">iowa_flush_before_pause()</span></code> will just wait for all pending CoAP transactions to finish.</p>
+<p>\clearpage</p>
+</div>
+</div>
+<div class="section" id="iowa-stop">
+<h3>iowa_stop<a class="headerlink" href="#iowa-stop" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id14">
+<h4>Prototype {-}<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">iowa_stop</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id15">
+<h4>Description {-}<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">iowa_stop()</span></code> stops the stack engine and make [<code class="docutils literal notranslate"><span class="pre">iowa_step()</span></code>][iowa_step] return immediately.</p>
+</div>
+<div class="section" id="id16">
+<h4>Arguments {-}<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h4>
+<p><em>contextP</em>
+: An [<code class="docutils literal notranslate"><span class="pre">iowa_context_t</span></code>][iowa_context_t] as returned by [<code class="docutils literal notranslate"><span class="pre">iowa_init()</span></code>][iowa_init]. Not checked at runtime.</p>
+</div>
+<div class="section" id="id17">
+<h4>Return Value {-}<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h4>
+<p>None.</p>
+</div>
+<div class="section" id="id18">
+<h4>Header File {-}<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h4>
+<p>iowa.h</p>
+<p>\clearpage</p>
+</div>
+</div>
+<div class="section" id="iowa-close">
+<h3>iowa_close<a class="headerlink" href="#iowa-close" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id19">
+<h4>Prototype {-}<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">iowa_close</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id20">
+<h4>Description {-}<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">iowa_close()</span></code> closes an IOWA context.</p>
+</div>
+<div class="section" id="id21">
+<h4>Arguments {-}<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h4>
+<p><em>contextP</em>
+: An [<code class="docutils literal notranslate"><span class="pre">iowa_context_t</span></code>][iowa_context_t] as returned by [<code class="docutils literal notranslate"><span class="pre">iowa_init()</span></code>][iowa_init]. Not checked at runtime.</p>
+</div>
+<div class="section" id="id22">
+<h4>Return Value {-}<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h4>
+<p>None.</p>
+</div>
+<div class="section" id="id23">
+<h4>Header File {-}<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h4>
+<p>iowa.h</p>
+<p>\clearpage</p>
+</div>
+</div>
+<div class="section" id="iowa-clock-reset">
+<h3>iowa_clock_reset<a class="headerlink" href="#iowa-clock-reset" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id24">
+<h4>Prototype {-}<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">iowa_status_t</span> <span class="nf">iowa_clock_reset</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id25">
+<h4>Description {-}<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">iowa_clock_reset()</span></code> informs IOWA that <a class="reference external" href="iowa_system_gettime"><code class="docutils literal notranslate"><span class="pre">iowa_system_gettime()</span></code></a> has lost track of time and that IOWA must re-synchronize its internal timers.</p>
+</div>
+<div class="section" id="id26">
+<h4>Arguments {-}<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h4>
+<p><em>contextP</em>
+: An [<code class="docutils literal notranslate"><span class="pre">iowa_context_t</span></code>][iowa_context_t] as returned by [<code class="docutils literal notranslate"><span class="pre">iowa_init()</span></code>][iowa_init]. Not checked at runtime.</p>
+</div>
+<div class="section" id="id27">
+<h4>Return Value {-}<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h4>
+<p>IOWA_COAP_NO_ERROR
+: success.</p>
+<p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
+: - the [<code class="docutils literal notranslate"><span class="pre">iowa_system_gettime()</span></code>][iowa_system_gettime] function returned an error.</p>
+</div>
+<div class="section" id="id28">
+<h4>Header File {-}<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h4>
+<p>iowa.h</p>
+<p>\clearpage</p>
+</div>
+</div>
+<div class="section" id="iowa-save-context">
+<h3>iowa_save_context<a class="headerlink" href="#iowa-save-context" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id29">
+<h4>Prototype {-}<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">iowa_status_t</span> <span class="nf">iowa_save_context</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id30">
+<h4>Description {-}<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">iowa_save_context()</span></code> saves the current IOWA context.</p>
+</div>
+<div class="section" id="id31">
+<h4>Arguments {-}<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h4>
+<p><em>contextP</em>
+: An [<code class="docutils literal notranslate"><span class="pre">iowa_context_t</span></code>][iowa_context_t] as returned by [<code class="docutils literal notranslate"><span class="pre">iowa_init()</span></code>][iowa_init]. Not checked at runtime.</p>
+</div>
+<div class="section" id="id32">
+<h4>Return Value {-}<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h4>
+<p>IOWA_COAP_NO_ERROR
+: success.</p>
+<p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
+: either:
+: - a memory allocation failed.
+: - the [<code class="docutils literal notranslate"><span class="pre">iowa_system_store_context()</span></code>][iowa_system_store_context] function returned an error.</p>
+</div>
+<div class="section" id="id33">
+<h4>Header File {-}<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h4>
+<p>iowa.h</p>
+</div>
+<div class="section" id="id34">
+<h4>Notes {-}<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h4>
+<p>Currently, this API is only for a LwM2M Client.</p>
+<p>If IOWA is built with the <strong>IOWA_STORAGE_CONTEXT_AUTOMATIC_BACKUP</strong> flag, the context will be automatically saved:</p>
+<ul class="simple">
+<li><p>After a LwM2M Bootstrap Server or a LwM2M Server were added.</p></li>
+<li><p>After a successful Bootstrap procedure.</p></li>
+<li><p>After a LwM2M Server operation on resources related to Server Accounts.</p></li>
+</ul>
+<p>\clearpage</p>
+</div>
+</div>
+<div class="section" id="iowa-save-context-snapshot">
+<h3>iowa_save_context_snapshot<a class="headerlink" href="#iowa-save-context-snapshot" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id35">
+<h4>Prototype {-}<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">iowa_status_t</span> <span class="nf">iowa_save_context_snapshot</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id36">
+<h4>Description {-}<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">iowa_save_context_snapshot()</span></code> saves the current IOWA context with runtime information, observations and attributes.</p>
+</div>
+<div class="section" id="id37">
+<h4>Arguments {-}<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h4>
+<p><em>contextP</em>
+: An [<code class="docutils literal notranslate"><span class="pre">iowa_context_t</span></code>][iowa_context_t] as returned by [<code class="docutils literal notranslate"><span class="pre">iowa_init()</span></code>][iowa_init]. Not checked at runtime.</p>
+</div>
+<div class="section" id="id38">
+<h4>Return Value {-}<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h4>
+<p>IOWA_COAP_NO_ERROR
+: success.</p>
+<p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
+: either:
+: - a memory allocation failed.
+: - the [<code class="docutils literal notranslate"><span class="pre">iowa_system_store_context()</span></code>][iowa_system_store_context] function returned an error.</p>
+</div>
+<div class="section" id="id39">
+<h4>Header File {-}<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h4>
+<p>iowa.h</p>
+</div>
+<div class="section" id="id40">
+<h4>Notes {-}<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h4>
+<p>Currently, this API is only for a LwM2M Client.</p>
+<p>\clearpage</p>
+</div>
+</div>
+<div class="section" id="iowa-load-context">
+<h3>iowa_load_context<a class="headerlink" href="#iowa-load-context" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id41">
+<h4>Prototype {-}<a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">iowa_status_t</span> <span class="nf">iowa_load_context</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id42">
+<h4>Description {-}<a class="headerlink" href="#id42" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">iowa_load_context()</span></code> loads a saved IOWA context.</p>
+</div>
+<div class="section" id="id43">
+<h4>Arguments {-}<a class="headerlink" href="#id43" title="Permalink to this headline">¶</a></h4>
+<p><em>contextP</em>
+: An [<code class="docutils literal notranslate"><span class="pre">iowa_context_t</span></code>][iowa_context_t] as returned by [<code class="docutils literal notranslate"><span class="pre">iowa_init()</span></code>][iowa_init]. Not checked at runtime.</p>
+</div>
+<div class="section" id="id44">
+<h4>Return Value {-}<a class="headerlink" href="#id44" title="Permalink to this headline">¶</a></h4>
+<p>IOWA_COAP_NO_ERROR
+: success.</p>
+<p>IOWA_COAP_404_NOT_FOUND
+: either:
+: - no previous saved IOWA context found.
+: - In LwM2M client mode: no Security or Server objects found, the function [<code class="docutils literal notranslate"><span class="pre">iowa_client_configure</span></code>][iowa_client_configure] must be called first.</p>
+<p>IOWA_COAP_409_CONFLICT
+: <em>contextP</em> isn’t in init state.</p>
+<p>IOWA_COAP_422_UNPROCESSABLE_ENTITY
+: either:
+: - failed to decode the buffer retrieved from [<code class="docutils literal notranslate"><span class="pre">iowa_system_retrieve_context()</span></code>][iowa_system_retrieve_context] function.
+: - context version isn’t present or is incorrect.</p>
+<p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
+: either:
+: - a memory allocation failed.
+: - the [<code class="docutils literal notranslate"><span class="pre">iowa_system_retrieve_context()</span></code>][iowa_system_retrieve_context] function returned an error.</p>
+</div>
+<div class="section" id="id45">
+<h4>Header File {-}<a class="headerlink" href="#id45" title="Permalink to this headline">¶</a></h4>
+<p>iowa.h</p>
+</div>
+<div class="section" id="id46">
+<h4>Notes {-}<a class="headerlink" href="#id46" title="Permalink to this headline">¶</a></h4>
+<p>Currently, this API is only for a LwM2M Client.</p>
+<p>\clearpage</p>
+</div>
+</div>
+<div class="section" id="iowa-backup-register-callback">
+<h3>iowa_backup_register_callback<a class="headerlink" href="#iowa-backup-register-callback" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id47">
+<h4>Prototype {-}<a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">iowa_status_t</span> <span class="nf">iowa_backup_register_callback</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
+                                            <span class="kt">uint16_t</span> <span class="n">id</span><span class="p">,</span>
+                                            <span class="n">iowa_save_callback_t</span> <span class="n">saveCallback</span><span class="p">,</span>
+                                            <span class="n">iowa_load_callback_t</span> <span class="n">loadCallback</span><span class="p">,</span>
+                                            <span class="kt">void</span> <span class="o">*</span><span class="n">userDataP</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id48">
+<h4>Description {-}<a class="headerlink" href="#id48" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">iowa_backup_register_callback()</span></code> registers context callbacks from IOWA.</p>
+</div>
+<div class="section" id="id49">
+<h4>Arguments {-}<a class="headerlink" href="#id49" title="Permalink to this headline">¶</a></h4>
+<p><em>contextP</em>
+: An [<code class="docutils literal notranslate"><span class="pre">iowa_context_t</span></code>][iowa_context_t] as returned by [<code class="docutils literal notranslate"><span class="pre">iowa_init()</span></code>][iowa_init]. Not checked at runtime.</p>
+<p><em>id</em>
+: The id of the callback. Must be greater than 0xF000.</p>
+<p><em>saveCallback</em>
+: The function called during context saving.</p>
+<p><em>loadCallback</em>
+: The function called during context loading.</p>
+<p><em>userDataP</em>
+: Pointer to application-specific data. This is passed as argument to the callback. This can be nil.</p>
+</div>
+<div class="section" id="id50">
+<h4>Return Value {-}<a class="headerlink" href="#id50" title="Permalink to this headline">¶</a></h4>
+<p>IOWA_COAP_NO_ERROR
+: success.</p>
+<p>IOWA_COAP_403_FORBIDDEN
+: either:
+: - id is incorrect.
+: - one of the callback is NULL.</p>
+<p>IOWA_COAP_409_CONFLICT
+: id is already used.</p>
+<p>IOWA_COAP_422_UNPROCESSABLE_ENTITY
+: failed to decode the buffer retrieved from [<code class="docutils literal notranslate"><span class="pre">iowa_system_retrieve_context()</span></code>][iowa_system_retrieve_context] function.</p>
+<p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
+: a memory allocation failed.</p>
+</div>
+<div class="section" id="id51">
+<h4>Header File {-}<a class="headerlink" href="#id51" title="Permalink to this headline">¶</a></h4>
+<p>iowa.h</p>
+</div>
+<div class="section" id="id52">
+<h4>Notes {-}<a class="headerlink" href="#id52" title="Permalink to this headline">¶</a></h4>
+<p>Currently, this API is only for a LwM2M Client.</p>
+<p>\clearpage</p>
+</div>
+</div>
+<div class="section" id="iowa-backup-deregister-callback">
+<h3>iowa_backup_deregister_callback<a class="headerlink" href="#iowa-backup-deregister-callback" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id53">
+<h4>Prototype {-}<a class="headerlink" href="#id53" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">iowa_backup_deregister_callback</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
+                                     <span class="kt">uint16_t</span> <span class="n">id</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id54">
+<h4>Description {-}<a class="headerlink" href="#id54" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">iowa_backup_deregister_callback()</span></code> deregisters context callbacks from IOWA.</p>
+</div>
+<div class="section" id="id55">
+<h4>Arguments {-}<a class="headerlink" href="#id55" title="Permalink to this headline">¶</a></h4>
+<p><em>contextP</em>
+: An [<code class="docutils literal notranslate"><span class="pre">iowa_context_t</span></code>][iowa_context_t] as returned by [<code class="docutils literal notranslate"><span class="pre">iowa_init()</span></code>][iowa_init]. Not checked at runtime.</p>
+<p><em>id</em>
+: The id of the callback. Must be greater than 0xF000.</p>
+</div>
+<div class="section" id="id56">
+<h4>Return Value {-}<a class="headerlink" href="#id56" title="Permalink to this headline">¶</a></h4>
+<p>None.</p>
+</div>
+<div class="section" id="id57">
+<h4>Header File {-}<a class="headerlink" href="#id57" title="Permalink to this headline">¶</a></h4>
+<p>iowa.h</p>
+</div>
+<div class="section" id="id58">
+<h4>Notes {-}<a class="headerlink" href="#id58" title="Permalink to this headline">¶</a></h4>
+<p>Currently, this API is only for a LwM2M Client.</p>
+<p>\clearpage</p>
+</div>
+</div>
+<div class="section" id="iowa-connection-closed">
+<h3>iowa_connection_closed<a class="headerlink" href="#iowa-connection-closed" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id59">
+<h4>Prototype {-}<a class="headerlink" href="#id59" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">iowa_connection_closed</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
+                            <span class="kt">void</span> <span class="o">*</span><span class="n">connP</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id60">
+<h4>Description {-}<a class="headerlink" href="#id60" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">iowa_connection_closed()</span></code> informs IOWA that a connection was closed by an external event (e.g. peer disconnection).</p>
+</div>
+<div class="section" id="id61">
+<h4>Arguments {-}<a class="headerlink" href="#id61" title="Permalink to this headline">¶</a></h4>
+<p><em>contextP</em>
+: An [<code class="docutils literal notranslate"><span class="pre">iowa_context_t</span></code>][iowa_context_t] as returned by [<code class="docutils literal notranslate"><span class="pre">iowa_init()</span></code>][iowa_init]. Not checked at runtime.</p>
+<p><em>connP</em>
+: The closed connection of the same user-defined type as the one returned by [<code class="docutils literal notranslate"><span class="pre">iowa_system_connection_open()</span></code>][iowa_system_connection_open].</p>
+</div>
+<div class="section" id="id62">
+<h4>Return Value {-}<a class="headerlink" href="#id62" title="Permalink to this headline">¶</a></h4>
+<p>None.</p>
+</div>
+<div class="section" id="id63">
+<h4>Header File {-}<a class="headerlink" href="#id63" title="Permalink to this headline">¶</a></h4>
+<p>iowa.h</p>
+<p>\clearpage</p>
+</div>
+</div>
+<div class="section" id="iowa-data-get-block-info">
+<h3>iowa_data_get_block_info<a class="headerlink" href="#iowa-data-get-block-info" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id64">
+<h4>Prototype {-}<a class="headerlink" href="#id64" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">iowa_status_t</span> <span class="nf">iowa_data_get_block_info</span><span class="p">(</span><span class="n">iowa_lwm2m_data_t</span> <span class="o">*</span><span class="n">dataP</span><span class="p">,</span>
+                                       <span class="kt">uint32_t</span> <span class="o">*</span><span class="n">numberP</span><span class="p">,</span>
+                                       <span class="kt">bool</span> <span class="o">*</span><span class="n">moreP</span><span class="p">,</span>
+                                       <span class="kt">uint16_t</span> <span class="o">*</span><span class="n">sizeP</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id65">
+<h4>Description {-}<a class="headerlink" href="#id65" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">iowa_data_get_block_info()</span></code> retrieves the block information from an [iowa_lwm2m_data_t][iowa_lwm2m_data_t].</p>
+</div>
+<div class="section" id="id66">
+<h4>Arguments {-}<a class="headerlink" href="#id66" title="Permalink to this headline">¶</a></h4>
+<p><em>dataP</em>
+: the [iowa_lwm2m_data_t][iowa_lwm2m_data_t] to retrieve the block information from.</p>
+<p><em>numberP</em>
+: OUT. The block number.</p>
+<p><em>moreP</em>
+: OUT. <em>true</em> if there are more blocks coming, <em>false</em> otherwise.</p>
+<p><em>sizeP</em>
+: OUT. The size of the block in bytes.</p>
+</div>
+<div class="section" id="id67">
+<h4>Return Value {-}<a class="headerlink" href="#id67" title="Permalink to this headline">¶</a></h4>
+<p>IOWA_COAP_NO_ERROR
+: success.</p>
+<p>IOWA_COAP_404_NOT_FOUND
+: <em>dataP</em> does not contain any block information.</p>
+<p>IOWA_COAP_400_BAD_REQUEST
+: either:
+: - one of the parameters is nil.
+: - the block information in <em>dataP</em> is invalid.</p>
+</div>
+<div class="section" id="id68">
+<h4>Header File {-}<a class="headerlink" href="#id68" title="Permalink to this headline">¶</a></h4>
+<p>iowa.h</p>
+<p>\clearpage</p>
+</div>
+</div>
+<div class="section" id="iowa-data-set-block-info">
+<h3>iowa_data_set_block_info<a class="headerlink" href="#iowa-data-set-block-info" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id69">
+<h4>Prototype {-}<a class="headerlink" href="#id69" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">iowa_status_t</span> <span class="nf">iowa_data_set_block_info</span><span class="p">(</span><span class="n">iowa_lwm2m_data_t</span> <span class="o">*</span><span class="n">dataP</span><span class="p">,</span>
+                                       <span class="kt">uint32_t</span> <span class="n">number</span><span class="p">,</span>
+                                       <span class="kt">bool</span> <span class="n">more</span><span class="p">,</span>
+                                       <span class="kt">uint16_t</span> <span class="n">size</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id70">
+<h4>Description {-}<a class="headerlink" href="#id70" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">iowa_data_set_block_info()</span></code> sets the block information of an [iowa_lwm2m_data_t][iowa_lwm2m_data_t].</p>
+</div>
+<div class="section" id="id71">
+<h4>Arguments {-}<a class="headerlink" href="#id71" title="Permalink to this headline">¶</a></h4>
+<p><em>dataP</em>
+: the [iowa_lwm2m_data_t][iowa_lwm2m_data_t] to set the block information to.</p>
+<p><em>number</em>
+: The block number.</p>
+<p><em>more</em>
+: <em>true</em> if there are more blocks coming, <em>false</em> otherwise.</p>
+<p><em>size</em>
+: The size of the block in bytes.</p>
+</div>
+<div class="section" id="id72">
+<h4>Return Value {-}<a class="headerlink" href="#id72" title="Permalink to this headline">¶</a></h4>
+<p>IOWA_COAP_NO_ERROR
+: success.</p>
+<p>IOWA_COAP_400_BAD_REQUEST
+: <em>dataP</em> is nil.</p>
+<p>IOWA_COAP_406_NOT_ACCEPTABLE
+: either:
+: - <em>number</em> is greater than 262 143.
+: - <em>more</em> is set to <em>true</em> and <em>size</em> is different than 16, 32, 64, 128, 256, 512, or 1024.
+: - <em>more</em> is set to <em>false</em> and <em>size</em> is either zero or greater than 1024.
+: - <em>dataP</em> data type is neither <strong>IOWA_LWM2M_TYPE_STRING</strong>, <strong>IOWA_LWM2M_TYPE_OPAQUE</strong>, nor <strong>IOWA_LWM2M_TYPE_CORE_LINK</strong>.</p>
+</div>
+<div class="section" id="id73">
+<h4>Header File {-}<a class="headerlink" href="#id73" title="Permalink to this headline">¶</a></h4>
+<p>iowa.h</p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ClientAPI.html" class="btn btn-neutral float-right" title="Client Mode API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="AbstractionLayer.html" class="btn btn-neutral float-left" title="System Abstraction Layer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, IoTerop
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
