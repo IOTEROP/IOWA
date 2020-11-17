@@ -1100,17 +1100,17 @@
                     <span class="p">{</span>
                         <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
                         <span class="p">{</span>
-                            <span class="k">if</span> <span class="p">(</span><span class="n">valuesList</span><span class="p">[</span><span class="n">j</span><span class="mi">-1</span><span class="p">].</span><span class="n">timestamp</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="p">(</span><span class="n">valuesList</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">timestamp</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
                             <span class="p">{</span>
                                 <span class="k">break</span><span class="p">;</span>
                             <span class="p">}</span>
                         <span class="p">}</span>
-                        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">valuesList</span><span class="p">[</span><span class="n">NB_VALUE</span><span class="mi">-1</span><span class="p">].</span><span class="n">timestamp</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+                        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">valuesList</span><span class="p">[</span><span class="n">NB_VALUE</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">timestamp</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
                         <span class="p">{</span>
                             <span class="k">break</span><span class="p">;</span>
                         <span class="p">}</span>
 
-                        <span class="k">if</span> <span class="p">(</span><span class="n">valuesList</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">timestamp</span> <span class="o">&lt;</span> <span class="n">dataP</span><span class="p">[</span><span class="n">i</span><span class="mi">-1</span><span class="p">].</span><span class="n">timestamp</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">valuesList</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">timestamp</span> <span class="o">&lt;</span> <span class="n">dataP</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">timestamp</span><span class="p">)</span>
                         <span class="p">{</span>
                             <span class="k">break</span><span class="p">;</span>
                         <span class="p">}</span>
@@ -1131,13 +1131,13 @@
 
                 <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
                 <span class="p">{</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="n">valuesList</span><span class="p">[</span><span class="n">j</span><span class="mi">-1</span><span class="p">].</span><span class="n">timestamp</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">valuesList</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">timestamp</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
                     <span class="p">{</span>
                         <span class="c1">// Changed result to be called again in the callback</span>
                         <span class="n">result</span> <span class="o">=</span> <span class="n">IOWA_COAP_231_CONTINUE</span><span class="p">;</span>
                     <span class="p">}</span>
                 <span class="p">}</span>
-                <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">valuesList</span><span class="p">[</span><span class="n">NB_VALUE</span><span class="mi">-1</span><span class="p">].</span><span class="n">timestamp</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">valuesList</span><span class="p">[</span><span class="n">NB_VALUE</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">timestamp</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
                 <span class="p">{</span>
                     <span class="c1">// Changed result to be called again in the callback</span>
                     <span class="n">result</span> <span class="o">=</span> <span class="n">IOWA_COAP_231_CONTINUE</span><span class="p">;</span>

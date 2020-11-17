@@ -801,14 +801,14 @@
     <span class="n">clientData</span><span class="p">.</span><span class="n">certData</span><span class="p">.</span><span class="n">caCertificateLength</span> <span class="o">=</span> <span class="n">read_certificate_file</span><span class="p">(</span><span class="n">CERTIFICATES_FOLDER</span><span class="p">,</span> <span class="n">CA_CERTIFICATE_FILE</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">clientData</span><span class="p">.</span><span class="n">certData</span><span class="p">.</span><span class="n">caCertificate</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">clientData</span><span class="p">.</span><span class="n">certData</span><span class="p">.</span><span class="n">caCertificateLength</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="n">clientData</span><span class="p">.</span><span class="n">certData</span><span class="p">.</span><span class="n">certificateLength</span> <span class="o">=</span> <span class="n">read_certificate_file</span><span class="p">(</span><span class="n">CERTIFICATES_FOLDER</span><span class="p">,</span> <span class="n">CERTIFICATE_FILE</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">clientData</span><span class="p">.</span><span class="n">certData</span><span class="p">.</span><span class="n">certificate</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">clientData</span><span class="p">.</span><span class="n">certData</span><span class="p">.</span><span class="n">certificateLength</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">iowa_system_free</span><span class="p">(</span><span class="n">clientData</span><span class="p">.</span><span class="n">certData</span><span class="p">.</span><span class="n">caCertificate</span><span class="p">);</span>
-        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="n">clientData</span><span class="p">.</span><span class="n">certData</span><span class="p">.</span><span class="n">certificatePrivateKeyLength</span> <span class="o">=</span> <span class="n">read_certificate_file</span><span class="p">(</span><span class="n">CERTIFICATES_FOLDER</span><span class="p">,</span> <span class="n">CERTIFICATE_PRIVATE_KEY_FILE</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">clientData</span><span class="p">.</span><span class="n">certData</span><span class="p">.</span><span class="n">certificatePrivateKey</span><span class="p">);</span>
@@ -816,7 +816,7 @@
     <span class="p">{</span>
         <span class="n">iowa_system_free</span><span class="p">(</span><span class="n">clientData</span><span class="p">.</span><span class="n">certData</span><span class="p">.</span><span class="n">caCertificate</span><span class="p">);</span>
         <span class="n">iowa_system_free</span><span class="p">(</span><span class="n">clientData</span><span class="p">.</span><span class="n">certData</span><span class="p">.</span><span class="n">certificate</span><span class="p">);</span>
-        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="c1">// Initialize IOWA</span>
@@ -939,7 +939,7 @@
     <span class="k">if</span> <span class="p">(</span><span class="n">clientData</span><span class="p">.</span><span class="n">certData</span><span class="p">.</span><span class="n">certificateLength</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">iowa_system_free</span><span class="p">(</span><span class="n">clientData</span><span class="p">.</span><span class="n">certData</span><span class="p">.</span><span class="n">caCertificate</span><span class="p">);</span>
-        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="n">clientData</span><span class="p">.</span><span class="n">certData</span><span class="p">.</span><span class="n">certificatePrivateKeyLength</span> <span class="o">=</span> <span class="n">read_certificate_file</span><span class="p">(</span><span class="n">CERTIFICATES_FOLDER</span><span class="p">,</span> <span class="n">CERTIFICATE_PRIVATE_KEY_FILE</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">clientData</span><span class="p">.</span><span class="n">certData</span><span class="p">.</span><span class="n">certificatePrivateKey</span><span class="p">);</span>
@@ -947,7 +947,7 @@
     <span class="p">{</span>
         <span class="n">iowa_system_free</span><span class="p">(</span><span class="n">clientData</span><span class="p">.</span><span class="n">certData</span><span class="p">.</span><span class="n">caCertificate</span><span class="p">);</span>
         <span class="n">iowa_system_free</span><span class="p">(</span><span class="n">clientData</span><span class="p">.</span><span class="n">certData</span><span class="p">.</span><span class="n">certificate</span><span class="p">);</span>
-        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="c1">// Initialize IOWA</span>
@@ -1778,7 +1778,7 @@
 <h3>iowa_security_session_get_uri<a class="headerlink" href="#iowa-security-session-get-uri" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="id77">
 <h4>Prototype {-}<a class="headerlink" href="#id77" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">iowa_security_session_get_uri</span><span class="p">(</span><span class="n">iowa_security_session_t</span> <span class="n">securityS</span><span class="p">);</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="nf">iowa_security_session_get_uri</span><span class="p">(</span><span class="n">iowa_security_session_t</span> <span class="n">securityS</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>

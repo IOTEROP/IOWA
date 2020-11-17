@@ -730,7 +730,7 @@
 <p>Below an example in pseudo-code of the Client to support both Firmware Update methods without using Multithread:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;iowa_client.h&quot;</span><span class="cp"></span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="n">prv_downloadCallback</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">uri</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">prv_downloadCallback</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">uri</span><span class="p">,</span>
                                  <span class="kt">void</span> <span class="o">*</span><span class="n">userData</span><span class="p">,</span>
                                  <span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">)</span>
 <span class="p">{</span>
@@ -751,7 +751,7 @@
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="n">iowa_fw_status_t</span> <span class="n">prv_writeCallback</span><span class="p">(</span><span class="n">iowa_fw_write_cmd_t</span> <span class="n">cmd</span><span class="p">,</span>
+<span class="k">static</span> <span class="n">iowa_fw_status_t</span> <span class="nf">prv_writeCallback</span><span class="p">(</span><span class="n">iowa_fw_write_cmd_t</span> <span class="n">cmd</span><span class="p">,</span>
                                           <span class="kt">size_t</span> <span class="n">dataLength</span><span class="p">,</span>
                                           <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span>
                                           <span class="kt">void</span> <span class="o">*</span><span class="n">userData</span><span class="p">,</span>
@@ -788,7 +788,7 @@
     <span class="k">return</span> <span class="n">status</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="n">prv_updateCallback</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">userData</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">prv_updateCallback</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">userData</span><span class="p">,</span>
                                <span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">UPDATE_PACKAGE</span><span class="p">())</span>
@@ -801,7 +801,7 @@
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span>
          <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
     <span class="n">iowa_context_t</span> <span class="n">iowaH</span><span class="p">;</span>
@@ -987,7 +987,7 @@ Even if the Software management object activate/deactivate its Software componen
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;iowa_software_management.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;iowa_software_component.h&quot;</span><span class="cp"></span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="n">prv_downloadCallback</span><span class="p">(</span><span class="n">iowa_sensor_t</span> <span class="n">id</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">prv_downloadCallback</span><span class="p">(</span><span class="n">iowa_sensor_t</span> <span class="n">id</span><span class="p">,</span>
                                  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">uriP</span><span class="p">,</span>
                                  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">userNameP</span><span class="p">,</span>
                                  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">passwordP</span><span class="p">,</span>
@@ -1022,7 +1022,7 @@ Even if the Software management object activate/deactivate its Software componen
 
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="n">iowa_sw_pkg_result_t</span> <span class="n">prv_writeCallback</span><span class="p">(</span><span class="n">iowa_sensor_t</span> <span class="n">id</span><span class="p">,</span>
+<span class="k">static</span> <span class="n">iowa_sw_pkg_result_t</span> <span class="nf">prv_writeCallback</span><span class="p">(</span><span class="n">iowa_sensor_t</span> <span class="n">id</span><span class="p">,</span>
                                               <span class="n">iowa_sw_pkg_write_cmd_t</span> <span class="n">cmd</span><span class="p">,</span>
                                               <span class="kt">size_t</span> <span class="n">dataLength</span><span class="p">,</span>
                                               <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">dataP</span><span class="p">,</span>
@@ -1061,7 +1061,7 @@ Even if the Software management object activate/deactivate its Software componen
     <span class="k">return</span> <span class="cm">/* ERROR */</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="n">prv_installCallback</span><span class="p">(</span><span class="n">iowa_sensor_t</span> <span class="n">id</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">prv_installCallback</span><span class="p">(</span><span class="n">iowa_sensor_t</span> <span class="n">id</span><span class="p">,</span>
                                 <span class="n">iowa_sw_pkg_install_cmd_t</span> <span class="n">cmd</span><span class="p">,</span>
                                 <span class="kt">void</span> <span class="o">*</span><span class="n">userDataP</span><span class="p">,</span>
                                 <span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">)</span>
@@ -1085,7 +1085,7 @@ Even if the Software management object activate/deactivate its Software componen
     <span class="n">iowa_client_set_software_package_command_result</span><span class="p">(</span><span class="n">contextP</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">IOWA_SW_PKG_UPDATE_RESULT_SUCCESSFUL</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="k">static</span> <span class="n">iowa_status_t</span> <span class="n">prv_activateCallback</span><span class="p">(</span><span class="n">iowa_sensor_t</span> <span class="n">id</span><span class="p">,</span>
+<span class="k">static</span> <span class="n">iowa_status_t</span> <span class="nf">prv_activateCallback</span><span class="p">(</span><span class="n">iowa_sensor_t</span> <span class="n">id</span><span class="p">,</span>
                                           <span class="kt">bool</span> <span class="n">activationState</span><span class="p">,</span>
                                           <span class="kt">void</span> <span class="o">*</span><span class="n">userDataP</span><span class="p">,</span>
                                           <span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">)</span>
@@ -1107,7 +1107,7 @@ Even if the Software management object activate/deactivate its Software componen
     <span class="k">return</span> <span class="n">IOWA_COAP_NO_ERROR</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span>
          <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
     <span class="n">iowa_context_t</span> <span class="n">iowaH</span><span class="p">;</span>

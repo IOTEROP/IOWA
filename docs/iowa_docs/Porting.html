@@ -876,7 +876,7 @@
     <span class="p">}</span>
 
     <span class="c1">// Add a sensor object</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">iowa_client_IPSO_add_sensor</span><span class="p">(</span><span class="n">iowaUserDataP</span><span class="o">-&gt;</span><span class="n">contextP</span><span class="p">,</span> <span class="n">IOWA_IPSO_TEMPERATURE</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="s">&quot;Cel&quot;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mf">-20.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">iowaUserDataP</span><span class="o">-&gt;</span><span class="n">tempSensorId</span><span class="p">));</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">iowa_client_IPSO_add_sensor</span><span class="p">(</span><span class="n">iowaUserDataP</span><span class="o">-&gt;</span><span class="n">contextP</span><span class="p">,</span> <span class="n">IOWA_IPSO_TEMPERATURE</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="s">&quot;Cel&quot;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">-</span><span class="mf">20.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">iowaUserDataP</span><span class="o">-&gt;</span><span class="n">tempSensorId</span><span class="p">));</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">!=</span> <span class="n">IOWA_COAP_NO_ERROR</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="n">INFINITE_LOOP</span><span class="p">();</span>
@@ -885,7 +885,7 @@
     <span class="n">xSemaphoreGive</span><span class="p">(</span><span class="n">iowaUserData</span><span class="o">-&gt;</span><span class="n">initMutex</span><span class="p">);</span> <span class="c1">// Synchronization</span>
 
     <span class="c1">// Start the IOWA step</span>
-    <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">iowa_step</span><span class="p">(</span><span class="n">iowaUserDataP</span><span class="o">-&gt;</span><span class="n">contextP</span><span class="p">,</span> <span class="mi">-1</span><span class="p">);</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">iowa_step</span><span class="p">(</span><span class="n">iowaUserDataP</span><span class="o">-&gt;</span><span class="n">contextP</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
 
     <span class="c1">// We should never get here as control is now taken by IOWA</span>
     <span class="n">INFINITE_LOOP</span><span class="p">();</span>

@@ -748,7 +748,7 @@
 <p>Below is an example indicating how to to provision the Bootstrap Server and start the Client initiated Bootstrap. Be careful, if a Server is also configured, the Client will not go to Bootstrap mode and instead go to Registration mode on the configured Server.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;iowa_client.h&quot;</span><span class="cp"></span>
 
-<span class="k">static</span> <span class="kt">void</span> <span class="n">prv_eventCallback</span><span class="p">(</span><span class="n">iowa_event_t</span> <span class="o">*</span><span class="n">eventP</span><span class="p">,</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">prv_eventCallback</span><span class="p">(</span><span class="n">iowa_event_t</span> <span class="o">*</span><span class="n">eventP</span><span class="p">,</span>
                               <span class="kt">void</span> <span class="o">*</span><span class="n">userData</span><span class="p">,</span>
                               <span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">)</span>
 <span class="p">{</span>
@@ -792,7 +792,7 @@
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span>
          <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
     <span class="n">iowa_context_t</span> <span class="n">iowaH</span><span class="p">;</span>
@@ -844,9 +844,9 @@
 <h3>IOWA Client (with Security)<a class="headerlink" href="#iowa-client-with-security" title="Permalink to this headline">¶</a></h3>
 <p>The previous example can be extended to support the Security. This example serves just to demonstrate how to use IOWA security API. For instance, a better way could be to use a Secure element to store the security keys.</p>
 <p>For this purpose, two structures are added to store the keys by Server Account: <em>security_t.serverUri</em>. The implementation uses the concept of Linked List with the help of IOWA API: [<code class="docutils literal notranslate"><span class="pre">IOWA_UTILS_LIST_ADD()</span></code>][IOWA_UTILS_LIST_ADD] and [<code class="docutils literal notranslate"><span class="pre">IOWA_UTILS_LIST_REMOVE()</span></code>][IOWA_UTILS_LIST_REMOVE].</p>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">security_data_t_</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">security_data_t_</span>
 <span class="p">{</span>
-    <span class="k">struct</span> <span class="nc">security_data_t_</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">security_data_t_</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
     <span class="n">iowa_security_data_t</span>     <span class="n">securityData</span><span class="p">;</span>
     <span class="kt">char</span>                    <span class="o">*</span><span class="n">serverUri</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">security_t</span><span class="p">;</span>
