@@ -1,0 +1,1126 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://ioterop.github.io/IOWA/DeviceUpdate/">
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
+    
+    
+      
+        <title>Device Update - IOWA documentation (Lite)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6910b76c.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#2094f3">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#device-update" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://ioterop.github.io/IOWA/" title="IOWA documentation (Lite)" class="md-header-nav__button md-logo" aria-label="IOWA documentation (Lite)">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            IOWA documentation (Lite)
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Device Update
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/IOTEROP/IOWA/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://ioterop.github.io/IOWA/" title="IOWA documentation (Lite)" class="md-nav__button md-logo" aria-label="IOWA documentation (Lite)">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    IOWA documentation (Lite)
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/IOTEROP/IOWA/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../License/" class="md-nav__link">
+      License
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Changelog/" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../LwM2MOverview/" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../EvaluationKit/" class="md-nav__link">
+      Evaluation Kit
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../AbstractionLayer/" class="md-nav__link">
+      Abstraction Layer
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../CommonAPI/" class="md-nav__link">
+      Common APIs
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../ClientAPI/" class="md-nav__link">
+      Client APIs
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../ServerAPI/" class="md-nav__link">
+      Server APIs
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../BootstrapServerAPI/" class="md-nav__link">
+      Bootstrap Server APIs
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../UtilsAPI/" class="md-nav__link">
+      Utils APIs
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../DeprecatedAPI/" class="md-nav__link">
+      Deprecated APIs
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../OpenSourceLicenses/" class="md-nav__link">
+      OpenSource Licenses
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#firmware-update" class="md-nav__link">
+    Firmware Update
+  </a>
+  
+    <nav class="md-nav" aria-label="Firmware Update">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#firmware-update-using-iowa" class="md-nav__link">
+    Firmware Update using IOWA
+  </a>
+  
+    <nav class="md-nav" aria-label="Firmware Update using IOWA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pull-method" class="md-nav__link">
+    "Pull" method
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#push-method" class="md-nav__link">
+    "Push" method
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#software-management" class="md-nav__link">
+    Software Management
+  </a>
+  
+    <nav class="md-nav" aria-label="Software Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#software-management-mechanism" class="md-nav__link">
+    Software Management mechanism
+  </a>
+  
+    <nav class="md-nav" aria-label="Software Management mechanism">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#package-installation" class="md-nav__link">
+    Package Installation
+  </a>
+  
+    <nav class="md-nav" aria-label="Package Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#download-software" class="md-nav__link">
+    Download software
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installuninstall-software" class="md-nav__link">
+    Install/Uninstall software
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#software-activation" class="md-nav__link">
+    Software Activation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#software-management-using-iowa" class="md-nav__link">
+    Software Management using IOWA
+  </a>
+  
+    <nav class="md-nav" aria-label="Software Management using IOWA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#software-component-using-iowa" class="md-nav__link">
+    Software Component using IOWA
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/IOTEROP/IOWA/edit/master/docs/DeviceUpdate.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="device-update">Device Update<a class="headerlink" href="#device-update" title="Permanent link">&para;</a></h1>
+<h2 id="firmware-update">Firmware Update<a class="headerlink" href="#firmware-update" title="Permanent link">&para;</a></h2>
+<p>In LightweightM2M, the Firmware Update mechanism is used to deliver a Firmware Package to a LwM2M Client. There is no constraint on the format of the Firmware Package.</p>
+<p>A LwM2M Client supporting Firmware Update exposes to the LwM2M Server the [<code>Firmware Update Object</code>][Firmware Update Object].</p>
+<p>The Firmware Update mechanism is a state machine as summarized below:</p>
+<p><img alt="Firmware Update State Machine" src="../images/FWU_StateMachine.png" /></p>
+<p>To update the firmware of a LwM2M Client, the LwM2M Server first chooses the delivery method to use by reading the LwM2M Client’s Delivery Method (<code>/5/0/9</code>). This resource indicates the delivery methods supported by the LwM2M Client:</p>
+<ul>
+<li>
+<p>The "pull" method
+  : The LwM2M Server writes an URI on the LwM2M Client’s Package URI (<code>/5/0/1</code>). The LwM2M Client then downloads the Firmware Package from this URI using an alternate mechanism e.g. FTP or HTTP.</p>
+</li>
+<li>
+<p>The "push" method
+  : The LwM2M Server writes the Firmware Package on the LwM2M Client’s Package (<code>/5/0/0</code>).</p>
+</li>
+</ul>
+<p>It is advised for the LwM2M Server to start an observation of the LwM2M Client’s resources State (<code>/5/0/3</code>) and Result (<code>/5/0/5</code>) to be informed of the progress of the LwM2M Client.</p>
+<p>Assuming the LwM2M Client is in Idle state (value of <code>/5/0/3</code> is <code>0</code>), the LwM2M Server starts the delivery of the Firmware Package:</p>
+<ul>
+<li>
+<p>"pull" method
+  : The LwM2M Server writes the URI of the Firmware Package in LwM2M Client’s Package URI (<code>/5/0/1</code>).
+  : The State (<code>/5/0/3</code>) changes to Downloading (<code>1</code>), meaning the LwM2M Client starts to download the Firmware Package.
+  : The LwM2M Server now waits for the State to change to Downloaded (<code>2</code>), meaning the download completed successfully and the Firmware Package is valid.</p>
+</li>
+<li>
+<p>"push" method
+  : The LwM2M Server writes the content of the Firmware Package in LwM2M Client’s Package (<code>/5/0/0</code>). At the end of the write, the State (<code>/5/0/3</code>) changes to Downloaded (<code>2</code>), meaning the Firmware Package is valid.
+  : Note that the State may change to Downloading (<code>1</code>) during the write if it takes time.</p>
+</li>
+</ul>
+<p>In both methods, in case of error, the State (<code>/5/0/3</code>) becomes Idle (<code>0</code>) and the reason of the error is indicated by Result (<code>/5/0/5</code>):</p>
+<ul>
+<li>2: Not enough flash memory for the new firmware package.</li>
+<li>3: Out of RAM during downloading process.</li>
+<li>4: Connection lost during downloading process.</li>
+<li>5: Integrity check failure for new downloaded package.</li>
+<li>6: Unsupported package type.</li>
+<li>7: Invalid URI</li>
+<li>9: Unsupported protocol.</li>
+</ul>
+<p>Now the LwM2M Client is in Downloaded state, meaning that it contains the new Firmware Package. The LwM2M Server triggers the update by sending an Execute command on Update (<code>/5/0/2</code>). The State (<code>/5/0/3</code>) changes to Updating (<code>3</code>).</p>
+<p>In case of error, the State (<code>/5/0/3</code>) reverts to Downloaded (<code>2</code>) and the Result (<code>/5/0/5</code>) changes to Firmware Update Failed (<code>8</code>).</p>
+<p>In case of success, the State (<code>/5/0/3</code>) changes to Idle (<code>0</code>) and the Result (<code>/5/0/5</code>) changes to Firmware Updated Successfully (<code>1</code>).</p>
+<p>Note that the firmware update may require the LwM2M Client to reboot. In this case, after the reboot, the LwM2M Client registers to the LwM2M Server and the previous observations are no longer valid. In this case, the LwM2M Server must read State (<code>/5/0/3</code>) and Result (<code>/5/0/5</code>) to determine if the update was successful.</p>
+<p>When the LwM2M Client is in Downloaded state, the LwM2M Server may delete the stored Firmware Package by writing a zero-length value to the resource Package (<code>/5/0/0</code>) or Package URI (<code>/5/0/1</code>).</p>
+<h3 id="firmware-update-using-iowa">Firmware Update using IOWA<a class="headerlink" href="#firmware-update-using-iowa" title="Permanent link">&para;</a></h3>
+<p>The API <a href="../ClientAPI/#iowa_client_firmware_update_configure"><code>iowa_client_firmware_update_configure()</code></a> allows an IOWA Client to support the LwM2M Firmware Update.</p>
+<p>The compilation flag [<strong>IOWA_SUPPORT_FIRMWARE_UPDATE_OBJECT</strong>][IOWA_SUPPORT_FIRMWARE_UPDATE_OBJECT] must be set.</p>
+<p>This API requires a delivery callback. It is either a "download callback" for the "pull" method or a "write callback" for the "push" method. Of course, the IOWA Client can support both methods by providing two callbacks.</p>
+<p>The API also requires an "update callback". The IOWA stack takes care of the implementation of the [<code>Firmware Update Object</code>][Firmware Update Object] and its associated state machine. The user-provided callbacks are called as illustrated below:</p>
+<h4 id="pull-method">"Pull" method<a class="headerlink" href="#pull-method" title="Permanent link">&para;</a></h4>
+<p>The "download callback" and the "update callback" should start an independent task to keep the IOWA Client responsive to the LwM2M Server’s requests. Both these callbacks inform the IOWA Stack of their success or failure by calling the API <a href="../ClientAPI/#iowa_client_firmware_update_set_status"><code>iowa_client_firmware_update_set_status()</code></a>.</p>
+<p><img alt="Firmware Update Pull Sequence" src="../images/FWU_PullSequence.png" /></p>
+<h4 id="push-method">"Push" method<a class="headerlink" href="#push-method" title="Permanent link">&para;</a></h4>
+<p>The "write callback" is called with the Firmware Package received from the Server.</p>
+<p>As the Firmware Package is usually bigger than the network MTU, it is advised to enable the [<strong>IOWA_COAP_BLOCK_MINIMAL_SUPPORT</strong>][Additional flags] compilation flag.  Then the Firmware Package can be received in several chunks. In this case, the "write callback" is called several times. However, the data is always provided in sequence with no gaps nor duplicates.</p>
+<p>Additionally, the flag [<strong>IOWA_FIRMWARE_UPDATE_MAX_BLOCK_INTERVAL</strong>][IOWA_FIRMWARE_UPDATE_MAX_BLOCK_INTERVAL] can be set to define the maximum time in seconds to wait between block reception. If this delay expires, the Firmware Update state machine resets to the Idle state with a Connection Lost error.\
+If this flag is not set, IOWA will wait indefinitely for the next block. This is useful for device with intermittent connectivity.</p>
+<p><img alt="Firmware Update Push Sequence" src="../images/FWU_PushSequence.png" /></p>
+<p>Below an example in pseudo-code of the Client to support both Firmware Update methods without using Multithread:</p>
+<div class="codehilite"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&quot;iowa_client.h&quot;</span><span class="cp"></span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="n">prv_downloadCallback</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">uri</span><span class="p">,</span>
+                                 <span class="kt">void</span> <span class="o">*</span><span class="n">userData</span><span class="p">,</span>
+                                 <span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">DOWNLOAD_PACKAGE</span><span class="p">(</span><span class="n">uri</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="n">iowa_client_firmware_update_set_status</span><span class="p">(</span><span class="n">contextP</span><span class="p">,</span> <span class="n">IOWA_FW_STATUS_SUCCESSFUL</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="c1">// Set the error. Possible value:</span>
+        <span class="c1">// - IOWA_FW_STATUS_OUT_OF_STORAGE</span>
+        <span class="c1">// - IOWA_FW_STATUS_OUT_OF_MEMORY</span>
+        <span class="c1">// - IOWA_FW_STATUS_CONNECTION_LOST</span>
+        <span class="c1">// - IOWA_FW_STATUS_INVALID_URI</span>
+        <span class="c1">// - IOWA_FW_STATUS_UNSUPPORTED_PROTOCOL</span>
+
+        <span class="n">iowa_client_firmware_update_set_status</span><span class="p">(</span><span class="n">contextP</span><span class="p">,</span> <span class="cm">/* ERROR */</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="n">iowa_fw_status_t</span> <span class="n">prv_writeCallback</span><span class="p">(</span><span class="n">iowa_fw_write_cmd_t</span> <span class="n">cmd</span><span class="p">,</span>
+                                          <span class="kt">size_t</span> <span class="n">dataLength</span><span class="p">,</span>
+                                          <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span>
+                                          <span class="kt">void</span> <span class="o">*</span><span class="n">userData</span><span class="p">,</span>
+                                          <span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">iowa_fw_status_t</span> <span class="n">status</span><span class="p">;</span>
+
+    <span class="n">status</span> <span class="o">=</span> <span class="n">IOWA_FW_STATUS_SUCCESSFUL</span><span class="p">;</span>
+
+    <span class="k">switch</span> <span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="k">case</span> <span class="nl">IOWA_FW_PACKAGE_RESET</span><span class="p">:</span>
+        <span class="c1">// Reset the package</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">case</span> <span class="nl">IOWA_FW_PACKAGE_WRITE</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">WRITE_PACKAGE</span><span class="p">(</span><span class="n">dataLength</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="nb">false</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// Set the error. Possible value:</span>
+            <span class="c1">// - IOWA_FW_STATUS_OUT_OF_STORAGE</span>
+            <span class="c1">// - IOWA_FW_STATUS_OUT_OF_MEMORY</span>
+            <span class="c1">// - IOWA_FW_STATUS_INTEGRITY_CHECK_FAILURE</span>
+            <span class="c1">// - IOWA_FW_STATUS_UNSUPPORTED_TYPE</span>
+
+            <span class="n">status</span> <span class="o">=</span> <span class="cm">/* ERROR */</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">default</span><span class="o">:</span>
+        <span class="c1">// This should not happen</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">status</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="n">prv_updateCallback</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">userData</span><span class="p">,</span>
+                               <span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">UPDATE_PACKAGE</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="n">iowa_client_firmware_update_set_status</span><span class="p">(</span><span class="n">contextP</span><span class="p">,</span> <span class="n">IOWA_FW_STATUS_SUCCESSFUL</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="n">iowa_client_firmware_update_set_status</span><span class="p">(</span><span class="n">contextP</span><span class="p">,</span> <span class="n">IOWA_FW_STATUS_UPDATE_FAILED</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span>
+         <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">iowa_context_t</span> <span class="n">iowaH</span><span class="p">;</span>
+    <span class="n">iowa_status_t</span> <span class="n">result</span><span class="p">;</span>
+
+    <span class="cm">/******************</span>
+<span class="cm">     * Initialization</span>
+<span class="cm">     */</span>
+
+    <span class="n">iowaH</span> <span class="o">=</span> <span class="n">iowa_init</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+
+    <span class="n">iowa_client_configure</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span> <span class="s">&quot;IOWA_FU_Client&quot;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+
+    <span class="n">iowa_client_firmware_update_configure</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span>
+                                          <span class="nb">NULL</span><span class="p">,</span>
+                                          <span class="nb">NULL</span><span class="p">,</span>
+                                          <span class="n">prv_downloadCallback</span><span class="p">,</span>
+                                          <span class="n">prv_writeCallback</span><span class="p">,</span>
+                                          <span class="n">prv_updateCallback</span><span class="p">,</span>
+                                          <span class="nb">NULL</span><span class="p">);</span>
+
+    <span class="n">iowa_client_add_server</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span>
+                           <span class="mi">1234</span><span class="p">,</span>
+                           <span class="s">&quot;coap://localhost:5683&quot;</span><span class="p">,</span>
+                           <span class="mi">0</span><span class="p">,</span>
+                           <span class="mi">0</span><span class="p">,</span>
+                           <span class="n">IOWA_SEC_NONE</span><span class="p">);</span>
+
+    <span class="cm">/******************</span>
+<span class="cm">     * &quot;Main loop&quot;</span>
+<span class="cm">     */</span>
+
+    <span class="k">do</span>
+    <span class="p">{</span>
+        <span class="c1">// Run for 4 seconds</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">iowa_step</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">IOWA_COAP_NO_ERROR</span><span class="p">)</span>
+
+    <span class="n">iowa_client_remove_server</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span> <span class="mi">1234</span><span class="p">);</span>
+    <span class="n">iowa_close</span><span class="p">(</span><span class="n">iowaH</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="software-management">Software Management<a class="headerlink" href="#software-management" title="Permanent link">&para;</a></h2>
+<p>In LightweightM2M, the Software Management mechanism is used to install software package and/or activate Software Components to a LwM2M Client.</p>
+<p>A LwM2M Client supporting Software Management exposes to the LwM2M Server the [<code>Software Management Object</code>][Software Management Object].</p>
+<p>The [<code>Software Management Object</code>][Software Management Object] only allows to install/uninstall a software. To allow the activation/deactivation of a Software Component the LwM2M Client must support [<code>Software Component Object</code>][Software Component Object].</p>
+<h3 id="software-management-mechanism">Software Management mechanism<a class="headerlink" href="#software-management-mechanism" title="Permanent link">&para;</a></h3>
+<p>The Software Management mechanism is split in two sub-processes :</p>
+<ul>
+<li>The Package Installation, manages all the operations performed to install a software (Download, Check, Install, Uninstall).</li>
+<li>The Software Activation, allows the use of an installed software (Activation, Deactivation) if [<code>Software Component Object</code>][Software Component Object] is supported.</li>
+</ul>
+<h4 id="package-installation">Package Installation<a class="headerlink" href="#package-installation" title="Permanent link">&para;</a></h4>
+<p>The Package Installation process is a state machine as summarized below:</p>
+<p><img alt="Package Installation State Machine" src="../images/SWMGMT_PackageInstallationStateMachine.png" /></p>
+<h5 id="download-software">Download software<a class="headerlink" href="#download-software" title="Permanent link">&para;</a></h5>
+<p>To download a software of a LwM2M Client, the LwM2M Server has two possible methods:</p>
+<ul>
+<li>
+<p>The "pull" method
+: The LwM2M Server writes an URI on the LwM2M Client’s Package URI (<code>/9/x/3</code>). The LwM2M Client then downloads the software Package from this URI using an alternate mechanism e.g. FTP or HTTP.
+: With this method, LwM2M Client can use a User Name (<code>/9/x/14</code>) and a Password (<code>/9/x/15</code>) for identification.</p>
+</li>
+<li>
+<p>The "push" method
+: The LwM2M Server writes the software Package on the LwM2M Client’s Package (<code>/9/x/2</code>).</p>
+</li>
+</ul>
+<p>It is advised for the LwM2M Server to start an observation of the LwM2M Client’s resources State (<code>/9/x/7</code>) and Result (<code>/9/x/9</code>) to be informed of the progress of the LwM2M Client.</p>
+<p>If the LwM2M Client is in Initial state (value of <code>/9/x/7</code> is <code>0</code>), the LwM2M Server can start the delivery of the software package. This means that the software is not installed and that the system is ready to start a download:</p>
+<ul>
+<li>
+<p>"pull" method
+: The LwM2M Server writes the URI of the software Package in LwM2M Client’s Package URI (<code>/9/x/3</code>).</p>
+</li>
+<li>
+<p>"push" method
+: The LwM2M Server writes the content of the software Package in LwM2M Client’s Package (<code>/9/x/2</code>).</p>
+</li>
+</ul>
+<p>In both methods, the State (<code>/9/x/7</code>) change to Downloading (<code>1</code>), meaning the LwM2M Client starts to download the software Package. The Result (<code>/9/x/9</code>) should be also at Downloading (<code>1</code>).</p>
+<p>The LwM2M Server now waits for the State (<code>/9/x/7</code>) to change to Delivered (<code>3</code>), meaning the download completed successfully and the software Package is valid. The Result (<code>/9/x/9</code>) should indicates Successfully Downloaded (<code>3</code>).</p>
+<p>Note that the State (<code>/9/x/7</code>) may change to Downloaded (<code>2</code>), meaning the download completed successfully.</p>
+<p>In case of error, the State (<code>/9/x/7</code>) becomes Initial (<code>0</code>) and the reason of the error is indicated by Result (<code>/9/x/9</code>):</p>
+<ul>
+<li>50: Not enough flash memory for the new software package.</li>
+<li>51: Out of RAM during downloading process.</li>
+<li>52: Connection lost during downloading process.</li>
+<li>53: Integrity check failure for new downloaded package.</li>
+<li>54: Unsupported package type.</li>
+<li>56: Invalid URI (only in "pull" method).</li>
+<li>57: Device defined update error.</li>
+</ul>
+<h5 id="installuninstall-software">Install/Uninstall software<a class="headerlink" href="#installuninstall-software" title="Permanent link">&para;</a></h5>
+<p>Once the LwM2M Client is in Delivered state, meaning that it contains the new software Package. The LwM2M Server can start the software installation, by sending an Execute command on Install (<code>/9/x/4</code>):</p>
+<ul>
+<li>In case of success, the State (<code>/9/x/7</code>) changes to Installed (<code>4</code>) and the Result (<code>/9/x/9</code>) indicates Successfully Installed (<code>2</code>).</li>
+<li>In case of error, the State remains and the Result (<code>/9/x/9</code>) indicates Installation failure (<code>58</code>).</li>
+</ul>
+<p>If the LwM2M Client is in Delivered state or Installed state, The LwM2M Server can start the software uninstallation, by sending an Execute command on Uninstall (<code>/9/x/6</code>):</p>
+<ul>
+<li>In any case, the State (<code>/9/x/7</code>) changes to Initial (<code>0</code>) and the Result (<code>/9/x/9</code>) indicates Initial value (<code>0</code>) or Uninstallation failure (<code>59</code>).</li>
+</ul>
+<h4 id="software-activation">Software Activation<a class="headerlink" href="#software-activation" title="Permanent link">&para;</a></h4>
+<p>The Software Activation process is a state machine as summarized below:</p>
+<p><img alt="Software Activation State Machine" src="../images/SWMGMT_SoftwareActivationStateMachine.png" /></p>
+<p>This state machine is only alive if software is installed, meaning that the State (<code>/9/x/7</code>) has the Installed value (<code>4</code>).
+The activation process is only available if at least one [<code>Software Component Object</code>][Software Component Object] is link to the [<code>Software Management Object</code>][Software Management Object]. This link can be seen with the Software Component Link resource provided (<code>/9/x/17</code>).</p>
+<p>When the state machine is not alive, its state (<code>/9/x/12</code>) is Inactive state (<code>false</code>).</p>
+<ul>
+<li>To pass in Active state (<code>true</code>), the LwM2M Server should send an Execute command on Activate (<code>/9/x/10</code>).</li>
+<li>To pass in Inactive state (<code>false</code>), the LwM2M Server should send an Execute command on Deactivate (<code>/9/x/11</code>).</li>
+</ul>
+<p>This will activate/deactivate each Software Component linked, if activated resources are provide (<code>/14/x/3</code>, <code>/14/x/4</code>, <code>/14/x/5</code>).
+The state of each Software Component linked can be seen with the activation state resource (<code>/14/x/5</code>).
+Even if the Software management object activate/deactivate its Software components linked, each Software component object can be activate/deactivate separately with:</p>
+<ul>
+<li>an Execute command on Activate (<code>/14/x/3</code>) send by the LwM2M Server will set the Software Component state (<code>/14/x/5</code>) to Activate (<code>true</code>).</li>
+<li>an Execute command on Deactivate (<code>/14/x/4</code>) send by the LwM2M Server will set the Software Component state (<code>/14/x/5</code>) to Deactivate (<code>false</code>).</li>
+</ul>
+<p>\clearpage</p>
+<h3 id="software-management-using-iowa">Software Management using IOWA<a class="headerlink" href="#software-management-using-iowa" title="Permanent link">&para;</a></h3>
+<p>The <a href="../ClientAPI/#iowa_client_enable_software_package_management"><code>iowa_client_enable_software_package_management()</code></a> API allows an IOWA Client to support the LwM2M Software Management feature.</p>
+<p>This API allows users to get modifications (create or delete) by LwM2M Server with the "update callback". This API requires a delivery callback. It is either a "download callback" for the "pull" method or a "write callback" for the "push" method. Of course, the IOWA Client can support both methods by providing two callbacks. The API also requires an "install callback".</p>
+<p>The IOWA stack takes care of the implementation of the [<code>Software Management Object</code>][Software Management Object] and its associated state machine.</p>
+<p>The <a href="../ClientAPI/#iowa_client_add_software_package"><code>iowa_client_add_software_package()</code></a> API must be called to instantiate each Software Management element needed.</p>
+<p>For a Software Management element, the users-provided callbacks are called as illustrated below:</p>
+<p><img alt="Software Download/Write Sequence" src="../images/SWMGMT_Sequence.png" /></p>
+<ul>
+<li>
+<p>The "download callback" is called in case of Write on "Package URI" whereas the "write callback" is called in case of Write on "Package".</p>
+<ul>
+<li>
+<p>"pull" method
+: The "download callback" should start an independent task to keep the IOWA Client responsive to the LwM2M Server’s requests. This callback inform the IOWA Stack of its success or failure by calling the <a href="../ClientAPI/#iowa_client_set_software_package_command_result"><code>iowa_client_set_software_package_command_result()</code></a> API:</p>
+<ul>
+<li>
+<p>When packet is downloaded, it should call <a href="../ClientAPI/#iowa_client_set_software_package_command_result"><code>iowa_client_set_software_package_command_result()</code></a> with IOWA_SW_PKG_UPDATE_RESULT_DOWNLOADING_SUCCESSFUL result if success or error result.</p>
+</li>
+<li>
+<p>When packet is verified, it should call <a href="../ClientAPI/#iowa_client_set_software_package_command_result"><code>iowa_client_set_software_package_command_result()</code></a> with IOWA_SW_PKG_UPDATE_RESULT_SUCCESSFUL result if success or error result.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>"push" method
+: As the software management package can be received in several chunks, the "write callback" may be called several times. However, the data is always provided in sequence with no gaps nor duplicates. This callback inform the IOWA Stack of its success by returning IOWA_SW_PKG_UPDATE_RESULT_SUCCESSFUL or failure by returning error result.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="Software Install Sequence" src="../images/SWMGMT_InstallSequence.png" /></p>
+<ul>
+<li>The "install callback" is called in case of Execute on "Install" when package has been delivered.</li>
+<li>The "install callback" can also be called in case of Execute on "Uninstall" when package has been delivered or installed.</li>
+</ul>
+<p>The "install callback" should start an independent task to keep the IOWA Client responsive to the LwM2M Server’s requests. This callback inform the IOWA Stack of its success or failure by calling the <a href="../ClientAPI/#iowa_client_set_software_package_command_result"><code>iowa_client_set_software_package_command_result()</code></a> API.</p>
+<p>To remove a Software Management element, the <a href="../ClientAPI/#iowa_client_remove_software_package"><code>iowa_client_remove_software_package()</code></a> API can be called.</p>
+<p>To remove the entire Software Management feature, the <a href="../ClientAPI/#iowa_client_disable_software_package_management"><code>iowa_client_disable_software_package_management()</code></a> API can be called.</p>
+<p>Also, the LwM2M Client can update the state of any Software Management element by calling the <a href="../ClientAPI/#iowa_client_software_package_update_state"><code>iowa_client_software_package_update_state()</code></a> API.</p>
+<p>To be able to use the Activation process, Software Components must have been provided.</p>
+<p>\clearpage</p>
+<h4 id="software-component-using-iowa">Software Component using IOWA<a class="headerlink" href="#software-component-using-iowa" title="Permanent link">&para;</a></h4>
+<p>The <a href="../ClientAPI/#iowa_client_enable_software_component"><code>iowa_client_enable_software_component()</code></a> API allows an IOWA Client to support the LwM2M Software Component feature.</p>
+<p>This API requires an "activate callback".</p>
+<p>The IOWA stack takes care of the implementation of the [<code>Software Component Object</code>][Software Component Object] and its associated state machine linked with the [<code>Software Management Object</code>][Software Management Object].</p>
+<p>For a Software Component element, the users-provided callback is called as illustrated below:</p>
+<p><img alt="Software Activation Sequence" src="../images/SWCMP_Sequence.png" /></p>
+<ul>
+<li>The "activate callback" is called in case of Execute on "Activate" or "Deactivate" when package is installed.</li>
+</ul>
+<p>If linked with a Software Management Object, the users-provided callback can also be called as illustrated below:</p>
+<p><img alt="Software Activation Sequence linked with Software Management" src="../images/SWMGMT_SWCMP_Sequence.png" /></p>
+<ul>
+<li>For each Software Component linked to the Software Management object, the Software Component's "activate callback" is called in case of Execute on "Activate" or "Deactivate" when Software Management object's package is installed.</li>
+</ul>
+<p>The <a href="../ClientAPI/#iowa_client_add_software_component"><code>iowa_client_add_software_component()</code></a> API must be called to instantiate each Software Component element needed. This API will return <em>id</em>, to link a Software Component to a Software Management, this <em>id</em> must be passed to <a href="../ClientAPI/#iowa_client_add_software_package"><code>iowa_client_add_software_package()</code></a> API at start. To set the Software Component activation state, the <a href="../ClientAPI/#iowa_client_software_component_update_state"><code>iowa_client_software_component_update_state()</code></a> API can be called.</p>
+<p>\clearpage</p>
+<p>Below an example in pseudo-code of the Client to support both Software Management methods and Software Component methods without using Multithread:</p>
+<div class="codehilite"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&quot;iowa_software_management.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;iowa_software_component.h&quot;</span><span class="cp"></span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="n">prv_downloadCallback</span><span class="p">(</span><span class="n">iowa_sensor_t</span> <span class="n">id</span><span class="p">,</span>
+                                 <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">uriP</span><span class="p">,</span>
+                                 <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">userNameP</span><span class="p">,</span>
+                                 <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">passwordP</span><span class="p">,</span>
+                                 <span class="kt">void</span> <span class="o">*</span><span class="n">userDataP</span><span class="p">,</span>
+                                 <span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">)</span>
+<span class="p">{</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">DOWNLOAD_PACKAGE</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="n">iowa_client_set_software_package_command_result</span><span class="p">(</span><span class="n">contextP</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">IOWA_SW_PKG_UPDATE_RESULT_DOWNLOADING_SUCCESSFUL</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">CHECK_PACKAGE</span><span class="p">(</span><span class="n">userInfoP</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="n">iowa_client_set_software_package_command_result</span><span class="p">(</span><span class="n">contextP</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">IOWA_SW_PKG_UPDATE_RESULT_SUCCESSFUL</span><span class="p">);</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="n">iowa_client_set_software_package_command_result</span><span class="p">(</span><span class="n">contextP</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">IOWA_SW_PKG_UPDATE_RESULT_INTEGRITY_CHECK_FAILURE</span><span class="p">);</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c1">// Set the error. Possible value:</span>
+    <span class="c1">// - IOWA_SW_PKG_UPDATE_RESULT_OUT_OF_STORAGE</span>
+    <span class="c1">// - IOWA_SW_PKG_UPDATE_RESULT_OUT_OF_MEMORY</span>
+    <span class="c1">// - IOWA_SW_PKG_UPDATE_RESULT_CONNECTION_LOST</span>
+    <span class="c1">// - IOWA_SW_PKG_UPDATE_RESULT_INTEGRITY_CHECK_FAILURE</span>
+    <span class="c1">// - IOWA_SW_PKG_UPDATE_RESULT_UNSUPPORTED_TYPE</span>
+    <span class="c1">// - IOWA_SW_PKG_UPDATE_RESULT_INVALID_URI</span>
+    <span class="c1">// - IOWA_SW_PKG_UPDATE_RESULT_UPDATE_FAILED</span>
+
+    <span class="n">iowa_client_set_software_package_command_result</span><span class="p">(</span><span class="n">contextP</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="cm">/* ERROR */</span><span class="p">);</span>
+
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="n">iowa_sw_pkg_result_t</span> <span class="n">prv_writeCallback</span><span class="p">(</span><span class="n">iowa_sensor_t</span> <span class="n">id</span><span class="p">,</span>
+                                              <span class="n">iowa_sw_pkg_write_cmd_t</span> <span class="n">cmd</span><span class="p">,</span>
+                                              <span class="kt">size_t</span> <span class="n">dataLength</span><span class="p">,</span>
+                                              <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">dataP</span><span class="p">,</span>
+                                              <span class="kt">void</span> <span class="o">*</span><span class="n">userDataP</span><span class="p">,</span>
+                                              <span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="k">case</span> <span class="nl">IOWA_SW_PKG_COMMAND_RESET</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">RESET_PACKAGE</span><span class="p">()</span> <span class="o">==</span> <span class="nb">true</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">IOWA_SW_PKG_UPDATE_RESULT_SUCCESSFUL</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">case</span> <span class="nl">IOWA_SW_PKG_COMMAND_WRITE</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">WRITE_PACKAGE</span><span class="p">(</span><span class="n">dataLength</span><span class="p">,</span> <span class="n">dataP</span><span class="p">)</span> <span class="o">==</span> <span class="nb">true</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">IOWA_SW_PKG_UPDATE_RESULT_SUCCESSFUL</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">default</span><span class="o">:</span>
+        <span class="c1">// This should not happen</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Set the error. Possible value:</span>
+    <span class="c1">// - IOWA_SW_PKG_UPDATE_RESULT_OUT_OF_STORAGE</span>
+    <span class="c1">// - IOWA_SW_PKG_UPDATE_RESULT_OUT_OF_MEMORY</span>
+    <span class="c1">// - IOWA_SW_PKG_UPDATE_RESULT_CONNECTION_LOST</span>
+    <span class="c1">// - IOWA_SW_PKG_UPDATE_RESULT_INTEGRITY_CHECK_FAILURE</span>
+    <span class="c1">// - IOWA_SW_PKG_UPDATE_RESULT_UNSUPPORTED_TYPE</span>
+    <span class="c1">// - IOWA_SW_PKG_UPDATE_RESULT_UPDATE_FAILED</span>
+
+    <span class="k">return</span> <span class="cm">/* ERROR */</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="n">prv_installCallback</span><span class="p">(</span><span class="n">iowa_sensor_t</span> <span class="n">id</span><span class="p">,</span>
+                                <span class="n">iowa_sw_pkg_install_cmd_t</span> <span class="n">cmd</span><span class="p">,</span>
+                                <span class="kt">void</span> <span class="o">*</span><span class="n">userDataP</span><span class="p">,</span>
+                                <span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">cmd</span> <span class="o">==</span> <span class="n">IOWA_SW_PKG_COMMAND_INSTALL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">INSTALL_PACKAGE</span><span class="p">(</span><span class="n">userInfoP</span><span class="p">)</span> <span class="o">==</span> <span class="nb">false</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">iowa_client_set_software_package_command_result</span><span class="p">(</span><span class="n">contextP</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">IOWA_SW_PKG_UPDATE_RESULT_INSTALLED_FAILURE</span><span class="p">);</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">UNINSTALL_PACKAGE</span><span class="p">(</span><span class="n">userInfoP</span><span class="p">)</span> <span class="o">==</span> <span class="nb">false</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">iowa_client_set_software_package_command_result</span><span class="p">(</span><span class="n">contextP</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">IOWA_SW_PKG_UPDATE_RESULT_UNINSTALLED_FAILURE</span><span class="p">);</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">iowa_client_set_software_package_command_result</span><span class="p">(</span><span class="n">contextP</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">IOWA_SW_PKG_UPDATE_RESULT_SUCCESSFUL</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="n">iowa_status_t</span> <span class="n">prv_activateCallback</span><span class="p">(</span><span class="n">iowa_sensor_t</span> <span class="n">id</span><span class="p">,</span>
+                                          <span class="kt">bool</span> <span class="n">activationState</span><span class="p">,</span>
+                                          <span class="kt">void</span> <span class="o">*</span><span class="n">userDataP</span><span class="p">,</span>
+                                          <span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">activationState</span> <span class="o">==</span> <span class="nb">true</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ACTIVATE_PACKAGE</span><span class="p">(</span><span class="n">userInfoP</span><span class="p">)</span> <span class="o">==</span> <span class="nb">false</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">IOWA_COAP_400_BAD_REQUEST</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">DEACTIVATE_PACKAGE</span><span class="p">(</span><span class="n">userInfoP</span><span class="p">)</span> <span class="o">==</span> <span class="nb">false</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">IOWA_COAP_400_BAD_REQUEST</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">IOWA_COAP_NO_ERROR</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span>
+         <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">iowa_context_t</span> <span class="n">iowaH</span><span class="p">;</span>
+    <span class="n">iowa_status_t</span> <span class="n">result</span><span class="p">;</span>
+
+    <span class="n">iowa_sw_pkg_optional_info_t</span> <span class="n">swMgmt</span><span class="p">;</span>
+    <span class="n">iowa_sensor_t</span> <span class="n">softMgmtId</span><span class="p">;</span>
+    <span class="n">iowa_sensor_t</span> <span class="n">softCmp1Id</span><span class="p">;</span>
+    <span class="n">iowa_sensor_t</span> <span class="n">softCmp2Id</span><span class="p">;</span>
+    <span class="n">iowa_sw_cmp_info_t</span> <span class="n">swCmp</span><span class="p">;</span>
+
+    <span class="cm">/******************</span>
+<span class="cm">     * Initialization</span>
+<span class="cm">     */</span>
+
+    <span class="n">iowaH</span> <span class="o">=</span> <span class="n">iowa_init</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+
+    <span class="n">iowa_client_configure</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span> <span class="s">&quot;IOWA_SW_Client&quot;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+
+    <span class="c1">// Enable software management feature</span>
+    <span class="n">iowa_client_enable_software_package_management</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span>
+                                                   <span class="nb">NULL</span><span class="p">,</span>
+                                                   <span class="n">prv_downloadCallback</span><span class="p">,</span>
+                                                   <span class="n">prv_writeCallback</span><span class="p">,</span>
+                                                   <span class="n">prv_installCallback</span><span class="p">,</span>
+                                                   <span class="nb">NULL</span><span class="p">);</span>
+
+    <span class="c1">// Add software management instance</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">iowa_client_add_software_package</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span>
+                                              <span class="s">&quot;soft1&quot;</span><span class="p">,</span>
+                                              <span class="s">&quot;1.0&quot;</span><span class="p">,</span>
+                                              <span class="nb">NULL</span><span class="p">,</span>
+                                              <span class="o">&amp;</span><span class="n">softMgmtId</span><span class="p">);</span>
+
+    <span class="c1">// Add software management instance</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">iowa_client_add_software_package</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span>
+                                              <span class="s">&quot;soft2&quot;</span><span class="p">,</span>
+                                              <span class="s">&quot;1.0&quot;</span><span class="p">,</span>
+                                              <span class="nb">NULL</span><span class="p">,</span>
+                                              <span class="o">&amp;</span><span class="n">softMgmtId</span><span class="p">);</span>
+
+    <span class="c1">// Enable software component feature</span>
+    <span class="n">iowa_client_enable_software_component</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span>
+                                          <span class="n">prv_activateCallback</span><span class="p">,</span>
+                                          <span class="nb">NULL</span><span class="p">);</span>
+
+    <span class="c1">// Add software component instance</span>
+    <span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">swCmp</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">iowa_sw_cmp_info_t</span><span class="p">));</span>
+    <span class="n">swCmp</span><span class="p">.</span><span class="n">identityP</span> <span class="o">=</span> <span class="s">&quot;cmp1&quot;</span><span class="p">;</span>
+    <span class="n">swCmp</span><span class="p">.</span><span class="n">versionP</span> <span class="o">=</span> <span class="s">&quot;1.1&quot;</span><span class="p">;</span>
+    <span class="n">iowa_client_add_software_component</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span>
+                                       <span class="o">&amp;</span><span class="n">swCmp</span><span class="p">,</span>
+                                       <span class="nb">false</span><span class="p">,</span>
+                                       <span class="o">&amp;</span><span class="n">softCmp1Id</span><span class="p">);</span>
+
+    <span class="c1">// Add software component instance</span>
+    <span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">swCmp</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">iowa_sw_cmp_info_t</span><span class="p">));</span>
+    <span class="n">swCmp</span><span class="p">.</span><span class="n">packP</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)</span><span class="s">&quot;cmp2&quot;</span><span class="p">;</span>
+    <span class="n">swCmp</span><span class="p">.</span><span class="n">packLength</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="n">iowa_client_add_software_component</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span>
+                                       <span class="o">&amp;</span><span class="n">swCmp</span><span class="p">,</span>
+                                       <span class="nb">true</span><span class="p">,</span>
+                                       <span class="o">&amp;</span><span class="n">softCmp2Id</span><span class="p">);</span>
+
+    <span class="c1">// Add software management instance</span>
+    <span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">swMgmt</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">iowa_sw_pkg_optional_info_t</span><span class="p">));</span>
+    <span class="n">swMgmt</span><span class="p">.</span><span class="n">swComponentLinkCount</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">swMgmt</span><span class="p">.</span><span class="n">swComponentLinkP</span> <span class="o">=</span> <span class="p">(</span><span class="n">iowa_sensor_t</span> <span class="o">*</span><span class="p">)</span><span class="n">iowa_system_malloc</span><span class="p">(</span><span class="n">swMgmt</span><span class="p">.</span><span class="n">swComponentLinkCount</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">iowa_sensor_t</span><span class="p">));</span>
+    <span class="n">swMgmt</span><span class="p">.</span><span class="n">swComponentLinkP</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">softCmp1Id</span><span class="p">;</span>
+    <span class="n">swMgmt</span><span class="p">.</span><span class="n">swComponentLinkP</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">softCmp2Id</span><span class="p">;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">iowa_client_add_software_package</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span>
+                                              <span class="s">&quot;soft3&quot;</span><span class="p">,</span>
+                                              <span class="s">&quot;1.1&quot;</span><span class="p">,</span>
+                                              <span class="o">&amp;</span><span class="n">swMgmt</span><span class="p">,</span>
+                                              <span class="o">&amp;</span><span class="n">softMgmtId</span><span class="p">);</span>
+
+    <span class="n">iowa_client_add_server</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span>
+                           <span class="mi">1234</span><span class="p">,</span>
+                           <span class="s">&quot;coap://localhost:5683&quot;</span><span class="p">,</span>
+                           <span class="mi">0</span><span class="p">,</span>
+                           <span class="mi">0</span><span class="p">,</span>
+                           <span class="n">IOWA_SEC_NONE</span><span class="p">);</span>
+
+    <span class="cm">/******************</span>
+<span class="cm">     * &quot;Main loop&quot;</span>
+<span class="cm">     */</span>
+
+    <span class="k">do</span>
+    <span class="p">{</span>
+        <span class="c1">// Run for 4 seconds</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">iowa_step</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">IOWA_COAP_NO_ERROR</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">swMgmt</span><span class="p">.</span><span class="n">swComponentLinkP</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">iowa_system_free</span><span class="p">(</span><span class="n">swMgmt</span><span class="p">.</span><span class="n">swComponentLinkP</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">iowa_client_disable_software_component</span><span class="p">(</span><span class="n">iowaH</span><span class="p">);</span>
+    <span class="n">iowa_client_disable_software_package_management</span><span class="p">(</span><span class="n">iowaH</span><span class="p">);</span>
+    <span class="n">iowa_client_remove_server</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span> <span class="mi">1234</span><span class="p">);</span>
+    <span class="n">iowa_close</span><span class="p">(</span><span class="n">iowaH</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 IoTerop
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+      <a href="https://ioterop.com/" target="_blank" rel="noopener" title="Website" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M248 8C111.03 8 0 119.03 0 256s111.03 248 248 248 248-111.03 248-248S384.97 8 248 8zm82.29 357.6c-3.9 3.88-7.99 7.95-11.31 11.28-2.99 3-5.1 6.7-6.17 10.71-1.51 5.66-2.73 11.38-4.77 16.87l-17.39 46.85c-13.76 3-28 4.69-42.65 4.69v-27.38c1.69-12.62-7.64-36.26-22.63-51.25-6-6-9.37-14.14-9.37-22.63v-32.01c0-11.64-6.27-22.34-16.46-27.97-14.37-7.95-34.81-19.06-48.81-26.11-11.48-5.78-22.1-13.14-31.65-21.75l-.8-.72a114.792 114.792 0 01-18.06-20.74c-9.38-13.77-24.66-36.42-34.59-51.14 20.47-45.5 57.36-82.04 103.2-101.89l24.01 12.01C203.48 89.74 216 82.01 216 70.11v-11.3c7.99-1.29 16.12-2.11 24.39-2.42l28.3 28.3c6.25 6.25 6.25 16.38 0 22.63L264 112l-10.34 10.34c-3.12 3.12-3.12 8.19 0 11.31l4.69 4.69c3.12 3.12 3.12 8.19 0 11.31l-8 8a8.008 8.008 0 01-5.66 2.34h-8.99c-2.08 0-4.08.81-5.58 2.27l-9.92 9.65a8.008 8.008 0 00-1.58 9.31l15.59 31.19c2.66 5.32-1.21 11.58-7.15 11.58h-5.64c-1.93 0-3.79-.7-5.24-1.96l-9.28-8.06a16.017 16.017 0 00-15.55-3.1l-31.17 10.39a11.95 11.95 0 00-8.17 11.34c0 4.53 2.56 8.66 6.61 10.69l11.08 5.54c9.41 4.71 19.79 7.16 30.31 7.16s22.59 27.29 32 32h66.75c8.49 0 16.62 3.37 22.63 9.37l13.69 13.69a30.503 30.503 0 018.93 21.57 46.536 46.536 0 01-13.72 32.98zM417 274.25c-5.79-1.45-10.84-5-14.15-9.97l-17.98-26.97a23.97 23.97 0 010-26.62l19.59-29.38c2.32-3.47 5.5-6.29 9.24-8.15l12.98-6.49C440.2 193.59 448 223.87 448 256c0 8.67-.74 17.16-1.82 25.54L417 274.25z"/></svg>
+      </a>
+    
+      
+      
+      <a href="https://github.com/IOTEROP" target="_blank" rel="noopener" title="GitHub" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+      <a href="https://twitter.com/ioteropcompany" target="_blank" rel="noopener" title="Twitter" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="../assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
