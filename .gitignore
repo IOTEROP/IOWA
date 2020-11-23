@@ -1,7 +1,0 @@
-# Specific folder of Visual Studio Code
-.vscode/
-.vs/
-
-build/
-*.o
-
