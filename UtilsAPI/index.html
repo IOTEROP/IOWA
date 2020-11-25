@@ -99,36 +99,6 @@
       
     </div>
     
-      <label class="md-header-nav__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-      </label>
-      
-<div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
-      <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-    
     
       <div class="md-header-nav__source">
         
@@ -205,18 +175,6 @@
   <li class="md-nav__item">
     <a href="../License/" class="md-nav__link">
       License
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../Changelog/" class="md-nav__link">
-      Changelog
     </a>
   </li>
 
@@ -713,7 +671,6 @@
 
 <p>nextP
 : Pointer to the next element in the list.</p>
-<p>\clearpage</p>
 <h2 id="callbacks">Callbacks<a class="headerlink" href="#callbacks" title="Permanent link">&para;</a></h2>
 <h3 id="iowa_list_node_free_callback_t">iowa_list_node_free_callback_t<a class="headerlink" href="#iowa_list_node_free_callback_t" title="Permanent link">&para;</a></h3>
 <p>This is the list node free callback, called to free a node.</p>
@@ -722,7 +679,6 @@
 
 <p><em>nodeP</em>
 : The node to free.</p>
-<p>\clearpage</p>
 <h3 id="iowa_list_node_find_callback_t">iowa_list_node_find_callback_t<a class="headerlink" href="#iowa_list_node_find_callback_t" title="Permanent link">&para;</a></h3>
 <p>This is the list node find callback, called to find a node.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">typedef</span> <span class="nf">bool</span><span class="p">(</span><span class="o">*</span><span class="n">iowa_list_node_find_callback_t</span><span class="p">)</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">nodeP</span><span class="p">,</span>
@@ -733,41 +689,38 @@
 : The current node in the list.</p>
 <p><em>criteria</em>
 : The criteria to match.</p>
-<p>\clearpage</p>
 <h2 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
 <h3 id="iowa_utils_base64_get_encoded_size">iowa_utils_base64_get_encoded_size<a class="headerlink" href="#iowa_utils_base64_get_encoded_size" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="kt">size_t</span> <span class="nf">iowa_utils_base64_get_encoded_size</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">rawBufferLen</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_utils_base64_get_encoded_size()</code> calculates the length of a Base64 buffer based on a raw buffer represented by its length.</p>
-<p><strong> Arguments </strong></p>
-<p><em>rawBufferLen</em>
+<p><strong> Description </strong>
+<code>iowa_utils_base64_get_encoded_size()</code> calculates the length of a Base64 buffer based on a raw buffer represented by its length.</p>
+<p><strong> Arguments </strong>
+<em>rawBufferLen</em>
 : The length of the raw buffer.</p>
-<p><strong> Return Value </strong></p>
-<p>The length of the Base64 buffer.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_utils.h</p>
-<p>\clearpage</p>
+<p><strong> Return Value </strong>
+The length of the Base64 buffer.</p>
+<p><strong> Header File </strong>
+iowa_utils.h</p>
 <h3 id="iowa_utils_base64_get_decoded_size">iowa_utils_base64_get_decoded_size<a class="headerlink" href="#iowa_utils_base64_get_decoded_size" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="kt">size_t</span> <span class="nf">iowa_utils_base64_get_decoded_size</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="n">base64Buffer</span><span class="p">,</span>
                                           <span class="kt">size_t</span> <span class="n">base64BufferLen</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_utils_base64_get_decoded_size()</code> calculates the length of a raw buffer based on a Base64 buffer.</p>
-<p><strong> Arguments </strong></p>
-<p><em>base64Buffer</em>
+<p><strong> Description </strong>
+<code>iowa_utils_base64_get_decoded_size()</code> calculates the length of a raw buffer based on a Base64 buffer.</p>
+<p><strong> Arguments </strong>
+<em>base64Buffer</em>
 : The Base64 buffer.</p>
 <p><em>base64BufferLen</em>
 : The length of the Base64 buffer.</p>
-<p><strong> Return Value </strong></p>
-<p>The length of the raw buffer. If any error the length will be 0.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_utils.h</p>
-<p>\clearpage</p>
+<p><strong> Return Value </strong>
+The length of the raw buffer. If any error the length will be 0.</p>
+<p><strong> Header File </strong>
+iowa_utils.h</p>
 <h3 id="iowa_utils_base64_encode">iowa_utils_base64_encode<a class="headerlink" href="#iowa_utils_base64_encode" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="kt">size_t</span> <span class="nf">iowa_utils_base64_encode</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="o">*</span> <span class="n">rawBuffer</span><span class="p">,</span>
@@ -776,10 +729,10 @@
                                 <span class="kt">size_t</span> <span class="n">base64BufferLen</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_utils_base64_encode()</code> encodes a raw buffer using Base64.</p>
-<p><strong> Arguments </strong></p>
-<p><em>rawBuffer</em>
+<p><strong> Description </strong>
+<code>iowa_utils_base64_encode()</code> encodes a raw buffer using Base64.</p>
+<p><strong> Arguments </strong>
+<em>rawBuffer</em>
 : The raw buffer.</p>
 <p><em>rawBufferLen</em>
 : The length of the raw buffer.</p>
@@ -787,11 +740,10 @@
 : The preallocated Base64 buffer.</p>
 <p><em>base64BufferLen</em>
 : The length of the preallocated Base64 buffer.</p>
-<p><strong> Return Value </strong></p>
-<p>The length of the encoded buffer. If any error the length will be 0.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_utils.h</p>
-<p>\clearpage</p>
+<p><strong> Return Value </strong>
+The length of the encoded buffer. If any error the length will be 0.</p>
+<p><strong> Header File </strong>
+iowa_utils.h</p>
 <h3 id="iowa_utils_base64_decode">iowa_utils_base64_decode<a class="headerlink" href="#iowa_utils_base64_decode" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="kt">size_t</span> <span class="nf">iowa_utils_base64_decode</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="o">*</span> <span class="n">base64Buffer</span><span class="p">,</span>
@@ -800,10 +752,10 @@
                                 <span class="kt">size_t</span> <span class="n">rawBufferLen</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_utils_base64_decode()</code> decodes a Base64 buffer into a raw buffer.</p>
-<p><strong> Arguments </strong></p>
-<p><em>base64Buffer</em>
+<p><strong> Description </strong>
+<code>iowa_utils_base64_decode()</code> decodes a Base64 buffer into a raw buffer.</p>
+<p><strong> Arguments </strong>
+<em>base64Buffer</em>
 : The Base64 buffer.</p>
 <p><em>base64BufferLen</em>
 : The length of the Base64 buffer.</p>
@@ -811,42 +763,39 @@
 : The preallocated raw buffer.</p>
 <p><em>rawBufferLen</em>
 : The length of the preallocated raw buffer.</p>
-<p><strong> Return Value </strong></p>
-<p>The length of the decoded buffer. If any error the length will be 0.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_utils.h</p>
-<p>\clearpage</p>
+<p><strong> Return Value </strong>
+The length of the decoded buffer. If any error the length will be 0.</p>
+<p><strong> Header File </strong>
+iowa_utils.h</p>
 <hr />
 <h3 id="iowa_utils_uri_to_sensor">iowa_utils_uri_to_sensor<a class="headerlink" href="#iowa_utils_uri_to_sensor" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_sensor_t</span> <span class="nf">iowa_utils_uri_to_sensor</span><span class="p">(</span><span class="n">iowa_lwm2m_uri_t</span> <span class="o">*</span><span class="n">uriP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_utils_uri_to_sensor()</code> converts an iowa_lwm2m_uri_t into an iowa_sensor_t.</p>
-<p><strong> Arguments </strong></p>
-<p><em>uriP</em>
+<p><strong> Description </strong>
+<code>iowa_utils_uri_to_sensor()</code> converts an iowa_lwm2m_uri_t into an iowa_sensor_t.</p>
+<p><strong> Arguments </strong>
+<em>uriP</em>
 : Uri to convert.</p>
-<p><strong> Return Value </strong></p>
-<p>The corresponding iowa_sensor_t or IOWA_INVALID_SENSOR_ID in case of error.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_utils.h</p>
-<p>\clearpage</p>
+<p><strong> Return Value </strong>
+The corresponding iowa_sensor_t or IOWA_INVALID_SENSOR_ID in case of error.</p>
+<p><strong> Header File </strong>
+iowa_utils.h</p>
 <h3 id="iowa_utils_sensor_to_uri">iowa_utils_sensor_to_uri<a class="headerlink" href="#iowa_utils_sensor_to_uri" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_lwm2m_uri_t</span> <span class="nf">iowa_utils_sensor_to_uri</span><span class="p">(</span><span class="n">iowa_sensor_t</span> <span class="n">id</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_utils_sensor_to_uri()</code> converts an iowa_sensor_t into an iowa_lwm2m_uri_t.</p>
-<p><strong> Arguments </strong></p>
-<p><em>id</em>
+<p><strong> Description </strong>
+<code>iowa_utils_sensor_to_uri()</code> converts an iowa_sensor_t into an iowa_lwm2m_uri_t.</p>
+<p><strong> Arguments </strong>
+<em>id</em>
 : Id to convert.</p>
-<p><strong> Return Value </strong></p>
-<p>An iowa_lwm2m_uri_t.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_utils.h</p>
-<p>\clearpage</p>
+<p><strong> Return Value </strong>
+An iowa_lwm2m_uri_t.</p>
+<p><strong> Header File </strong>
+iowa_utils.h</p>
 <hr />
 <h3 id="iowa_utils_list_add">iowa_utils_list_add<a class="headerlink" href="#iowa_utils_list_add" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
@@ -854,54 +803,51 @@
                                   <span class="n">iowa_list_t</span> <span class="o">*</span><span class="n">nodeP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_utils_list_add()</code> adds a node to a list.</p>
-<p><strong> Arguments </strong></p>
-<p><em>headP</em>
+<p><strong> Description </strong>
+<code>iowa_utils_list_add()</code> adds a node to a list.</p>
+<p><strong> Arguments </strong>
+<em>headP</em>
 : Head of the current list.</p>
 <p><em>nodeP</em>
 : Node to add to the list.</p>
-<p><strong> Return Value </strong></p>
-<p>The list with the new element.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_utils.h</p>
-<p>\clearpage</p>
+<p><strong> Return Value </strong>
+The list with the new element.</p>
+<p><strong> Header File </strong>
+iowa_utils.h</p>
 <h3 id="iowa_utils_list_remove">iowa_utils_list_remove<a class="headerlink" href="#iowa_utils_list_remove" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_list_t</span> <span class="o">*</span> <span class="nf">iowa_utils_list_remove</span><span class="p">(</span><span class="n">iowa_list_t</span> <span class="o">*</span><span class="n">headP</span><span class="p">,</span>
                                      <span class="n">iowa_list_t</span> <span class="o">*</span><span class="n">nodeP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_utils_list_remove()</code> removes a node from a list.</p>
-<p><strong> Arguments </strong></p>
-<p><em>headP</em>
+<p><strong> Description </strong>
+<code>iowa_utils_list_remove()</code> removes a node from a list.</p>
+<p><strong> Arguments </strong>
+<em>headP</em>
 : Head of the current list.</p>
 <p><em>nodeP</em>
 : Node to remove from the list.</p>
-<p><strong> Return Value </strong></p>
-<p>The updated list.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_utils.h</p>
-<p>\clearpage</p>
+<p><strong> Return Value </strong>
+The updated list.</p>
+<p><strong> Header File </strong>
+iowa_utils.h</p>
 <h3 id="iowa_utils_list_free">iowa_utils_list_free<a class="headerlink" href="#iowa_utils_list_free" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="kt">void</span> <span class="nf">iowa_utils_list_free</span><span class="p">(</span><span class="n">iowa_list_t</span> <span class="o">*</span><span class="n">headP</span><span class="p">,</span>
                           <span class="n">iowa_list_node_free_callback_t</span> <span class="n">freeCb</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_utils_list_free()</code> adds a node to a list.</p>
-<p><strong> Arguments </strong></p>
-<p><em>headP</em>
+<p><strong> Description </strong>
+<code>iowa_utils_list_free()</code> adds a node to a list.</p>
+<p><strong> Arguments </strong>
+<em>headP</em>
 : List to free.</p>
 <p><em>freeCb</em>
 : Callback used to free the list.</p>
-<p><strong> Return Value </strong></p>
-<p>None.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_utils.h</p>
-<p>\clearpage</p>
+<p><strong> Return Value </strong>
+None.</p>
+<p><strong> Header File </strong>
+iowa_utils.h</p>
 <h3 id="iowa_utils_list_find">iowa_utils_list_find<a class="headerlink" href="#iowa_utils_list_find" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_list_t</span> <span class="o">*</span> <span class="nf">iowa_utils_list_find</span><span class="p">(</span><span class="n">iowa_list_t</span> <span class="o">*</span><span class="n">headP</span><span class="p">,</span>
@@ -909,20 +855,19 @@
                                    <span class="kt">void</span> <span class="o">*</span><span class="n">criteriaP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_utils_list_find()</code> finds a node in a list.</p>
-<p><strong> Arguments </strong></p>
-<p><em>headP</em>
+<p><strong> Description </strong>
+<code>iowa_utils_list_find()</code> finds a node in a list.</p>
+<p><strong> Arguments </strong>
+<em>headP</em>
 : List to search on.</p>
 <p><em>findCb</em>
 : Callback used to find the node in the list.</p>
 <p><em>criteriaP</em>
 : Criteria used to find the node in the list.</p>
-<p><strong> Return Value </strong></p>
-<p>The node if found else NULL.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_utils.h</p>
-<p>\clearpage</p>
+<p><strong> Return Value </strong>
+The node if found else NULL.</p>
+<p><strong> Header File </strong>
+iowa_utils.h</p>
 <h3 id="iowa_utils_list_find_and_remove">iowa_utils_list_find_and_remove<a class="headerlink" href="#iowa_utils_list_find_and_remove" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_list_t</span> <span class="o">*</span> <span class="nf">iowa_utils_list_find_and_remove</span><span class="p">(</span><span class="n">iowa_list_t</span> <span class="o">*</span><span class="n">headP</span><span class="p">,</span>
@@ -931,10 +876,10 @@
                                               <span class="n">iowa_list_t</span> <span class="o">**</span><span class="n">nodeP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_utils_list_find_and_remove()</code> finds a node in a list and removes it.</p>
-<p><strong> Arguments </strong></p>
-<p><em>headP</em>
+<p><strong> Description </strong>
+<code>iowa_utils_list_find_and_remove()</code> finds a node in a list and removes it.</p>
+<p><strong> Arguments </strong>
+<em>headP</em>
 : List to search on.</p>
 <p><em>findCb</em>
 : Callback used to find the node in the list.</p>
@@ -942,11 +887,10 @@
 : Criteria used to find the node in the list.</p>
 <p><em>nodeP</em>
 : OUT. Node removed from the list. Can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>The updated list.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_utils.h</p>
-<p>\clearpage</p>
+<p><strong> Return Value </strong>
+The updated list.</p>
+<p><strong> Header File </strong>
+iowa_utils.h</p>
 <h2 id="example-linked-list-usage">Example: Linked List usage<a class="headerlink" href="#example-linked-list-usage" title="Permanent link">&para;</a></h2>
 <p>When declaring the linked list data structure, the first member <strong>must</strong> be a pointer. This pointer will contain the address of the next element of the list.</p>
 <p>Example:</p>

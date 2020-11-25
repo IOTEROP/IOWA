@@ -99,36 +99,6 @@
       
     </div>
     
-      <label class="md-header-nav__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-      </label>
-      
-<div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
-      <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-    
     
       <div class="md-header-nav__source">
         
@@ -205,18 +175,6 @@
   <li class="md-nav__item">
     <a href="../License/" class="md-nav__link">
       License
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../Changelog/" class="md-nav__link">
-      Changelog
     </a>
   </li>
 
@@ -976,7 +934,6 @@
 : Set to <em>true</em> if the connection is encrypted.</p>
 <p><em>lwm2mVersion</em>
 : The LwM2M Enabler version used by the Client.</p>
-<p>\clearpage</p>
 <h2 id="callbacks">Callbacks<a class="headerlink" href="#callbacks" title="Permanent link">&para;</a></h2>
 <h3 id="iowa_result_callback_t">iowa_result_callback_t<a class="headerlink" href="#iowa_result_callback_t" title="Permanent link">&para;</a></h3>
 <p>The device management APIs (<a href="./#iowa_server_write"><code>iowa_server_write()</code></a>, <a href="./#iowa_server_dm_exec"><code>iowa_server_dm_exec()</code></a>, <a href="./#iowa_server_dm_create"><code>iowa_server_dm_create()</code></a>, <a href="./#iowa_server_dm_delete"><code>iowa_server_dm_delete()</code></a>, <a href="./#iowa_server_dm_discover"><code>iowa_server_dm_discover()</code></a> and <a href="./#iowa_server_observe"><code>iowa_server_observe()</code></a>) are using an <code>iowa_result_callback_t</code> to asynchronously return the result
@@ -1045,15 +1002,15 @@ of the operation.</p>
                                                                 <span class="kt">void</span> <span class="o">*</span><span class="n">callbackUserData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Arguments </strong></p>
-<p><em>objectID</em>
+<p><strong> Arguments </strong>
+<em>objectID</em>
 : The ID of the non standard LwM2M Objects.</p>
 <p><em>resourceID</em>
 : The ID of the resource inside the non standard LwM2M Objects.</p>
 <p><em>callbackUserData</em>
 : A pointer to application specific data. This is a parameter of <a href="./#iowa_server_configure">`iowa_server_configure()</a>.</p>
-<p><strong> Return Value </strong></p>
-<p>The data type of the resource or <strong>IOWA_LWM2M_TYPE_UNDEFINED</strong>.</p>
+<p><strong> Return Value </strong>
+The data type of the resource or <strong>IOWA_LWM2M_TYPE_UNDEFINED</strong>.</p>
 <h3 id="iowa_verify_client_callback_t">iowa_verify_client_callback_t<a class="headerlink" href="#iowa_verify_client_callback_t" title="Permanent link">&para;</a></h3>
 <p>This is the callback called when LwM2M Clients register to the Server. If the callback returns <strong>IOWA_COAP_NO_ERROR</strong>, the Client is accepted by the Server. Otherwise, to reject a Client the callback has to return <strong>ONLY</strong> the following values:</p>
 <ul>
@@ -1078,7 +1035,6 @@ of the operation.</p>
 <p><em>contextP</em>
 : The IOWA context on which <a href="./#iowa_server_configure"><code>iowa_server_configure()</code></a> was called.</p>
 <p>When <em>state</em> is set to <strong>IOWA_STATE_BOOTSTRAP_REQUIRED</strong>, <em>clientP</em> contains only the ID, the name of the Client and the connection type information.</p>
-<p>\clearpage</p>
 <h2 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
 <h3 id="iowa_server_configure">iowa_server_configure<a class="headerlink" href="#iowa_server_configure" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
@@ -1088,10 +1044,10 @@ of the operation.</p>
                                     <span class="kt">void</span> <span class="o">*</span> <span class="n">callbackUserData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_server_configure()</code> sets the monitoring callback called when LwM2M Clients register to the Server.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_server_configure()</code> sets the monitoring callback called when LwM2M Clients register to the Server.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>monitorCb</em>
 : The callback called when Clients update their status. This can be nil.</p>
@@ -1099,12 +1055,11 @@ of the operation.</p>
 : The callback called when parsing received data of non standard LwM2M Objects. This can be nil.</p>
 <p><em>callbackUserData</em>
 : A pointer to application specific data. This is passed as argument to <em>monitorCb</em> and <em>resTypeCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p>\clearpage</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
 <h3 id="iowa_server_set_verify_client_callback">iowa_server_set_verify_client_callback<a class="headerlink" href="#iowa_server_set_verify_client_callback" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="kt">void</span> <span class="nf">iowa_server_set_verify_client_callback</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -1112,22 +1067,21 @@ of the operation.</p>
                                             <span class="kt">void</span> <span class="o">*</span><span class="n">callbackUserData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_server_set_verify_client_callback()</code> sets the verify client callback called when LwM2M Clients register to the Server.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_server_set_verify_client_callback()</code> sets the verify client callback called when LwM2M Clients register to the Server.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>verifyClientCb</em>
 : The callback called when Clients register. This can be nil.</p>
 <p><em>callbackUserData</em>
 : A pointer to application specific data. This is passed as argument to <em>verifyClientCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>None.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p>If the verify client callback is not set, Clients will always be accepted.</p>
-<p>\clearpage</p>
+<p><strong> Return Value </strong>
+None.</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+If the verify client callback is not set, Clients will always be accepted.</p>
 <h3 id="iowa_server_new_incoming_connection">iowa_server_new_incoming_connection<a class="headerlink" href="#iowa_server_new_incoming_connection" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_new_incoming_connection</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -1136,10 +1090,10 @@ of the operation.</p>
                                                   <span class="kt">bool</span> <span class="n">isSecure</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_server_new_incoming_connection()</code> informs the stack of a new incoming connection.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_server_new_incoming_connection()</code> informs the stack of a new incoming connection.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>type</em>
 : The type of the new connection. See <a href="../AbstractionLayer/#iowa_connection_type_t"><code>iowa_connection_type_t</code></a>.</p>
@@ -1147,16 +1101,15 @@ of the operation.</p>
 : The new connection of the same user-defined type as the one returned by <a href="../AbstractionLayer/#iowa_system_connection_open"><code>iowa_system_connection_open()</code></a>.</p>
 <p><em>isSecure</em>
 : Set to <em>true</em> if the security must be enabled on this connection.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_503_SERVICE_UNAVAILABLE
 : either:
 : - a memory allocation failed.
 : - <em>type</em> is unsupported.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p>\clearpage</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
 <h3 id="iowa_server_configure_data_push">iowa_server_configure_data_push<a class="headerlink" href="#iowa_server_configure_data_push" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="kt">void</span> <span class="nf">iowa_server_configure_data_push</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -1164,23 +1117,22 @@ of the operation.</p>
                                      <span class="kt">void</span> <span class="o">*</span><span class="n">userDataP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_server_configure_data_push()</code> enables/disables the Data push operation for all clients.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_server_configure_data_push()</code> enables/disables the Data push operation for all clients.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>responseCb</em>
 : The callback called when a client pushes data. If this callback is nil, data push possibility is disabled.</p>
 <p><em>userDataP</em>
 : A pointer to application specific data. This is passed as argument to <em>responseCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>None.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p>The <em>responseCb</em> will be called with the operation set to <strong>IOWA_DM_DATA_PUSH</strong> and the status code set to <strong>IOWA_COAP_205_CONTENT</strong>.</p>
+<p><strong> Return Value </strong>
+None.</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+The <em>responseCb</em> will be called with the operation set to <strong>IOWA_DM_DATA_PUSH</strong> and the status code set to <strong>IOWA_COAP_205_CONTENT</strong>.</p>
 <p>To be able to use this function, [<strong>LWM2M_DATA_PUSH_SUPPORT</strong>][LWM2M_DATA_PUSH_SUPPORT] must be defined.</p>
-<p>\clearpage</p>
 <h3 id="iowa_server_read">iowa_server_read<a class="headerlink" href="#iowa_server_read" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="n">iowa_server_read</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -1191,10 +1143,10 @@ of the operation.</p>
                                <span class="kt">void</span> <span class="o">*</span><span class="n">userDataP</span><span class="p">)</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_server_read()</code> performs a Read operation on Client’s URIs.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_server_read()</code> performs a Read operation on Client’s URIs.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>clientId</em>
 : The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
@@ -1204,8 +1156,8 @@ of the operation.</p>
 : The callback called when the reply to this operation is known.</p>
 <p><em>userDataP</em>
 : A pointer to application specific data. This is passed as argument to <em>responseCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_400_BAD_REQUEST
 : Either:
@@ -1223,15 +1175,14 @@ of the operation.</p>
 : <em>uriCount</em> is superior to 1 with [<strong>LWM2M_READ_COMPOSITE_SUPPORT</strong>][LWM2M_READ_COMPOSITE_SUPPORT] not defined.</p>
 <p>IOWA_COAP_503_SERVICE_UNAVAILABLE
 : Communication with the LwM2M Client failed.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p>Per LwM2M specification, if the Read was successful, the Client will return a <strong>IOWA_COAP_205_CONTENT</strong> status code.</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+Per LwM2M specification, if the Read was successful, the Client will return a <strong>IOWA_COAP_205_CONTENT</strong> status code.</p>
 <p>The ability to read several URIs at once is only present in LwM2M version 1.1 or later, this means that to use it <strong>LWM2M_VERSION_1_1_SUPPORT</strong> must be defined. This feature is only operational on SenML JSON and SenML CBOR data encoding, so <strong>LWM2M_SUPPORT_SENML_JSON</strong> or <strong>LWM2M_SUPPORT_SENML_CBOR</strong> must be defined.</p>
 <p>Some LwM2M Clients may not be able to read on several URIs in a single operation. In this case the <em>resultCb</em> will be called with an error status, typically <strong>IOWA_COAP_405_METHOD_NOT_ALLOWED</strong>.</p>
 <p>Per LwM2M specification, when handling a read on several URIs in a single operation, the LwM2M Client treats the request as non-atomic and handles it as best effort. Hence the reply may not contain the values of all the requested URIs.</p>
 <p>The <em>responseCb</em> will be called with the operation set to <strong>IOWA_DM_READ</strong>.</p>
-<p>\clearpage</p>
 <h3 id="iowa_server_observe">iowa_server_observe<a class="headerlink" href="#iowa_server_observe" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_observe</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -1243,10 +1194,10 @@ of the operation.</p>
                                   <span class="kt">uint16_t</span> <span class="o">*</span><span class="n">observeIdP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_server_observe()</code> begins an observation on a Client’s URI.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_server_observe()</code> begins an observation on a Client’s URI.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>clientId</em>
 : The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
@@ -1258,8 +1209,8 @@ of the operation.</p>
 : A pointer to application specific data. This is passed as argument to <em>responseCb</em>. This can be nil.</p>
 <p><em>observeIdP</em>
 : Used to store the ID of the observation.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_400_BAD_REQUEST
 : Either:
@@ -1281,10 +1232,10 @@ of the operation.</p>
 : <em>uriCount</em> is superior to 1 with [<strong>LWM2M_OBSERVE_COMPOSITE_SUPPORT</strong>][LWM2M_OBSERVE_COMPOSITE_SUPPORT] not defined.</p>
 <p>IOWA_COAP_503_SERVICE_UNAVAILABLE
 : Communication with the LwM2M Client failed.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p>Per LwM2M specification, if the Observe was successful, the Client will return a <strong>IOWA_COAP_205_CONTENT</strong> status code with the first notification.</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+Per LwM2M specification, if the Observe was successful, the Client will return a <strong>IOWA_COAP_205_CONTENT</strong> status code with the first notification.</p>
 <p>The <em>responseCb</em> will be called with the operation set to <strong>IOWA_DM_NOTIFY</strong>:</p>
 <ul>
 <li>When the observation is internally deleted, <em>responseCb</em> will be called with <em>status</em> to <strong>IOWA_COAP_202_DELETED</strong>.</li>
@@ -1292,7 +1243,6 @@ of the operation.</p>
 <li>Some LwM2M Clients may not be able to observe on several URIs in a single operation. In this case the <em>responseCb</em> will be called with an error status, typically <strong>IOWA_COAP_405_METHOD_NOT_ALLOWED</strong>.</li>
 </ul>
 <p>When using an unreliable communication layer, notifications may be lost or arrive out of order.</p>
-<p>\clearpage</p>
 <h3 id="iowa_server_observe_cancel">iowa_server_observe_cancel<a class="headerlink" href="#iowa_server_observe_cancel" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_observe_cancel</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -1300,17 +1250,17 @@ of the operation.</p>
                                          <span class="kt">uint16_t</span> <span class="n">observeId</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_server_observe_cancel()</code> cancels an observation on a Client.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_server_observe_cancel()</code> cancels an observation on a Client.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>clientId</em>
 : The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
 <p><em>observeId</em>
 : The ID of the observation as returned by <a href="./#iowa_server_observe"><code>iowa_server_observe</code></a>.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_404_NOT_FOUND
 : either:
@@ -1320,11 +1270,10 @@ of the operation.</p>
 : A memory allocation failed.</p>
 <p>IOWA_COAP_503_SERVICE_UNAVAILABLE
 : Communication with the LwM2M Client failed.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p>When using an unreliable communication layer, the cancellation request from the LwM2M Server to the LwM2M Client may be lost. However the observation is always cancelled.</p>
-<p>\clearpage</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+When using an unreliable communication layer, the cancellation request from the LwM2M Server to the LwM2M Client may be lost. However the observation is always cancelled.</p>
 <h3 id="iowa_server_write">iowa_server_write<a class="headerlink" href="#iowa_server_write" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="n">iowa_server_write</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -1335,10 +1284,10 @@ of the operation.</p>
                                 <span class="kt">void</span> <span class="o">*</span><span class="n">userDataP</span><span class="p">)</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_server_write()</code> performs a Write operation on a Client.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_server_write()</code> performs a Write operation on a Client.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>clientId</em>
 : The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
@@ -1348,8 +1297,8 @@ of the operation.</p>
 : The callback called when the reply to this operation is known. This can be nil.</p>
 <p><em>userDataP</em>
 : A pointer to application specific data. This is passed as argument to <em>responseCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_400_BAD_REQUEST
 : Either:
@@ -1371,14 +1320,13 @@ of the operation.</p>
 : <em>dataArrayP</em> has different <em>objectID</em> or <em>instanceID</em> with [<strong>LWM2M_WRITE_COMPOSITE_SUPPORT</strong>][LWM2M_WRITE_COMPOSITE_SUPPORT] not defined.</p>
 <p>IOWA_COAP_503_SERVICE_UNAVAILABLE
 : Communication with the LwM2M Client failed.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p>Per LwM2M specification, if the Write was successful, the Client will return a <strong>IOWA_COAP_204_CHANGED</strong> status code.</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+Per LwM2M specification, if the Write was successful, the Client will return a <strong>IOWA_COAP_204_CHANGED</strong> status code.</p>
 <p>To be able to write on different <em>dataArrayP[x].objectID</em> or <em>dataArrayP[x].instanceID</em> at once, <strong>LWM2M_SUPPORT_SENML_JSON</strong> or <strong>LWM2M_SUPPORT_SENML_CBOR</strong> must be defined.</p>
 <p>Some LwM2M Clients may not be able to write on different <em>dataArrayP[x].objectID</em> or <em>dataArrayP[x].instanceID</em> in a single operation. In this case the <em>responseCb</em> will be called with an error status, typically <strong>IOWA_COAP_405_METHOD_NOT_ALLOWED</strong>.</p>
 <p>The <em>responseCb</em> will be called with the operation set to <strong>IOWA_DM_WRITE</strong>.</p>
-<p>\clearpage</p>
 <h3 id="iowa_server_write_attributes_string">iowa_server_write_attributes_string<a class="headerlink" href="#iowa_server_write_attributes_string" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_write_attributes_string</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -1389,10 +1337,10 @@ of the operation.</p>
                                                   <span class="kt">void</span> <span class="o">*</span><span class="n">userDataP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_server_write_attributes_string()</code> performs a Write-Attributes operation on a Client’s URI.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_server_write_attributes_string()</code> performs a Write-Attributes operation on a Client’s URI.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>clientId</em>
 : The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
@@ -1404,8 +1352,8 @@ of the operation.</p>
 : The callback called when the reply to this operation is known. This can be nil.</p>
 <p><em>userDataP</em>
 : A pointer to application specific data. This is passed as argument to <em>responseCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_400_BAD_REQUEST
 : either
@@ -1421,10 +1369,10 @@ of the operation.</p>
 : a memory allocation failed.</p>
 <p>IOWA_COAP_503_SERVICE_UNAVAILABLE
 : Communication with the LwM2M Client failed.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p>Per LwM2M specification, if the Write-Attributes was successful, the Client will return a <strong>IOWA_COAP_204_CHANGED</strong> status code.</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+Per LwM2M specification, if the Write-Attributes was successful, the Client will return a <strong>IOWA_COAP_204_CHANGED</strong> status code.</p>
 <p>The <em>responseCb</em> will be called with the operation set to <strong>IOWA_DM_WRITE_ATTRIBUTES</strong>.</p>
 <p>LwM2M defines the following attributes:</p>
 <table>
@@ -1481,13 +1429,12 @@ of the operation.</p>
 <li><code>epmax</code> &gt; <code>epmin</code></li>
 </ul>
 <p>Clearing an attribute is in the form <code>Name</code>.</p>
-<p><strong> <em>attributesStr</em> Examples </strong></p>
-<p>Receiving a notification every minute at most even if the observed URI did not change: <code>"pmax=60"</code>.</p>
+<p><strong> <em>attributesStr</em> Examples </strong>
+Receiving a notification every minute at most even if the observed URI did not change: <code>"pmax=60"</code>.</p>
 <p>Receiving only one notification per hour even if the observed URI changed several times per minute: <code>"pmin=3600"</code>.</p>
 <p>Receiving exactly one notification every sixty seconds: <code>"pmin=59&amp;pmax=60"</code>.</p>
 <p>Receiving a notification when the resource value exceeds 95 or falls below 10, and when the resource value returns below 95 or above 10: <code>"lt=10&amp;gt=95"</code>.</p>
 <p>Clearing the previously set minimum period and setting a maximum period of five minutes: <code>"pmin&amp;pmax=300"</code>.</p>
-<p>\clearpage</p>
 <h3 id="iowa_server_dm_exec">iowa_server_dm_exec<a class="headerlink" href="#iowa_server_dm_exec" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_dm_exec</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -1499,10 +1446,10 @@ of the operation.</p>
                                   <span class="kt">void</span> <span class="o">*</span> <span class="n">resultUserData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_server_dm_exec()</code> performs an Execute operation on a Client’s URI.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_server_dm_exec()</code> performs an Execute operation on a Client’s URI.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>clientID</em>
 : The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
@@ -1516,8 +1463,8 @@ of the operation.</p>
 : The callback called when the reply to this operation is known. This can be nil.</p>
 <p><em>resultUserData</em>
 : A pointer to application specific data. This is passed as argument to <em>resultCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_400_BAD_REQUEST
 : <em>objectID</em>, <em>instanceID</em> or <em>resourceID</em> is <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
@@ -1531,14 +1478,13 @@ of the operation.</p>
 : - <a href="../AbstractionLayer/#iowa_system_gettime"><code>iowa_system_gettime()</code></a> returned an error.</p>
 <p>IOWA_COAP_503_SERVICE_UNAVAILABLE
 : Communication with the LwM2M Client failed.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p>Per LwM2M specification, if the Execute was successful, the Client will return an <strong>IOWA_COAP_204_CHANGED</strong> status code.</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+Per LwM2M specification, if the Execute was successful, the Client will return an <strong>IOWA_COAP_204_CHANGED</strong> status code.</p>
 <p>Per LwM2M specification, a Server can do an Execute only on an URI in the form /<em>object</em>/<em>instance</em>/<em>resource</em>. Thus <em>instanceID</em>
 and <em>resourceID</em> cannot be set <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
 <p>The <em>resultCb</em> will be called with the operation set to <strong>IOWA_DM_EXECUTE</strong>.</p>
-<p>\clearpage</p>
 <h3 id="iowa_server_dm_create">iowa_server_dm_create<a class="headerlink" href="#iowa_server_dm_create" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_dm_create</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -1551,10 +1497,10 @@ and <em>resourceID</em> cannot be set <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
                                     <span class="kt">void</span> <span class="o">*</span><span class="n">resultUserData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_server_dm_create()</code> performs a Create operation on a Client’s URI.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_server_dm_create()</code> performs a Create operation on a Client’s URI.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>clientId</em>
 : The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
@@ -1566,8 +1512,8 @@ and <em>resourceID</em> cannot be set <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
 : The callback called when the reply to this operation is known. This can be nil.</p>
 <p><em>resultUserData</em>
 : A pointer to application specific data. This is passed as argument to <em>resultCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_400_BAD_REQUEST
 : either:
@@ -1588,13 +1534,12 @@ and <em>resourceID</em> cannot be set <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
 : - <a href="../AbstractionLayer/#iowa_system_gettime"><code>iowa_system_gettime()</code></a> returned an error.</p>
 <p>IOWA_COAP_503_SERVICE_UNAVAILABLE
 : Communication with the LwM2M Client failed</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p>Per LwM2M specification, if the Create was successful, the Client will return a <strong>IOWA_COAP_201_CREATED</strong> status code.</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+Per LwM2M specification, if the Create was successful, the Client will return a <strong>IOWA_COAP_201_CREATED</strong> status code.</p>
 <p>The IDs contained in the data must match <em>objectId</em> and <em>instanceId</em>.</p>
 <p>The <em>resultCb</em> will be called with the operation set to <strong>IOWA_DM_CREATE</strong>.</p>
-<p>\clearpage</p>
 <h3 id="iowa_server_dm_delete">iowa_server_dm_delete<a class="headerlink" href="#iowa_server_dm_delete" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_dm_delete</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -1605,10 +1550,10 @@ and <em>resourceID</em> cannot be set <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
                                     <span class="kt">void</span> <span class="o">*</span> <span class="n">resultUserData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_server_dm_delete()</code> performs an Delete operation on a Client’s URI.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_server_dm_delete()</code> performs an Delete operation on a Client’s URI.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>clientID</em>
 : The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
@@ -1620,8 +1565,8 @@ and <em>resourceID</em> cannot be set <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
 : The callback called when the reply to this operation is known. This can be nil.</p>
 <p><em>resultUserData</em>
 : A pointer to application specific data. This is passed as argument to <em>resultCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_400_BAD_REQUEST
 : <em>objectID</em> or <em>instanceID</em> is <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
@@ -1635,13 +1580,12 @@ and <em>resourceID</em> cannot be set <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
 : - <a href="../AbstractionLayer/#iowa_system_gettime"><code>iowa_system_gettime()</code></a> returned an error.</p>
 <p>IOWA_COAP_503_SERVICE_UNAVAILABLE
 : Communication with the LwM2M Client failed.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p>Per LwM2M specification, if the Delete was successful, the Client will return an <strong>IOWA_COAP_202_DELETED</strong> status code.</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+Per LwM2M specification, if the Delete was successful, the Client will return an <strong>IOWA_COAP_202_DELETED</strong> status code.</p>
 <p>Per LwM2M specification, a Server can do a Delete only on an URI in the form /<em>object</em>/<em>instance</em>. Thus <em>objectID</em> and <em>instanceID</em> cannot be set <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
 <p>The <em>resultCb</em> will be called with the operation set to <strong>IOWA_DM_DELETE</strong>.</p>
-<p>\clearpage</p>
 <h3 id="iowa_server_dm_discover">iowa_server_dm_discover<a class="headerlink" href="#iowa_server_dm_discover" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_dm_discover</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -1653,10 +1597,10 @@ and <em>resourceID</em> cannot be set <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
                                       <span class="kt">void</span> <span class="o">*</span> <span class="n">resultUserData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_server_dm_discover()</code> performs a Discover operation on a Client’s URI.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_server_dm_discover()</code> performs a Discover operation on a Client’s URI.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>clientID</em>
 : The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
@@ -1670,8 +1614,8 @@ and <em>resourceID</em> cannot be set <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
 : The callback called when the reply to this operation is known.</p>
 <p><em>resultUserData</em>
 : A pointer to application specific data. This is passed as argument to <em>resultCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_400_BAD_REQUEST
 : either:
@@ -1687,14 +1631,13 @@ and <em>resourceID</em> cannot be set <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
 : - <a href="../AbstractionLayer/#iowa_system_gettime"><code>iowa_system_gettime()</code></a> returned an error.</p>
 <p>IOWA_COAP_503_SERVICE_UNAVAILABLE
 : Communication with the LwM2M Client failed.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p>Per LwM2M specification, if the Discover was successful, the Client will return an <strong>IOWA_COAP_205_CONTENT</strong> status code.</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+Per LwM2M specification, if the Discover was successful, the Client will return an <strong>IOWA_COAP_205_CONTENT</strong> status code.</p>
 <p>Per LwM2M specification, a Server can do a Discover on an URI in the forms /<em>object</em>, /<em>object</em>/<em>instance</em> or /<em>object</em>/<em>instance</em>/<em>resource</em>.
 Thus if <em>instanceID</em> is set to <strong>IOWA_LWM2M_ID_ALL</strong>, <em>resourceID</em> must be set to <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
 <p>The <em>resultCb</em> will be called with the operation set to <strong>IOWA_DM_DISCOVER</strong>.</p>
-<p>\clearpage</p>
 <h3 id="iowa_server_set_response_format">iowa_server_set_response_format<a class="headerlink" href="#iowa_server_set_response_format" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_set_response_format</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -1703,10 +1646,10 @@ Thus if <em>instanceID</em> is set to <strong>IOWA_LWM2M_ID_ALL</strong>, <em>re
                                               <span class="n">iowa_content_format_t</span> <span class="n">singleResourceFormat</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_server_set_response_format()</code> sets the content format to use when requesting data from a Client.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_server_set_response_format()</code> sets the content format to use when requesting data from a Client.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>clientID</em>
 : The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
@@ -1714,19 +1657,18 @@ Thus if <em>instanceID</em> is set to <strong>IOWA_LWM2M_ID_ALL</strong>, <em>re
 : format to use when requesting several resources.</p>
 <p><em>singleResourceFormat</em>
 : format to use when requesting a single resource.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_400_BAD_REQUEST
 : <em>multiResourcesFormat</em> is set to a content format which does not support multiple resources encoding.</p>
 <p>IOWA_COAP_404_NOT_FOUND
 : <em>clientID</em> does not match a known client.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p>By default, IOWA uses LwM2M TLV for all data encodings. If the flag <code>LWM2M_VERSION_1_0_REMOVE</code> is used, IOWA uses CBOR for single resource and SenML CBOR for multiples resources.</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+By default, IOWA uses LwM2M TLV for all data encodings. If the flag <code>LWM2M_VERSION_1_0_REMOVE</code> is used, IOWA uses CBOR for single resource and SenML CBOR for multiples resources.</p>
 <p>If the Client does not support the requested content format, it will switch to another one.</p>
-<p>\clearpage</p>
 <h3 id="iowa_server_set_payload_format">iowa_server_set_payload_format<a class="headerlink" href="#iowa_server_set_payload_format" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_set_payload_format</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -1735,10 +1677,10 @@ Thus if <em>instanceID</em> is set to <strong>IOWA_LWM2M_ID_ALL</strong>, <em>re
                                              <span class="n">iowa_content_format_t</span> <span class="n">singleResourceFormat</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_server_set_payload_format()</code> sets the content format to use when sending data to a Client.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_server_set_payload_format()</code> sets the content format to use when sending data to a Client.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>clientID</em>
 : The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
@@ -1746,61 +1688,59 @@ Thus if <em>instanceID</em> is set to <strong>IOWA_LWM2M_ID_ALL</strong>, <em>re
 : format to use when sending several resources.</p>
 <p><em>singleResourceFormat</em>
 : format to use when sending a single resource.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_400_BAD_REQUEST
 : <em>multiResourcesFormat</em> is set to a content format which does not support multiple resources encoding.</p>
 <p>IOWA_COAP_404_NOT_FOUND
 : <em>clientID</em> does not match a known client.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p>By default, IOWA uses LwM2M TLV for all data encodings. If the flag <code>LWM2M_VERSION_1_0_REMOVE</code> is used, IOWA uses CBOR for single resource and SenML CBOR for multiples resources.</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+By default, IOWA uses LwM2M TLV for all data encodings. If the flag <code>LWM2M_VERSION_1_0_REMOVE</code> is used, IOWA uses CBOR for single resource and SenML CBOR for multiples resources.</p>
 <p>If the Client does not support the encoding format of the data provided, it will return a <strong>IOWA_COAP_415_UNSUPPORTED_CONTENT_FORMAT</strong> error code in the callback of the <a href="./#iowa_server_write"><code>iowa_server_write</code></a> call.</p>
-<p>\clearpage</p>
 <h3 id="iowa_server_create_registration_update_trigger_message">iowa_server_create_registration_update_trigger_message<a class="headerlink" href="#iowa_server_create_registration_update_trigger_message" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="kt">size_t</span> <span class="nf">iowa_server_create_registration_update_trigger_message</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="n">serverInstanceId</span><span class="p">,</span>
                                                               <span class="kt">uint8_t</span> <span class="o">**</span><span class="n">bufferP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_server_create_registration_update_trigger_message()</code> creates a Registration Update Trigger message.</p>
+<p><strong> Description </strong>
+<code>iowa_server_create_registration_update_trigger_message()</code> creates a Registration Update Trigger message.</p>
 <p>When receiving a Registration Update Trigger message, a LwM2M Client updates its registration to the targeted LwM2M Server. This mechanism is useful to "wake" up a LwM2M Client which is not longer reachable on the current transport.</p>
-<p><strong> Arguments </strong></p>
-<p><em>serverInstanceId</em>
+<p><strong> Arguments </strong>
+<em>serverInstanceId</em>
 : The Instance ID of the targeted LwM2M Server in the LwM2M Client's [<code>Server Object</code>][Server Object].</p>
 <p><em>bufferP</em>
 : Used to store the Registration Update Trigger message.</p>
-<p><strong> Return Value </strong></p>
-<p>The length of the buffer in bytes, or 0 in case of an error.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p><em>bufferP</em> will be allocated by the <a href="./#iowa_server_create_registration_update_trigger_message"><code>iowa_server_create_registration_update_trigger_message()</code></a> function using <a href="../AbstractionLayer/#iowa_system_malloc"><code>iowa_system_malloc()</code></a>. It is the caller responsibility to free the buffer.</p>
+<p><strong> Return Value </strong>
+The length of the buffer in bytes, or 0 in case of an error.</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+<em>bufferP</em> will be allocated by the <a href="./#iowa_server_create_registration_update_trigger_message"><code>iowa_server_create_registration_update_trigger_message()</code></a> function using <a href="../AbstractionLayer/#iowa_system_malloc"><code>iowa_system_malloc()</code></a>. It is the caller responsibility to free the buffer.</p>
 <p>It is the caller responsibility to send the Registration Update Trigger message to the LwM2M Client, typically using SMS.</p>
-<p>\clearpage</p>
 <h3 id="iowa_server_close_client_connection">iowa_server_close_client_connection<a class="headerlink" href="#iowa_server_close_client_connection" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_close_client_connection</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
                                                   <span class="kt">uint32_t</span> <span class="n">clientId</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_server_close_client_connection()</code> closes the current connection with a Client.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_server_close_client_connection()</code> closes the current connection with a Client.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>clientId</em>
 : The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_404_NOT_FOUND
 : <em>clientId</em> does not match a known client.</p>
-<p><strong> Notes </strong></p>
-<p>Depending of the transport used and the connection encryption, the Client will be informed or not of the closing connection.</p>
+<p><strong> Notes </strong>
+Depending of the transport used and the connection encryption, the Client will be informed or not of the closing connection.</p>
 <p>Some examples:</p>
 <ul>
 <li>UDP / Not secure: Client is <strong>not</strong> informed</li>

@@ -99,36 +99,6 @@
       
     </div>
     
-      <label class="md-header-nav__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-      </label>
-      
-<div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
-      <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-    
     
       <div class="md-header-nav__source">
         
@@ -205,18 +175,6 @@
   <li class="md-nav__item">
     <a href="../License/" class="md-nav__link">
       License
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../Changelog/" class="md-nav__link">
-      Changelog
     </a>
   </li>
 
@@ -1246,7 +1204,6 @@
 <span class="n">iowa_lwm2m_uri_t</span><span class="o">::</span><span class="n">resInstanceId</span> <span class="o">=</span> <span class="n">IOWA_LWM2M_ID_ALL</span>
 </code></pre></div>
 
-<p>\clearpage</p>
 <h3 id="iowa_response_content_t">iowa_response_content_t<a class="headerlink" href="#iowa_response_content_t" title="Permanent link">&para;</a></h3>
 <p>This structure contains the response content from <a href="./#iowa_response_callback_t"><code>iowa_response_callback_t()</code></a> according to its requested <em>operation</em>.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">typedef</span> <span class="k">struct</span>
@@ -1293,7 +1250,6 @@
 : The number of elements in the <em>details.dataPush.dataP</em>. This may be 0.</p>
 <p>details.dataPush.dataP
 : An array containing the Resource values send by the Client. This may be nil.</p>
-<p>\clearpage</p>
 <h2 id="callbacks">Callbacks<a class="headerlink" href="#callbacks" title="Permanent link">&para;</a></h2>
 <h3 id="iowa_response_callback_t">iowa_response_callback_t<a class="headerlink" href="#iowa_response_callback_t" title="Permanent link">&para;</a></h3>
 <p>The device management APIs (<a href="../ServerAPI/#iowa_server_read"><code>iowa_server_read()</code></a>, <a href="../ServerAPI/#iowa_server_observe"><code>iowa_server_observe()</code></a>, <a href="../ServerAPI/#iowa_server_write"><code>iowa_server_write()</code></a>, <a href="../ServerAPI/#iowa_server_write_attributes_string"><code>iowa_server_write_attributes_string()</code></a>, <a href="../ServerAPI/#iowa_server_configure_data_push"><code>iowa_server_configure_data_push()</code></a>, <a href="../BootstrapServerAPI/#iowa_bootstrap_server_read"><code>iowa_bootstrap_server_read()</code></a>, <a href="../ClientAPI/#iowa_client_send_sensor_data"><code>iowa_client_send_sensor_data()</code></a>, <a href="../ClientAPI/#iowa_client_send_data"><code>iowa_client_send_data()</code></a>) are using an <code>iowa_response_callback_t</code> to asynchronously return the result of the operation.</p>
@@ -1320,8 +1276,8 @@
 : A pointer to application specific data. This is a parameter of the matching device management API.</p>
 <p><em>contextP</em>
 : The IOWA context on which the device management API was called.</p>
-<p><strong> Notes </strong></p>
-<p>The status can have the following values:</p>
+<p><strong> Notes </strong>
+The status can have the following values:</p>
 <table>
 <thead>
 <tr>
@@ -1384,7 +1340,6 @@
 </tr>
 </tbody>
 </table>
-<p>\clearpage</p>
 <h3 id="iowa_load_callback_t">iowa_load_callback_t<a class="headerlink" href="#iowa_load_callback_t" title="Permanent link">&para;</a></h3>
 <p>This callback is called during a context load with the data stored inside the context backup.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">typedef</span> <span class="nf">void</span><span class="p">(</span><span class="o">*</span><span class="n">iowa_load_callback_t</span><span class="p">)</span> <span class="p">(</span><span class="kt">uint16_t</span> <span class="n">callbackId</span><span class="p">,</span>
@@ -1401,7 +1356,6 @@
 : The length of <em>buffer</em> in bytes.</p>
 <p><em>userDataP</em>
 : A pointer to application specific data as passed to <a href="./#iowa_backup_register_callback"><code>iowa_backup_register_callback()</code></a>.</p>
-<p>\clearpage</p>
 <h3 id="iowa_save_callback_t">iowa_save_callback_t<a class="headerlink" href="#iowa_save_callback_t" title="Permanent link">&para;</a></h3>
 <p>This callback is called during a context save. It is called first to retrieve the length of the data to save, then a second time with an allocated buffer to fill with the data to save.</p>
 <div class="codehilite"><pre><span></span><code><span class="k">typedef</span> <span class="nf">size_t</span><span class="p">(</span><span class="o">*</span><span class="n">iowa_save_callback_t</span><span class="p">)</span> <span class="p">(</span><span class="kt">uint16_t</span> <span class="n">callbackId</span><span class="p">,</span>
@@ -1418,38 +1372,36 @@
 : The length of <em>buffer</em> in bytes.</p>
 <p><em>userDataP</em>
 : A pointer to application specific data as passed to <a href="./#iowa_backup_register_callback"><code>iowa_backup_register_callback()</code></a>.</p>
-<p>\clearpage</p>
 <h2 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
 <h3 id="iowa_init">iowa_init<a class="headerlink" href="#iowa_init" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_context_t</span> <span class="nf">iowa_init</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span> <span class="n">userData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_init()</code> initializes an IOWA context.</p>
-<p><strong> Arguments </strong></p>
-<p><em>userData</em>
+<p><strong> Description </strong>
+<code>iowa_init()</code> initializes an IOWA context.</p>
+<p><strong> Arguments </strong>
+<em>userData</em>
 : Pointer to application-specific data. This is passed as argument to the Communication Abstraction Interface functions. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>An <a href="./#iowa_context_t"><code>iowa_context_t</code></a> in case of success or NULL in case of memory allocation error.</p>
-<p><strong> Header File </strong></p>
-<p>iowa.h</p>
-<p>\clearpage</p>
+<p><strong> Return Value </strong>
+An <a href="./#iowa_context_t"><code>iowa_context_t</code></a> in case of success or NULL in case of memory allocation error.</p>
+<p><strong> Header File </strong>
+iowa.h</p>
 <h3 id="iowa_step">iowa_step<a class="headerlink" href="#iowa_step" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_step</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
                         <span class="kt">int32_t</span> <span class="n">timeout</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_step()</code> runs the stack engine during the specified time.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_step()</code> runs the stack engine during the specified time.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="./#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="./#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>timeout</em>
 : The allowed time to run in seconds.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
 : either:
@@ -1458,17 +1410,16 @@
 <p>IOWA_COAP_503_SERVICE_UNAVAILABLE
 : one of the <a href="../AbstractionLayer/#iowa_system_connection_open"><code>iowa_system_connection...()</code></a> functions returned an error.
 : LwM2M Client only: when the Client failed to connect to any Server. (<a href="../ClientAPI/#iowa_event_callback_t">iowa_event_callback_t</a> is called with a <strong>IOWA_EVENT_REG_FAILED</strong> event.)</p>
-<p><strong> Header File </strong></p>
-<p>iowa.h</p>
-<p><strong> Notes </strong></p>
-<p>If <em>timeout</em> is a negative value:</p>
+<p><strong> Header File </strong>
+iowa.h</p>
+<p><strong> Notes </strong>
+If <em>timeout</em> is a negative value:</p>
 <ul>
 <li><code>iowa_step()</code> will return only in case of error.</li>
 <li><a href="../AbstractionLayer/#iowa_system_connection_select"><code>iowa_system_connection_select()</code></a> will be called with <strong>INT32_MAX</strong>.</li>
 </ul>
 <p>For LwM2M Clients: if <code>iowa_step()</code> returns an <strong>IOWA_COAP_503_SERVICE_UNAVAILABLE</strong> error because it is not registered to any LwM2M Server, subsequent call to <code>iowa_step()</code>, will retry to register to the known LwM2M Servers.</p>
 <p><a href="./#iowa_stop"><code>iowa_stop()</code></a> can be used to make <code>iowa_step()</code>return immediately.</p>
-<p>\clearpage</p>
 <h3 id="iowa_flush_before_pause">iowa_flush_before_pause<a class="headerlink" href="#iowa_flush_before_pause" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_flush_before_pause</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -1476,17 +1427,17 @@
                                       <span class="kt">uint32_t</span> <span class="o">*</span><span class="n">delayP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_flush_before_pause()</code> is used to inform the stack that the device will pause. <code>iowa_flush_before_pause()</code> performs all the pending and required operations of the stack engine before returning.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_flush_before_pause()</code> is used to inform the stack that the device will pause. <code>iowa_flush_before_pause()</code> performs all the pending and required operations of the stack engine before returning.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="./#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="./#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>duration</em>
 : The duration of the planned pause in seconds.</p>
 <p><em>delayP</em>
 : The delay before the next IOWA scheduled operation.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_406_NOT_ACCEPTABLE
 : either:
@@ -1498,122 +1449,116 @@
 : - <a href="../AbstractionLayer/#iowa_system_gettime"><code>iowa_system_gettime()</code></a> returned an error.</p>
 <p>IOWA_COAP_503_SERVICE_UNAVAILABLE
 : one of the <a href="../AbstractionLayer/#iowa_system_connection_open"><code>iowa_system_connection...()</code></a> functions returned an error.</p>
-<p><strong> Header File </strong></p>
-<p>iowa.h</p>
-<p><strong> Notes </strong></p>
-<p>In LwM2M Client mode: if no server are configured, the function returns immediately with no error.</p>
+<p><strong> Header File </strong>
+iowa.h</p>
+<p><strong> Notes </strong>
+In LwM2M Client mode: if no server are configured, the function returns immediately with no error.</p>
 <p>A LwM2M Server should never stop. For a LwM2M Server, <code>iowa_flush_before_pause()</code> will just wait for all pending CoAP transactions to finish.</p>
-<p>\clearpage</p>
 <h3 id="iowa_stop">iowa_stop<a class="headerlink" href="#iowa_stop" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="kt">void</span> <span class="nf">iowa_stop</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_stop()</code> stops the stack engine and make <a href="./#iowa_step"><code>iowa_step()</code></a> return immediately.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_stop()</code> stops the stack engine and make <a href="./#iowa_step"><code>iowa_step()</code></a> return immediately.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="./#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="./#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><strong> Return Value </strong></p>
-<p>None.</p>
-<p><strong> Header File </strong></p>
-<p>iowa.h</p>
-<p>\clearpage</p>
+<p><strong> Return Value </strong>
+None.</p>
+<p><strong> Header File </strong>
+iowa.h</p>
 <h3 id="iowa_close">iowa_close<a class="headerlink" href="#iowa_close" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="kt">void</span> <span class="nf">iowa_close</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_close()</code> closes an IOWA context.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_close()</code> closes an IOWA context.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="./#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="./#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><strong> Return Value </strong></p>
-<p>None.</p>
-<p><strong> Header File </strong></p>
-<p>iowa.h</p>
-<p>\clearpage</p>
+<p><strong> Return Value </strong>
+None.</p>
+<p><strong> Header File </strong>
+iowa.h</p>
 <h3 id="iowa_clock_reset">iowa_clock_reset<a class="headerlink" href="#iowa_clock_reset" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_clock_reset</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_clock_reset()</code> informs IOWA that <a href="iowa_system_gettime"><code>iowa_system_gettime()</code></a> has lost track of time and that IOWA must re-synchronize its internal timers.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_clock_reset()</code> informs IOWA that <a href="iowa_system_gettime"><code>iowa_system_gettime()</code></a> has lost track of time and that IOWA must re-synchronize its internal timers.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="./#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="./#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
 : - the <a href="../AbstractionLayer/#iowa_system_gettime"><code>iowa_system_gettime()</code></a> function returned an error.</p>
-<p><strong> Header File </strong></p>
-<p>iowa.h</p>
-<p>\clearpage</p>
+<p><strong> Header File </strong>
+iowa.h</p>
 <h3 id="iowa_save_context">iowa_save_context<a class="headerlink" href="#iowa_save_context" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_save_context</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_save_context()</code> saves the current IOWA context.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_save_context()</code> saves the current IOWA context.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="./#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="./#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
 : either:
 : - a memory allocation failed.
 : - the <a href="../AbstractionLayer/#iowa_system_store_context"><code>iowa_system_store_context()</code></a> function returned an error.</p>
-<p><strong> Header File </strong></p>
-<p>iowa.h</p>
-<p><strong> Notes </strong></p>
-<p>Currently, this API is only for a LwM2M Client.</p>
+<p><strong> Header File </strong>
+iowa.h</p>
+<p><strong> Notes </strong>
+Currently, this API is only for a LwM2M Client.</p>
 <p>If IOWA is built with the <strong>IOWA_STORAGE_CONTEXT_AUTOMATIC_BACKUP</strong> flag, the context will be automatically saved:</p>
 <ul>
 <li>After a LwM2M Bootstrap Server or a LwM2M Server were added.</li>
 <li>After a successful Bootstrap procedure.</li>
 <li>After a LwM2M Server operation on resources related to Server Accounts.</li>
 </ul>
-<p>\clearpage</p>
 <h3 id="iowa_save_context_snapshot">iowa_save_context_snapshot<a class="headerlink" href="#iowa_save_context_snapshot" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_save_context_snapshot</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_save_context_snapshot()</code> saves the current IOWA context with runtime information, observations and attributes.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_save_context_snapshot()</code> saves the current IOWA context with runtime information, observations and attributes.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="./#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="./#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
 : either:
 : - a memory allocation failed.
 : - the <a href="../AbstractionLayer/#iowa_system_store_context"><code>iowa_system_store_context()</code></a> function returned an error.</p>
-<p><strong> Header File </strong></p>
-<p>iowa.h</p>
-<p><strong> Notes </strong></p>
-<p>Currently, this API is only for a LwM2M Client.</p>
-<p>\clearpage</p>
+<p><strong> Header File </strong>
+iowa.h</p>
+<p><strong> Notes </strong>
+Currently, this API is only for a LwM2M Client.</p>
 <h3 id="iowa_load_context">iowa_load_context<a class="headerlink" href="#iowa_load_context" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_load_context</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_load_context()</code> loads a saved IOWA context.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_load_context()</code> loads a saved IOWA context.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="./#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="./#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_404_NOT_FOUND
 : either:
@@ -1629,11 +1574,10 @@
 : either:
 : - a memory allocation failed.
 : - the <a href="../AbstractionLayer/#iowa_system_retrieve_context"><code>iowa_system_retrieve_context()</code></a> function returned an error.</p>
-<p><strong> Header File </strong></p>
-<p>iowa.h</p>
-<p><strong> Notes </strong></p>
-<p>Currently, this API is only for a LwM2M Client.</p>
-<p>\clearpage</p>
+<p><strong> Header File </strong>
+iowa.h</p>
+<p><strong> Notes </strong>
+Currently, this API is only for a LwM2M Client.</p>
 <h3 id="iowa_backup_register_callback">iowa_backup_register_callback<a class="headerlink" href="#iowa_backup_register_callback" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_backup_register_callback</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -1643,10 +1587,10 @@
                                             <span class="kt">void</span> <span class="o">*</span><span class="n">userDataP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_backup_register_callback()</code> registers context callbacks from IOWA.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_backup_register_callback()</code> registers context callbacks from IOWA.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="./#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="./#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>id</em>
 : The id of the callback. Must be greater than 0xF000.</p>
@@ -1656,8 +1600,8 @@
 : The function called during context loading.</p>
 <p><em>userDataP</em>
 : Pointer to application-specific data. This is passed as argument to the callback. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_403_FORBIDDEN
 : either:
@@ -1669,49 +1613,46 @@
 : failed to decode the buffer retrieved from <a href="../AbstractionLayer/#iowa_system_retrieve_context"><code>iowa_system_retrieve_context()</code></a> function.</p>
 <p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
 : a memory allocation failed.</p>
-<p><strong> Header File </strong></p>
-<p>iowa.h</p>
-<p><strong> Notes </strong></p>
-<p>Currently, this API is only for a LwM2M Client.</p>
-<p>\clearpage</p>
+<p><strong> Header File </strong>
+iowa.h</p>
+<p><strong> Notes </strong>
+Currently, this API is only for a LwM2M Client.</p>
 <h3 id="iowa_backup_deregister_callback">iowa_backup_deregister_callback<a class="headerlink" href="#iowa_backup_deregister_callback" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="kt">void</span> <span class="nf">iowa_backup_deregister_callback</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
                                      <span class="kt">uint16_t</span> <span class="n">id</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_backup_deregister_callback()</code> deregisters context callbacks from IOWA.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_backup_deregister_callback()</code> deregisters context callbacks from IOWA.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="./#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="./#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>id</em>
 : The id of the callback. Must be greater than 0xF000.</p>
-<p><strong> Return Value </strong></p>
-<p>None.</p>
-<p><strong> Header File </strong></p>
-<p>iowa.h</p>
-<p><strong> Notes </strong></p>
-<p>Currently, this API is only for a LwM2M Client.</p>
-<p>\clearpage</p>
+<p><strong> Return Value </strong>
+None.</p>
+<p><strong> Header File </strong>
+iowa.h</p>
+<p><strong> Notes </strong>
+Currently, this API is only for a LwM2M Client.</p>
 <h3 id="iowa_connection_closed">iowa_connection_closed<a class="headerlink" href="#iowa_connection_closed" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="kt">void</span> <span class="nf">iowa_connection_closed</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
                             <span class="kt">void</span> <span class="o">*</span><span class="n">connP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_connection_closed()</code> informs IOWA that a connection was closed by an external event (e.g. peer disconnection).</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_connection_closed()</code> informs IOWA that a connection was closed by an external event (e.g. peer disconnection).</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="./#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="./#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>connP</em>
 : The closed connection of the same user-defined type as the one returned by <a href="../AbstractionLayer/#iowa_system_connection_open"><code>iowa_system_connection_open()</code></a>.</p>
-<p><strong> Return Value </strong></p>
-<p>None.</p>
-<p><strong> Header File </strong></p>
-<p>iowa.h</p>
-<p>\clearpage</p>
+<p><strong> Return Value </strong>
+None.</p>
+<p><strong> Header File </strong>
+iowa.h</p>
 <h3 id="iowa_data_get_block_info">iowa_data_get_block_info<a class="headerlink" href="#iowa_data_get_block_info" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_data_get_block_info</span><span class="p">(</span><span class="n">iowa_lwm2m_data_t</span> <span class="o">*</span><span class="n">dataP</span><span class="p">,</span>
@@ -1720,10 +1661,10 @@
                                        <span class="kt">uint16_t</span> <span class="o">*</span><span class="n">sizeP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_data_get_block_info()</code> retrieves the block information from an <a href="./#iowa_lwm2m_data_t">iowa_lwm2m_data_t</a>.</p>
-<p><strong> Arguments </strong></p>
-<p><em>dataP</em>
+<p><strong> Description </strong>
+<code>iowa_data_get_block_info()</code> retrieves the block information from an <a href="./#iowa_lwm2m_data_t">iowa_lwm2m_data_t</a>.</p>
+<p><strong> Arguments </strong>
+<em>dataP</em>
 : the <a href="./#iowa_lwm2m_data_t">iowa_lwm2m_data_t</a> to retrieve the block information from.</p>
 <p><em>numberP</em>
 : OUT. The block number.</p>
@@ -1731,8 +1672,8 @@
 : OUT. <em>true</em> if there are more blocks coming, <em>false</em> otherwise.</p>
 <p><em>sizeP</em>
 : OUT. The size of the block in bytes.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_404_NOT_FOUND
 : <em>dataP</em> does not contain any block information.</p>
@@ -1740,9 +1681,8 @@
 : either:
 : - one of the parameters is nil.
 : - the block information in <em>dataP</em> is invalid.</p>
-<p><strong> Header File </strong></p>
-<p>iowa.h</p>
-<p>\clearpage</p>
+<p><strong> Header File </strong>
+iowa.h</p>
 <h3 id="iowa_data_set_block_info">iowa_data_set_block_info<a class="headerlink" href="#iowa_data_set_block_info" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_data_set_block_info</span><span class="p">(</span><span class="n">iowa_lwm2m_data_t</span> <span class="o">*</span><span class="n">dataP</span><span class="p">,</span>
@@ -1751,10 +1691,10 @@
                                        <span class="kt">uint16_t</span> <span class="n">size</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_data_set_block_info()</code> sets the block information of an <a href="./#iowa_lwm2m_data_t">iowa_lwm2m_data_t</a>.</p>
-<p><strong> Arguments </strong></p>
-<p><em>dataP</em>
+<p><strong> Description </strong>
+<code>iowa_data_set_block_info()</code> sets the block information of an <a href="./#iowa_lwm2m_data_t">iowa_lwm2m_data_t</a>.</p>
+<p><strong> Arguments </strong>
+<em>dataP</em>
 : the <a href="./#iowa_lwm2m_data_t">iowa_lwm2m_data_t</a> to set the block information to.</p>
 <p><em>number</em>
 : The block number.</p>
@@ -1762,8 +1702,8 @@
 : <em>true</em> if there are more blocks coming, <em>false</em> otherwise.</p>
 <p><em>size</em>
 : The size of the block in bytes.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_400_BAD_REQUEST
 : <em>dataP</em> is nil.</p>
@@ -1773,8 +1713,8 @@
 : - <em>more</em> is set to <em>true</em> and <em>size</em> is different than 16, 32, 64, 128, 256, 512, or 1024.
 : - <em>more</em> is set to <em>false</em> and <em>size</em> is either zero or greater than 1024.
 : - <em>dataP</em> data type is neither <strong>IOWA_LWM2M_TYPE_STRING</strong>, <strong>IOWA_LWM2M_TYPE_OPAQUE</strong>, nor <strong>IOWA_LWM2M_TYPE_CORE_LINK</strong>.</p>
-<p><strong> Header File </strong></p>
-<p>iowa.h</p>
+<p><strong> Header File </strong>
+iowa.h</p>
                 
               
               

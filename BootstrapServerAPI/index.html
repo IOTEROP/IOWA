@@ -99,36 +99,6 @@
       
     </div>
     
-      <label class="md-header-nav__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-      </label>
-      
-<div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
-      <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-    
     
       <div class="md-header-nav__source">
         
@@ -205,18 +175,6 @@
   <li class="md-nav__item">
     <a href="../License/" class="md-nav__link">
       License
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../Changelog/" class="md-nav__link">
-      Changelog
     </a>
   </li>
 
@@ -727,7 +685,6 @@ of the operation.</p>
 : A pointer to application specific data. This is a parameter of the matching <code>iowa_bootstrap_server...()</code> API.</p>
 <p><em>contextP</em>
 : The IOWA context on which the bootstrap API was called.</p>
-<p>\clearpage</p>
 <h2 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
 <h3 id="iowa_bootstrap_server_configure">iowa_bootstrap_server_configure<a class="headerlink" href="#iowa_bootstrap_server_configure" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
@@ -736,21 +693,20 @@ of the operation.</p>
                                               <span class="kt">void</span> <span class="o">*</span><span class="n">callbackUserData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_bootstrap_server_configure()</code> sets the monitoring callback called when LwM2M Clients connect to the LwM2M Bootstrap Server.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_bootstrap_server_configure()</code> sets the monitoring callback called when LwM2M Clients connect to the LwM2M Bootstrap Server.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>monitorCb</em>
 : The callback called when Clients update their status. This can be nil.</p>
 <p><em>callbackUserData</em>
 : A pointer to application specific data. This is passed as argument to <em>monitorCb</em> and <em>resTypeCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p>\clearpage</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
 <h3 id="iowa_bootstrap_server_new_incoming_connection">iowa_bootstrap_server_new_incoming_connection<a class="headerlink" href="#iowa_bootstrap_server_new_incoming_connection" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_bootstrap_server_new_incoming_connection</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -759,10 +715,10 @@ of the operation.</p>
                                                             <span class="kt">bool</span> <span class="n">isSecure</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_bootstrap_server_new_incoming_connection()</code> informs the stack of a new incoming connection.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_bootstrap_server_new_incoming_connection()</code> informs the stack of a new incoming connection.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>type</em>
 : The type of the new connection. See <a href="../AbstractionLayer/#iowa_connection_type_t"><code>iowa_connection_type_t</code></a>.</p>
@@ -770,16 +726,15 @@ of the operation.</p>
 : The new connection of the same user-defined type as the one returned by <a href="../AbstractionLayer/#iowa_system_connection_open"><code>iowa_system_connection_open()</code></a>.</p>
 <p><em>isSecure</em>
 : Set to <em>true</em> if the security must be enabled on this connection.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
 : either:
 : - a memory allocation failed.
 : - <em>type</em> is not supported.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p>\clearpage</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
 <h3 id="iowa_bootstrap_server_read">iowa_bootstrap_server_read<a class="headerlink" href="#iowa_bootstrap_server_read" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_bootstrap_server_read</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -789,10 +744,10 @@ of the operation.</p>
                                          <span class="kt">void</span> <span class="o">*</span><span class="n">userDataP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_bootstrap_server_read()</code> performs a Bootstrap Read operation on a Client’s URI.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_bootstrap_server_read()</code> performs a Bootstrap Read operation on a Client’s URI.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>clientId</em>
 : The ID of the client as reported in the <a href="../ServerAPI/#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
@@ -802,8 +757,8 @@ of the operation.</p>
 : The callback called when the reply to this operation is known.</p>
 <p><em>userDataP</em>
 : A pointer to application specific data. This is passed as argument to <em>responseCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_400_BAD_REQUEST
 : either:
@@ -821,13 +776,12 @@ of the operation.</p>
 : a memory allocation or a call to <a href="../AbstractionLayer/#iowa_system_gettime">iowa_system_gettime()</a> failed.</p>
 <p>IOWA_COAP_503_SERVICE_UNAVAILABLE
 : <a href="../AbstractionLayer/#iowa_system_connection_send"><code>iowa_system_connection_send()</code></a> returned an error.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p>This API requires the compilation flag [<strong>LWM2M_VERSION_1_1_SUPPORT</strong>][LWM2M_VERSION_1_1_SUPPORT].</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+This API requires the compilation flag [<strong>LWM2M_VERSION_1_1_SUPPORT</strong>][LWM2M_VERSION_1_1_SUPPORT].</p>
 <p>Per LwM2M specification, if the Bootstrap Read was successful, the Client will return a <strong>IOWA_COAP_205_CONTENT</strong> status code.</p>
 <p>The <em>responseCb</em> will be called with the operation set to <strong>IOWA_BOOTSTRAP_READ</strong>.</p>
-<p>\clearpage</p>
 <h3 id="iowa_bootstrap_server_write">iowa_bootstrap_server_write<a class="headerlink" href="#iowa_bootstrap_server_write" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_bootstrap_server_write</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -840,10 +794,10 @@ of the operation.</p>
                                           <span class="kt">void</span> <span class="o">*</span><span class="n">resultUserData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_bootstrap_server_write()</code> performs a Bootstrap Write operation on a Client’s URI.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_bootstrap_server_write()</code> performs a Bootstrap Write operation on a Client’s URI.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>clientId</em>
 : The ID of the client as reported in the <a href="../ServerAPI/#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
@@ -859,8 +813,8 @@ of the operation.</p>
 : The callback called when the reply to this operation is known. This can be nil.</p>
 <p><em>resultUserData</em>
 : A pointer to application specific data. This is passed as argument to <em>resultCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_400_BAD_REQUEST
 : either:
@@ -880,13 +834,12 @@ of the operation.</p>
 : a memory allocation or a call to <a href="../AbstractionLayer/#iowa_system_gettime">iowa_system_gettime()</a> failed.</p>
 <p>IOWA_COAP_503_SERVICE_UNAVAILABLE
 : <a href="../AbstractionLayer/#iowa_system_connection_send"><code>iowa_system_connection_send()</code></a> returned an error.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p>Per LwM2M specification, if the Bootstrap Write was successful, the Client will return a <strong>IOWA_COAP_204_CHANGED</strong> status code.</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+Per LwM2M specification, if the Bootstrap Write was successful, the Client will return a <strong>IOWA_COAP_204_CHANGED</strong> status code.</p>
 <p>The IDs contained in the data must match <em>objectId</em> and <em>instanceId</em>.</p>
 <p>The <em>resultCb</em> will be called with the operation set to <strong>IOWA_BOOTSTRAP_WRITE</strong>.</p>
-<p>\clearpage</p>
 <h3 id="iowa_bootstrap_server_delete">iowa_bootstrap_server_delete<a class="headerlink" href="#iowa_bootstrap_server_delete" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_bootstrap_server_delete</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -897,10 +850,10 @@ of the operation.</p>
                                            <span class="kt">void</span> <span class="o">*</span><span class="n">resultUserData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_bootstrap_server_delete()</code> performs a Bootstrap Delete operation on a Client’s URI.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_bootstrap_server_delete()</code> performs a Bootstrap Delete operation on a Client’s URI.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>clientId</em>
 : The ID of the client as reported in the <a href="../ServerAPI/#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
@@ -912,8 +865,8 @@ of the operation.</p>
 : The callback called when the reply to this operation is known. This can be nil.</p>
 <p><em>resultUserData</em>
 : A pointer to application specific data. This is passed as argument to <em>resultCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_404_NOT_FOUND
 : either:
@@ -925,13 +878,12 @@ of the operation.</p>
 : a memory allocation or a call to <a href="../AbstractionLayer/#iowa_system_gettime">iowa_system_gettime()</a> failed.</p>
 <p>IOWA_COAP_503_SERVICE_UNAVAILABLE
 : <a href="../AbstractionLayer/#iowa_system_connection_send"><code>iowa_system_connection_send()</code></a> returned an error.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p>Per LwM2M specification, if the Bootstrap Delete was successful, the Client will return an <strong>IOWA_COAP_204_CHANGED</strong> status code.</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+Per LwM2M specification, if the Bootstrap Delete was successful, the Client will return an <strong>IOWA_COAP_204_CHANGED</strong> status code.</p>
 <p>Per LwM2M specification, the Bootstrap Server can request the Client to delete all Objects and Object Instances (except for the Bootstrap Server account) in a single operation by setting <em>objectId</em> and <em>instanceId</em> to <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
 <p>The <em>resultCb</em> will be called with the operation set to <strong>IOWA_BOOTSTRAP_DELETE</strong>.</p>
-<p>\clearpage</p>
 <h3 id="iowa_bootstrap_server_discover">iowa_bootstrap_server_discover<a class="headerlink" href="#iowa_bootstrap_server_discover" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_bootstrap_server_discover</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -941,10 +893,10 @@ of the operation.</p>
                                              <span class="kt">void</span> <span class="o">*</span> <span class="n">resultUserData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_bootstrap_server_discover()</code> performs a Bootstrap Discover operation on a Client’s URI.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_bootstrap_server_discover()</code> performs a Bootstrap Discover operation on a Client’s URI.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>clientId</em>
 : The ID of the client as reported in the <a href="../ServerAPI/#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
@@ -954,8 +906,8 @@ of the operation.</p>
 : The callback called when the reply to this operation is known. This can be nil.</p>
 <p><em>resultUserData</em>
 : A pointer to application specific data. This is passed as argument to <em>resultCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_404_NOT_FOUND
 : <em>clientId</em> does not match a known client.</p>
@@ -965,12 +917,11 @@ of the operation.</p>
 : a memory allocation or a call to <a href="../AbstractionLayer/#iowa_system_gettime">iowa_system_gettime()</a> failed.</p>
 <p>IOWA_COAP_503_SERVICE_UNAVAILABLE
 : <a href="../AbstractionLayer/#iowa_system_connection_send"><code>iowa_system_connection_send()</code></a> returned an error.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p>Per LwM2M specification, the Bootstrap Discover operation only returns the list of Objects and Object Instances with some attributes: LwM2M Enabler version ("lwm2m="), Short Server ID ("ssid="), and LwM2M Server URI ("uri=").</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+Per LwM2M specification, the Bootstrap Discover operation only returns the list of Objects and Object Instances with some attributes: LwM2M Enabler version ("lwm2m="), Short Server ID ("ssid="), and LwM2M Server URI ("uri=").</p>
 <p>The <em>resultCb</em> will be called with the operation set to <strong>IOWA_BOOTSTRAP_DISCOVER</strong>.</p>
-<p>\clearpage</p>
 <h3 id="iowa_bootstrap_server_finish">iowa_bootstrap_server_finish<a class="headerlink" href="#iowa_bootstrap_server_finish" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_bootstrap_server_finish</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -979,10 +930,10 @@ of the operation.</p>
                                            <span class="kt">void</span> <span class="o">*</span><span class="n">resultUserData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_bootstrap_server_finish()</code> performs a Bootstrap Server operation on a Client’s URI.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_bootstrap_server_finish()</code> performs a Bootstrap Server operation on a Client’s URI.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>clientId</em>
 : The ID of the client as reported in the <a href="../ServerAPI/#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
@@ -990,8 +941,8 @@ of the operation.</p>
 : The callback called when the reply to this operation is known. This can be nil.</p>
 <p><em>resultUserData</em>
 : A pointer to application specific data. This is passed as argument to <em>resultCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_404_NOT_FOUND
 : either:
@@ -1003,12 +954,11 @@ of the operation.</p>
 : a memory allocation or a call to <a href="../AbstractionLayer/#iowa_system_gettime">iowa_system_gettime()</a> failed.</p>
 <p>IOWA_COAP_503_SERVICE_UNAVAILABLE
 : <a href="../AbstractionLayer/#iowa_system_connection_send"><code>iowa_system_connection_send()</code></a> returned an error.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p>Per LwM2M specification, if the Bootstrap Finish was successful, the Client will return an <strong>IOWA_COAP_204_CHANGED</strong> status code. Otherwise the Client will return an <strong>IOWA_COAP_406_NOT_ACCEPTABLE</strong> status code.</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+Per LwM2M specification, if the Bootstrap Finish was successful, the Client will return an <strong>IOWA_COAP_204_CHANGED</strong> status code. Otherwise the Client will return an <strong>IOWA_COAP_406_NOT_ACCEPTABLE</strong> status code.</p>
 <p>The <em>resultCb</em> will be called with the operation set to <strong>IOWA_BOOTSTRAP_FINISH</strong>.</p>
-<p>\clearpage</p>
 <h3 id="iowa_bootstrap_server_add_server">iowa_bootstrap_server_add_server<a class="headerlink" href="#iowa_bootstrap_server_add_server" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_bootstrap_server_add_server</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -1021,10 +971,10 @@ of the operation.</p>
                                                <span class="kt">void</span> <span class="o">*</span><span class="n">resultUserData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_bootstrap_server_add_server()</code> adds the proper Security and Server object to the client to configure a Server.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_bootstrap_server_add_server()</code> adds the proper Security and Server object to the client to configure a Server.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>clientId</em>
 : The ID of the client as reported in the <a href="../ServerAPI/#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
@@ -1040,8 +990,8 @@ of the operation.</p>
 : The callback called when the reply to this operation is known. This can be nil.</p>
 <p><em>resultUserData</em>
 : A pointer to application specific data. This is passed as argument to <em>resultCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_400_BAD_REQUEST
 : either:
@@ -1055,14 +1005,13 @@ of the operation.</p>
 : a memory allocation or a call to <a href="../AbstractionLayer/#iowa_system_gettime">iowa_system_gettime()</a> failed.</p>
 <p>IOWA_COAP_503_SERVICE_UNAVAILABLE
 : <a href="../AbstractionLayer/#iowa_system_connection_send"><code>iowa_system_connection_send()</code></a> returned an error.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p><code>iowa_bootstrap_server_add_server()</code> calls internally <a href="./#iowa_bootstrap_server_discover"><code>iowa_bootstrap_server_discover</code></a> to retrieve the [<code>Security Object</code>][Security Object] Instances and [<code>Server Object</code>][Server Object] Instances, then calls<a href="./#iowa_bootstrap_server_write"><code>iowa_bootstrap_server_write</code></a> two times to write a new [<code>Security Object</code>][Security Object] Instance and a new [<code>Server Object</code>][Server Object] Instance.</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+<code>iowa_bootstrap_server_add_server()</code> calls internally <a href="./#iowa_bootstrap_server_discover"><code>iowa_bootstrap_server_discover</code></a> to retrieve the [<code>Security Object</code>][Security Object] Instances and [<code>Server Object</code>][Server Object] Instances, then calls<a href="./#iowa_bootstrap_server_write"><code>iowa_bootstrap_server_write</code></a> two times to write a new [<code>Security Object</code>][Security Object] Instance and a new [<code>Server Object</code>][Server Object] Instance.</p>
 <p>The <em>resultCb</em> will be called with the operation set to <strong>IOWA_BOOTSTRAP_ADD_SERVER</strong>.</p>
 <p>Per LwM2M specification, if adding the server was successful, the Client will return an <strong>IOWA_COAP_204_CHANGED</strong> status code.</p>
 <p>Currently, it is not possible to configure both OSCORE and another transport security through this API. If needed, use <a href="./#iowa_bootstrap_server_write"><code>iowa_bootstrap_server_write()</code></a>.</p>
-<p>\clearpage</p>
 <h3 id="iowa_bootstrap_server_remove_server">iowa_bootstrap_server_remove_server<a class="headerlink" href="#iowa_bootstrap_server_remove_server" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_bootstrap_server_remove_server</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
@@ -1072,10 +1021,10 @@ of the operation.</p>
                                                   <span class="kt">void</span> <span class="o">*</span><span class="n">resultUserData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_bootstrap_server_remove_server()</code> removes the proper Security and [<code>Server Object</code>][Server Object] Instance associated to the Short Server ID from a client.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_bootstrap_server_remove_server()</code> removes the proper Security and [<code>Server Object</code>][Server Object] Instance associated to the Short Server ID from a client.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>clientId</em>
 : The ID of the client as reported in the <a href="../ServerAPI/#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
@@ -1085,8 +1034,8 @@ of the operation.</p>
 : The callback called when the reply to this operation is known. This can be nil.</p>
 <p><em>resultUserData</em>
 : A pointer to application specific data. This is passed as argument to <em>resultCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_400_BAD_REQUEST
 : <em>shortServerId</em> is 0 or <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
@@ -1100,10 +1049,10 @@ of the operation.</p>
 : a memory allocation or a call to <a href="../AbstractionLayer/#iowa_system_gettime">iowa_system_gettime()</a> failed.</p>
 <p>IOWA_COAP_503_SERVICE_UNAVAILABLE
 : <a href="../AbstractionLayer/#iowa_system_connection_send"><code>iowa_system_connection_send()</code></a> returned an error.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p><code>iowa_bootstrap_server_remove_server()</code> calls internally <a href="./#iowa_bootstrap_server_discover"><code>iowa_bootstrap_server_discover</code></a> to retrieve the [<code>Security Object</code>][Security Object] Instances and [<code>Server Object</code>][Server Object] Instances, then calls <a href="./#iowa_bootstrap_server_delete"><code>iowa_bootstrap_server_delete</code></a> two times to delete a [<code>Security Object</code>][Security Object] Instance and a [<code>Server Object</code>][Server Object] Instance.</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+<code>iowa_bootstrap_server_remove_server()</code> calls internally <a href="./#iowa_bootstrap_server_discover"><code>iowa_bootstrap_server_discover</code></a> to retrieve the [<code>Security Object</code>][Security Object] Instances and [<code>Server Object</code>][Server Object] Instances, then calls <a href="./#iowa_bootstrap_server_delete"><code>iowa_bootstrap_server_delete</code></a> two times to delete a [<code>Security Object</code>][Security Object] Instance and a [<code>Server Object</code>][Server Object] Instance.</p>
 <p>The <em>resultCb</em> will be called with the operation set to <strong>IOWA_BOOTSTRAP_REMOVE_SERVER</strong>.</p>
 <p>Per LwM2M specification:</p>
 <ul>
@@ -1116,7 +1065,6 @@ of the operation.</p>
 <li>resourceId: <strong>IOWA_LWM2M_ID_ALL</strong></li>
 <li>status: <strong>IOWA_COAP_404_NOT_FOUND</strong></li>
 </ul>
-<p>\clearpage</p>
 <h3 id="iowa_bootstrap_server_add_bootstrap_server">iowa_bootstrap_server_add_bootstrap_server<a class="headerlink" href="#iowa_bootstrap_server_add_bootstrap_server" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_bootstrap_server_add_bootstrap_server</span><span class="p">(</span>
@@ -1131,10 +1079,10 @@ of the operation.</p>
 <span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_bootstrap_server_add_bootstrap_server()</code> adds the proper Security object to the client to configure a Bootstrap Server.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_bootstrap_server_add_bootstrap_server()</code> adds the proper Security object to the client to configure a Bootstrap Server.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>clientId</em>
 : The ID of the client as reported in the <a href="../ServerAPI/#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
@@ -1150,8 +1098,8 @@ of the operation.</p>
 : The callback called when the reply to this operation is known. This can be nil.</p>
 <p><em>resultUserData</em>
 : A pointer to application specific data. This is passed as argument to <em>resultCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
 : a memory allocation failed.</p>
@@ -1163,14 +1111,13 @@ of the operation.</p>
 : The Platform abstraction didn't send all the data. One possible assumption is the packet was too large for the transport.</p>
 <p>IOWA_COAP_503_SERVICE_UNAVAILABLE
 : <a href="../AbstractionLayer/#iowa_system_connection_send">iowa_system_connection_send()</a> returned an error.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p><code>iowa_bootstrap_server_add_bootstrap_server()</code> calls internally <a href="./#iowa_bootstrap_server_discover"><code>iowa_bootstrap_server_discover</code></a> to retrieve the [<code>Security Object</code>][Security Object] Instances, then <a href="./#iowa_bootstrap_server_write"><code>iowa_bootstrap_server_write</code></a> to write a [<code>Security Object</code>][Security Object] Instance.</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+<code>iowa_bootstrap_server_add_bootstrap_server()</code> calls internally <a href="./#iowa_bootstrap_server_discover"><code>iowa_bootstrap_server_discover</code></a> to retrieve the [<code>Security Object</code>][Security Object] Instances, then <a href="./#iowa_bootstrap_server_write"><code>iowa_bootstrap_server_write</code></a> to write a [<code>Security Object</code>][Security Object] Instance.</p>
 <p>The <em>resultCb</em> will be called with the operation set to <strong>IOWA_BOOTSTRAP_ADD_BOOTSTRAP_SERVER</strong>.</p>
 <p>Per LwM2M specification, if adding the bootstrap server was successful, the Client will return an <strong>IOWA_COAP_204_CHANGED</strong> status code.</p>
 <p>Currently, it is not possible to configure both OSCORE and another transport security through this API. If needed, use <a href="./#iowa_bootstrap_server_write"><code>iowa_bootstrap_server_write()</code></a>.</p>
-<p>\clearpage</p>
 <h3 id="iowa_bootstrap_server_remove_bootstrap_server">iowa_bootstrap_server_remove_bootstrap_server<a class="headerlink" href="#iowa_bootstrap_server_remove_bootstrap_server" title="Permanent link">&para;</a></h3>
 <p><strong> Prototype </strong></p>
 <div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_bootstrap_server_remove_bootstrap_server</span><span class="p">(</span>
@@ -1181,10 +1128,10 @@ of the operation.</p>
 <span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong></p>
-<p><code>iowa_bootstrap_server_remove_bootstrap_server()</code> removes the proper [<code>Security Object</code>][Security Object] Instance associated to the Bootstrap Server from a client.</p>
-<p><strong> Arguments </strong></p>
-<p><em>contextP</em>
+<p><strong> Description </strong>
+<code>iowa_bootstrap_server_remove_bootstrap_server()</code> removes the proper [<code>Security Object</code>][Security Object] Instance associated to the Bootstrap Server from a client.</p>
+<p><strong> Arguments </strong>
+<em>contextP</em>
 : An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
 <p><em>clientId</em>
 : The ID of the client as reported in the <a href="../ServerAPI/#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
@@ -1192,8 +1139,8 @@ of the operation.</p>
 : The callback called when the reply to this operation is known. This can be nil.</p>
 <p><em>resultUserData</em>
 : A pointer to application specific data. This is passed as argument to <em>resultCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong></p>
-<p>IOWA_COAP_NO_ERROR
+<p><strong> Return Value </strong>
+IOWA_COAP_NO_ERROR
 : success.</p>
 <p>IOWA_COAP_404_NOT_FOUND
 : either:
@@ -1205,10 +1152,10 @@ of the operation.</p>
 : a memory allocation or a call to <a href="../AbstractionLayer/#iowa_system_gettime">iowa_system_gettime()</a> failed.</p>
 <p>IOWA_COAP_503_SERVICE_UNAVAILABLE
 : <a href="../AbstractionLayer/#iowa_system_connection_send"><code>iowa_system_connection_send()</code></a> returned an error.</p>
-<p><strong> Header File </strong></p>
-<p>iowa_server.h</p>
-<p><strong> Notes </strong></p>
-<p><code>iowa_bootstrap_server_remove_bootstrap_server()</code> calls internally <a href="./#iowa_bootstrap_server_discover"><code>iowa_bootstrap_server_discover</code></a> to retrieve the [<code>Security Object</code>][Security Object] Instances, then calls <a href="./#iowa_bootstrap_server_delete"><code>iowa_bootstrap_server_delete</code></a> to delete a [<code>Security Object</code>][Security Object] Instance.</p>
+<p><strong> Header File </strong>
+iowa_server.h</p>
+<p><strong> Notes </strong>
+<code>iowa_bootstrap_server_remove_bootstrap_server()</code> calls internally <a href="./#iowa_bootstrap_server_discover"><code>iowa_bootstrap_server_discover</code></a> to retrieve the [<code>Security Object</code>][Security Object] Instances, then calls <a href="./#iowa_bootstrap_server_delete"><code>iowa_bootstrap_server_delete</code></a> to delete a [<code>Security Object</code>][Security Object] Instance.</p>
 <p>The <em>resultCb</em> will be called with the operation set to <strong>IOWA_BOOTSTRAP_REMOVE_BOOTSTRAP_SERVER</strong>.</p>
 <p>Per LwM2M specification:</p>
 <ul>
