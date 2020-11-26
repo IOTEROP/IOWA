@@ -51,7 +51,7 @@ static void prv_generate_unique_name(char *name)
     id = gethostid();
 #endif
 
-    sprintf(name, "IOWA_sample_client_%ld", id);
+    sprintf(name, "IOWA_sample_bootstrap_client_%ld", id);
 }
 
 int main(int argc,

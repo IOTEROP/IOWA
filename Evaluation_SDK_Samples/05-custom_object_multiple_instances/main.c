@@ -74,7 +74,7 @@ int main(int argc,
     (void)argc;
     (void)argv;
 
-    printf("This a simple LwM2M Client featuring an IPSO Temperature Object.\r\n\n");
+    printf("This a simple LwM2M Client featuring a multi instances object.\r\n\n");
 
     // Initialize the IOWA stack.
     iowaH = iowa_init(NULL);
@@ -92,7 +92,7 @@ int main(int argc,
     memset(&devInfo, 0, sizeof(iowa_device_info_t));
     devInfo.manufacturer = "https://ioterop.com";
     devInfo.deviceType = "IOWA sample from https://github.com/IOTEROP/IOWA-Samples";
-    devInfo.modelNumber = "custom_object_baseline_client";
+    devInfo.modelNumber = "custom_multi_instance_object_client";
 
     // Configure the LwM2M Client
     result = iowa_client_configure(iowaH, endpoint_name, &devInfo, NULL);
