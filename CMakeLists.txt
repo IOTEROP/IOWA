@@ -14,7 +14,5 @@ project(IOWA_samples C)
 set_property(GLOBAL PROPERTY iowa_sdk_folder "${CMAKE_CURRENT_LIST_DIR}/iowa")
 
 # The list of samples.
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/Evaluation_SDK_Samples)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/samples)
 
-#The following samples are excluded from the build because they are based on the full version
-# add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/Full_SDK_Samples)
