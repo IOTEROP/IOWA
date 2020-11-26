@@ -12,4 +12,6 @@ project(IOWA_Full_SDK_samples C)
 # The list of samples.a
 
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/01-multithread_IPSO_client)
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/06-bootstrap_client)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/02-bearer_selection_client)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/03-baseline_server)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/04-mqtt_client)
