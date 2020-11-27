@@ -79,19 +79,21 @@ Initial setup: Don't forget to clone this repository:
 
 **Prerequisites:** An x86-64 computer with a Linux distribution installed, the `cmake` utility, the `make` utility and a C compiler.
 
-1. Create a build folder
+1. Inside the IOWA repositiory, create a build folder
 
-   `mkdir -p IOWA/build`
+   `mkdir build`
 
 2. Go to this folder
 
-   `cd IOWA/build`
+   `cd build`
 
 3. Launch cmake in debug mode
 
    `cmake -DCMAKE_BUILD_TYPE=Debug ..`
 
-   (the last parameter point to the folder containing the CMakeLists.txt file of your target. In this case the one at the root of the repo including all the samples)
+   The last parameter point to the folder containing the CMakeLists.txt file of your target. In this case the one at the root of the repo including all the samples.
+
+   If you want, you can define the IOWA Client name with -DIOWA_DEV_NAME:"..."(e.g.: `cmake -DCMAKE_BUILD_TYPE=Debug -DIOWA_DEV_NAME="MyDevice" ..`)
 
 4. Build the client and the server.
 
