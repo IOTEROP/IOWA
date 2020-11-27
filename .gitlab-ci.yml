@@ -15,7 +15,7 @@ build_eval_samples_job:
     - cmake -DCMAKE_C_COMPILER=clang ..
     - make
     # build with gcc
-    - cmake -DCMAKE_C_COMPILER=gcc ..
+    - cmake -DCMAKE_C_COMPILER=gcc -DIOWA_DEV_NAME="MyBuildCI"..
     - make
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"' # Execute jobs in merge request context
