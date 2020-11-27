@@ -23,8 +23,6 @@
 #define SERVER_SHORT_ID 1234
 #define SERVER_LIFETIME   50
 #define SERVER_URI      "coap://iowa-server.ioterop.com"      // to connect to IoTerop's Connecticut test server
-// #define SERVER_URI   "coap://leshan.eclipseprojects.io"    // to connect to the Eclipse's Leshan server demo
-// #define SERVER_URI   "coap://127.0.0.1:5683"               // to connect to a local server
 
 // As this sample does not use security, the LwM2M Server relies only
 // on the endpoint name to identify the LwM2M Client. Thus we need an
@@ -42,9 +40,13 @@ static void prv_generate_unique_name(char *name)
     id = gethostid();
 #endif
 
+#ifdef IOWA_DEVICE_NAME
+    sprintf(name, IOWA_DEVICE_NAME "_%ld", id);
+#else
     sprintf(name, "IOWA_sample_client_%ld", id);
-}
+#endif
 
+}
 // The callback called by IOWA when there's a write operation by a Server on the bearer selection object
 iowa_status_t resultCb(iowa_sensor_t id, iowa_bearer_selection_info_t *infoP, void *userDataCallback, iowa_context_t contextP)
 {

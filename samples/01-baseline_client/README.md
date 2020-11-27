@@ -115,8 +115,6 @@ Finally, to configure a LwM2M Server on the Client, the API `iowa_client_add_ser
 #define SERVER_SHORT_ID 1234
 #define SERVER_LIFETIME   50
 #define SERVER_URI      "coap://iowa-server.ioterop.com"
-// #define SERVER_URI   "coap://leshan.eclipseprojects.io"
-// #define SERVER_URI   "coap://127.0.0.1:5683"
 
 result = iowa_client_add_server(iowaH, SERVER_SHORT_ID, SERVER_URI, SERVER_LIFETIME, 0, IOWA_SEC_NONE);
 ```
