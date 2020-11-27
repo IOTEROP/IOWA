@@ -17,10 +17,8 @@ set_property(GLOBAL PROPERTY iowa_sdk_folder "${CMAKE_CURRENT_LIST_DIR}/iowa")
 # the specified with the config line:
 # e.g.: cmake -DCMAKE_BUILD_TYPE=Debug -DIOWA_DEV_NAME="TestDevice" ..
 #
-if(NOT DEFINED IOWA_DEV_NAME)
-    add_compile_definitions(IOWA_DEVICE_NAME="IOWA_sample_client")
-else()
-    add_compile_definitions(IOWA_DEVICE_NAME="${IOWA_DEV_NAME}")
+if(DEFINED IOWA_DEV_NAME)
+    add_definitions(-DIOWA_DEVICE_NAME="${IOWA_DEV_NAME}")
 endif()
 
 # The list of samples.
