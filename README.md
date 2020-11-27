@@ -73,6 +73,7 @@ All the samples can be built/run on Windows and Linux. Other platforms and OS (F
 ## Compile Samples
 
 Initial setup: Don't forget to clone this repository:
+
    `git clone --recurse-submodules https://github.com/IOTEROP/IOWA.git`
 
 ### On Linux
