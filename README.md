@@ -1,12 +1,12 @@
 ![IOWA Logo](.images/IoTerop_logo.jpg)
 
-[![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg?label=IOWA documentation&style=for-the-badge)](https://ioterop.github.io/IOWA/)
+[![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg?label=Documentation&style=for-the-badge)](https://ioterop.github.io/IOWA/)
 
 # IOWA public code
 
 This repository contains a public version of [IOWA LwM2M stack](https://ioterop.com/iowa/), illustrating how to use the LwM2M library.
 
-Documentation could be found here: [https://ioterop.github.io/IOWA/] (https://ioterop.github.io/IOWA/)
+[![IOWA Docs](.images/documentation.png)](https://ioterop.github.io/IOWA/) **Documentation** could be found here: [https://ioterop.github.io/IOWA/](https://ioterop.github.io/IOWA/)
 
 _This code is provided *as-is*, under the associated licence (./LICENSE.txt).
 (This code should not be used in a commercial product and is for personal evaluation ONLY)_
@@ -71,6 +71,13 @@ Whatever SDK (Eval or Full) you are using, start with the sample **01-baseline_c
 
 All the samples can be built/run on Windows and Linux. Other platforms and OS (FreeRTOS, Zephyr, Android, ...) are available on request.
 
+## Tutorials
+
+You can find some interesting tutorials on [Hackster.io](https://www.hackster.io/)
+
+- [Device management with LwM2M IOWA stack - Tutorial 1](https://www.hackster.io/ioterop/device-management-with-lwm2m-iowa-stack-tutorial-1-e5aaf8)
+
+- [Device management with LwM2M IOWA stack #2: ESP32](https://www.hackster.io/ioterop/device-management-with-lwm2m-iowa-stack-2-esp32-fcb294)
 
 ## Compile Samples
 
