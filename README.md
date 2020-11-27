@@ -73,7 +73,7 @@ All the samples can be built/run on Windows and Linux. Other platforms and OS (F
 ## Compile Samples
 
 Initial setup: Don't forget to clone this repository:
-   `git clone https://github.com/IOTEROP/IOWA.git`
+   `git clone --recurse-submodules https://github.com/IOTEROP/IOWA.git`
 
 ### On Linux
 
@@ -94,7 +94,7 @@ Initial setup: Don't forget to clone this repository:
    The last parameter point to the folder containing the CMakeLists.txt file of your target. In this case the one at the root of the repo including all the samples.
 
    If you want, you can define the IOWA Client name with -DIOWA_DEV_NAME:"..."
-   
+
    (e.g.: `cmake -DCMAKE_BUILD_TYPE=Debug -DIOWA_DEV_NAME="MyDevice" ..`)
 
 4. Build the client and the server.
