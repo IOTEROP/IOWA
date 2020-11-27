@@ -93,7 +93,9 @@ Initial setup: Don't forget to clone this repository:
 
    The last parameter point to the folder containing the CMakeLists.txt file of your target. In this case the one at the root of the repo including all the samples.
 
-   If you want, you can define the IOWA Client name with -DIOWA_DEV_NAME:"..."(e.g.: `cmake -DCMAKE_BUILD_TYPE=Debug -DIOWA_DEV_NAME="MyDevice" ..`)
+   If you want, you can define the IOWA Client name with -DIOWA_DEV_NAME:"..."
+   
+   (e.g.: `cmake -DCMAKE_BUILD_TYPE=Debug -DIOWA_DEV_NAME="MyDevice" ..`)
 
 4. Build the client and the server.
 
