@@ -1,6 +1,6 @@
 ![IOWA Logo](.images/IoTerop_logo.jpg)
 
-[![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg?label=IOWA_documentation&style=for-the-badge)](https://ioterop.github.io/IOWA/)
+[![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg?label=Documentation&style=for-the-badge)](https://ioterop.github.io/IOWA/)
 
 # IOWA public code
 
