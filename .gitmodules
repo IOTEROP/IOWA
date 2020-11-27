@@ -1,0 +1,3 @@
+[submodule "samples/Full_SDK_Samples/04-mqtt_client/paho.mqtt.c"]
+	path = samples/Full_SDK_Samples/04-mqtt_client/paho.mqtt.c
+	url = https://github.com/eclipse/paho.mqtt.c.git
