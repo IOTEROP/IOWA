@@ -1,4 +1,4 @@
-# Sample Code
+# MQTT Client
 
 This is an example implementation of the LwM2M MQTT Objects.
 
