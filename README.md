@@ -1,5 +1,7 @@
 ![IOWA Logo](.images/IoTerop_logo.jpg)
 
+[![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg?label=ioterop.github.io/iowa&style=for-the-badge)](https://ioterop.github.io/IOWA/)
+
 # IOWA public code
 
 This repository contains a public version of [IOWA LwM2M stack](https://ioterop.com/iowa/), illustrating how to use the LwM2M library.
