@@ -1,4 +1,6 @@
 
+
+
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
@@ -7,12 +9,11 @@
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
       
-      
         <link rel="canonical" href="https://ioterop.github.io/IOWA/ServerAPI/">
       
       
       <link rel="shortcut icon" href="../assets/favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.8">
     
     
       
@@ -20,27 +21,27 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6910b76c.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.01afc2df.min.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/palette.83bccb1f.min.css">
+      
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
         
-          
-          
-          <meta name="theme-color" content="#2094f3">
-        
+        <meta name="theme-color" content="#2094f3">
       
     
     
     
       
-        
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Source Sans Pro",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
     
     
+    
+      <link rel="stylesheet" href="../extra.css">
     
     
       
@@ -52,11 +53,9 @@
     
     
     
-    
-    
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="">
-      
   
+    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
@@ -72,9 +71,7 @@
       
     </div>
     
-      
-
-<header class="md-header" data-md-component="header">
+      <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href="https://ioterop.github.io/IOWA/" title="IOWA documentation (Lite)" class="md-header-nav__button md-logo" aria-label="IOWA documentation (Lite)">
       
@@ -99,6 +96,36 @@
       
     </div>
     
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
     
       <div class="md-header-nav__source">
         
@@ -118,6 +145,8 @@
     
     <div class="md-container" data-md-component="container">
       
+        
+      
       
         
       
@@ -128,9 +157,7 @@
               <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="https://ioterop.github.io/IOWA/" title="IOWA documentation (Lite)" class="md-nav__button md-logo" aria-label="IOWA documentation (Lite)">
       
@@ -161,7 +188,7 @@
 
 
   <li class="md-nav__item">
-    <a href=".." class="md-nav__link">
+    <a href=".." title="Home" class="md-nav__link">
       Home
     </a>
   </li>
@@ -173,7 +200,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../License/" class="md-nav__link">
+    <a href="../License/" title="License" class="md-nav__link">
       License
     </a>
   </li>
@@ -185,7 +212,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../LwM2MOverview/" class="md-nav__link">
+    <a href="../LwM2MOverview/" title="Overview" class="md-nav__link">
       Overview
     </a>
   </li>
@@ -197,7 +224,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../EvaluationKit/" class="md-nav__link">
+    <a href="../EvaluationKit/" title="Evaluation Kit" class="md-nav__link">
       Evaluation Kit
     </a>
   </li>
@@ -209,7 +236,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../AbstractionLayer/" class="md-nav__link">
+    <a href="../AbstractionLayer/" title="Abstraction Layer" class="md-nav__link">
       Abstraction Layer
     </a>
   </li>
@@ -221,7 +248,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../CommonAPI/" class="md-nav__link">
+    <a href="../CommonAPI/" title="Common APIs" class="md-nav__link">
       Common APIs
     </a>
   </li>
@@ -233,7 +260,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../ClientAPI/" class="md-nav__link">
+    <a href="../ClientAPI/" title="Client APIs" class="md-nav__link">
       Client APIs
     </a>
   </li>
@@ -255,10 +282,12 @@
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
         Server APIs
-        <span class="md-nav__icon md-icon"></span>
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
       </label>
     
-    <a href="./" class="md-nav__link md-nav__link--active">
+    <a href="./" title="Server APIs" class="md-nav__link md-nav__link--active">
       Server APIs
     </a>
     
@@ -270,7 +299,9 @@
   
   
     <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-scrollfix>
@@ -343,6 +374,26 @@
     iowa_resource_type_callback_t
   </a>
   
+    <nav class="md-nav" aria-label="iowa_resource_type_callback_t">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arguments" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -370,12 +421,101 @@
     iowa_server_configure
   </a>
   
+    <nav class="md-nav" aria-label="iowa_server_configure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_1" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_1" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#iowa_server_set_verify_client_callback" class="md-nav__link">
     iowa_server_set_verify_client_callback
   </a>
+  
+    <nav class="md-nav" aria-label="iowa_server_set_verify_client_callback">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_1" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_1" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_2" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_2" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_1" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -384,12 +524,101 @@
     iowa_server_new_incoming_connection
   </a>
   
+    <nav class="md-nav" aria-label="iowa_server_new_incoming_connection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_2" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_2" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_3" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_3" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_2" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#iowa_server_configure_data_push" class="md-nav__link">
     iowa_server_configure_data_push
   </a>
+  
+    <nav class="md-nav" aria-label="iowa_server_configure_data_push">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_3" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_3" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_4" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_4" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_3" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_1" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -398,12 +627,108 @@
     iowa_server_read
   </a>
   
+    <nav class="md-nav" aria-label="iowa_server_read">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_4" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_4" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_5" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_5" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_4" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_2" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#iowa_server_observe" class="md-nav__link">
     iowa_server_observe
   </a>
+  
+    <nav class="md-nav" aria-label="iowa_server_observe">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_5" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_5" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_6" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_6" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_5" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_3" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -412,12 +737,108 @@
     iowa_server_observe_cancel
   </a>
   
+    <nav class="md-nav" aria-label="iowa_server_observe_cancel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_6" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_6" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_7" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_7" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_6" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_4" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#iowa_server_write" class="md-nav__link">
     iowa_server_write
   </a>
+  
+    <nav class="md-nav" aria-label="iowa_server_write">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_7" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_7" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_8" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_8" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_7" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_5" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -426,12 +847,115 @@
     iowa_server_write_attributes_string
   </a>
   
+    <nav class="md-nav" aria-label="iowa_server_write_attributes_string">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_8" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_8" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_9" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_9" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_8" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_6" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attributesstr-examples" class="md-nav__link">
+    attributesStr Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#iowa_server_dm_exec" class="md-nav__link">
     iowa_server_dm_exec
   </a>
+  
+    <nav class="md-nav" aria-label="iowa_server_dm_exec">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_9" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_9" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_10" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_10" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_9" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_7" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -440,12 +964,108 @@
     iowa_server_dm_create
   </a>
   
+    <nav class="md-nav" aria-label="iowa_server_dm_create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_10" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_10" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_11" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_11" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_10" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_8" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#iowa_server_dm_delete" class="md-nav__link">
     iowa_server_dm_delete
   </a>
+  
+    <nav class="md-nav" aria-label="iowa_server_dm_delete">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_11" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_11" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_12" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_12" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_11" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_9" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -454,12 +1074,108 @@
     iowa_server_dm_discover
   </a>
   
+    <nav class="md-nav" aria-label="iowa_server_dm_discover">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_12" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_12" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_13" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_13" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_12" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_10" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#iowa_server_set_response_format" class="md-nav__link">
     iowa_server_set_response_format
   </a>
+  
+    <nav class="md-nav" aria-label="iowa_server_set_response_format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_13" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_13" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_14" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_14" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_13" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_11" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -468,6 +1184,54 @@
     iowa_server_set_payload_format
   </a>
   
+    <nav class="md-nav" aria-label="iowa_server_set_payload_format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_14" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_14" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_15" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_15" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_14" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_12" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -475,12 +1239,101 @@
     iowa_server_create_registration_update_trigger_message
   </a>
   
+    <nav class="md-nav" aria-label="iowa_server_create_registration_update_trigger_message">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_15" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_15" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_16" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_16" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_15" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_13" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#iowa_server_close_client_connection" class="md-nav__link">
     iowa_server_close_client_connection
   </a>
+  
+    <nav class="md-nav" aria-label="iowa_server_close_client_connection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_16" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_16" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_17" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_17" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_14" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -502,7 +1355,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../BootstrapServerAPI/" class="md-nav__link">
+    <a href="../BootstrapServerAPI/" title="Bootstrap Server APIs" class="md-nav__link">
       Bootstrap Server APIs
     </a>
   </li>
@@ -514,7 +1367,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../UtilsAPI/" class="md-nav__link">
+    <a href="../UtilsAPI/" title="Utils APIs" class="md-nav__link">
       Utils APIs
     </a>
   </li>
@@ -526,7 +1379,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../DeprecatedAPI/" class="md-nav__link">
+    <a href="../DeprecatedAPI/" title="Deprecated APIs" class="md-nav__link">
       Deprecated APIs
     </a>
   </li>
@@ -538,7 +1391,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../OpenSourceLicenses/" class="md-nav__link">
+    <a href="../OpenSourceLicenses/" title="OpenSource Licenses" class="md-nav__link">
       OpenSource Licenses
     </a>
   </li>
@@ -562,7 +1415,9 @@
   
   
     <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-scrollfix>
@@ -635,6 +1490,26 @@
     iowa_resource_type_callback_t
   </a>
   
+    <nav class="md-nav" aria-label="iowa_resource_type_callback_t">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arguments" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -662,12 +1537,101 @@
     iowa_server_configure
   </a>
   
+    <nav class="md-nav" aria-label="iowa_server_configure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_1" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_1" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#iowa_server_set_verify_client_callback" class="md-nav__link">
     iowa_server_set_verify_client_callback
   </a>
+  
+    <nav class="md-nav" aria-label="iowa_server_set_verify_client_callback">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_1" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_1" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_2" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_2" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_1" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -676,12 +1640,101 @@
     iowa_server_new_incoming_connection
   </a>
   
+    <nav class="md-nav" aria-label="iowa_server_new_incoming_connection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_2" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_2" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_3" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_3" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_2" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#iowa_server_configure_data_push" class="md-nav__link">
     iowa_server_configure_data_push
   </a>
+  
+    <nav class="md-nav" aria-label="iowa_server_configure_data_push">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_3" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_3" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_4" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_4" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_3" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_1" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -690,12 +1743,108 @@
     iowa_server_read
   </a>
   
+    <nav class="md-nav" aria-label="iowa_server_read">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_4" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_4" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_5" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_5" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_4" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_2" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#iowa_server_observe" class="md-nav__link">
     iowa_server_observe
   </a>
+  
+    <nav class="md-nav" aria-label="iowa_server_observe">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_5" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_5" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_6" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_6" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_5" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_3" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -704,12 +1853,108 @@
     iowa_server_observe_cancel
   </a>
   
+    <nav class="md-nav" aria-label="iowa_server_observe_cancel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_6" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_6" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_7" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_7" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_6" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_4" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#iowa_server_write" class="md-nav__link">
     iowa_server_write
   </a>
+  
+    <nav class="md-nav" aria-label="iowa_server_write">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_7" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_7" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_8" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_8" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_7" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_5" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -718,12 +1963,115 @@
     iowa_server_write_attributes_string
   </a>
   
+    <nav class="md-nav" aria-label="iowa_server_write_attributes_string">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_8" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_8" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_9" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_9" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_8" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_6" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attributesstr-examples" class="md-nav__link">
+    attributesStr Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#iowa_server_dm_exec" class="md-nav__link">
     iowa_server_dm_exec
   </a>
+  
+    <nav class="md-nav" aria-label="iowa_server_dm_exec">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_9" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_9" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_10" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_10" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_9" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_7" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -732,12 +2080,108 @@
     iowa_server_dm_create
   </a>
   
+    <nav class="md-nav" aria-label="iowa_server_dm_create">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_10" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_10" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_11" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_11" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_10" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_8" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#iowa_server_dm_delete" class="md-nav__link">
     iowa_server_dm_delete
   </a>
+  
+    <nav class="md-nav" aria-label="iowa_server_dm_delete">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_11" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_11" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_12" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_12" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_11" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_9" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -746,12 +2190,108 @@
     iowa_server_dm_discover
   </a>
   
+    <nav class="md-nav" aria-label="iowa_server_dm_discover">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_12" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_12" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_13" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_13" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_12" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_10" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#iowa_server_set_response_format" class="md-nav__link">
     iowa_server_set_response_format
   </a>
+  
+    <nav class="md-nav" aria-label="iowa_server_set_response_format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_13" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_13" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_14" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_14" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_13" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_11" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -760,6 +2300,54 @@
     iowa_server_set_payload_format
   </a>
   
+    <nav class="md-nav" aria-label="iowa_server_set_payload_format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_14" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_14" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_15" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_15" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_14" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_12" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -767,12 +2355,101 @@
     iowa_server_create_registration_update_trigger_message
   </a>
   
+    <nav class="md-nav" aria-label="iowa_server_create_registration_update_trigger_message">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_15" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_15" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_16" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_16" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-file_15" class="md-nav__link">
+    Header File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_13" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#iowa_server_close_client_connection" class="md-nav__link">
     iowa_server_close_client_connection
   </a>
+  
+    <nav class="md-nav" aria-label="iowa_server_close_client_connection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prototype_16" class="md-nav__link">
+    Prototype
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_16" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arguments_17" class="md-nav__link">
+    Arguments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-value_17" class="md-nav__link">
+    Return Value
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_14" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -798,10 +2475,13 @@
                   </a>
                 
                 
+                  
+                
+                
                 <h1 id="server-mode-api-reference">Server Mode API Reference<a class="headerlink" href="#server-mode-api-reference" title="Permanent link">&para;</a></h1>
 <p>The functions explained below are defined inside the file <em>include/iowa_server.h</em>.</p>
 <h2 id="server-pseudo-code">Server pseudo code<a class="headerlink" href="#server-pseudo-code" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&quot;iowa_server.h&quot;</span><span class="cp"></span>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&quot;iowa_server.h&quot;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span>
          <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
@@ -849,7 +2529,7 @@
 
 <h2 id="data-types">Data types<a class="headerlink" href="#data-types" title="Permanent link">&para;</a></h2>
 <h3 id="iowa_supported_format_t">iowa_supported_format_t<a class="headerlink" href="#iowa_supported_format_t" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">typedef</span> <span class="kt">uint8_t</span> <span class="n">iowa_supported_format_t</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span> <span class="kt">uint8_t</span> <span class="n">iowa_supported_format_t</span><span class="p">;</span>
 
 <span class="cp">#define IOWA_SUPPORTED_FORMAT_UNKNOWN    0x00</span>
 <span class="cp">#define IOWA_SUPPORTED_FORMAT_TLV        0x01</span>
@@ -862,24 +2542,26 @@
 </code></pre></div>
 
 <p>This contains the possible supported content format. It is an enumeration of the following values:</p>
-<p>IOWA_SUPPORTED_FORMAT_UNKNOWN
-: Unknown supported format.</p>
-<p>IOWA_SUPPORTED_FORMAT_TLV
-: TLV supported format.</p>
-<p>IOWA_SUPPORTED_FORMAT_JSON
-: JSON supported format.</p>
-<p>IOWA_SUPPORTED_FORMAT_OLD_TLV
-: Old TLV supported format.</p>
-<p>IOWA_SUPPORTED_FORMAT_OLD_JSON
-: Old JSON supported format.</p>
-<p>IOWA_SUPPORTED_FORMAT_CBOR
-: CBOR format.</p>
-<p>IOWA_SUPPORTED_FORMAT_SENML_JSON
-: SenML JSON supported format.</p>
-<p>IOWA_SUPPORTED_FORMAT_SENML_CBOR
-: SenML CBOR supported format.</p>
+<dl>
+<dt>IOWA_SUPPORTED_FORMAT_UNKNOWN</dt>
+<dd>Unknown supported format.</dd>
+<dt>IOWA_SUPPORTED_FORMAT_TLV</dt>
+<dd>TLV supported format.</dd>
+<dt>IOWA_SUPPORTED_FORMAT_JSON</dt>
+<dd>JSON supported format.</dd>
+<dt>IOWA_SUPPORTED_FORMAT_OLD_TLV</dt>
+<dd>Old TLV supported format.</dd>
+<dt>IOWA_SUPPORTED_FORMAT_OLD_JSON</dt>
+<dd>Old JSON supported format.</dd>
+<dt>IOWA_SUPPORTED_FORMAT_CBOR</dt>
+<dd>CBOR format.</dd>
+<dt>IOWA_SUPPORTED_FORMAT_SENML_JSON</dt>
+<dd>SenML JSON supported format.</dd>
+<dt>IOWA_SUPPORTED_FORMAT_SENML_CBOR</dt>
+<dd>SenML CBOR supported format.</dd>
+</dl>
 <h3 id="iowa_lwm2m_protocol_version_t">iowa_lwm2m_protocol_version_t<a class="headerlink" href="#iowa_lwm2m_protocol_version_t" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">typedef</span> <span class="k">enum</span>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span> <span class="k">enum</span>
 <span class="p">{</span>
     <span class="n">IOWA_LWM2M_VERSION_UNDEFINED</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="n">IOWA_LWM2M_VERSION_1_0</span><span class="p">,</span>
@@ -888,15 +2570,17 @@
 </code></pre></div>
 
 <p>This contains the possible LwM2M Enabler version. It is an enumeration of the following values:</p>
-<p>IOWA_LWM2M_VERSION_UNDEFINED
-: Unknown LwM2M enabler version.</p>
-<p>IOWA_LWM2M_VERSION_1_0
-: LwM2M Enabler version 1.0.</p>
-<p>IOWA_LWM2M_VERSION_1_1
-: LwM2M Enabler version 1.1.</p>
+<dl>
+<dt>IOWA_LWM2M_VERSION_UNDEFINED</dt>
+<dd>Unknown LwM2M enabler version.</dd>
+<dt>IOWA_LWM2M_VERSION_1_0</dt>
+<dd>LwM2M Enabler version 1.0.</dd>
+<dt>IOWA_LWM2M_VERSION_1_1</dt>
+<dd>LwM2M Enabler version 1.1.</dd>
+</dl>
 <h3 id="iowa_client_t">iowa_client_t<a class="headerlink" href="#iowa_client_t" title="Permanent link">&para;</a></h3>
 <p>This structure describes a LwM2M Client known to the LwM2M Server.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
     <span class="k">const</span> <span class="kt">char</span>                    <span class="o">*</span><span class="n">name</span><span class="p">;</span>
     <span class="kt">uint16_t</span>                       <span class="n">id</span><span class="p">;</span>
     <span class="kt">bool</span>                           <span class="n">queueMode</span><span class="p">;</span>
@@ -911,34 +2595,37 @@
 <span class="p">}</span> <span class="n">iowa_client_t</span><span class="p">;</span>
 </code></pre></div>
 
-<p><em>name</em>
-: The unique name of the Client.</p>
-<p><em>id</em>
-: The internal ID of the Client. To be used with <code>iowa_server_dm_...()</code> APIs.</p>
-<p><em>queueMode</em>
-: Set to <em>true</em> if the LwM2M Client supports the Queue Mode.</p>
-<p><em>supportedFormats</em>
-: The content formats supported by the Client.</p>
-<p><em>msisdn</em>
-: The MSISDN to which the LwM2M Client is reachable for SMS trigger.</p>
-<p><em>objectLinkCount</em>
-: The number of elements in the <em>objectLinkArray</em>.</p>
-<p><em>objectLinkArray</em>
-: An array containing the Objects and Object Instances registered by the Client.
-: If an Object has no Instances, <code>iowa_lwm2m_object_link_t::instanceID</code> is set to <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
-<p><em>lifetime</em>
-: The lifetime of the Client.</p>
-<p><em>connectionType</em>
-: The type of the connection on which the Client reach the Server.</p>
-<p><em>secureConnection</em>
-: Set to <em>true</em> if the connection is encrypted.</p>
-<p><em>lwm2mVersion</em>
-: The LwM2M Enabler version used by the Client.</p>
+<dl>
+<dt><em>name</em></dt>
+<dd>The unique name of the Client.</dd>
+<dt><em>id</em></dt>
+<dd>The internal ID of the Client. To be used with <code>iowa_server_dm_...()</code> APIs.</dd>
+<dt><em>queueMode</em></dt>
+<dd>Set to <em>true</em> if the LwM2M Client supports the Queue Mode.</dd>
+<dt><em>supportedFormats</em></dt>
+<dd>The content formats supported by the Client.</dd>
+<dt><em>msisdn</em></dt>
+<dd>The MSISDN to which the LwM2M Client is reachable for SMS trigger.</dd>
+<dt><em>objectLinkCount</em></dt>
+<dd>The number of elements in the <em>objectLinkArray</em>.</dd>
+<dt><em>objectLinkArray</em></dt>
+<dd>An array containing the Objects and Object Instances registered by the Client.</dd>
+<dd>If an Object has no Instances, <code>iowa_lwm2m_object_link_t::instanceID</code> is set to <strong>IOWA_LWM2M_ID_ALL</strong>.</dd>
+<dt><em>lifetime</em></dt>
+<dd>The lifetime of the Client.</dd>
+<dt><em>connectionType</em></dt>
+<dd>The type of the connection on which the Client reach the Server.</dd>
+<dt><em>secureConnection</em></dt>
+<dd>Set to <em>true</em> if the connection is encrypted.</dd>
+<dt><em>lwm2mVersion</em></dt>
+<dd>The LwM2M Enabler version used by the Client.</dd>
+</dl>
+<p>\clearpage</p>
 <h2 id="callbacks">Callbacks<a class="headerlink" href="#callbacks" title="Permanent link">&para;</a></h2>
 <h3 id="iowa_result_callback_t">iowa_result_callback_t<a class="headerlink" href="#iowa_result_callback_t" title="Permanent link">&para;</a></h3>
-<p>The device management APIs (<a href="./#iowa_server_write"><code>iowa_server_write()</code></a>, <a href="./#iowa_server_dm_exec"><code>iowa_server_dm_exec()</code></a>, <a href="./#iowa_server_dm_create"><code>iowa_server_dm_create()</code></a>, <a href="./#iowa_server_dm_delete"><code>iowa_server_dm_delete()</code></a>, <a href="./#iowa_server_dm_discover"><code>iowa_server_dm_discover()</code></a> and <a href="./#iowa_server_observe"><code>iowa_server_observe()</code></a>) are using an <code>iowa_result_callback_t</code> to asynchronously return the result
+<p>The device management APIs ([<code>iowa_server_write()</code>][iowa_server_write], [<code>iowa_server_dm_exec()</code>][iowa_server_dm_exec], [<code>iowa_server_dm_create()</code>][iowa_server_dm_create], [<code>iowa_server_dm_delete()</code>][iowa_server_dm_delete], [<code>iowa_server_dm_discover()</code>][iowa_server_dm_discover] and [<code>iowa_server_observe()</code>][iowa_server_observe]) are using an <code>iowa_result_callback_t</code> to asynchronously return the result
 of the operation.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">typedef</span> <span class="nf">void</span><span class="p">(</span><span class="o">*</span><span class="n">iowa_result_callback_t</span><span class="p">)</span> <span class="p">(</span><span class="n">iowa_dm_operation_t</span> <span class="n">operation</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span> <span class="nf">void</span><span class="p">(</span><span class="o">*</span><span class="n">iowa_result_callback_t</span><span class="p">)</span> <span class="p">(</span><span class="n">iowa_dm_operation_t</span> <span class="n">operation</span><span class="p">,</span>
                                        <span class="kt">uint16_t</span> <span class="n">clientId</span><span class="p">,</span>
                                        <span class="kt">uint16_t</span> <span class="n">objectId</span><span class="p">,</span>
                                        <span class="kt">uint16_t</span> <span class="n">instanceId</span><span class="p">,</span>
@@ -950,192 +2637,265 @@ of the operation.</p>
                                        <span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><em>operation</em>
-: The type of command matching this result.</p>
-<p><em>clientId</em>
-: The ID of the client targeted by the command.</p>
-<p><em>objectId</em>
-: The ID of the Object targeted by the command.</p>
-<p><em>instanceId</em>
-: The ID of the Instance targeted by the command. This may be <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
-<p><em>resourceId</em>
-: The ID of the Resource targeted by the command. This may be <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
-<p><em>status</em>
-: The status of the command or the notification counter if operation is <strong>IOWA_DM_NOTIFY</strong>.</p>
-<p><em>dataCount</em>
-: The number of elements in the <em>dataArray</em>. This may be 0.</p>
-<p><em>dataArray</em>
-: An array containing the Resource values returned by the Client. This may be nil.</p>
-<p><em>resultUserData</em>
-: A pointer to application specific data. This is a parameter of the matching <code>iowa_server_dm_...()</code> API.</p>
-<p><em>contextP</em>
-: The IOWA context on which the device management API (<a href="./#iowa_server_dm_exec"><code>iowa_server_dm_exec()</code></a>) was called.</p>
+<dl>
+<dt><em>operation</em></dt>
+<dd>The type of command matching this result.</dd>
+<dt><em>clientId</em></dt>
+<dd>The ID of the client targeted by the command.</dd>
+<dt><em>objectId</em></dt>
+<dd>The ID of the Object targeted by the command.</dd>
+<dt><em>instanceId</em></dt>
+<dd>The ID of the Instance targeted by the command. This may be <strong>IOWA_LWM2M_ID_ALL</strong>.</dd>
+<dt><em>resourceId</em></dt>
+<dd>The ID of the Resource targeted by the command. This may be <strong>IOWA_LWM2M_ID_ALL</strong>.</dd>
+<dt><em>status</em></dt>
+<dd>The status of the command or the notification counter if operation is <strong>IOWA_DM_NOTIFY</strong>.</dd>
+<dt><em>dataCount</em></dt>
+<dd>The number of elements in the <em>dataArray</em>. This may be 0.</dd>
+<dt><em>dataArray</em></dt>
+<dd>An array containing the Resource values returned by the Client. This may be nil.</dd>
+<dt><em>resultUserData</em></dt>
+<dd>A pointer to application specific data. This is a parameter of the matching <code>iowa_server_dm_...()</code> API.</dd>
+<dt><em>contextP</em></dt>
+<dd>The IOWA context on which the device management API ([<code>iowa_server_dm_exec()</code>][iowa_server_dm_exec]) was called.</dd>
+</dl>
 <h3 id="iowa_monitor_callback_t">iowa_monitor_callback_t<a class="headerlink" href="#iowa_monitor_callback_t" title="Permanent link">&para;</a></h3>
 <p>This is the client state monitoring callback, called when a LwM2M Client changes its registration to the Server or when a LwM2M Client connects to the Bootstrap Server.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">typedef</span> <span class="nf">void</span> <span class="p">(</span><span class="o">*</span><span class="n">iowa_monitor_callback_t</span><span class="p">)(</span><span class="k">const</span> <span class="n">iowa_client_t</span> <span class="o">*</span><span class="n">clientP</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span> <span class="nf">void</span> <span class="p">(</span><span class="o">*</span><span class="n">iowa_monitor_callback_t</span><span class="p">)(</span><span class="k">const</span> <span class="n">iowa_client_t</span> <span class="o">*</span><span class="n">clientP</span><span class="p">,</span>
                                         <span class="n">iowa_state_t</span> <span class="n">state</span><span class="p">,</span>
                                         <span class="kt">void</span> <span class="o">*</span><span class="n">callbackUserData</span><span class="p">,</span>
                                         <span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><em>clientP</em>
-: The information of the Client.</p>
-<p><em>state</em>
-: The new state of the Client among:
-: - <strong>IOWA_STATE_REGISTERED</strong>: when a new or returning client registers.
-: - <strong>IOWA_STATE_UPDATING</strong>: when a client updates its registration.
-: - <strong>IOWA_STATE_UNREGISTERED</strong>: when a client ends its registration or when the registration expires.
-: - <strong>IOWA_STATE_BOOTSTRAP_REQUIRED</strong>: when a new or returning client connects to the bootstrap server.
-: - <strong>IOWA_STATE_BOOTSTRAPPING</strong>: when a client is in bootstrapping state.
-: - <strong>IOWA_STATE_BOOTSTRAP_FAILED</strong>: when the bootstrapping procedure of a client failed.
-: - <strong>IOWA_STATE_BOOTSTRAP_FINISHED</strong>: when the bootstrapping procedure of a client succeeded.</p>
-<p><em>callbackUserData</em>
-: A pointer to application specific data. This is a parameter of <a href="./#iowa_server_configure">`iowa_server_configure()</a>.</p>
-<p><em>contextP</em>
-: The IOWA context on which <a href="./#iowa_server_configure"><code>iowa_server_configure()</code></a> was called.</p>
+<dl>
+<dt><em>clientP</em></dt>
+<dd>The information of the Client.</dd>
+<dt><em>state</em></dt>
+<dd>The new state of the Client among:</dd>
+<dd>
+<ul>
+<li><strong>IOWA_STATE_REGISTERED</strong>: when a new or returning client registers.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>IOWA_STATE_UPDATING</strong>: when a client updates its registration.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>IOWA_STATE_UNREGISTERED</strong>: when a client ends its registration or when the registration expires.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>IOWA_STATE_BOOTSTRAP_REQUIRED</strong>: when a new or returning client connects to the bootstrap server.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>IOWA_STATE_BOOTSTRAPPING</strong>: when a client is in bootstrapping state.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>IOWA_STATE_BOOTSTRAP_FAILED</strong>: when the bootstrapping procedure of a client failed.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>IOWA_STATE_BOOTSTRAP_FINISHED</strong>: when the bootstrapping procedure of a client succeeded.</li>
+</ul>
+</dd>
+<dt><em>callbackUserData</em></dt>
+<dd>A pointer to application specific data. This is a parameter of [`iowa_server_configure()][iowa_server_configure].</dd>
+<dt><em>contextP</em></dt>
+<dd>The IOWA context on which [<code>iowa_server_configure()</code>][iowa_server_configure] was called.</dd>
+</dl>
 <p>When <em>state</em> is set to <strong>IOWA_STATE_UNREGISTERED</strong>, <em>clientP</em> contains only the ID of the former Client.</p>
 <p>When <em>state</em> is set to <strong>IOWA_STATE_BOOTSTRAP_REQUIRED</strong>, <strong>IOWA_STATE_BOOTSTRAPPING</strong>, <strong>IOWA_STATE_BOOTSTRAP_FAILED</strong>, or <strong>IOWA_STATE_BOOTSTRAP_FINISHED</strong>, <em>clientP</em> contains only the ID, the name of the Client and the connection type information.</p>
 <h3 id="iowa_resource_type_callback_t">iowa_resource_type_callback_t<a class="headerlink" href="#iowa_resource_type_callback_t" title="Permanent link">&para;</a></h3>
 <p>This is the callback called to retrieve the data type of resources of non standard LwM2M Objects.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">typedef</span> <span class="nf">iowa_lwm2m_data_type_t</span><span class="p">(</span><span class="o">*</span><span class="n">iowa_resource_type_callback_t</span><span class="p">)</span> <span class="p">(</span><span class="kt">uint16_t</span> <span class="n">objectID</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span> <span class="nf">iowa_lwm2m_data_type_t</span><span class="p">(</span><span class="o">*</span><span class="n">iowa_resource_type_callback_t</span><span class="p">)</span> <span class="p">(</span><span class="kt">uint16_t</span> <span class="n">objectID</span><span class="p">,</span>
                                                                 <span class="kt">uint16_t</span> <span class="n">resourceID</span><span class="p">,</span>
                                                                 <span class="kt">void</span> <span class="o">*</span><span class="n">callbackUserData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Arguments </strong>
-<em>objectID</em>
-: The ID of the non standard LwM2M Objects.</p>
-<p><em>resourceID</em>
-: The ID of the resource inside the non standard LwM2M Objects.</p>
-<p><em>callbackUserData</em>
-: A pointer to application specific data. This is a parameter of <a href="./#iowa_server_configure">`iowa_server_configure()</a>.</p>
-<p><strong> Return Value </strong>
-The data type of the resource or <strong>IOWA_LWM2M_TYPE_UNDEFINED</strong>.</p>
+<h4 -="-" id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h4>
+<dl>
+<dt><em>objectID</em></dt>
+<dd>The ID of the non standard LwM2M Objects.</dd>
+<dt><em>resourceID</em></dt>
+<dd>The ID of the resource inside the non standard LwM2M Objects.</dd>
+<dt><em>callbackUserData</em></dt>
+<dd>A pointer to application specific data. This is a parameter of [`iowa_server_configure()][iowa_server_configure].</dd>
+</dl>
+<h4 -="-" id="return-value">Return Value<a class="headerlink" href="#return-value" title="Permanent link">&para;</a></h4>
+<p>The data type of the resource or <strong>IOWA_LWM2M_TYPE_UNDEFINED</strong>.</p>
 <h3 id="iowa_verify_client_callback_t">iowa_verify_client_callback_t<a class="headerlink" href="#iowa_verify_client_callback_t" title="Permanent link">&para;</a></h3>
 <p>This is the callback called when LwM2M Clients register to the Server. If the callback returns <strong>IOWA_COAP_NO_ERROR</strong>, the Client is accepted by the Server. Otherwise, to reject a Client the callback has to return <strong>ONLY</strong> the following values:</p>
 <ul>
 <li><strong>IOWA_COAP_400_BAD_REQUEST</strong> if the Client is unknown or something does not match.</li>
 <li><strong>IOWA_COAP_409_CONFLICT</strong> if on LoRaWAN transport, the Client didn't provide its objects list and this list is not present on Server side.</li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="k">typedef</span> <span class="nf">iowa_status_t</span> <span class="p">(</span><span class="o">*</span><span class="n">iowa_verify_client_callback_t</span><span class="p">)</span> <span class="p">(</span><span class="k">const</span> <span class="n">iowa_client_t</span> <span class="o">*</span><span class="n">clientP</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span> <span class="nf">iowa_status_t</span> <span class="p">(</span><span class="o">*</span><span class="n">iowa_verify_client_callback_t</span><span class="p">)</span> <span class="p">(</span><span class="k">const</span> <span class="n">iowa_client_t</span> <span class="o">*</span><span class="n">clientP</span><span class="p">,</span>
                                                         <span class="n">iowa_state_t</span> <span class="n">state</span><span class="p">,</span>
                                                         <span class="kt">void</span> <span class="o">*</span><span class="n">callbackUserData</span><span class="p">,</span>
                                                         <span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><em>clientP</em>
-: The information of the Client.</p>
-<p><em>state</em>
-: The new state of the Client among:
-: - <strong>IOWA_STATE_REGISTERING</strong>: when a new or returning client registers.
-: - <strong>IOWA_STATE_UPDATING</strong>: when a client updates its registration.
-: - <strong>IOWA_STATE_BOOTSTRAP_REQUIRED</strong>: when a new or returning client connects to the bootstrap server.</p>
-<p><em>callbackUserData</em>
-: A pointer to application specific data. This is a parameter of <a href="./#iowa_server_set_verify_client_callback">`iowa_server_set_verify_client_callback()</a>.</p>
-<p><em>contextP</em>
-: The IOWA context on which <a href="./#iowa_server_configure"><code>iowa_server_configure()</code></a> was called.</p>
+<dl>
+<dt><em>clientP</em></dt>
+<dd>The information of the Client.</dd>
+<dt><em>state</em></dt>
+<dd>The new state of the Client among:</dd>
+<dd>
+<ul>
+<li><strong>IOWA_STATE_REGISTERING</strong>: when a new or returning client registers.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>IOWA_STATE_UPDATING</strong>: when a client updates its registration.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><strong>IOWA_STATE_BOOTSTRAP_REQUIRED</strong>: when a new or returning client connects to the bootstrap server.</li>
+</ul>
+</dd>
+<dt><em>callbackUserData</em></dt>
+<dd>A pointer to application specific data. This is a parameter of [`iowa_server_set_verify_client_callback()][iowa_server_set_verify_client_callback].</dd>
+<dt><em>contextP</em></dt>
+<dd>The IOWA context on which [<code>iowa_server_configure()</code>][iowa_server_configure] was called.</dd>
+</dl>
 <p>When <em>state</em> is set to <strong>IOWA_STATE_BOOTSTRAP_REQUIRED</strong>, <em>clientP</em> contains only the ID, the name of the Client and the connection type information.</p>
+<p>\clearpage</p>
 <h2 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
 <h3 id="iowa_server_configure">iowa_server_configure<a class="headerlink" href="#iowa_server_configure" title="Permanent link">&para;</a></h3>
-<p><strong> Prototype </strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_configure</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
+<h4 -="-" id="prototype">Prototype<a class="headerlink" href="#prototype" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_configure</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
                                     <span class="n">iowa_monitor_callback_t</span> <span class="n">monitorCb</span><span class="p">,</span>
                                     <span class="n">iowa_resource_type_callback_t</span> <span class="n">resTypeCb</span><span class="p">,</span>
                                     <span class="kt">void</span> <span class="o">*</span> <span class="n">callbackUserData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong>
-<code>iowa_server_configure()</code> sets the monitoring callback called when LwM2M Clients register to the Server.</p>
-<p><strong> Arguments </strong>
-<em>contextP</em>
-: An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><em>monitorCb</em>
-: The callback called when Clients update their status. This can be nil.</p>
-<p><em>resTypeCb</em>
-: The callback called when parsing received data of non standard LwM2M Objects. This can be nil.</p>
-<p><em>callbackUserData</em>
-: A pointer to application specific data. This is passed as argument to <em>monitorCb</em> and <em>resTypeCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong>
-IOWA_COAP_NO_ERROR
-: success.</p>
-<p><strong> Header File </strong>
-iowa_server.h</p>
+<h4 -="-" id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h4>
+<p><code>iowa_server_configure()</code> sets the monitoring callback called when LwM2M Clients register to the Server.</p>
+<h4 -="-" id="arguments_1">Arguments<a class="headerlink" href="#arguments_1" title="Permanent link">&para;</a></h4>
+<dl>
+<dt><em>contextP</em></dt>
+<dd>An [<code>iowa_context_t</code>][iowa_context_t] as returned by [<code>iowa_init()</code>][iowa_init]. Not checked at runtime.</dd>
+<dt><em>monitorCb</em></dt>
+<dd>The callback called when Clients update their status. This can be nil.</dd>
+<dt><em>resTypeCb</em></dt>
+<dd>The callback called when parsing received data of non standard LwM2M Objects. This can be nil.</dd>
+<dt><em>callbackUserData</em></dt>
+<dd>A pointer to application specific data. This is passed as argument to <em>monitorCb</em> and <em>resTypeCb</em>. This can be nil.</dd>
+</dl>
+<h4 -="-" id="return-value_1">Return Value<a class="headerlink" href="#return-value_1" title="Permanent link">&para;</a></h4>
+<dl>
+<dt>IOWA_COAP_NO_ERROR</dt>
+<dd>success.</dd>
+</dl>
+<h4 -="-" id="header-file">Header File<a class="headerlink" href="#header-file" title="Permanent link">&para;</a></h4>
+<p>iowa_server.h</p>
+<p>\clearpage</p>
 <h3 id="iowa_server_set_verify_client_callback">iowa_server_set_verify_client_callback<a class="headerlink" href="#iowa_server_set_verify_client_callback" title="Permanent link">&para;</a></h3>
-<p><strong> Prototype </strong></p>
-<div class="codehilite"><pre><span></span><code><span class="kt">void</span> <span class="nf">iowa_server_set_verify_client_callback</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
+<h4 -="-" id="prototype_1">Prototype<a class="headerlink" href="#prototype_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span> <span class="nf">iowa_server_set_verify_client_callback</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
                                             <span class="n">iowa_verify_client_callback_t</span> <span class="n">verifyClientCb</span><span class="p">,</span>
                                             <span class="kt">void</span> <span class="o">*</span><span class="n">callbackUserData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong>
-<code>iowa_server_set_verify_client_callback()</code> sets the verify client callback called when LwM2M Clients register to the Server.</p>
-<p><strong> Arguments </strong>
-<em>contextP</em>
-: An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><em>verifyClientCb</em>
-: The callback called when Clients register. This can be nil.</p>
-<p><em>callbackUserData</em>
-: A pointer to application specific data. This is passed as argument to <em>verifyClientCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong>
-None.</p>
-<p><strong> Header File </strong>
-iowa_server.h</p>
-<p><strong> Notes </strong>
-If the verify client callback is not set, Clients will always be accepted.</p>
+<h4 -="-" id="description_1">Description<a class="headerlink" href="#description_1" title="Permanent link">&para;</a></h4>
+<p><code>iowa_server_set_verify_client_callback()</code> sets the verify client callback called when LwM2M Clients register to the Server.</p>
+<h4 -="-" id="arguments_2">Arguments<a class="headerlink" href="#arguments_2" title="Permanent link">&para;</a></h4>
+<dl>
+<dt><em>contextP</em></dt>
+<dd>An [<code>iowa_context_t</code>][iowa_context_t] as returned by [<code>iowa_init()</code>][iowa_init]. Not checked at runtime.</dd>
+<dt><em>verifyClientCb</em></dt>
+<dd>The callback called when Clients register. This can be nil.</dd>
+<dt><em>callbackUserData</em></dt>
+<dd>A pointer to application specific data. This is passed as argument to <em>verifyClientCb</em>. This can be nil.</dd>
+</dl>
+<h4 -="-" id="return-value_2">Return Value<a class="headerlink" href="#return-value_2" title="Permanent link">&para;</a></h4>
+<p>None.</p>
+<h4 -="-" id="header-file_1">Header File<a class="headerlink" href="#header-file_1" title="Permanent link">&para;</a></h4>
+<p>iowa_server.h</p>
+<h4 -="-" id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h4>
+<p>If the verify client callback is not set, Clients will always be accepted.</p>
+<p>\clearpage</p>
 <h3 id="iowa_server_new_incoming_connection">iowa_server_new_incoming_connection<a class="headerlink" href="#iowa_server_new_incoming_connection" title="Permanent link">&para;</a></h3>
-<p><strong> Prototype </strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_new_incoming_connection</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
+<h4 -="-" id="prototype_2">Prototype<a class="headerlink" href="#prototype_2" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_new_incoming_connection</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
                                                   <span class="n">iowa_connection_type_t</span> <span class="n">type</span><span class="p">,</span>
                                                   <span class="kt">void</span> <span class="o">*</span> <span class="n">connP</span><span class="p">,</span>
                                                   <span class="kt">bool</span> <span class="n">isSecure</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong>
-<code>iowa_server_new_incoming_connection()</code> informs the stack of a new incoming connection.</p>
-<p><strong> Arguments </strong>
-<em>contextP</em>
-: An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><em>type</em>
-: The type of the new connection. See <a href="../AbstractionLayer/#iowa_connection_type_t"><code>iowa_connection_type_t</code></a>.</p>
-<p><em>connP</em>
-: The new connection of the same user-defined type as the one returned by <a href="../AbstractionLayer/#iowa_system_connection_open"><code>iowa_system_connection_open()</code></a>.</p>
-<p><em>isSecure</em>
-: Set to <em>true</em> if the security must be enabled on this connection.</p>
-<p><strong> Return Value </strong>
-IOWA_COAP_NO_ERROR
-: success.</p>
-<p>IOWA_COAP_503_SERVICE_UNAVAILABLE
-: either:
-: - a memory allocation failed.
-: - <em>type</em> is unsupported.</p>
-<p><strong> Header File </strong>
-iowa_server.h</p>
+<h4 -="-" id="description_2">Description<a class="headerlink" href="#description_2" title="Permanent link">&para;</a></h4>
+<p><code>iowa_server_new_incoming_connection()</code> informs the stack of a new incoming connection.</p>
+<h4 -="-" id="arguments_3">Arguments<a class="headerlink" href="#arguments_3" title="Permanent link">&para;</a></h4>
+<dl>
+<dt><em>contextP</em></dt>
+<dd>An [<code>iowa_context_t</code>][iowa_context_t] as returned by [<code>iowa_init()</code>][iowa_init]. Not checked at runtime.</dd>
+<dt><em>type</em></dt>
+<dd>The type of the new connection. See [<code>iowa_connection_type_t</code>][iowa_connection_type_t].</dd>
+<dt><em>connP</em></dt>
+<dd>The new connection of the same user-defined type as the one returned by [<code>iowa_system_connection_open()</code>][iowa_system_connection_open].</dd>
+<dt><em>isSecure</em></dt>
+<dd>Set to <em>true</em> if the security must be enabled on this connection.</dd>
+</dl>
+<h4 -="-" id="return-value_3">Return Value<a class="headerlink" href="#return-value_3" title="Permanent link">&para;</a></h4>
+<dl>
+<dt>IOWA_COAP_NO_ERROR</dt>
+<dd>success.</dd>
+<dt>IOWA_COAP_503_SERVICE_UNAVAILABLE</dt>
+<dd>either:</dd>
+<dd>
+<ul>
+<li>a memory allocation failed.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><em>type</em> is unsupported.</li>
+</ul>
+</dd>
+</dl>
+<h4 -="-" id="header-file_2">Header File<a class="headerlink" href="#header-file_2" title="Permanent link">&para;</a></h4>
+<p>iowa_server.h</p>
+<p>\clearpage</p>
 <h3 id="iowa_server_configure_data_push">iowa_server_configure_data_push<a class="headerlink" href="#iowa_server_configure_data_push" title="Permanent link">&para;</a></h3>
-<p><strong> Prototype </strong></p>
-<div class="codehilite"><pre><span></span><code><span class="kt">void</span> <span class="nf">iowa_server_configure_data_push</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
+<h4 -="-" id="prototype_3">Prototype<a class="headerlink" href="#prototype_3" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span> <span class="nf">iowa_server_configure_data_push</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
                                      <span class="n">iowa_response_callback_t</span> <span class="n">responseCb</span><span class="p">,</span>
                                      <span class="kt">void</span> <span class="o">*</span><span class="n">userDataP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong>
-<code>iowa_server_configure_data_push()</code> enables/disables the Data push operation for all clients.</p>
-<p><strong> Arguments </strong>
-<em>contextP</em>
-: An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><em>responseCb</em>
-: The callback called when a client pushes data. If this callback is nil, data push possibility is disabled.</p>
-<p><em>userDataP</em>
-: A pointer to application specific data. This is passed as argument to <em>responseCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong>
-None.</p>
-<p><strong> Header File </strong>
-iowa_server.h</p>
-<p><strong> Notes </strong>
-The <em>responseCb</em> will be called with the operation set to <strong>IOWA_DM_DATA_PUSH</strong> and the status code set to <strong>IOWA_COAP_205_CONTENT</strong>.</p>
+<h4 -="-" id="description_3">Description<a class="headerlink" href="#description_3" title="Permanent link">&para;</a></h4>
+<p><code>iowa_server_configure_data_push()</code> enables/disables the Data push operation for all clients.</p>
+<h4 -="-" id="arguments_4">Arguments<a class="headerlink" href="#arguments_4" title="Permanent link">&para;</a></h4>
+<dl>
+<dt><em>contextP</em></dt>
+<dd>An [<code>iowa_context_t</code>][iowa_context_t] as returned by [<code>iowa_init()</code>][iowa_init]. Not checked at runtime.</dd>
+<dt><em>responseCb</em></dt>
+<dd>The callback called when a client pushes data. If this callback is nil, data push possibility is disabled.</dd>
+<dt><em>userDataP</em></dt>
+<dd>A pointer to application specific data. This is passed as argument to <em>responseCb</em>. This can be nil.</dd>
+</dl>
+<h4 -="-" id="return-value_4">Return Value<a class="headerlink" href="#return-value_4" title="Permanent link">&para;</a></h4>
+<p>None.</p>
+<h4 -="-" id="header-file_3">Header File<a class="headerlink" href="#header-file_3" title="Permanent link">&para;</a></h4>
+<p>iowa_server.h</p>
+<h4 -="-" id="notes_1">Notes<a class="headerlink" href="#notes_1" title="Permanent link">&para;</a></h4>
+<p>The <em>responseCb</em> will be called with the operation set to <strong>IOWA_DM_DATA_PUSH</strong> and the status code set to <strong>IOWA_COAP_205_CONTENT</strong>.</p>
 <p>To be able to use this function, [<strong>LWM2M_DATA_PUSH_SUPPORT</strong>][LWM2M_DATA_PUSH_SUPPORT] must be defined.</p>
+<p>\clearpage</p>
 <h3 id="iowa_server_read">iowa_server_read<a class="headerlink" href="#iowa_server_read" title="Permanent link">&para;</a></h3>
-<p><strong> Prototype </strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="n">iowa_server_read</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
+<h4 -="-" id="prototype_4">Prototype<a class="headerlink" href="#prototype_4" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="n">iowa_server_read</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
                                <span class="kt">uint32_t</span> <span class="n">clientId</span><span class="p">,</span>
                                <span class="kt">size_t</span> <span class="n">uriCount</span><span class="p">,</span>
                                <span class="n">iowa_lwm2m_uri_t</span> <span class="o">*</span><span class="n">uriP</span><span class="p">,</span>
@@ -1143,49 +2903,70 @@ The <em>responseCb</em> will be called with the operation set to <strong>IOWA_DM
                                <span class="kt">void</span> <span class="o">*</span><span class="n">userDataP</span><span class="p">)</span>
 </code></pre></div>
 
-<p><strong> Description </strong>
-<code>iowa_server_read()</code> performs a Read operation on Client’s URIs.</p>
-<p><strong> Arguments </strong>
-<em>contextP</em>
-: An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><em>clientId</em>
-: The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
-<p><em>uriCount, uriP</em>
-: An array of the URIs to read.</p>
-<p><em>responseCb</em>
-: The callback called when the reply to this operation is known.</p>
-<p><em>userDataP</em>
-: A pointer to application specific data. This is passed as argument to <em>responseCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong>
-IOWA_COAP_NO_ERROR
-: success.</p>
-<p>IOWA_COAP_400_BAD_REQUEST
-: Either:
-: - <em>responseCb</em> is nil.
-: - <em>uriCount</em> is zero or <em>uriP</em> is nil.
-: - <em>uriP</em> targets Object ID <strong>IOWA_LWM2M_ID_ALL</strong> and [<strong>LWM2M_READ_COMPOSITE_SUPPORT</strong>][LWM2M_READ_COMPOSITE_SUPPORT] is not defined.
-: - <em>uriP</em> targets Object ID <strong>IOWA_LWM2M_ID_ALL</strong>, [<strong>LWM2M_READ_COMPOSITE_SUPPORT</strong>][LWM2M_READ_COMPOSITE_SUPPORT] is defined, but <em>uriCount</em> is not equal to 1.</p>
-<p>IOWA_COAP_404_NOT_FOUND
-: <em>clientId</em> does not match a known client.</p>
-<p>IOWA_COAP_413_REQUEST_ENTITY_TOO_LARGE
-: The Platform abstraction didn't send all the data. One possible assumption is the packet was too large for the transport.</p>
-<p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
-: A memory allocation failed.</p>
-<p>IOWA_COAP_501_NOT_IMPLEMENTED
-: <em>uriCount</em> is superior to 1 with [<strong>LWM2M_READ_COMPOSITE_SUPPORT</strong>][LWM2M_READ_COMPOSITE_SUPPORT] not defined.</p>
-<p>IOWA_COAP_503_SERVICE_UNAVAILABLE
-: Communication with the LwM2M Client failed.</p>
-<p><strong> Header File </strong>
-iowa_server.h</p>
-<p><strong> Notes </strong>
-Per LwM2M specification, if the Read was successful, the Client will return a <strong>IOWA_COAP_205_CONTENT</strong> status code.</p>
+<h4 -="-" id="description_4">Description<a class="headerlink" href="#description_4" title="Permanent link">&para;</a></h4>
+<p><code>iowa_server_read()</code> performs a Read operation on Client’s URIs.</p>
+<h4 -="-" id="arguments_5">Arguments<a class="headerlink" href="#arguments_5" title="Permanent link">&para;</a></h4>
+<dl>
+<dt><em>contextP</em></dt>
+<dd>An [<code>iowa_context_t</code>][iowa_context_t] as returned by [<code>iowa_init()</code>][iowa_init]. Not checked at runtime.</dd>
+<dt><em>clientId</em></dt>
+<dd>The ID of the client as reported in the [<code>iowa_monitor_callback_t</code>][iowa_monitor_callback_t].</dd>
+<dt><em>uriCount, uriP</em></dt>
+<dd>An array of the URIs to read.</dd>
+<dt><em>responseCb</em></dt>
+<dd>The callback called when the reply to this operation is known.</dd>
+<dt><em>userDataP</em></dt>
+<dd>A pointer to application specific data. This is passed as argument to <em>responseCb</em>. This can be nil.</dd>
+</dl>
+<h4 -="-" id="return-value_5">Return Value<a class="headerlink" href="#return-value_5" title="Permanent link">&para;</a></h4>
+<dl>
+<dt>IOWA_COAP_NO_ERROR</dt>
+<dd>success.</dd>
+<dt>IOWA_COAP_400_BAD_REQUEST</dt>
+<dd>Either:</dd>
+<dd>
+<ul>
+<li><em>responseCb</em> is nil.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><em>uriCount</em> is zero or <em>uriP</em> is nil.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><em>uriP</em> targets Object ID <strong>IOWA_LWM2M_ID_ALL</strong> and [<strong>LWM2M_READ_COMPOSITE_SUPPORT</strong>][LWM2M_READ_COMPOSITE_SUPPORT] is not defined.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><em>uriP</em> targets Object ID <strong>IOWA_LWM2M_ID_ALL</strong>, [<strong>LWM2M_READ_COMPOSITE_SUPPORT</strong>][LWM2M_READ_COMPOSITE_SUPPORT] is defined, but <em>uriCount</em> is not equal to 1.</li>
+</ul>
+</dd>
+<dt>IOWA_COAP_404_NOT_FOUND</dt>
+<dd><em>clientId</em> does not match a known client.</dd>
+<dt>IOWA_COAP_413_REQUEST_ENTITY_TOO_LARGE</dt>
+<dd>The Platform abstraction didn't send all the data. One possible assumption is the packet was too large for the transport.</dd>
+<dt>IOWA_COAP_500_INTERNAL_SERVER_ERROR</dt>
+<dd>A memory allocation failed.</dd>
+<dt>IOWA_COAP_501_NOT_IMPLEMENTED</dt>
+<dd><em>uriCount</em> is superior to 1 with [<strong>LWM2M_READ_COMPOSITE_SUPPORT</strong>][LWM2M_READ_COMPOSITE_SUPPORT] not defined.</dd>
+<dt>IOWA_COAP_503_SERVICE_UNAVAILABLE</dt>
+<dd>Communication with the LwM2M Client failed.</dd>
+</dl>
+<h4 -="-" id="header-file_4">Header File<a class="headerlink" href="#header-file_4" title="Permanent link">&para;</a></h4>
+<p>iowa_server.h</p>
+<h4 -="-" id="notes_2">Notes<a class="headerlink" href="#notes_2" title="Permanent link">&para;</a></h4>
+<p>Per LwM2M specification, if the Read was successful, the Client will return a <strong>IOWA_COAP_205_CONTENT</strong> status code.</p>
 <p>The ability to read several URIs at once is only present in LwM2M version 1.1 or later, this means that to use it <strong>LWM2M_VERSION_1_1_SUPPORT</strong> must be defined. This feature is only operational on SenML JSON and SenML CBOR data encoding, so <strong>LWM2M_SUPPORT_SENML_JSON</strong> or <strong>LWM2M_SUPPORT_SENML_CBOR</strong> must be defined.</p>
 <p>Some LwM2M Clients may not be able to read on several URIs in a single operation. In this case the <em>resultCb</em> will be called with an error status, typically <strong>IOWA_COAP_405_METHOD_NOT_ALLOWED</strong>.</p>
 <p>Per LwM2M specification, when handling a read on several URIs in a single operation, the LwM2M Client treats the request as non-atomic and handles it as best effort. Hence the reply may not contain the values of all the requested URIs.</p>
 <p>The <em>responseCb</em> will be called with the operation set to <strong>IOWA_DM_READ</strong>.</p>
+<p>\clearpage</p>
 <h3 id="iowa_server_observe">iowa_server_observe<a class="headerlink" href="#iowa_server_observe" title="Permanent link">&para;</a></h3>
-<p><strong> Prototype </strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_observe</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
+<h4 -="-" id="prototype_5">Prototype<a class="headerlink" href="#prototype_5" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_observe</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
                                   <span class="kt">uint32_t</span> <span class="n">clientId</span><span class="p">,</span>
                                   <span class="kt">size_t</span> <span class="n">uriCount</span><span class="p">,</span>
                                   <span class="n">iowa_lwm2m_uri_t</span> <span class="o">*</span><span class="n">uriP</span><span class="p">,</span>
@@ -1194,48 +2975,76 @@ Per LwM2M specification, if the Read was successful, the Client will return a <s
                                   <span class="kt">uint16_t</span> <span class="o">*</span><span class="n">observeIdP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong>
-<code>iowa_server_observe()</code> begins an observation on a Client’s URI.</p>
-<p><strong> Arguments </strong>
-<em>contextP</em>
-: An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><em>clientId</em>
-: The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
-<p><em>uriCount, uriP</em>
-: An array of the URIs to observe.</p>
-<p><em>responseCb</em>
-: The callback called when the reply to this operation is known.</p>
-<p><em>userDataP</em>
-: A pointer to application specific data. This is passed as argument to <em>responseCb</em>. This can be nil.</p>
-<p><em>observeIdP</em>
-: Used to store the ID of the observation.</p>
-<p><strong> Return Value </strong>
-IOWA_COAP_NO_ERROR
-: success.</p>
-<p>IOWA_COAP_400_BAD_REQUEST
-: Either:
-: - <em>responseCb</em> is nil.
-: - <em>observeIdP</em> is nil.
-: - <em>uriCount</em> is zero or <em>uriP</em> is nil.
-: - <em>uriP</em> targets Object ID <strong>IOWA_LWM2M_ID_ALL</strong> and [<strong>LWM2M_READ_COMPOSITE_SUPPORT</strong>][LWM2M_READ_COMPOSITE_SUPPORT] is not defined.
-: - <em>uriP</em> targets Object ID <strong>IOWA_LWM2M_ID_ALL</strong>, [<strong>LWM2M_READ_COMPOSITE_SUPPORT</strong>][LWM2M_READ_COMPOSITE_SUPPORT] is defined, but <em>uriCount</em> is not equal to 1.
-: - At least one <em>uriP</em> is invalid: <em>instanceId</em> is equal to <strong>IOWA_LWM2M_ID_ALL</strong> but <em>resourceId</em> is not equal to <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
-<p>IOWA_COAP_404_NOT_FOUND
-: <em>clientId</em> does not match a known client.</p>
-<p>IOWA_COAP_412_PRECONDITION_FAILED
-: Observe was already launched. <em>observeIdP</em> is set to the value of the previous observation.</p>
-<p>IOWA_COAP_413_REQUEST_ENTITY_TOO_LARGE
-: The Platform abstraction didn't send all the data. One possible assumption is the packet was too large for the transport.</p>
-<p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
-: A memory allocation failed.</p>
-<p>IOWA_COAP_501_NOT_IMPLEMENTED
-: <em>uriCount</em> is superior to 1 with [<strong>LWM2M_OBSERVE_COMPOSITE_SUPPORT</strong>][LWM2M_OBSERVE_COMPOSITE_SUPPORT] not defined.</p>
-<p>IOWA_COAP_503_SERVICE_UNAVAILABLE
-: Communication with the LwM2M Client failed.</p>
-<p><strong> Header File </strong>
-iowa_server.h</p>
-<p><strong> Notes </strong>
-Per LwM2M specification, if the Observe was successful, the Client will return a <strong>IOWA_COAP_205_CONTENT</strong> status code with the first notification.</p>
+<h4 -="-" id="description_5">Description<a class="headerlink" href="#description_5" title="Permanent link">&para;</a></h4>
+<p><code>iowa_server_observe()</code> begins an observation on a Client’s URI.</p>
+<h4 -="-" id="arguments_6">Arguments<a class="headerlink" href="#arguments_6" title="Permanent link">&para;</a></h4>
+<dl>
+<dt><em>contextP</em></dt>
+<dd>An [<code>iowa_context_t</code>][iowa_context_t] as returned by [<code>iowa_init()</code>][iowa_init]. Not checked at runtime.</dd>
+<dt><em>clientId</em></dt>
+<dd>The ID of the client as reported in the [<code>iowa_monitor_callback_t</code>][iowa_monitor_callback_t].</dd>
+<dt><em>uriCount, uriP</em></dt>
+<dd>An array of the URIs to observe.</dd>
+<dt><em>responseCb</em></dt>
+<dd>The callback called when the reply to this operation is known.</dd>
+<dt><em>userDataP</em></dt>
+<dd>A pointer to application specific data. This is passed as argument to <em>responseCb</em>. This can be nil.</dd>
+<dt><em>observeIdP</em></dt>
+<dd>Used to store the ID of the observation.</dd>
+</dl>
+<h4 -="-" id="return-value_6">Return Value<a class="headerlink" href="#return-value_6" title="Permanent link">&para;</a></h4>
+<dl>
+<dt>IOWA_COAP_NO_ERROR</dt>
+<dd>success.</dd>
+<dt>IOWA_COAP_400_BAD_REQUEST</dt>
+<dd>Either:</dd>
+<dd>
+<ul>
+<li><em>responseCb</em> is nil.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><em>observeIdP</em> is nil.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><em>uriCount</em> is zero or <em>uriP</em> is nil.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><em>uriP</em> targets Object ID <strong>IOWA_LWM2M_ID_ALL</strong> and [<strong>LWM2M_READ_COMPOSITE_SUPPORT</strong>][LWM2M_READ_COMPOSITE_SUPPORT] is not defined.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><em>uriP</em> targets Object ID <strong>IOWA_LWM2M_ID_ALL</strong>, [<strong>LWM2M_READ_COMPOSITE_SUPPORT</strong>][LWM2M_READ_COMPOSITE_SUPPORT] is defined, but <em>uriCount</em> is not equal to 1.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li>At least one <em>uriP</em> is invalid: <em>instanceId</em> is equal to <strong>IOWA_LWM2M_ID_ALL</strong> but <em>resourceId</em> is not equal to <strong>IOWA_LWM2M_ID_ALL</strong>.</li>
+</ul>
+</dd>
+<dt>IOWA_COAP_404_NOT_FOUND</dt>
+<dd><em>clientId</em> does not match a known client.</dd>
+<dt>IOWA_COAP_412_PRECONDITION_FAILED</dt>
+<dd>Observe was already launched. <em>observeIdP</em> is set to the value of the previous observation.</dd>
+<dt>IOWA_COAP_413_REQUEST_ENTITY_TOO_LARGE</dt>
+<dd>The Platform abstraction didn't send all the data. One possible assumption is the packet was too large for the transport.</dd>
+<dt>IOWA_COAP_500_INTERNAL_SERVER_ERROR</dt>
+<dd>A memory allocation failed.</dd>
+<dt>IOWA_COAP_501_NOT_IMPLEMENTED</dt>
+<dd><em>uriCount</em> is superior to 1 with [<strong>LWM2M_OBSERVE_COMPOSITE_SUPPORT</strong>][LWM2M_OBSERVE_COMPOSITE_SUPPORT] not defined.</dd>
+<dt>IOWA_COAP_503_SERVICE_UNAVAILABLE</dt>
+<dd>Communication with the LwM2M Client failed.</dd>
+</dl>
+<h4 -="-" id="header-file_5">Header File<a class="headerlink" href="#header-file_5" title="Permanent link">&para;</a></h4>
+<p>iowa_server.h</p>
+<h4 -="-" id="notes_3">Notes<a class="headerlink" href="#notes_3" title="Permanent link">&para;</a></h4>
+<p>Per LwM2M specification, if the Observe was successful, the Client will return a <strong>IOWA_COAP_205_CONTENT</strong> status code with the first notification.</p>
 <p>The <em>responseCb</em> will be called with the operation set to <strong>IOWA_DM_NOTIFY</strong>:</p>
 <ul>
 <li>When the observation is internally deleted, <em>responseCb</em> will be called with <em>status</em> to <strong>IOWA_COAP_202_DELETED</strong>.</li>
@@ -1243,40 +3052,54 @@ Per LwM2M specification, if the Observe was successful, the Client will return a
 <li>Some LwM2M Clients may not be able to observe on several URIs in a single operation. In this case the <em>responseCb</em> will be called with an error status, typically <strong>IOWA_COAP_405_METHOD_NOT_ALLOWED</strong>.</li>
 </ul>
 <p>When using an unreliable communication layer, notifications may be lost or arrive out of order.</p>
+<p>\clearpage</p>
 <h3 id="iowa_server_observe_cancel">iowa_server_observe_cancel<a class="headerlink" href="#iowa_server_observe_cancel" title="Permanent link">&para;</a></h3>
-<p><strong> Prototype </strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_observe_cancel</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
+<h4 -="-" id="prototype_6">Prototype<a class="headerlink" href="#prototype_6" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_observe_cancel</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
                                          <span class="kt">uint32_t</span> <span class="n">clientId</span><span class="p">,</span>
                                          <span class="kt">uint16_t</span> <span class="n">observeId</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong>
-<code>iowa_server_observe_cancel()</code> cancels an observation on a Client.</p>
-<p><strong> Arguments </strong>
-<em>contextP</em>
-: An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><em>clientId</em>
-: The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
-<p><em>observeId</em>
-: The ID of the observation as returned by <a href="./#iowa_server_observe"><code>iowa_server_observe</code></a>.</p>
-<p><strong> Return Value </strong>
-IOWA_COAP_NO_ERROR
-: success.</p>
-<p>IOWA_COAP_404_NOT_FOUND
-: either:
-: - <em>clientId</em> does not match a known client.
-: - <em>observeId</em> does not match a known observation.</p>
-<p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
-: A memory allocation failed.</p>
-<p>IOWA_COAP_503_SERVICE_UNAVAILABLE
-: Communication with the LwM2M Client failed.</p>
-<p><strong> Header File </strong>
-iowa_server.h</p>
-<p><strong> Notes </strong>
-When using an unreliable communication layer, the cancellation request from the LwM2M Server to the LwM2M Client may be lost. However the observation is always cancelled.</p>
+<h4 -="-" id="description_6">Description<a class="headerlink" href="#description_6" title="Permanent link">&para;</a></h4>
+<p><code>iowa_server_observe_cancel()</code> cancels an observation on a Client.</p>
+<h4 -="-" id="arguments_7">Arguments<a class="headerlink" href="#arguments_7" title="Permanent link">&para;</a></h4>
+<dl>
+<dt><em>contextP</em></dt>
+<dd>An [<code>iowa_context_t</code>][iowa_context_t] as returned by [<code>iowa_init()</code>][iowa_init]. Not checked at runtime.</dd>
+<dt><em>clientId</em></dt>
+<dd>The ID of the client as reported in the [<code>iowa_monitor_callback_t</code>][iowa_monitor_callback_t].</dd>
+<dt><em>observeId</em></dt>
+<dd>The ID of the observation as returned by [<code>iowa_server_observe</code>][iowa_server_observe].</dd>
+</dl>
+<h4 -="-" id="return-value_7">Return Value<a class="headerlink" href="#return-value_7" title="Permanent link">&para;</a></h4>
+<dl>
+<dt>IOWA_COAP_NO_ERROR</dt>
+<dd>success.</dd>
+<dt>IOWA_COAP_404_NOT_FOUND</dt>
+<dd>either:</dd>
+<dd>
+<ul>
+<li><em>clientId</em> does not match a known client.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><em>observeId</em> does not match a known observation.</li>
+</ul>
+</dd>
+<dt>IOWA_COAP_500_INTERNAL_SERVER_ERROR</dt>
+<dd>A memory allocation failed.</dd>
+<dt>IOWA_COAP_503_SERVICE_UNAVAILABLE</dt>
+<dd>Communication with the LwM2M Client failed.</dd>
+</dl>
+<h4 -="-" id="header-file_6">Header File<a class="headerlink" href="#header-file_6" title="Permanent link">&para;</a></h4>
+<p>iowa_server.h</p>
+<h4 -="-" id="notes_4">Notes<a class="headerlink" href="#notes_4" title="Permanent link">&para;</a></h4>
+<p>When using an unreliable communication layer, the cancellation request from the LwM2M Server to the LwM2M Client may be lost. However the observation is always cancelled.</p>
+<p>\clearpage</p>
 <h3 id="iowa_server_write">iowa_server_write<a class="headerlink" href="#iowa_server_write" title="Permanent link">&para;</a></h3>
-<p><strong> Prototype </strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="n">iowa_server_write</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
+<h4 -="-" id="prototype_7">Prototype<a class="headerlink" href="#prototype_7" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="n">iowa_server_write</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
                                 <span class="kt">uint32_t</span> <span class="n">clientId</span><span class="p">,</span>
                                 <span class="kt">size_t</span> <span class="n">dataCount</span><span class="p">,</span>
                                 <span class="n">iowa_lwm2m_data_t</span> <span class="o">*</span><span class="n">dataArrayP</span><span class="p">,</span>
@@ -1284,52 +3107,81 @@ When using an unreliable communication layer, the cancellation request from the 
                                 <span class="kt">void</span> <span class="o">*</span><span class="n">userDataP</span><span class="p">)</span>
 </code></pre></div>
 
-<p><strong> Description </strong>
-<code>iowa_server_write()</code> performs a Write operation on a Client.</p>
-<p><strong> Arguments </strong>
-<em>contextP</em>
-: An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><em>clientId</em>
-: The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
-<p><em>dataCount, dataArrayP</em>
-: The data to write.</p>
-<p><em>responseCb</em>
-: The callback called when the reply to this operation is known. This can be nil.</p>
-<p><em>userDataP</em>
-: A pointer to application specific data. This is passed as argument to <em>responseCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong>
-IOWA_COAP_NO_ERROR
-: success.</p>
-<p>IOWA_COAP_400_BAD_REQUEST
-: Either:
-: - <em>dataCount</em> is zero or <em>dataArrayP</em> is nil.
-: - <em>dataArrayP[x].objectID</em> or <em>dataArrayP[x].instanceID</em> or <em>dataArrayP[x].resourceID</em> is <strong>IOWA_LWM2M_ID_ALL</strong>.
-: - <em>dataArrayP</em> contains several data with incorrect type.</p>
-<p>IOWA_COAP_404_NOT_FOUND
-: <em>clientId</em> does not match a known client.</p>
-<p>IOWA_COAP_406_NOT_ACCEPTABLE
-: either:
-: - <em>dataArrayP</em> contains several data with different <em>objectID</em> or <em>instanceID</em> but <strong>LWM2M_SUPPORT_SENML_JSON</strong> or <strong>LWM2M_SUPPORT_SENML_CBOR</strong> are not defined.
-: - <em>dataArrayP</em> contains several data with defined timestamp.
-: - <em>dataArrayP</em> contains several data of unsigned integer type which are negative.</p>
-<p>IOWA_COAP_413_REQUEST_ENTITY_TOO_LARGE
-: The Platform abstraction didn't send all the data. One possible assumption is the packet was too large for the transport.</p>
-<p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
-: a memory allocation failed.</p>
-<p>IOWA_COAP_501_NOT_IMPLEMENTED
-: <em>dataArrayP</em> has different <em>objectID</em> or <em>instanceID</em> with [<strong>LWM2M_WRITE_COMPOSITE_SUPPORT</strong>][LWM2M_WRITE_COMPOSITE_SUPPORT] not defined.</p>
-<p>IOWA_COAP_503_SERVICE_UNAVAILABLE
-: Communication with the LwM2M Client failed.</p>
-<p><strong> Header File </strong>
-iowa_server.h</p>
-<p><strong> Notes </strong>
-Per LwM2M specification, if the Write was successful, the Client will return a <strong>IOWA_COAP_204_CHANGED</strong> status code.</p>
+<h4 -="-" id="description_7">Description<a class="headerlink" href="#description_7" title="Permanent link">&para;</a></h4>
+<p><code>iowa_server_write()</code> performs a Write operation on a Client.</p>
+<h4 -="-" id="arguments_8">Arguments<a class="headerlink" href="#arguments_8" title="Permanent link">&para;</a></h4>
+<dl>
+<dt><em>contextP</em></dt>
+<dd>An [<code>iowa_context_t</code>][iowa_context_t] as returned by [<code>iowa_init()</code>][iowa_init]. Not checked at runtime.</dd>
+<dt><em>clientId</em></dt>
+<dd>The ID of the client as reported in the [<code>iowa_monitor_callback_t</code>][iowa_monitor_callback_t].</dd>
+<dt><em>dataCount, dataArrayP</em></dt>
+<dd>The data to write.</dd>
+<dt><em>responseCb</em></dt>
+<dd>The callback called when the reply to this operation is known. This can be nil.</dd>
+<dt><em>userDataP</em></dt>
+<dd>A pointer to application specific data. This is passed as argument to <em>responseCb</em>. This can be nil.</dd>
+</dl>
+<h4 -="-" id="return-value_8">Return Value<a class="headerlink" href="#return-value_8" title="Permanent link">&para;</a></h4>
+<dl>
+<dt>IOWA_COAP_NO_ERROR</dt>
+<dd>success.</dd>
+<dt>IOWA_COAP_400_BAD_REQUEST</dt>
+<dd>Either:</dd>
+<dd>
+<ul>
+<li><em>dataCount</em> is zero or <em>dataArrayP</em> is nil.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><em>dataArrayP[x].objectID</em> or <em>dataArrayP[x].instanceID</em> or <em>dataArrayP[x].resourceID</em> is <strong>IOWA_LWM2M_ID_ALL</strong>.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><em>dataArrayP</em> contains several data with incorrect type.</li>
+</ul>
+</dd>
+<dt>IOWA_COAP_404_NOT_FOUND</dt>
+<dd><em>clientId</em> does not match a known client.</dd>
+<dt>IOWA_COAP_406_NOT_ACCEPTABLE</dt>
+<dd>either:</dd>
+<dd>
+<ul>
+<li><em>dataArrayP</em> contains several data with different <em>objectID</em> or <em>instanceID</em> but <strong>LWM2M_SUPPORT_SENML_JSON</strong> or <strong>LWM2M_SUPPORT_SENML_CBOR</strong> are not defined.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><em>dataArrayP</em> contains several data with defined timestamp.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><em>dataArrayP</em> contains several data of unsigned integer type which are negative.</li>
+</ul>
+</dd>
+<dt>IOWA_COAP_413_REQUEST_ENTITY_TOO_LARGE</dt>
+<dd>The Platform abstraction didn't send all the data. One possible assumption is the packet was too large for the transport.</dd>
+<dt>IOWA_COAP_500_INTERNAL_SERVER_ERROR</dt>
+<dd>a memory allocation failed.</dd>
+<dt>IOWA_COAP_501_NOT_IMPLEMENTED</dt>
+<dd><em>dataArrayP</em> has different <em>objectID</em> or <em>instanceID</em> with [<strong>LWM2M_WRITE_COMPOSITE_SUPPORT</strong>][LWM2M_WRITE_COMPOSITE_SUPPORT] not defined.</dd>
+<dt>IOWA_COAP_503_SERVICE_UNAVAILABLE</dt>
+<dd>Communication with the LwM2M Client failed.</dd>
+</dl>
+<h4 -="-" id="header-file_7">Header File<a class="headerlink" href="#header-file_7" title="Permanent link">&para;</a></h4>
+<p>iowa_server.h</p>
+<h4 -="-" id="notes_5">Notes<a class="headerlink" href="#notes_5" title="Permanent link">&para;</a></h4>
+<p>Per LwM2M specification, if the Write was successful, the Client will return a <strong>IOWA_COAP_204_CHANGED</strong> status code.</p>
 <p>To be able to write on different <em>dataArrayP[x].objectID</em> or <em>dataArrayP[x].instanceID</em> at once, <strong>LWM2M_SUPPORT_SENML_JSON</strong> or <strong>LWM2M_SUPPORT_SENML_CBOR</strong> must be defined.</p>
 <p>Some LwM2M Clients may not be able to write on different <em>dataArrayP[x].objectID</em> or <em>dataArrayP[x].instanceID</em> in a single operation. In this case the <em>responseCb</em> will be called with an error status, typically <strong>IOWA_COAP_405_METHOD_NOT_ALLOWED</strong>.</p>
 <p>The <em>responseCb</em> will be called with the operation set to <strong>IOWA_DM_WRITE</strong>.</p>
+<p>\clearpage</p>
 <h3 id="iowa_server_write_attributes_string">iowa_server_write_attributes_string<a class="headerlink" href="#iowa_server_write_attributes_string" title="Permanent link">&para;</a></h3>
-<p><strong> Prototype </strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_write_attributes_string</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
+<h4 -="-" id="prototype_8">Prototype<a class="headerlink" href="#prototype_8" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_write_attributes_string</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
                                                   <span class="kt">uint32_t</span> <span class="n">clientId</span><span class="p">,</span>
                                                   <span class="n">iowa_lwm2m_uri_t</span> <span class="o">*</span><span class="n">uriP</span><span class="p">,</span>
                                                   <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">attributesStr</span><span class="p">,</span>
@@ -1337,42 +3189,50 @@ Per LwM2M specification, if the Write was successful, the Client will return a <
                                                   <span class="kt">void</span> <span class="o">*</span><span class="n">userDataP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong>
-<code>iowa_server_write_attributes_string()</code> performs a Write-Attributes operation on a Client’s URI.</p>
-<p><strong> Arguments </strong>
-<em>contextP</em>
-: An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><em>clientId</em>
-: The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
-<p><em>uriP</em>
-: The URI targeted by the operation.</p>
-<p><em>attributesStr</em>
-: The attributes to write as a query string.</p>
-<p><em>responseCb</em>
-: The callback called when the reply to this operation is known. This can be nil.</p>
-<p><em>userDataP</em>
-: A pointer to application specific data. This is passed as argument to <em>responseCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong>
-IOWA_COAP_NO_ERROR
-: success.</p>
-<p>IOWA_COAP_400_BAD_REQUEST
-: either
-    : <em>uriP</em> is nil.
-    : <em>uriP-&gt;objectId</em> is <strong>IOWA_LWM2M_ID_ALL</strong>.
-    : <em>uriP-&gt;resInstanceId</em> is not <strong>IOWA_LWM2M_ID_ALL</strong> and <strong>LWM2M_VERSION_1_1_SUPPORT</strong> is not set.
-    : <em>attributesStr</em> is nil or an empty string.</p>
-<p>IOWA_COAP_404_NOT_FOUND
-: <em>clientId</em> does not match a known client.</p>
-<p>IOWA_COAP_413_REQUEST_ENTITY_TOO_LARGE
-: The Platform abstraction didn't send all the data. One possible assumption is the packet was too large for the transport.</p>
-<p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
-: a memory allocation failed.</p>
-<p>IOWA_COAP_503_SERVICE_UNAVAILABLE
-: Communication with the LwM2M Client failed.</p>
-<p><strong> Header File </strong>
-iowa_server.h</p>
-<p><strong> Notes </strong>
-Per LwM2M specification, if the Write-Attributes was successful, the Client will return a <strong>IOWA_COAP_204_CHANGED</strong> status code.</p>
+<h4 -="-" id="description_8">Description<a class="headerlink" href="#description_8" title="Permanent link">&para;</a></h4>
+<p><code>iowa_server_write_attributes_string()</code> performs a Write-Attributes operation on a Client’s URI.</p>
+<h4 -="-" id="arguments_9">Arguments<a class="headerlink" href="#arguments_9" title="Permanent link">&para;</a></h4>
+<dl>
+<dt><em>contextP</em></dt>
+<dd>An [<code>iowa_context_t</code>][iowa_context_t] as returned by [<code>iowa_init()</code>][iowa_init]. Not checked at runtime.</dd>
+<dt><em>clientId</em></dt>
+<dd>The ID of the client as reported in the [<code>iowa_monitor_callback_t</code>][iowa_monitor_callback_t].</dd>
+<dt><em>uriP</em></dt>
+<dd>The URI targeted by the operation.</dd>
+<dt><em>attributesStr</em></dt>
+<dd>The attributes to write as a query string.</dd>
+<dt><em>responseCb</em></dt>
+<dd>The callback called when the reply to this operation is known. This can be nil.</dd>
+<dt><em>userDataP</em></dt>
+<dd>A pointer to application specific data. This is passed as argument to <em>responseCb</em>. This can be nil.</dd>
+</dl>
+<h4 -="-" id="return-value_9">Return Value<a class="headerlink" href="#return-value_9" title="Permanent link">&para;</a></h4>
+<dl>
+<dt>IOWA_COAP_NO_ERROR</dt>
+<dd>success.</dd>
+<dt>IOWA_COAP_400_BAD_REQUEST</dt>
+<dd>
+<dl>
+<dt>either</dt>
+<dd><em>uriP</em> is nil.</dd>
+<dd><em>uriP-&gt;objectId</em> is <strong>IOWA_LWM2M_ID_ALL</strong>.</dd>
+<dd><em>uriP-&gt;resInstanceId</em> is not <strong>IOWA_LWM2M_ID_ALL</strong> and <strong>LWM2M_VERSION_1_1_SUPPORT</strong> is not set.</dd>
+<dd><em>attributesStr</em> is nil or an empty string.</dd>
+</dl>
+</dd>
+<dt>IOWA_COAP_404_NOT_FOUND</dt>
+<dd><em>clientId</em> does not match a known client.</dd>
+<dt>IOWA_COAP_413_REQUEST_ENTITY_TOO_LARGE</dt>
+<dd>The Platform abstraction didn't send all the data. One possible assumption is the packet was too large for the transport.</dd>
+<dt>IOWA_COAP_500_INTERNAL_SERVER_ERROR</dt>
+<dd>a memory allocation failed.</dd>
+<dt>IOWA_COAP_503_SERVICE_UNAVAILABLE</dt>
+<dd>Communication with the LwM2M Client failed.</dd>
+</dl>
+<h4 -="-" id="header-file_8">Header File<a class="headerlink" href="#header-file_8" title="Permanent link">&para;</a></h4>
+<p>iowa_server.h</p>
+<h4 -="-" id="notes_6">Notes<a class="headerlink" href="#notes_6" title="Permanent link">&para;</a></h4>
+<p>Per LwM2M specification, if the Write-Attributes was successful, the Client will return a <strong>IOWA_COAP_204_CHANGED</strong> status code.</p>
 <p>The <em>responseCb</em> will be called with the operation set to <strong>IOWA_DM_WRITE_ATTRIBUTES</strong>.</p>
 <p>LwM2M defines the following attributes:</p>
 <table>
@@ -1429,15 +3289,16 @@ Per LwM2M specification, if the Write-Attributes was successful, the Client will
 <li><code>epmax</code> &gt; <code>epmin</code></li>
 </ul>
 <p>Clearing an attribute is in the form <code>Name</code>.</p>
-<p><strong> <em>attributesStr</em> Examples </strong>
-Receiving a notification every minute at most even if the observed URI did not change: <code>"pmax=60"</code>.</p>
+<h4 -="-" id="attributesstr-examples"><em>attributesStr</em> Examples<a class="headerlink" href="#attributesstr-examples" title="Permanent link">&para;</a></h4>
+<p>Receiving a notification every minute at most even if the observed URI did not change: <code>"pmax=60"</code>.</p>
 <p>Receiving only one notification per hour even if the observed URI changed several times per minute: <code>"pmin=3600"</code>.</p>
 <p>Receiving exactly one notification every sixty seconds: <code>"pmin=59&amp;pmax=60"</code>.</p>
 <p>Receiving a notification when the resource value exceeds 95 or falls below 10, and when the resource value returns below 95 or above 10: <code>"lt=10&amp;gt=95"</code>.</p>
 <p>Clearing the previously set minimum period and setting a maximum period of five minutes: <code>"pmin&amp;pmax=300"</code>.</p>
+<p>\clearpage</p>
 <h3 id="iowa_server_dm_exec">iowa_server_dm_exec<a class="headerlink" href="#iowa_server_dm_exec" title="Permanent link">&para;</a></h3>
-<p><strong> Prototype </strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_dm_exec</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
+<h4 -="-" id="prototype_9">Prototype<a class="headerlink" href="#prototype_9" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_dm_exec</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
                                   <span class="kt">uint32_t</span> <span class="n">clientID</span><span class="p">,</span>
                                   <span class="kt">uint16_t</span> <span class="n">objectID</span><span class="p">,</span>
                                   <span class="kt">uint16_t</span> <span class="n">instanceID</span><span class="p">,</span>
@@ -1446,48 +3307,61 @@ Receiving a notification every minute at most even if the observed URI did not c
                                   <span class="kt">void</span> <span class="o">*</span> <span class="n">resultUserData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong>
-<code>iowa_server_dm_exec()</code> performs an Execute operation on a Client’s URI.</p>
-<p><strong> Arguments </strong>
-<em>contextP</em>
-: An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><em>clientID</em>
-: The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
-<p><em>objectID</em>
-: The ID of the Object.</p>
-<p><em>instanceID</em>
-: The ID of the instance.</p>
-<p><em>resourceID</em>
-: The ID of the resource.</p>
-<p><em>resultCb</em>
-: The callback called when the reply to this operation is known. This can be nil.</p>
-<p><em>resultUserData</em>
-: A pointer to application specific data. This is passed as argument to <em>resultCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong>
-IOWA_COAP_NO_ERROR
-: success.</p>
-<p>IOWA_COAP_400_BAD_REQUEST
-: <em>objectID</em>, <em>instanceID</em> or <em>resourceID</em> is <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
-<p>IOWA_COAP_404_NOT_FOUND
-: <em>clientID</em> does not match a known client.</p>
-<p>IOWA_COAP_413_REQUEST_ENTITY_TOO_LARGE
-: The Platform abstraction didn't send all the data. One possible assumption is the packet was too large for the transport.</p>
-<p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
-: either:
-: - a memory allocation failed.
-: - <a href="../AbstractionLayer/#iowa_system_gettime"><code>iowa_system_gettime()</code></a> returned an error.</p>
-<p>IOWA_COAP_503_SERVICE_UNAVAILABLE
-: Communication with the LwM2M Client failed.</p>
-<p><strong> Header File </strong>
-iowa_server.h</p>
-<p><strong> Notes </strong>
-Per LwM2M specification, if the Execute was successful, the Client will return an <strong>IOWA_COAP_204_CHANGED</strong> status code.</p>
+<h4 -="-" id="description_9">Description<a class="headerlink" href="#description_9" title="Permanent link">&para;</a></h4>
+<p><code>iowa_server_dm_exec()</code> performs an Execute operation on a Client’s URI.</p>
+<h4 -="-" id="arguments_10">Arguments<a class="headerlink" href="#arguments_10" title="Permanent link">&para;</a></h4>
+<dl>
+<dt><em>contextP</em></dt>
+<dd>An [<code>iowa_context_t</code>][iowa_context_t] as returned by [<code>iowa_init()</code>][iowa_init]. Not checked at runtime.</dd>
+<dt><em>clientID</em></dt>
+<dd>The ID of the client as reported in the [<code>iowa_monitor_callback_t</code>][iowa_monitor_callback_t].</dd>
+<dt><em>objectID</em></dt>
+<dd>The ID of the Object.</dd>
+<dt><em>instanceID</em></dt>
+<dd>The ID of the instance.</dd>
+<dt><em>resourceID</em></dt>
+<dd>The ID of the resource.</dd>
+<dt><em>resultCb</em></dt>
+<dd>The callback called when the reply to this operation is known. This can be nil.</dd>
+<dt><em>resultUserData</em></dt>
+<dd>A pointer to application specific data. This is passed as argument to <em>resultCb</em>. This can be nil.</dd>
+</dl>
+<h4 -="-" id="return-value_10">Return Value<a class="headerlink" href="#return-value_10" title="Permanent link">&para;</a></h4>
+<dl>
+<dt>IOWA_COAP_NO_ERROR</dt>
+<dd>success.</dd>
+<dt>IOWA_COAP_400_BAD_REQUEST</dt>
+<dd><em>objectID</em>, <em>instanceID</em> or <em>resourceID</em> is <strong>IOWA_LWM2M_ID_ALL</strong>.</dd>
+<dt>IOWA_COAP_404_NOT_FOUND</dt>
+<dd><em>clientID</em> does not match a known client.</dd>
+<dt>IOWA_COAP_413_REQUEST_ENTITY_TOO_LARGE</dt>
+<dd>The Platform abstraction didn't send all the data. One possible assumption is the packet was too large for the transport.</dd>
+<dt>IOWA_COAP_500_INTERNAL_SERVER_ERROR</dt>
+<dd>either:</dd>
+<dd>
+<ul>
+<li>a memory allocation failed.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li>[<code>iowa_system_gettime()</code>][iowa_system_gettime] returned an error.</li>
+</ul>
+</dd>
+<dt>IOWA_COAP_503_SERVICE_UNAVAILABLE</dt>
+<dd>Communication with the LwM2M Client failed.</dd>
+</dl>
+<h4 -="-" id="header-file_9">Header File<a class="headerlink" href="#header-file_9" title="Permanent link">&para;</a></h4>
+<p>iowa_server.h</p>
+<h4 -="-" id="notes_7">Notes<a class="headerlink" href="#notes_7" title="Permanent link">&para;</a></h4>
+<p>Per LwM2M specification, if the Execute was successful, the Client will return an <strong>IOWA_COAP_204_CHANGED</strong> status code.</p>
 <p>Per LwM2M specification, a Server can do an Execute only on an URI in the form /<em>object</em>/<em>instance</em>/<em>resource</em>. Thus <em>instanceID</em>
 and <em>resourceID</em> cannot be set <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
 <p>The <em>resultCb</em> will be called with the operation set to <strong>IOWA_DM_EXECUTE</strong>.</p>
+<p>\clearpage</p>
 <h3 id="iowa_server_dm_create">iowa_server_dm_create<a class="headerlink" href="#iowa_server_dm_create" title="Permanent link">&para;</a></h3>
-<p><strong> Prototype </strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_dm_create</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
+<h4 -="-" id="prototype_10">Prototype<a class="headerlink" href="#prototype_10" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_dm_create</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
                                     <span class="kt">uint32_t</span> <span class="n">clientId</span><span class="p">,</span>
                                     <span class="kt">uint16_t</span> <span class="n">objectId</span><span class="p">,</span>
                                     <span class="kt">uint16_t</span> <span class="n">instanceId</span><span class="p">,</span>
@@ -1497,52 +3371,85 @@ and <em>resourceID</em> cannot be set <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
                                     <span class="kt">void</span> <span class="o">*</span><span class="n">resultUserData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong>
-<code>iowa_server_dm_create()</code> performs a Create operation on a Client’s URI.</p>
-<p><strong> Arguments </strong>
-<em>contextP</em>
-: An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><em>clientId</em>
-: The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
-<p><em>objectId</em>, <em>instanceId</em>
-: The Object Instance targeted by the operation.</p>
-<p><em>dataCount</em>, <em>dataArrayP</em>
-: The data to write.</p>
-<p><em>resultCb</em>
-: The callback called when the reply to this operation is known. This can be nil.</p>
-<p><em>resultUserData</em>
-: A pointer to application specific data. This is passed as argument to <em>resultCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong>
-IOWA_COAP_NO_ERROR
-: success.</p>
-<p>IOWA_COAP_400_BAD_REQUEST
-: either:
-: - <em>objectId</em> or <em>instanceId</em> is <strong>IOWA_LWM2M_ID_ALL</strong>.
-: - <em>dataCount</em> is zero or <em>dataArrayP</em> is nil.
-: - <em>dataArrayP</em> contains several data with unknown type.</p>
-<p>IOWA_COAP_404_NOT_FOUND
-: <em>clientID</em> does not match a known client.</p>
-<p>IOWA_COAP_406_NOT_ACCEPTABLE
-: Either:
-: - <em>dataArrayP</em> contains several data with defined timestamp.
-: - <em>dataArrayP</em> contains several data of unsigned integer type which are negative.</p>
-<p>IOWA_COAP_413_REQUEST_ENTITY_TOO_LARGE
-: The Platform abstraction didn't send all the data. One possible assumption is the packet was too large for the transport.</p>
-<p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
-: either:
-: - a memory allocation failed.
-: - <a href="../AbstractionLayer/#iowa_system_gettime"><code>iowa_system_gettime()</code></a> returned an error.</p>
-<p>IOWA_COAP_503_SERVICE_UNAVAILABLE
-: Communication with the LwM2M Client failed</p>
-<p><strong> Header File </strong>
-iowa_server.h</p>
-<p><strong> Notes </strong>
-Per LwM2M specification, if the Create was successful, the Client will return a <strong>IOWA_COAP_201_CREATED</strong> status code.</p>
+<h4 -="-" id="description_10">Description<a class="headerlink" href="#description_10" title="Permanent link">&para;</a></h4>
+<p><code>iowa_server_dm_create()</code> performs a Create operation on a Client’s URI.</p>
+<h4 -="-" id="arguments_11">Arguments<a class="headerlink" href="#arguments_11" title="Permanent link">&para;</a></h4>
+<dl>
+<dt><em>contextP</em></dt>
+<dd>An [<code>iowa_context_t</code>][iowa_context_t] as returned by [<code>iowa_init()</code>][iowa_init]. Not checked at runtime.</dd>
+<dt><em>clientId</em></dt>
+<dd>The ID of the client as reported in the [<code>iowa_monitor_callback_t</code>][iowa_monitor_callback_t].</dd>
+<dt><em>objectId</em>, <em>instanceId</em></dt>
+<dd>The Object Instance targeted by the operation.</dd>
+<dt><em>dataCount</em>, <em>dataArrayP</em></dt>
+<dd>The data to write.</dd>
+<dt><em>resultCb</em></dt>
+<dd>The callback called when the reply to this operation is known. This can be nil.</dd>
+<dt><em>resultUserData</em></dt>
+<dd>A pointer to application specific data. This is passed as argument to <em>resultCb</em>. This can be nil.</dd>
+</dl>
+<h4 -="-" id="return-value_11">Return Value<a class="headerlink" href="#return-value_11" title="Permanent link">&para;</a></h4>
+<dl>
+<dt>IOWA_COAP_NO_ERROR</dt>
+<dd>success.</dd>
+<dt>IOWA_COAP_400_BAD_REQUEST</dt>
+<dd>either:</dd>
+<dd>
+<ul>
+<li><em>objectId</em> or <em>instanceId</em> is <strong>IOWA_LWM2M_ID_ALL</strong>.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><em>dataCount</em> is zero or <em>dataArrayP</em> is nil.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><em>dataArrayP</em> contains several data with unknown type.</li>
+</ul>
+</dd>
+<dt>IOWA_COAP_404_NOT_FOUND</dt>
+<dd><em>clientID</em> does not match a known client.</dd>
+<dt>IOWA_COAP_406_NOT_ACCEPTABLE</dt>
+<dd>Either:</dd>
+<dd>
+<ul>
+<li><em>dataArrayP</em> contains several data with defined timestamp.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><em>dataArrayP</em> contains several data of unsigned integer type which are negative.</li>
+</ul>
+</dd>
+<dt>IOWA_COAP_413_REQUEST_ENTITY_TOO_LARGE</dt>
+<dd>The Platform abstraction didn't send all the data. One possible assumption is the packet was too large for the transport.</dd>
+<dt>IOWA_COAP_500_INTERNAL_SERVER_ERROR</dt>
+<dd>either:</dd>
+<dd>
+<ul>
+<li>a memory allocation failed.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li>[<code>iowa_system_gettime()</code>][iowa_system_gettime] returned an error.</li>
+</ul>
+</dd>
+<dt>IOWA_COAP_503_SERVICE_UNAVAILABLE</dt>
+<dd>Communication with the LwM2M Client failed</dd>
+</dl>
+<h4 -="-" id="header-file_10">Header File<a class="headerlink" href="#header-file_10" title="Permanent link">&para;</a></h4>
+<p>iowa_server.h</p>
+<h4 -="-" id="notes_8">Notes<a class="headerlink" href="#notes_8" title="Permanent link">&para;</a></h4>
+<p>Per LwM2M specification, if the Create was successful, the Client will return a <strong>IOWA_COAP_201_CREATED</strong> status code.</p>
 <p>The IDs contained in the data must match <em>objectId</em> and <em>instanceId</em>.</p>
 <p>The <em>resultCb</em> will be called with the operation set to <strong>IOWA_DM_CREATE</strong>.</p>
+<p>\clearpage</p>
 <h3 id="iowa_server_dm_delete">iowa_server_dm_delete<a class="headerlink" href="#iowa_server_dm_delete" title="Permanent link">&para;</a></h3>
-<p><strong> Prototype </strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_dm_delete</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
+<h4 -="-" id="prototype_11">Prototype<a class="headerlink" href="#prototype_11" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_dm_delete</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
                                     <span class="kt">uint32_t</span> <span class="n">clientID</span><span class="p">,</span>
                                     <span class="kt">uint16_t</span> <span class="n">objectID</span><span class="p">,</span>
                                     <span class="kt">uint16_t</span> <span class="n">instanceID</span><span class="p">,</span>
@@ -1550,45 +3457,58 @@ Per LwM2M specification, if the Create was successful, the Client will return a 
                                     <span class="kt">void</span> <span class="o">*</span> <span class="n">resultUserData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong>
-<code>iowa_server_dm_delete()</code> performs an Delete operation on a Client’s URI.</p>
-<p><strong> Arguments </strong>
-<em>contextP</em>
-: An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><em>clientID</em>
-: The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
-<p><em>objectID</em>
-: The ID of the Object.</p>
-<p><em>instanceID</em>
-: The ID of the instance to delete.</p>
-<p><em>resultCb</em>
-: The callback called when the reply to this operation is known. This can be nil.</p>
-<p><em>resultUserData</em>
-: A pointer to application specific data. This is passed as argument to <em>resultCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong>
-IOWA_COAP_NO_ERROR
-: success.</p>
-<p>IOWA_COAP_400_BAD_REQUEST
-: <em>objectID</em> or <em>instanceID</em> is <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
-<p>IOWA_COAP_404_NOT_FOUND
-: <em>clientID</em> does not match a known client.</p>
-<p>IOWA_COAP_413_REQUEST_ENTITY_TOO_LARGE
-: The Platform abstraction didn't send all the data. One possible assumption is the packet was too large for the transport.</p>
-<p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
-: either:
-: - a memory allocation failed.
-: - <a href="../AbstractionLayer/#iowa_system_gettime"><code>iowa_system_gettime()</code></a> returned an error.</p>
-<p>IOWA_COAP_503_SERVICE_UNAVAILABLE
-: Communication with the LwM2M Client failed.</p>
-<p><strong> Header File </strong>
-iowa_server.h</p>
-<p><strong> Notes </strong>
-Per LwM2M specification, if the Delete was successful, the Client will return an <strong>IOWA_COAP_202_DELETED</strong> status code.</p>
+<h4 -="-" id="description_11">Description<a class="headerlink" href="#description_11" title="Permanent link">&para;</a></h4>
+<p><code>iowa_server_dm_delete()</code> performs an Delete operation on a Client’s URI.</p>
+<h4 -="-" id="arguments_12">Arguments<a class="headerlink" href="#arguments_12" title="Permanent link">&para;</a></h4>
+<dl>
+<dt><em>contextP</em></dt>
+<dd>An [<code>iowa_context_t</code>][iowa_context_t] as returned by [<code>iowa_init()</code>][iowa_init]. Not checked at runtime.</dd>
+<dt><em>clientID</em></dt>
+<dd>The ID of the client as reported in the [<code>iowa_monitor_callback_t</code>][iowa_monitor_callback_t].</dd>
+<dt><em>objectID</em></dt>
+<dd>The ID of the Object.</dd>
+<dt><em>instanceID</em></dt>
+<dd>The ID of the instance to delete.</dd>
+<dt><em>resultCb</em></dt>
+<dd>The callback called when the reply to this operation is known. This can be nil.</dd>
+<dt><em>resultUserData</em></dt>
+<dd>A pointer to application specific data. This is passed as argument to <em>resultCb</em>. This can be nil.</dd>
+</dl>
+<h4 -="-" id="return-value_12">Return Value<a class="headerlink" href="#return-value_12" title="Permanent link">&para;</a></h4>
+<dl>
+<dt>IOWA_COAP_NO_ERROR</dt>
+<dd>success.</dd>
+<dt>IOWA_COAP_400_BAD_REQUEST</dt>
+<dd><em>objectID</em> or <em>instanceID</em> is <strong>IOWA_LWM2M_ID_ALL</strong>.</dd>
+<dt>IOWA_COAP_404_NOT_FOUND</dt>
+<dd><em>clientID</em> does not match a known client.</dd>
+<dt>IOWA_COAP_413_REQUEST_ENTITY_TOO_LARGE</dt>
+<dd>The Platform abstraction didn't send all the data. One possible assumption is the packet was too large for the transport.</dd>
+<dt>IOWA_COAP_500_INTERNAL_SERVER_ERROR</dt>
+<dd>either:</dd>
+<dd>
+<ul>
+<li>a memory allocation failed.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li>[<code>iowa_system_gettime()</code>][iowa_system_gettime] returned an error.</li>
+</ul>
+</dd>
+<dt>IOWA_COAP_503_SERVICE_UNAVAILABLE</dt>
+<dd>Communication with the LwM2M Client failed.</dd>
+</dl>
+<h4 -="-" id="header-file_11">Header File<a class="headerlink" href="#header-file_11" title="Permanent link">&para;</a></h4>
+<p>iowa_server.h</p>
+<h4 -="-" id="notes_9">Notes<a class="headerlink" href="#notes_9" title="Permanent link">&para;</a></h4>
+<p>Per LwM2M specification, if the Delete was successful, the Client will return an <strong>IOWA_COAP_202_DELETED</strong> status code.</p>
 <p>Per LwM2M specification, a Server can do a Delete only on an URI in the form /<em>object</em>/<em>instance</em>. Thus <em>objectID</em> and <em>instanceID</em> cannot be set <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
 <p>The <em>resultCb</em> will be called with the operation set to <strong>IOWA_DM_DELETE</strong>.</p>
+<p>\clearpage</p>
 <h3 id="iowa_server_dm_discover">iowa_server_dm_discover<a class="headerlink" href="#iowa_server_dm_discover" title="Permanent link">&para;</a></h3>
-<p><strong> Prototype </strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_dm_discover</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
+<h4 -="-" id="prototype_12">Prototype<a class="headerlink" href="#prototype_12" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_dm_discover</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
                                       <span class="kt">uint32_t</span> <span class="n">clientID</span><span class="p">,</span>
                                       <span class="kt">uint16_t</span> <span class="n">objectID</span><span class="p">,</span>
                                       <span class="kt">uint16_t</span> <span class="n">instanceID</span><span class="p">,</span>
@@ -1597,150 +3517,188 @@ Per LwM2M specification, if the Delete was successful, the Client will return an
                                       <span class="kt">void</span> <span class="o">*</span> <span class="n">resultUserData</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong>
-<code>iowa_server_dm_discover()</code> performs a Discover operation on a Client’s URI.</p>
-<p><strong> Arguments </strong>
-<em>contextP</em>
-: An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><em>clientID</em>
-: The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
-<p><em>objectID</em>
-: The ID of the Object.</p>
-<p><em>instanceID</em>
-: The ID of the instance to delete. This can be <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
-<p><em>resourceID</em>
-: The ID of the resource to observe. This can be <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
-<p><em>resultCb</em>
-: The callback called when the reply to this operation is known.</p>
-<p><em>resultUserData</em>
-: A pointer to application specific data. This is passed as argument to <em>resultCb</em>. This can be nil.</p>
-<p><strong> Return Value </strong>
-IOWA_COAP_NO_ERROR
-: success.</p>
-<p>IOWA_COAP_400_BAD_REQUEST
-: either:
-: - <em>resultCb</em> is nil.
-: - <em>objectID</em> is <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
-<p>IOWA_COAP_404_NOT_FOUND
-: <em>clientID</em> does not match a known client.</p>
-<p>IOWA_COAP_413_REQUEST_ENTITY_TOO_LARGE
-: The Platform abstraction didn't send all the data. One possible assumption is the packet was too large for the transport.</p>
-<p>IOWA_COAP_500_INTERNAL_SERVER_ERROR
-: either:
-: - a memory allocation failed.
-: - <a href="../AbstractionLayer/#iowa_system_gettime"><code>iowa_system_gettime()</code></a> returned an error.</p>
-<p>IOWA_COAP_503_SERVICE_UNAVAILABLE
-: Communication with the LwM2M Client failed.</p>
-<p><strong> Header File </strong>
-iowa_server.h</p>
-<p><strong> Notes </strong>
-Per LwM2M specification, if the Discover was successful, the Client will return an <strong>IOWA_COAP_205_CONTENT</strong> status code.</p>
+<h4 -="-" id="description_12">Description<a class="headerlink" href="#description_12" title="Permanent link">&para;</a></h4>
+<p><code>iowa_server_dm_discover()</code> performs a Discover operation on a Client’s URI.</p>
+<h4 -="-" id="arguments_13">Arguments<a class="headerlink" href="#arguments_13" title="Permanent link">&para;</a></h4>
+<dl>
+<dt><em>contextP</em></dt>
+<dd>An [<code>iowa_context_t</code>][iowa_context_t] as returned by [<code>iowa_init()</code>][iowa_init]. Not checked at runtime.</dd>
+<dt><em>clientID</em></dt>
+<dd>The ID of the client as reported in the [<code>iowa_monitor_callback_t</code>][iowa_monitor_callback_t].</dd>
+<dt><em>objectID</em></dt>
+<dd>The ID of the Object.</dd>
+<dt><em>instanceID</em></dt>
+<dd>The ID of the instance to delete. This can be <strong>IOWA_LWM2M_ID_ALL</strong>.</dd>
+<dt><em>resourceID</em></dt>
+<dd>The ID of the resource to observe. This can be <strong>IOWA_LWM2M_ID_ALL</strong>.</dd>
+<dt><em>resultCb</em></dt>
+<dd>The callback called when the reply to this operation is known.</dd>
+<dt><em>resultUserData</em></dt>
+<dd>A pointer to application specific data. This is passed as argument to <em>resultCb</em>. This can be nil.</dd>
+</dl>
+<h4 -="-" id="return-value_13">Return Value<a class="headerlink" href="#return-value_13" title="Permanent link">&para;</a></h4>
+<dl>
+<dt>IOWA_COAP_NO_ERROR</dt>
+<dd>success.</dd>
+<dt>IOWA_COAP_400_BAD_REQUEST</dt>
+<dd>either:</dd>
+<dd>
+<ul>
+<li><em>resultCb</em> is nil.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li><em>objectID</em> is <strong>IOWA_LWM2M_ID_ALL</strong>.</li>
+</ul>
+</dd>
+<dt>IOWA_COAP_404_NOT_FOUND</dt>
+<dd><em>clientID</em> does not match a known client.</dd>
+<dt>IOWA_COAP_413_REQUEST_ENTITY_TOO_LARGE</dt>
+<dd>The Platform abstraction didn't send all the data. One possible assumption is the packet was too large for the transport.</dd>
+<dt>IOWA_COAP_500_INTERNAL_SERVER_ERROR</dt>
+<dd>either:</dd>
+<dd>
+<ul>
+<li>a memory allocation failed.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li>[<code>iowa_system_gettime()</code>][iowa_system_gettime] returned an error.</li>
+</ul>
+</dd>
+<dt>IOWA_COAP_503_SERVICE_UNAVAILABLE</dt>
+<dd>Communication with the LwM2M Client failed.</dd>
+</dl>
+<h4 -="-" id="header-file_12">Header File<a class="headerlink" href="#header-file_12" title="Permanent link">&para;</a></h4>
+<p>iowa_server.h</p>
+<h4 -="-" id="notes_10">Notes<a class="headerlink" href="#notes_10" title="Permanent link">&para;</a></h4>
+<p>Per LwM2M specification, if the Discover was successful, the Client will return an <strong>IOWA_COAP_205_CONTENT</strong> status code.</p>
 <p>Per LwM2M specification, a Server can do a Discover on an URI in the forms /<em>object</em>, /<em>object</em>/<em>instance</em> or /<em>object</em>/<em>instance</em>/<em>resource</em>.
 Thus if <em>instanceID</em> is set to <strong>IOWA_LWM2M_ID_ALL</strong>, <em>resourceID</em> must be set to <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
 <p>The <em>resultCb</em> will be called with the operation set to <strong>IOWA_DM_DISCOVER</strong>.</p>
+<p>\clearpage</p>
 <h3 id="iowa_server_set_response_format">iowa_server_set_response_format<a class="headerlink" href="#iowa_server_set_response_format" title="Permanent link">&para;</a></h3>
-<p><strong> Prototype </strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_set_response_format</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
+<h4 -="-" id="prototype_13">Prototype<a class="headerlink" href="#prototype_13" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_set_response_format</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
                                               <span class="kt">uint32_t</span> <span class="n">clientID</span><span class="p">,</span>
                                               <span class="n">iowa_content_format_t</span> <span class="n">multiResourcesFormat</span><span class="p">,</span>
                                               <span class="n">iowa_content_format_t</span> <span class="n">singleResourceFormat</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong>
-<code>iowa_server_set_response_format()</code> sets the content format to use when requesting data from a Client.</p>
-<p><strong> Arguments </strong>
-<em>contextP</em>
-: An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><em>clientID</em>
-: The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
-<p><em>multiResourcesFormat</em>
-: format to use when requesting several resources.</p>
-<p><em>singleResourceFormat</em>
-: format to use when requesting a single resource.</p>
-<p><strong> Return Value </strong>
-IOWA_COAP_NO_ERROR
-: success.</p>
-<p>IOWA_COAP_400_BAD_REQUEST
-: <em>multiResourcesFormat</em> is set to a content format which does not support multiple resources encoding.</p>
-<p>IOWA_COAP_404_NOT_FOUND
-: <em>clientID</em> does not match a known client.</p>
-<p><strong> Header File </strong>
-iowa_server.h</p>
-<p><strong> Notes </strong>
-By default, IOWA uses LwM2M TLV for all data encodings. If the flag <code>LWM2M_VERSION_1_0_REMOVE</code> is used, IOWA uses CBOR for single resource and SenML CBOR for multiples resources.</p>
+<h4 -="-" id="description_13">Description<a class="headerlink" href="#description_13" title="Permanent link">&para;</a></h4>
+<p><code>iowa_server_set_response_format()</code> sets the content format to use when requesting data from a Client.</p>
+<h4 -="-" id="arguments_14">Arguments<a class="headerlink" href="#arguments_14" title="Permanent link">&para;</a></h4>
+<dl>
+<dt><em>contextP</em></dt>
+<dd>An [<code>iowa_context_t</code>][iowa_context_t] as returned by [<code>iowa_init()</code>][iowa_init]. Not checked at runtime.</dd>
+<dt><em>clientID</em></dt>
+<dd>The ID of the client as reported in the [<code>iowa_monitor_callback_t</code>][iowa_monitor_callback_t].</dd>
+<dt><em>multiResourcesFormat</em></dt>
+<dd>format to use when requesting several resources.</dd>
+<dt><em>singleResourceFormat</em></dt>
+<dd>format to use when requesting a single resource.</dd>
+</dl>
+<h4 -="-" id="return-value_14">Return Value<a class="headerlink" href="#return-value_14" title="Permanent link">&para;</a></h4>
+<dl>
+<dt>IOWA_COAP_NO_ERROR</dt>
+<dd>success.</dd>
+<dt>IOWA_COAP_400_BAD_REQUEST</dt>
+<dd><em>multiResourcesFormat</em> is set to a content format which does not support multiple resources encoding.</dd>
+<dt>IOWA_COAP_404_NOT_FOUND</dt>
+<dd><em>clientID</em> does not match a known client.</dd>
+</dl>
+<h4 -="-" id="header-file_13">Header File<a class="headerlink" href="#header-file_13" title="Permanent link">&para;</a></h4>
+<p>iowa_server.h</p>
+<h4 -="-" id="notes_11">Notes<a class="headerlink" href="#notes_11" title="Permanent link">&para;</a></h4>
+<p>By default, IOWA uses LwM2M TLV for all data encodings. If the flag <code>LWM2M_VERSION_1_0_REMOVE</code> is used, IOWA uses CBOR for single resource and SenML CBOR for multiples resources.</p>
 <p>If the Client does not support the requested content format, it will switch to another one.</p>
+<p>\clearpage</p>
 <h3 id="iowa_server_set_payload_format">iowa_server_set_payload_format<a class="headerlink" href="#iowa_server_set_payload_format" title="Permanent link">&para;</a></h3>
-<p><strong> Prototype </strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_set_payload_format</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
+<h4 -="-" id="prototype_14">Prototype<a class="headerlink" href="#prototype_14" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_set_payload_format</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
                                              <span class="kt">uint32_t</span> <span class="n">clientID</span><span class="p">,</span>
                                              <span class="n">iowa_content_format_t</span> <span class="n">multiResourcesFormat</span><span class="p">,</span>
                                              <span class="n">iowa_content_format_t</span> <span class="n">singleResourceFormat</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong>
-<code>iowa_server_set_payload_format()</code> sets the content format to use when sending data to a Client.</p>
-<p><strong> Arguments </strong>
-<em>contextP</em>
-: An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><em>clientID</em>
-: The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
-<p><em>multiResourcesFormat</em>
-: format to use when sending several resources.</p>
-<p><em>singleResourceFormat</em>
-: format to use when sending a single resource.</p>
-<p><strong> Return Value </strong>
-IOWA_COAP_NO_ERROR
-: success.</p>
-<p>IOWA_COAP_400_BAD_REQUEST
-: <em>multiResourcesFormat</em> is set to a content format which does not support multiple resources encoding.</p>
-<p>IOWA_COAP_404_NOT_FOUND
-: <em>clientID</em> does not match a known client.</p>
-<p><strong> Header File </strong>
-iowa_server.h</p>
-<p><strong> Notes </strong>
-By default, IOWA uses LwM2M TLV for all data encodings. If the flag <code>LWM2M_VERSION_1_0_REMOVE</code> is used, IOWA uses CBOR for single resource and SenML CBOR for multiples resources.</p>
-<p>If the Client does not support the encoding format of the data provided, it will return a <strong>IOWA_COAP_415_UNSUPPORTED_CONTENT_FORMAT</strong> error code in the callback of the <a href="./#iowa_server_write"><code>iowa_server_write</code></a> call.</p>
+<h4 -="-" id="description_14">Description<a class="headerlink" href="#description_14" title="Permanent link">&para;</a></h4>
+<p><code>iowa_server_set_payload_format()</code> sets the content format to use when sending data to a Client.</p>
+<h4 -="-" id="arguments_15">Arguments<a class="headerlink" href="#arguments_15" title="Permanent link">&para;</a></h4>
+<dl>
+<dt><em>contextP</em></dt>
+<dd>An [<code>iowa_context_t</code>][iowa_context_t] as returned by [<code>iowa_init()</code>][iowa_init]. Not checked at runtime.</dd>
+<dt><em>clientID</em></dt>
+<dd>The ID of the client as reported in the [<code>iowa_monitor_callback_t</code>][iowa_monitor_callback_t].</dd>
+<dt><em>multiResourcesFormat</em></dt>
+<dd>format to use when sending several resources.</dd>
+<dt><em>singleResourceFormat</em></dt>
+<dd>format to use when sending a single resource.</dd>
+</dl>
+<h4 -="-" id="return-value_15">Return Value<a class="headerlink" href="#return-value_15" title="Permanent link">&para;</a></h4>
+<dl>
+<dt>IOWA_COAP_NO_ERROR</dt>
+<dd>success.</dd>
+<dt>IOWA_COAP_400_BAD_REQUEST</dt>
+<dd><em>multiResourcesFormat</em> is set to a content format which does not support multiple resources encoding.</dd>
+<dt>IOWA_COAP_404_NOT_FOUND</dt>
+<dd><em>clientID</em> does not match a known client.</dd>
+</dl>
+<h4 -="-" id="header-file_14">Header File<a class="headerlink" href="#header-file_14" title="Permanent link">&para;</a></h4>
+<p>iowa_server.h</p>
+<h4 -="-" id="notes_12">Notes<a class="headerlink" href="#notes_12" title="Permanent link">&para;</a></h4>
+<p>By default, IOWA uses LwM2M TLV for all data encodings. If the flag <code>LWM2M_VERSION_1_0_REMOVE</code> is used, IOWA uses CBOR for single resource and SenML CBOR for multiples resources.</p>
+<p>If the Client does not support the encoding format of the data provided, it will return a <strong>IOWA_COAP_415_UNSUPPORTED_CONTENT_FORMAT</strong> error code in the callback of the [<code>iowa_server_write</code>][iowa_server_write] call.</p>
+<p>\clearpage</p>
 <h3 id="iowa_server_create_registration_update_trigger_message">iowa_server_create_registration_update_trigger_message<a class="headerlink" href="#iowa_server_create_registration_update_trigger_message" title="Permanent link">&para;</a></h3>
-<p><strong> Prototype </strong></p>
-<div class="codehilite"><pre><span></span><code><span class="kt">size_t</span> <span class="nf">iowa_server_create_registration_update_trigger_message</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="n">serverInstanceId</span><span class="p">,</span>
+<h4 -="-" id="prototype_15">Prototype<a class="headerlink" href="#prototype_15" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kt">size_t</span> <span class="nf">iowa_server_create_registration_update_trigger_message</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="n">serverInstanceId</span><span class="p">,</span>
                                                               <span class="kt">uint8_t</span> <span class="o">**</span><span class="n">bufferP</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong>
-<code>iowa_server_create_registration_update_trigger_message()</code> creates a Registration Update Trigger message.</p>
+<h4 -="-" id="description_15">Description<a class="headerlink" href="#description_15" title="Permanent link">&para;</a></h4>
+<p><code>iowa_server_create_registration_update_trigger_message()</code> creates a Registration Update Trigger message.</p>
 <p>When receiving a Registration Update Trigger message, a LwM2M Client updates its registration to the targeted LwM2M Server. This mechanism is useful to "wake" up a LwM2M Client which is not longer reachable on the current transport.</p>
-<p><strong> Arguments </strong>
-<em>serverInstanceId</em>
-: The Instance ID of the targeted LwM2M Server in the LwM2M Client's [<code>Server Object</code>][Server Object].</p>
-<p><em>bufferP</em>
-: Used to store the Registration Update Trigger message.</p>
-<p><strong> Return Value </strong>
-The length of the buffer in bytes, or 0 in case of an error.</p>
-<p><strong> Header File </strong>
-iowa_server.h</p>
-<p><strong> Notes </strong>
-<em>bufferP</em> will be allocated by the <a href="./#iowa_server_create_registration_update_trigger_message"><code>iowa_server_create_registration_update_trigger_message()</code></a> function using <a href="../AbstractionLayer/#iowa_system_malloc"><code>iowa_system_malloc()</code></a>. It is the caller responsibility to free the buffer.</p>
+<h4 -="-" id="arguments_16">Arguments<a class="headerlink" href="#arguments_16" title="Permanent link">&para;</a></h4>
+<dl>
+<dt><em>serverInstanceId</em></dt>
+<dd>The Instance ID of the targeted LwM2M Server in the LwM2M Client's [<code>Server Object</code>][Server Object].</dd>
+<dt><em>bufferP</em></dt>
+<dd>Used to store the Registration Update Trigger message.</dd>
+</dl>
+<h4 -="-" id="return-value_16">Return Value<a class="headerlink" href="#return-value_16" title="Permanent link">&para;</a></h4>
+<p>The length of the buffer in bytes, or 0 in case of an error.</p>
+<h4 -="-" id="header-file_15">Header File<a class="headerlink" href="#header-file_15" title="Permanent link">&para;</a></h4>
+<p>iowa_server.h</p>
+<h4 -="-" id="notes_13">Notes<a class="headerlink" href="#notes_13" title="Permanent link">&para;</a></h4>
+<p><em>bufferP</em> will be allocated by the [<code>iowa_server_create_registration_update_trigger_message()</code>][iowa_server_create_registration_update_trigger_message] function using [<code>iowa_system_malloc()</code>][iowa_system_malloc]. It is the caller responsibility to free the buffer.</p>
 <p>It is the caller responsibility to send the Registration Update Trigger message to the LwM2M Client, typically using SMS.</p>
+<p>\clearpage</p>
 <h3 id="iowa_server_close_client_connection">iowa_server_close_client_connection<a class="headerlink" href="#iowa_server_close_client_connection" title="Permanent link">&para;</a></h3>
-<p><strong> Prototype </strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_close_client_connection</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
+<h4 -="-" id="prototype_16">Prototype<a class="headerlink" href="#prototype_16" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_close_client_connection</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
                                                   <span class="kt">uint32_t</span> <span class="n">clientId</span><span class="p">);</span>
 </code></pre></div>
 
-<p><strong> Description </strong>
-<code>iowa_server_close_client_connection()</code> closes the current connection with a Client.</p>
-<p><strong> Arguments </strong>
-<em>contextP</em>
-: An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</p>
-<p><em>clientId</em>
-: The ID of the client as reported in the <a href="./#iowa_monitor_callback_t"><code>iowa_monitor_callback_t</code></a>.</p>
-<p><strong> Return Value </strong>
-IOWA_COAP_NO_ERROR
-: success.</p>
-<p>IOWA_COAP_404_NOT_FOUND
-: <em>clientId</em> does not match a known client.</p>
-<p><strong> Notes </strong>
-Depending of the transport used and the connection encryption, the Client will be informed or not of the closing connection.</p>
+<h4 -="-" id="description_16">Description<a class="headerlink" href="#description_16" title="Permanent link">&para;</a></h4>
+<p><code>iowa_server_close_client_connection()</code> closes the current connection with a Client.</p>
+<h4 -="-" id="arguments_17">Arguments<a class="headerlink" href="#arguments_17" title="Permanent link">&para;</a></h4>
+<dl>
+<dt><em>contextP</em></dt>
+<dd>An [<code>iowa_context_t</code>][iowa_context_t] as returned by [<code>iowa_init()</code>][iowa_init]. Not checked at runtime.</dd>
+<dt><em>clientId</em></dt>
+<dd>The ID of the client as reported in the [<code>iowa_monitor_callback_t</code>][iowa_monitor_callback_t].</dd>
+</dl>
+<h4 -="-" id="return-value_17">Return Value<a class="headerlink" href="#return-value_17" title="Permanent link">&para;</a></h4>
+<dl>
+<dt>IOWA_COAP_NO_ERROR</dt>
+<dd>success.</dd>
+<dt>IOWA_COAP_404_NOT_FOUND</dt>
+<dd><em>clientId</em> does not match a known client.</dd>
+</dl>
+<h4 -="-" id="notes_14">Notes<a class="headerlink" href="#notes_14" title="Permanent link">&para;</a></h4>
+<p>Depending of the transport used and the connection encryption, the Client will be informed or not of the closing connection.</p>
 <p>Some examples:</p>
 <ul>
 <li>UDP / Not secure: Client is <strong>not</strong> informed</li>
@@ -1766,7 +3724,7 @@ Depending of the transport used and the connection encryption, the Client will b
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../ClientAPI/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../ClientAPI/" title="Client APIs" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -1781,7 +3739,7 @@ Depending of the transport used and the connection encryption, the Client will b
           </a>
         
         
-          <a href="../BootstrapServerAPI/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../BootstrapServerAPI/" title="Bootstrap Server APIs" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
@@ -1840,15 +3798,15 @@ Depending of the transport used and the connection encryption, the Client will b
       
     </div>
     
-      <script src="../assets/javascripts/vendor.fd16492e.min.js"></script>
-      <script src="../assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../assets/javascripts/vendor.df0def68.min.js"></script>
+      <script src="../assets/javascripts/bundle.ba57d267.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
       
       <script>
         app = initialize({
           base: "..",
           features: [],
           search: Object.assign({
-            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
+            worker: "../assets/javascripts/worker/search.fae956e7.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
