@@ -1331,9 +1331,9 @@
                 <h1 id="lwm2m-overview">LwM2M Overview<a class="headerlink" href="#lwm2m-overview" title="Permanent link">&para;</a></h1>
 <p>The Lightweight Machine To Machine designed by the Open Mobile Alliance is a device management protocol for the Internet of Things (IoT).</p>
 <h2 id="lwm2m-concepts">LwM2M Concepts<a class="headerlink" href="#lwm2m-concepts" title="Permanent link">&para;</a></h2>
-<h3 id="lwm2m-clientdevice">LwM2M Client/Device<a class="headerlink" href="#lwm2m-clientdevice" title="Permanent link">&para;</a></h3>
+<h3 id="lwm2m-clientdevice"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> LwM2M Client/Device<a class="headerlink" href="#lwm2m-clientdevice" title="Permanent link">&para;</a></h3>
 <p>The LwM2M Client/Device is the entity being managed by the LwM2M Server. The LwM2M Client presents resources for the LwM2M Server to manipulate.</p>
-<h3 id="lwm2m-server">LwM2M Server<a class="headerlink" href="#lwm2m-server" title="Permanent link">&para;</a></h3>
+<h3 id="lwm2m-server"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> LwM2M Server<a class="headerlink" href="#lwm2m-server" title="Permanent link">&para;</a></h3>
 <p>The LwM2M Server is the entity managing the LwM2M Devices. It can Read, Write, Execute, Create or Delete the Devices resources.</p>
 <p>The LwM2M Server URI can have one of the following formats:</p>
 <ul>
@@ -1349,9 +1349,9 @@
 <li><em>5683</em> for communication without security</li>
 <li><em>5684</em> for secure communication</li>
 </ul>
-<h3 id="lwm2m-bootstrap-server">LwM2M Bootstrap Server<a class="headerlink" href="#lwm2m-bootstrap-server" title="Permanent link">&para;</a></h3>
+<h3 id="lwm2m-bootstrap-server"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> LwM2M Bootstrap Server<a class="headerlink" href="#lwm2m-bootstrap-server" title="Permanent link">&para;</a></h3>
 <p>The LwM2M Bootstrap Server is a special [LwM2M Server][LwM2M Server]. It is the only Server allowed to provision or delete Server Accounts on the LwM2M Devices. It can Read (LwM2M 1.1), Write, Create and Delete the Devices resources.</p>
-<h3 id="lwm2m-resource">LwM2M Resource<a class="headerlink" href="#lwm2m-resource" title="Permanent link">&para;</a></h3>
+<h3 id="lwm2m-resource"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> LwM2M Resource<a class="headerlink" href="#lwm2m-resource" title="Permanent link">&para;</a></h3>
 <p>A LwM2M Resource is a data item presented by the LwM2M Device. A resource has a data type, a list of allowed operations and a unique URI.</p>
 <p>Data types are defined in Lightweight M2M as follows:</p>
 <ul>
@@ -1367,21 +1367,21 @@
 </ul>
 <p>A resource can also be an array of the mentioned data types.</p>
 <p>Operations on resources are Read, Write and Execute.</p>
-<h3 id="lwm2m-objects">LwM2M Objects<a class="headerlink" href="#lwm2m-objects" title="Permanent link">&para;</a></h3>
+<h3 id="lwm2m-objects"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> LwM2M Objects<a class="headerlink" href="#lwm2m-objects" title="Permanent link">&para;</a></h3>
 <p>The LwM2M Objects are a group of Device resources essential for some Device features such as firmware update, connectivity monitoring, physical sensor, etc. Standardized LwM2M Objects contain mandatory resources to support and optional resources to implement.</p>
 <p>A LwM2M Device can have several instances of the same LwM2M Object.</p>
 <p>All the Device resources are part of a LwM2M Object.</p>
-<h3 id="lwm2m-object-instance">LwM2M Object Instance<a class="headerlink" href="#lwm2m-object-instance" title="Permanent link">&para;</a></h3>
+<h3 id="lwm2m-object-instance"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> LwM2M Object Instance<a class="headerlink" href="#lwm2m-object-instance" title="Permanent link">&para;</a></h3>
 <p>Some LwM2M Objects are defined as multi-instance objects, meaning that a LwM2M Device can have several instances of the same LwM2M Object. These instances are identified by a numerical instance ID.</p>
 <p>When a LwM2M Object is defined as a single-instance, the instance ID is always 0.</p>
-<h3 id="lwm2m-uri">LwM2M URI<a class="headerlink" href="#lwm2m-uri" title="Permanent link">&para;</a></h3>
+<h3 id="lwm2m-uri"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> LwM2M URI<a class="headerlink" href="#lwm2m-uri" title="Permanent link">&para;</a></h3>
 <p>Resources and Objects have well-known IDs. The URI to a LwM2M resource is in the form: Object_ID ["/" Object_Instance_ID ["/" Resource_ID ["/" Resource_Instance_ID]]]</p>
 <p>An URI can address an object, an object instance, a resource or a resource instance (i.e. an element when the resource is an array).</p>
-<h3 id="server-account">Server Account<a class="headerlink" href="#server-account" title="Permanent link">&para;</a></h3>
+<h3 id="server-account"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Server Account<a class="headerlink" href="#server-account" title="Permanent link">&para;</a></h3>
 <p>A Server Account is a set of data enabling a LwM2M Device to connect to a LwM2M Server. It includes the Server URI and the Security Keys to use.</p>
-<h3 id="bootstrap">Bootstrap<a class="headerlink" href="#bootstrap" title="Permanent link">&para;</a></h3>
+<h3 id="bootstrap"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Bootstrap<a class="headerlink" href="#bootstrap" title="Permanent link">&para;</a></h3>
 <p>A Bootstrap is the process by which the Device retrieves the Server Accounts. The information can come from factory settings, a SmartCard, or a LwM2M Bootstrap Server.</p>
-<h3 id="registration">Registration<a class="headerlink" href="#registration" title="Permanent link">&para;</a></h3>
+<h3 id="registration"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Registration<a class="headerlink" href="#registration" title="Permanent link">&para;</a></h3>
 <p>A LwM2M Server can only manage Devices registered with it.</p>
 <p>When registering with the Bootstrap Server, the Device communicates only its unique ID.</p>
 <p>When registering with the LwM2M Server, the Device can communicate:</p>
@@ -1392,17 +1392,17 @@
 <li>its MSISDN,</li>
 <li>whether the Device requires Queue Mode or not.</li>
 </ul>
-<h3 id="observation">Observation<a class="headerlink" href="#observation" title="Permanent link">&para;</a></h3>
+<h3 id="observation"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Observation<a class="headerlink" href="#observation" title="Permanent link">&para;</a></h3>
 <p>The LwM2M Server can subscribe to one or several readable Device resources. When the value of the resource changes, the Device sends a Notification message to the Server containing the new value of the resource.</p>
-<h3 id="lifetime">Lifetime<a class="headerlink" href="#lifetime" title="Permanent link">&para;</a></h3>
+<h3 id="lifetime"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Lifetime<a class="headerlink" href="#lifetime" title="Permanent link">&para;</a></h3>
 <p>The Lifetime is the validity period of a LwM2M Device registration to the LwM2M Server. When this lifetime expires, the Server should no longer try to manage the Device.</p>
 <p>The Device sends Registration Update messages to the Server to renew its registration validity period.</p>
-<h3 id="queue-mode">Queue Mode<a class="headerlink" href="#queue-mode" title="Permanent link">&para;</a></h3>
+<h3 id="queue-mode"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Queue Mode<a class="headerlink" href="#queue-mode" title="Permanent link">&para;</a></h3>
 <p>Devices may go in stand-by mode and thus not be reachable by the LwM2M Servers at any time. To cope with this, the Device requests the Server to operate in Queue Mode. In this mode, the Device will initiate the communication with the Server (when sending a Notification or a Registration Update message). In the meantime, the Server is expected to queue its requests (hence the name).</p>
-<h3 id="sms-trigger">SMS Trigger<a class="headerlink" href="#sms-trigger" title="Permanent link">&para;</a></h3>
+<h3 id="sms-trigger"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> SMS Trigger<a class="headerlink" href="#sms-trigger" title="Permanent link">&para;</a></h3>
 <p>A SMS Trigger is a special SMS sent to the Device. Upon reception of this SMS, the Device will either register to the Server or send a Registration Update message.</p>
 <h2 id="lwm2m-operations-overview">LwM2M Operations Overview<a class="headerlink" href="#lwm2m-operations-overview" title="Permanent link">&para;</a></h2>
-<h3 id="bootstrap_1">Bootstrap<a class="headerlink" href="#bootstrap_1" title="Permanent link">&para;</a></h3>
+<h3 id="bootstrap_1"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Bootstrap<a class="headerlink" href="#bootstrap_1" title="Permanent link">&para;</a></h3>
 <p>When an endpoint is registered to a LwM2M Bootstrap Server, it can be managed by performing LwM2M operations on the endpoint's resources. The LwM2M operations are:</p>
 <ul>
 <li>Bootstrap Finish,</li>
@@ -1424,7 +1424,7 @@
 <p>A <strong>Bootstrap Delete</strong> operation can target the root path, a LwM2M Object or a LwM2M Instance Object.</p>
 <h4 id="bootstrap-discover">Bootstrap Discover<a class="headerlink" href="#bootstrap-discover" title="Permanent link">&para;</a></h4>
 <p>A <strong>Bootstrap Discover</strong> operation can target the root path or a LwM2M Object. The endpoint returns only the list of Objects and Object Instances with some attributes: LwM2M Enabler version ("lwm2m="), Short Server ID ("ssid="), and LwM2M Server URI ("uri=").</p>
-<h3 id="registration_1">Registration<a class="headerlink" href="#registration_1" title="Permanent link">&para;</a></h3>
+<h3 id="registration_1"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Registration<a class="headerlink" href="#registration_1" title="Permanent link">&para;</a></h3>
 <h4 id="initial-registration">Initial Registration<a class="headerlink" href="#initial-registration" title="Permanent link">&para;</a></h4>
 <p>The first action of LwM2M Client is to register to the LwM2M Server. The registration message contains an endpoint’s unique ID and information about its capabilities (in the form of LwM2M Objects). The registration message also contains a <em>lifetime</em> parameter. When this <em>lifetime</em> expires, the LwM2M Server cancels the LwM2M Client registration.</p>
 <p>The LwM2M Server replies with a "location". This location is a handle to the registration. The endpoint uses this handle to update or cancel its registration.</p>
@@ -1433,7 +1433,7 @@
 <p>Upon reception of this message, the LwM2M Server resets its internal <em>lifetime</em> timer.</p>
 <h4 id="de-registration">De-registration<a class="headerlink" href="#de-registration" title="Permanent link">&para;</a></h4>
 <p>To cancel its registration, the LwM2M Client sends a De-registration message. The LwM2M Server may also automatically cancel an endpoint's registration if the registration <em>lifetime</em> expires.</p>
-<h3 id="device-management-and-service-enablement">Device Management and Service Enablement<a class="headerlink" href="#device-management-and-service-enablement" title="Permanent link">&para;</a></h3>
+<h3 id="device-management-and-service-enablement"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Device Management and Service Enablement<a class="headerlink" href="#device-management-and-service-enablement" title="Permanent link">&para;</a></h3>
 <p>When an endpoint is registered to a LwM2M Server, it can be managed by performing LwM2M operations on the endpoint's resources. The LwM2M operations are:</p>
 <ul>
 <li>Read,</li>
@@ -1463,7 +1463,7 @@
 <p>In LwM2M 1.1 or in later version, a <strong>Read composite</strong> operation can selectively Read a number of Resources, and/or Resource Instances of different Objects in a single request. The endpoint returns data encoded in either SenML CBOR or SenML JSON.</p>
 <h4 id="write-composite">Write composite<a class="headerlink" href="#write-composite" title="Permanent link">&para;</a></h4>
 <p>In LwM2M 1.1 or in later version, a <strong>Write composite</strong> operation can update values of a number of different Resources across different Instances of one or more Objects in a single request. It contains data encoded in either SenML CBOR or SenML JSON.</p>
-<h3 id="information-reporting">Information Reporting<a class="headerlink" href="#information-reporting" title="Permanent link">&para;</a></h3>
+<h3 id="information-reporting"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Information Reporting<a class="headerlink" href="#information-reporting" title="Permanent link">&para;</a></h3>
 <p>When a LwM2M Client is registered to a LwM2M Server, its resources can be observed. Whenever the value of the resource changes, the LwM2M Client sends a notification to the LwM2M Server. Moreover in LwM2M 1.1, the Client can send data to the LwM2M Server without initial solicitation. The LwM2M operations are:</p>
 <ul>
 <li>Observation,</li>
@@ -1560,7 +1560,7 @@
 <h2 id="standardized-lwm2m-objects">Standardized LwM2M Objects<a class="headerlink" href="#standardized-lwm2m-objects" title="Permanent link">&para;</a></h2>
 <p>The list of publics LwM2M Objects is available at the OMNA Registry:
 <a href="http://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html">http://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html</a></p>
-<h3 id="security-object">Security Object<a class="headerlink" href="#security-object" title="Permanent link">&para;</a></h3>
+<h3 id="security-object"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Security Object<a class="headerlink" href="#security-object" title="Permanent link">&para;</a></h3>
 <p><a href="https://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http://www.openmobilealliance.org/tech/profiles/LWM2M_Security-v1_1.xml">LwM2M Registry for Object 0</a></p>
 <p>This object provides the keying material of a LwM2M Client appropriate to access a specified LwM2M Server. One Object Instance should address a LwM2M Bootstrap-Server.</p>
 <table>
@@ -1721,7 +1721,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="server-object">Server Object<a class="headerlink" href="#server-object" title="Permanent link">&para;</a></h3>
+<h3 id="server-object"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Server Object<a class="headerlink" href="#server-object" title="Permanent link">&para;</a></h3>
 <p><a href="https://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http://www.openmobilealliance.org/tech/profiles/LWM2M_Server-v1_1.xml">LwM2M Registry for Object 1</a></p>
 <p>This object provides the data related to a LwM2M Server. A Bootstrap-Server has no such an Object Instance associated to it.</p>
 <table>
@@ -1930,7 +1930,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="access-control-list-object">Access Control List Object<a class="headerlink" href="#access-control-list-object" title="Permanent link">&para;</a></h3>
+<h3 id="access-control-list-object"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Access Control List Object<a class="headerlink" href="#access-control-list-object" title="Permanent link">&para;</a></h3>
 <p><a href="http://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_Access_Control-v1_0_2.xml">LwM2M Registry for Object 2</a></p>
 <p>This object is used to check whether the LwM2M Server has access right for performing an operation.</p>
 <table>
@@ -1979,7 +1979,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="device-object">Device Object<a class="headerlink" href="#device-object" title="Permanent link">&para;</a></h3>
+<h3 id="device-object"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Device Object<a class="headerlink" href="#device-object" title="Permanent link">&para;</a></h3>
 <p><a href="http://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_Device-v1_1.xml">LwM2M Registry for Object 3</a></p>
 <p>This object contains the device information: model, manufacturer, serial number, power source type, battery level, etc... It also contains a resource allowing the Server to reboot the Device.</p>
 <table>
@@ -2180,7 +2180,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="connectivity-monitoring-object">Connectivity Monitoring Object<a class="headerlink" href="#connectivity-monitoring-object" title="Permanent link">&para;</a></h3>
+<h3 id="connectivity-monitoring-object"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Connectivity Monitoring Object<a class="headerlink" href="#connectivity-monitoring-object" title="Permanent link">&para;</a></h3>
 <p><a href="http://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_Connectivity_Monitoring-v1_2.xml">LwM2M Registry for Object 4</a></p>
 <p>This object provides high-level information on the current network type, signal strength, IP address, etc…</p>
 <table>
@@ -2301,7 +2301,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="firmware-update-object">Firmware Update Object<a class="headerlink" href="#firmware-update-object" title="Permanent link">&para;</a></h3>
+<h3 id="firmware-update-object"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Firmware Update Object<a class="headerlink" href="#firmware-update-object" title="Permanent link">&para;</a></h3>
 <p><a href="http://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_Firmware_Update-v1_0_1.xml">LwM2M Registry for Object 5</a></p>
 <p>This object allows to update the firmware of the device. The firmware package can either be pushed by the Server to the Device or the Device can download it using the provided URI.</p>
 <table>
@@ -2390,7 +2390,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="location-object">Location Object<a class="headerlink" href="#location-object" title="Permanent link">&para;</a></h3>
+<h3 id="location-object"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Location Object<a class="headerlink" href="#location-object" title="Permanent link">&para;</a></h3>
 <p><a href="http://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_Location-v1_0.xml">LwM2M Registry for Object 6</a></p>
 <p>This object contains information on the device position and speed.</p>
 <table>
@@ -2463,7 +2463,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="connectivity-statistics-object">Connectivity Statistics Object<a class="headerlink" href="#connectivity-statistics-object" title="Permanent link">&para;</a></h3>
+<h3 id="connectivity-statistics-object"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Connectivity Statistics Object<a class="headerlink" href="#connectivity-statistics-object" title="Permanent link">&para;</a></h3>
 <p><a href="http://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_Connectivity_Statistics-v1_0_1.xml">LwM2M Registry for Object 7</a></p>
 <p>This object collects statistics on the network usage.</p>
 <table>
@@ -2552,7 +2552,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="software-management-object">Software Management Object<a class="headerlink" href="#software-management-object" title="Permanent link">&para;</a></h3>
+<h3 id="software-management-object"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Software Management Object<a class="headerlink" href="#software-management-object" title="Permanent link">&para;</a></h3>
 <p><a href="http://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_Software_Management-v1_0.xml">LwM2M Registry for Object 9</a></p>
 <p>This object allows to update the software of the device. The software package can either be pushed by the Server to the Device or the Device can download it using the provided URI.</p>
 <table>
@@ -2697,7 +2697,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="cellular-connectivity-object">Cellular Connectivity Object<a class="headerlink" href="#cellular-connectivity-object" title="Permanent link">&para;</a></h3>
+<h3 id="cellular-connectivity-object"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Cellular Connectivity Object<a class="headerlink" href="#cellular-connectivity-object" title="Permanent link">&para;</a></h3>
 <p><a href="http://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_Cellular_connectivity-v1_0.xml">LwM2M Registry for Object 10</a></p>
 <p>This object is used to configure the cellular connectivity of the Device.</p>
 <table>
@@ -2810,7 +2810,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="apn-connection-profile-object">APN Connection Profile Object<a class="headerlink" href="#apn-connection-profile-object" title="Permanent link">&para;</a></h3>
+<h3 id="apn-connection-profile-object"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> APN Connection Profile Object<a class="headerlink" href="#apn-connection-profile-object" title="Permanent link">&para;</a></h3>
 <p><a href="http://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_APN_connection_profile-v1_0.xml">LwM2M Registry for Object 11</a></p>
 <p>This object specifies resources to enable a device to connect to an APN.</p>
 <table>
@@ -3035,7 +3035,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="bearer-selection-object">Bearer selection Object<a class="headerlink" href="#bearer-selection-object" title="Permanent link">&para;</a></h3>
+<h3 id="bearer-selection-object"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Bearer selection Object<a class="headerlink" href="#bearer-selection-object" title="Permanent link">&para;</a></h3>
 <p><a href="http://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_Bearer_selection-v1_0.xml">LwM2M Registry for Object 13</a></p>
 <p>This object specifies resources to enable a device to choose a PLMN/network on which to attach/register and what type of bearer to then connect.</p>
 <table>
@@ -3156,7 +3156,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="software-component-object">Software Component Object<a class="headerlink" href="#software-component-object" title="Permanent link">&para;</a></h3>
+<h3 id="software-component-object"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> Software Component Object<a class="headerlink" href="#software-component-object" title="Permanent link">&para;</a></h3>
 <p><a href="https://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=https%3a%2f%2fwww.openmobilealliance.org%2ftech%2fprofiles%2fLWM2M_Software_Component-v1_0.xml">LwM2M Registry for Object 14</a></p>
 <p>This object provides the resources needed to activate/deactivate software components on the device.</p>
 <table>
@@ -3221,7 +3221,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="lwm2m-oscore">LwM2M OSCORE<a class="headerlink" href="#lwm2m-oscore" title="Permanent link">&para;</a></h3>
+<h3 id="lwm2m-oscore"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> LwM2M OSCORE<a class="headerlink" href="#lwm2m-oscore" title="Permanent link">&para;</a></h3>
 <p><a href="https://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_OSCORE-v1_0_1.xml">LwM2M Registry for Object 21</a></p>
 <p>This object provides the resources needed to activate/deactivate software components on the device.</p>
 <table>

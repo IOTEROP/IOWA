@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://ioterop.github.io/IOWA/</loc>
-     <lastmod>2020-11-30</lastmod>
+     <lastmod>2020-12-01</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ioterop.github.io/IOWA/License/</loc>
-     <lastmod>2020-11-30</lastmod>
+     <lastmod>2020-12-01</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ioterop.github.io/IOWA/LwM2MOverview/</loc>
-     <lastmod>2020-11-30</lastmod>
+     <lastmod>2020-12-01</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ioterop.github.io/IOWA/EvaluationKit/</loc>
-     <lastmod>2020-11-30</lastmod>
+     <lastmod>2020-12-01</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ioterop.github.io/IOWA/AbstractionLayer/</loc>
-     <lastmod>2020-11-30</lastmod>
+     <lastmod>2020-12-01</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ioterop.github.io/IOWA/CommonAPI/</loc>
-     <lastmod>2020-11-30</lastmod>
+     <lastmod>2020-12-01</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ioterop.github.io/IOWA/ClientAPI/</loc>
-     <lastmod>2020-11-30</lastmod>
+     <lastmod>2020-12-01</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ioterop.github.io/IOWA/ServerAPI/</loc>
-     <lastmod>2020-11-30</lastmod>
+     <lastmod>2020-12-01</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ioterop.github.io/IOWA/BootstrapServerAPI/</loc>
-     <lastmod>2020-11-30</lastmod>
+     <lastmod>2020-12-01</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ioterop.github.io/IOWA/UtilsAPI/</loc>
-     <lastmod>2020-11-30</lastmod>
+     <lastmod>2020-12-01</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ioterop.github.io/IOWA/DeprecatedAPI/</loc>
-     <lastmod>2020-11-30</lastmod>
+     <lastmod>2020-12-01</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://ioterop.github.io/IOWA/OpenSourceLicenses/</loc>
-     <lastmod>2020-11-30</lastmod>
+     <lastmod>2020-12-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>

@@ -541,47 +541,6 @@
     iowa_server_configuration_set
   </a>
   
-    <nav class="md-nav" aria-label="iowa_server_configuration_set">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#prototype" class="md-nav__link">
-    Prototype
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#description" class="md-nav__link">
-    Description
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#arguments" class="md-nav__link">
-    Arguments
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#return-value" class="md-nav__link">
-    Return Value
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#header-file" class="md-nav__link">
-    Header File
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
       </ul>
@@ -832,47 +791,6 @@
     iowa_server_configuration_set
   </a>
   
-    <nav class="md-nav" aria-label="iowa_server_configuration_set">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#prototype" class="md-nav__link">
-    Prototype
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#description" class="md-nav__link">
-    Description
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#arguments" class="md-nav__link">
-    Arguments
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#return-value" class="md-nav__link">
-    Return Value
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#header-file" class="md-nav__link">
-    Header File
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
       </ul>
@@ -904,34 +822,34 @@
 <p>Deprecated APIs are no longer supported which means that regression bugs will not be fixed. These APIs should not be used anymore. You are strongly advised to use their replacement.</p>
 <p>Note that deprecated API can be removed in a future IOWA release.</p>
 <h2 id="deprecated-compilation-flags">Deprecated Compilation Flags<a class="headerlink" href="#deprecated-compilation-flags" title="Permanent link">&para;</a></h2>
-<h3 id="iowa_single_connection_mode">IOWA_SINGLE_CONNECTION_MODE<a class="headerlink" href="#iowa_single_connection_mode" title="Permanent link">&para;</a></h3>
+<h3 id="iowa_single_connection_mode"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> IOWA_SINGLE_CONNECTION_MODE<a class="headerlink" href="#iowa_single_connection_mode" title="Permanent link">&para;</a></h3>
 <p>Support only one connection at a time. Useful for constrained devices in a single LwM2M Server environment.</p>
 <h4 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h4>
 <p>This define has no more effect when set.</p>
-<h3 id="lwm2m_single_server_mode">LWM2M_SINGLE_SERVER_MODE<a class="headerlink" href="#lwm2m_single_server_mode" title="Permanent link">&para;</a></h3>
+<h3 id="lwm2m_single_server_mode"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> LWM2M_SINGLE_SERVER_MODE<a class="headerlink" href="#lwm2m_single_server_mode" title="Permanent link">&para;</a></h3>
 <p>This is only relevant when IOWA is in Client mode. When set, the Client supports only one Server configuration at a time. Useful for constrained devices in a single LwM2M Server environment.</p>
 <p>This define cannot be set when [<code>LWM2M_BOOTSTRAP</code>][LWM2M_BOOTSTRAP] is already set.</p>
 <h4 id="notes_1">Notes<a class="headerlink" href="#notes_1" title="Permanent link">&para;</a></h4>
 <p>This define has no more effect when set.</p>
-<h3 id="lwm2m_old_content_format_support">LWM2M_OLD_CONTENT_FORMAT_SUPPORT<a class="headerlink" href="#lwm2m_old_content_format_support" title="Permanent link">&para;</a></h3>
+<h3 id="lwm2m_old_content_format_support"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> LWM2M_OLD_CONTENT_FORMAT_SUPPORT<a class="headerlink" href="#lwm2m_old_content_format_support" title="Permanent link">&para;</a></h3>
 <p>During the development of the Lightweight M2M protocol, some LwM2M products were released. These products were using temporary numbers for the content format of the LwM2M payload. Setting this flag allows IOWA to interact with these old implementations. It should be seldom required.</p>
 <h4 id="notes_2">Notes<a class="headerlink" href="#notes_2" title="Permanent link">&para;</a></h4>
 <p>This define has no more effect when set. By default, the old content formats code are always supported.</p>
-<h3 id="iowa_lorawan_minimal_support">IOWA_LORAWAN_MINIMAL_SUPPORT<a class="headerlink" href="#iowa_lorawan_minimal_support" title="Permanent link">&para;</a></h3>
+<h3 id="iowa_lorawan_minimal_support"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> IOWA_LORAWAN_MINIMAL_SUPPORT<a class="headerlink" href="#iowa_lorawan_minimal_support" title="Permanent link">&para;</a></h3>
 <p>Minimal support for LoRaWAN transport. URI scheme is in the form "lorawan://". The Endpoint will not be able to send its Objects list in the Registration message and Registration Update message if needs. This define should only be considered if the code size of IOWA is a concern.</p>
 <h4 id="notes_3">Notes<a class="headerlink" href="#notes_3" title="Permanent link">&para;</a></h4>
 <p>This define has no more effect when set.</p>
-<h3 id="lwm2m_notification_queue_size">LWM2M_NOTIFICATION_QUEUE_SIZE<a class="headerlink" href="#lwm2m_notification_queue_size" title="Permanent link">&para;</a></h3>
+<h3 id="lwm2m_notification_queue_size"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> LWM2M_NOTIFICATION_QUEUE_SIZE<a class="headerlink" href="#lwm2m_notification_queue_size" title="Permanent link">&para;</a></h3>
 <p>This is only relevant when IOWA is in Client mode. When set, this define sets the maximum stored notification values when the notification are not able to reach the Server. The values are saved in RAM by IOWA internally inside a First In First Out Queue. The maximum values stored is per observation.</p>
 <p>By default, when the define is not set, the value is 4.</p>
 <h4 id="notes_4">Notes<a class="headerlink" href="#notes_4" title="Permanent link">&para;</a></h4>
 <p>This define has no more effect when set.</p>
-<h3 id="lwm2m_storage_queue_peek_support">LWM2M_STORAGE_QUEUE_PEEK_SUPPORT<a class="headerlink" href="#lwm2m_storage_queue_peek_support" title="Permanent link">&para;</a></h3>
+<h3 id="lwm2m_storage_queue_peek_support"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> LWM2M_STORAGE_QUEUE_PEEK_SUPPORT<a class="headerlink" href="#lwm2m_storage_queue_peek_support" title="Permanent link">&para;</a></h3>
 <p>When a LwM2M Server observing some resources is not reachable, the LwM2M Client stores the notifications until the connectivity is restored. By default, IOWA stores the last notifications in memory. When this flag is set, IOWA discharges the storage of these notifications to the platform. New version using a peek/remove mechanism instead of a dequeue mechanism.</p>
-<p>This feature requires the system abstraction functions [<code>iowa_system_queue_create()</code>][iowa_system_queue_create], [<code>iowa_system_queue_enqueue()</code>][iowa_system_queue_enqueue], [<code>iowa_system_queue_peek()</code>][iowa_system_queue_peek], [<code>iowa_system_queue_remove()</code>][iowa_system_queue_remove], and [<code>iowa_system_queue_delete()</code>][iowa_system_queue_delete] to be implemented.</p>
+<p>This feature requires the system abstraction functions <a href="../AbstractionLayer/#iowa_system_queue_create"><code>iowa_system_queue_create()</code></a>, <a href="../AbstractionLayer/#iowa_system_queue_enqueue"><code>iowa_system_queue_enqueue()</code></a>, <a href="../AbstractionLayer/#iowa_system_queue_peek"><code>iowa_system_queue_peek()</code></a>, <a href="../AbstractionLayer/#iowa_system_queue_remove"><code>iowa_system_queue_remove()</code></a>, and <a href="../AbstractionLayer/#iowa_system_queue_delete"><code>iowa_system_queue_delete()</code></a> to be implemented.</p>
 <h4 id="notes_5">Notes<a class="headerlink" href="#notes_5" title="Permanent link">&para;</a></h4>
 <p>This define will be later replaced by <strong>LWM2M_STORAGE_QUEUE_SUPPORT</strong>. It means the Storage Queue with Peek behavior will be the default.</p>
-<h3 id="lwm2m-features-removal">LwM2M features removal<a class="headerlink" href="#lwm2m-features-removal" title="Permanent link">&para;</a></h3>
+<h3 id="lwm2m-features-removal"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> LwM2M features removal<a class="headerlink" href="#lwm2m-features-removal" title="Permanent link">&para;</a></h3>
 <p>LwM2M mandatory features can be removed depending of the use case. Removing a feature should only be done to reduce the code size of IOWA on constrained devices, and should not be considered for other case:</p>
 <dl>
 <dt><strong>LWM2M_READ_OPERATION_REMOVE</strong></dt>
@@ -960,44 +878,44 @@
 <h2 id="deprecated-enumeration-values">Deprecated Enumeration Values<a class="headerlink" href="#deprecated-enumeration-values" title="Permanent link">&para;</a></h2>
 <p>Deprecated enumeration values are no longer supported which means that regression bugs will not be fixed. These enumeration values should not be used anymore. You are strongly advised to use their replacement.</p>
 <p>Note that deprecated Enumeration can be removed in a future IOWA release.</p>
-<h3 id="iowa_ipso_level_control">IOWA_IPSO_LEVEL_CONTROL<a class="headerlink" href="#iowa_ipso_level_control" title="Permanent link">&para;</a></h3>
+<h3 id="iowa_ipso_level_control"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> IOWA_IPSO_LEVEL_CONTROL<a class="headerlink" href="#iowa_ipso_level_control" title="Permanent link">&para;</a></h3>
 <p>An [<code>iowa_IPSO_ID_t</code>][iowa_IPSO_ID_t] enumeration value, used to define percentage sensors.</p>
 <h4 id="notes_7">Notes<a class="headerlink" href="#notes_7" title="Permanent link">&para;</a></h4>
 <p>The Dimmer API is now responsible of adding, removing and updating percentage sensors, by using the following functions:</p>
 <dl>
-<dt>[<code>iowa_client_add_dimmer_object()</code>][iowa_client_add_dimmer_object]</dt>
+<dt><a href="../ClientAPI/#iowa_client_add_dimmer_object"><code>iowa_client_add_dimmer_object()</code></a></dt>
 <dd>to add a new dimmer sensor.</dd>
-<dt>[<code>iowa_client_remove_dimmer_object()</code>][iowa_client_remove_dimmer_object]</dt>
+<dt><a href="../ClientAPI/#iowa_client_remove_dimmer_object"><code>iowa_client_remove_dimmer_object()</code></a></dt>
 <dd>to remove a dimmer sensor.</dd>
-<dt>[<code>iowa_client_dimmer_update_value()</code>][iowa_client_dimmer_update_value]</dt>
+<dt><a href="../ClientAPI/#iowa_client_dimmer_update_value"><code>iowa_client_dimmer_update_value()</code></a></dt>
 <dd>to update the dimmer's level value.</dd>
-<dt>[<code>iowa_client_dimmer_update_values()</code>][iowa_client_dimmer_update_value]</dt>
+<dt><a href="../ClientAPI/#iowa_client_dimmer_update_value"><code>iowa_client_dimmer_update_values()</code></a></dt>
 <dd>to update the dimmer's multiple level values, .</dd>
 </dl>
 <h2 id="deprecated-api">Deprecated API<a class="headerlink" href="#deprecated-api" title="Permanent link">&para;</a></h2>
-<h3 id="iowa_server_configuration_set">iowa_server_configuration_set<a class="headerlink" href="#iowa_server_configuration_set" title="Permanent link">&para;</a></h3>
-<p>This API has been replaced by [<code>iowa_client_set_server_configuration()</code>][iowa_client_set_server_configuration].</p>
-<h4 -="-" id="prototype">Prototype<a class="headerlink" href="#prototype" title="Permanent link">&para;</a></h4>
+<h3 id="iowa_server_configuration_set"><img alt="💧" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f4a7.svg" title=":droplet:" /> iowa_server_configuration_set<a class="headerlink" href="#iowa_server_configuration_set" title="Permanent link">&para;</a></h3>
+<p>This API has been replaced by <a href="../ClientAPI/#iowa_client_set_server_configuration"><code>iowa_client_set_server_configuration()</code></a>.</p>
+<p><strong>Prototype</strong></p>
 <div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span> <span class="nf">iowa_server_configuration_set</span><span class="p">(</span><span class="n">iowa_context_t</span> <span class="n">contextP</span><span class="p">,</span>
                                             <span class="kt">uint16_t</span> <span class="n">shortId</span><span class="p">,</span>
                                             <span class="n">iowa_server_setting_id_t</span> <span class="n">settingId</span><span class="p">,</span>
                                             <span class="kt">void</span> <span class="o">*</span><span class="n">argP</span><span class="p">);</span>
 </code></pre></div>
 
-<h4 -="-" id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h4>
+<p><strong>Description</strong></p>
 <p><code>iowa_server_configuration_set()</code> configures the settings of a LwM2M Server.</p>
-<h4 -="-" id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h4>
+<p><strong>Arguments</strong></p>
 <dl>
 <dt><em>contextP</em></dt>
-<dd>An [<code>iowa_context_t</code>][iowa_context_t] as returned by [<code>iowa_init()</code>][iowa_init]. Not checked at runtime.</dd>
+<dd>An <a href="../CommonAPI/#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="../CommonAPI/#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</dd>
 <dt><em>shortId</em></dt>
 <dd>The short ID of a LwM2M Server.</dd>
 <dt><em>settingId</em></dt>
-<dd>The setting to set. See [<code>iowa_server_setting_id_t</code>][iowa_server_setting_id_t].</dd>
+<dd>The setting to set. See <a href="../ClientAPI/#iowa_server_setting_id_t"><code>iowa_server_setting_id_t</code></a>.</dd>
 <dt><em>argP</em></dt>
 <dd>A pointer to the setting value. Dependent on <em>settingId</em>.</dd>
 </dl>
-<h4 -="-" id="return-value">Return Value<a class="headerlink" href="#return-value" title="Permanent link">&para;</a></h4>
+<p><strong>Return Value</strong></p>
 <dl>
 <dt>IOWA_COAP_NO_ERROR</dt>
 <dd>success.</dd>
@@ -1010,7 +928,7 @@
 <dt>IOWA_COAP_501_NOT_IMPLEMENTED</dt>
 <dd>invalid <em>settingId</em> value.</dd>
 </dl>
-<h4 -="-" id="header-file">Header File<a class="headerlink" href="#header-file" title="Permanent link">&para;</a></h4>
+<p><strong>Header File</strong></p>
 <p>iowa_client.h</p>
                 
               
