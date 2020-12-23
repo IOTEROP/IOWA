@@ -6,7 +6,7 @@
 
 This repository contains a public version of [IOWA LwM2M stack](https://ioterop.com/iowa/), illustrating how to use the LwM2M library.
 
-![IOWA Docs](.images/documentation.png) **Documentation** could be found here: [https://ioterop.github.io/IOWA/](https://ioterop.github.io/IOWA/)
+[![IOWA Docs](.images/documentation.png)](https://ioterop.github.io/IOWA/) **Documentation** could be found here: [https://ioterop.github.io/IOWA/](https://ioterop.github.io/IOWA/)
 
 _This code is provided *as-is*, under the associated licence (./LICENSE.txt).
 (This code should not be used in a commercial product and is for personal evaluation ONLY)_
