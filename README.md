@@ -73,7 +73,7 @@ All the samples can be built/run on Windows and Linux. Other platforms and OS (F
 
 ## Tutorials
 
-You can find some interesting tutorials on [Hackster.io](https://www.hackster.io/)
+You can find some interesting tutorials on [Hackster.io](https://www.hackster.io/):
 
 - [Device management with LwM2M IOWA stack - Tutorial 1](https://www.hackster.io/ioterop/device-management-with-lwm2m-iowa-stack-tutorial-1-e5aaf8)
 
