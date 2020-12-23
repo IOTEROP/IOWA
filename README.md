@@ -8,6 +8,12 @@ This repository contains a public version of [IOWA LwM2M stack](https://ioterop.
 
 Documentation could be found here: [https://ioterop.github.io/IOWA/] (https://ioterop.github.io/IOWA/)
 
+You can find some interesting tutorials on [Hackster.io](https://www.hackster.io/)
+
+- [Device management with LwM2M IOWA stack - Tutorial 1](https://www.hackster.io/ioterop/device-management-with-lwm2m-iowa-stack-tutorial-1-e5aaf8)
+
+- [Device management with LwM2M IOWA stack #2: ESP32](https://www.hackster.io/ioterop/device-management-with-lwm2m-iowa-stack-2-esp32-fcb294)
+
 _This code is provided *as-is*, under the associated licence (./LICENSE.txt).
 (This code should not be used in a commercial product and is for personal evaluation ONLY)_
 
