@@ -59,6 +59,12 @@ void * iowa_system_connection_open(iowa_connection_type_t type,
 
     (void)userData;
 
+#ifdef _WIN32
+    // Initialize Winsock
+    if(WSAStartup(MAKEWORD(2,2), &wd)!= 0)
+        return NULL;
+#endif
+    
     memset(&hints, 0, sizeof(hints));
     hints.ai_family = AF_INET;
 
