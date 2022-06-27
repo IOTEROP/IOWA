@@ -27,9 +27,9 @@
  * and Eclipse Distribution License v1.0 which accompany this distribution.
  *
  * The Eclipse Public License is available at
- *    http:
+ *    http://www.eclipse.org/legal/epl-v10.html
  * The Eclipse Distribution License is available at
- *    http:
+ *    http://www.eclipse.org/org/documents/edl-v10.php.
  *
  * Contributors:
  *    David Navarro, Intel Corporation - initial API and implementation
@@ -78,6 +78,7 @@ void dm_handleRequest(iowa_context_t contextP,
                       lwm2m_server_t *serverP,
                       iowa_coap_message_t *messageP)
 {
+    // WARNING: This function is called in a critical section
     iowa_content_format_t responseFormat;
     iowa_content_format_t requestFormat;
     iowa_coap_option_t *optionP;
@@ -121,16 +122,36 @@ void dm_handleRequest(iowa_context_t contextP,
     dataP = NULL;
     dataCount = 0;
     optionObserveP = iowa_coap_message_find_option(messageP, IOWA_COAP_OPTION_OBSERVE);
+    if (optionObserveP != NULL)
+    {
+        switch (optionObserveP->value.asInteger)
+        {
+        case IOWA_COAP_OBSERVE_REQUEST_NEW:
+        case IOWA_COAP_OBSERVE_REQUEST_CANCEL:
+            break;
 
+        default:
+            IOWA_LOG_WARNING(IOWA_PART_LWM2M, "Invalid value for the Observe option.");
+            result = IOWA_COAP_400_BAD_REQUEST;
+            goto error;
+        }
+    }
+
+    // Get the request message format
     requestFormat = utils_getMediaType(messageP, IOWA_COAP_OPTION_CONTENT_FORMAT);
     switch (requestFormat)
     {
     case IOWA_CONTENT_FORMAT_UNSET:
         if (messageP->payload.length != 0)
         {
-            IOWA_LOG_WARNING(IOWA_PART_LWM2M, "Unknown or missing Content-Type");
-            result = IOWA_COAP_415_UNSUPPORTED_CONTENT_FORMAT;
-            goto error;
+            // Only the Execute operation has an implicit content-type
+            if (messageP->code != IOWA_COAP_CODE_POST
+                || !LWM2M_URI_IS_SET_RESOURCE(uriP))
+            {
+                IOWA_LOG_WARNING(IOWA_PART_LWM2M, "Unknown or missing Content-Type");
+                result = IOWA_COAP_415_UNSUPPORTED_CONTENT_FORMAT;
+                goto error;
+            }
         }
         break;
 
@@ -156,9 +177,10 @@ void dm_handleRequest(iowa_context_t contextP,
             goto error;
         }
 
+        // Check the possible format for the response
         responseFormat = utils_getMediaType(messageP, IOWA_COAP_OPTION_ACCEPT);
 
-        if (responseFormat == LWM2M_CONTENT_FORMAT_CORE_LINK)
+        if (responseFormat == IOWA_CONTENT_FORMAT_CORE_LINK)
         {
             link_t *linkP;
             size_t nbLink;
@@ -173,11 +195,18 @@ void dm_handleRequest(iowa_context_t contextP,
             result = object_getTree(contextP, uriP, serverP, &linkP, &nbLink);
             if (result == IOWA_COAP_NO_ERROR)
             {
+                uint8_t *bufferP;
+                size_t bufferLength;
 
-                result = coreLinkSerialize(linkP, nbLink, &responseP->payload.data, &responseP->payload.length);
+#ifdef LWM2M_ALTPATH_SUPPORT
+                result = coreLinkSerialize(linkP, nbLink, contextP->lwm2mContextP->altPath, &bufferP, &bufferLength);
+#else
+                result = coreLinkSerialize(linkP, nbLink, &bufferP, &bufferLength);
+#endif
                 coreLinkFree(linkP, nbLink);
                 if (result == IOWA_COAP_NO_ERROR)
                 {
+                    coreBufferSet(&(responseP->payload), bufferP, bufferLength);
                     result = IOWA_COAP_205_CONTENT;
                 }
             }
@@ -191,9 +220,14 @@ void dm_handleRequest(iowa_context_t contextP,
                 if (IOWA_COAP_205_CONTENT == result)
                 {
                     {
-                        result = dataLwm2mSerialize(uriP, dataP, dataCount, &responseFormat, &responseP->payload.data, &responseP->payload.length);
+                        uint8_t *bufferP;
+                        size_t bufferLengthP;
+
+                        result = dataLwm2mSerialize(uriP, dataP, dataCount, &responseFormat, &bufferP, &bufferLengthP);
                         if (result == IOWA_COAP_NO_ERROR)
                         {
+                            coreBufferSet(&(responseP->payload), bufferP, bufferLengthP);
+
                             if (optionObserveP != NULL)
                             {
                                 result = observe_handleRequest(contextP, 1, uriP, serverP, dataCount, dataP, optionObserveP, messageP, responseP, responseFormat);
@@ -214,7 +248,7 @@ void dm_handleRequest(iowa_context_t contextP,
                     {
                         object_free(contextP, dataCount, dataP);
                         iowa_system_free(dataP);
-                        dataP = NULL;
+                        dataP = NULL; // Set pointer to NULL to prevent calling dataLwm2mFree at the end of the function
                     }
                 }
             }
@@ -266,7 +300,7 @@ void dm_handleRequest(iowa_context_t contextP,
 
 #if defined(LWM2M_SUPPORT_TLV) || defined(LWM2M_SUPPORT_JSON)
             addLocationPath = (dataP[0].instanceID == IOWA_LWM2M_ID_ALL);
-#endif
+#endif // LWM2M_SUPPORT_TLV || LWM2M_SUPPORT_JSON
 
             result = object_create(contextP, serverP->shortId, dataCount, dataP);
             if (result == IOWA_COAP_201_CREATED)
@@ -274,9 +308,14 @@ void dm_handleRequest(iowa_context_t contextP,
 #if defined(LWM2M_SUPPORT_TLV) || defined(LWM2M_SUPPORT_JSON)
                 if (addLocationPath == true)
                 {
+                    // Here, "uriP->instanceId" is equal to IOWA_LWM2M_ID_ALL. So, override the ID with the newly created Instance ID
                     uriP->instanceId = dataP[0].instanceID;
 
+#ifdef LWM2M_ALTPATH_SUPPORT
+                    responseP->optionList = uri_encode(IOWA_COAP_OPTION_LOCATION_PATH, contextP->lwm2mContextP->altPath, uriP, uriBufferP);
+#else
                     responseP->optionList = uri_encode(IOWA_COAP_OPTION_LOCATION_PATH, uriP, uriBufferP);
+#endif // LWM2M_ALTPATH_SUPPORT
                     if (responseP->optionList == NULL)
                     {
                         IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to encode the URI.");
@@ -284,17 +323,18 @@ void dm_handleRequest(iowa_context_t contextP,
                         break;
                     }
                 }
-#endif
+#endif // LWM2M_SUPPORT_TLV || LWM2M_SUPPORT_JSON
 
                 lwm2mUpdateRegistration(contextP, NULL, LWM2M_UPDATE_FLAG_OBJECTS);
             }
         }
-        else if (!LWM2M_URI_IS_SET_RESOURCE(uriP))
+        else if (!LWM2M_URI_IS_SET_RESOURCE(uriP)
+                 || true == object_checkResourceFlag(contextP, uriP, IOWA_RESOURCE_FLAG_MULTIPLE))
         {
             result = object_checkWritePayload(contextP, dataCount, dataP);
             if (result == IOWA_COAP_NO_ERROR)
             {
-                result = object_write(contextP, serverP->shortId, dataCount, dataP);
+                result = object_write(contextP, serverP->shortId, dataCount, dataP, true);
             }
         }
         else
@@ -334,7 +374,7 @@ void dm_handleRequest(iowa_context_t contextP,
             result = object_checkWritePayload(contextP, dataCount, dataP);
             if (result == IOWA_COAP_NO_ERROR)
             {
-                result = object_write(contextP, serverP->shortId, dataCount, dataP);
+                result = object_write(contextP, serverP->shortId, dataCount, dataP, false);
             }
         }
         else
@@ -397,6 +437,7 @@ error:
     {
         dataLwm2mFree(dataCount, dataP);
     }
+
     {
         if (result != IOWA_COAP_CODE_EMPTY
             || messageP->type == IOWA_COAP_TYPE_CONFIRMABLE)
@@ -405,22 +446,25 @@ error:
 
             if (IOWA_COAP_413_REQUEST_ENTITY_TOO_LARGE == coapSend(contextP, serverP->runtime.peerP, responseP, NULL, NULL))
             {
+                // an error message was sent back to the LwM2M Server
+                // if the request was an Observation, remove it.
                 optionP = iowa_coap_message_find_option(messageP, IOWA_COAP_OPTION_OBSERVE);
 
                 if (result == IOWA_COAP_205_CONTENT
                     && optionP != NULL
-                    && optionP->value.asInteger == LWM2M_OBSERVE_REQUEST_NEW)
+                    && optionP->value.asInteger == IOWA_COAP_OBSERVE_REQUEST_NEW)
                 {
                     lwm2m_observed_t *observedP;
 
+                    // Memorize previous observe
                     observedP = serverP->runtime.observedList->next;
+                    // Delete last observe
                     observe_delete(serverP->runtime.observedList);
                     serverP->runtime.observedList = observedP;
                 }
             }
         }
-
-        iowa_system_free(responseP->payload.data);
+        coreBufferClear(&(responseP->payload));
         iowa_coap_message_free(responseP);
     }
 }

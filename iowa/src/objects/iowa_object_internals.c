@@ -65,4 +65,4 @@ void objectSetRscDesc(iowa_lwm2m_resource_desc_t *rscDescP, int *ptP, uint16_t r
     (*ptP)++;
 }
 
-#endif
+#endif // LWM2M_CLIENT_MODE

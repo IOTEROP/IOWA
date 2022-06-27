@@ -87,7 +87,21 @@ iowa_status_t iowa_client_gps_update_location(iowa_context_t contextP,
                                               const char * latitude,
                                               const char * longitude);
 
-// Update the optional ressources defined during the creation of the GPS object.
+// Update the mandatory ressources of the GPS object.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - contextP: returned by iowa_init().
+// - id: ID of the instance of the GPS object.
+// - latitude: new latitude.
+// - longitude: new longitude.
+// - timestamp: timestamp of when the location measurement was performed.
+iowa_status_t iowa_client_gps_update_location_with_time(iowa_context_t contextP,
+                                                        iowa_sensor_t id,
+                                                        const char * latitude,
+                                                        const char * longitude,
+                                                        int32_t timestamp);
+
+// Update all the ressources defined during the creation of the GPS object.
 // Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
 // Parameters:
 // - contextP: returned by iowa_init().
@@ -106,6 +120,28 @@ iowa_status_t iowa_client_gps_update_location_full(iowa_context_t contextP,
                                                    float compassDirection,
                                                    size_t velocityLength,
                                                    uint8_t * velocity);
+
+// Update all the ressources defined during the creation of the GPS object.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - contextP: returned by iowa_init().
+// - id: ID of the instance of the GPS object.
+// - latitude: new latitude.
+// - longitude: new longitude.
+// - uncertainty: new uncertainty.
+// - compassDirection: new compass direction.
+// - velocityLength: length of the velocity opaque ressource.
+// - velocity: new velocity.
+// - timestamp: timestamp of when the location measurement was performed.
+iowa_status_t iowa_client_gps_update_location_full_with_time(iowa_context_t contextP,
+                                                             iowa_sensor_t id,
+                                                             const char * latitude,
+                                                             const char * longitude,
+                                                             const char * uncertainty,
+                                                             float compassDirection,
+                                                             size_t velocityLength,
+                                                             uint8_t * velocity,
+                                                             int32_t timestamp);
 
 #ifdef __cplusplus
 }

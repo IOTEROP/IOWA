@@ -43,11 +43,13 @@ typedef uint8_t iowa_supported_format_t;
 #define IOWA_SUPPORTED_FORMAT_CBOR       0x10
 #define IOWA_SUPPORTED_FORMAT_SENML_JSON 0x20
 #define IOWA_SUPPORTED_FORMAT_SENML_CBOR 0x40
+#define IOWA_SUPPORTED_FORMAT_LWM2M_CBOR 0x80
 
 typedef enum
 {
     IOWA_STATE_UNDEFINED = 0,
     IOWA_STATE_INITIAL,
+    IOWA_STATE_BOOTSTRAP_PACK_REQUIRED,
     IOWA_STATE_BOOTSTRAP_REQUIRED,
     IOWA_STATE_BOOTSTRAPPING,
     IOWA_STATE_BOOTSTRAP_FAILED,
@@ -60,13 +62,6 @@ typedef enum
     IOWA_STATE_UPDATING,
     IOWA_STATE_READY
 } iowa_state_t;
-
-typedef enum
-{
-    IOWA_LWM2M_VERSION_UNDEFINED = 0,
-    IOWA_LWM2M_VERSION_1_0,
-    IOWA_LWM2M_VERSION_1_1
-} iowa_lwm2m_protocol_version_t;
 
 typedef struct
 {
@@ -119,7 +114,7 @@ typedef iowa_lwm2m_data_type_t(*iowa_resource_type_callback_t) (uint16_t objectI
 // - contextP: returned by iowa_init().
 // - monitorCb: callback called by IOWA when a client updates its status.
 // - resTypeCb: callback to retrieve data type of non-standard resources.
-// - callbackUserData: past as argument to monitorCb and resTypeCb.
+// - callbackUserData: passed as argument to monitorCb and resTypeCb.
 iowa_status_t iowa_server_configure(iowa_context_t contextP,
                                     iowa_monitor_callback_t monitorCb,
                                     iowa_resource_type_callback_t resTypeCb,
@@ -175,7 +170,7 @@ typedef void(*iowa_result_callback_t) (iowa_dm_operation_t operation,
 // - clientID: the ID of the client to do an execute on.
 // - objectID, instanceID, resourceID: the URI targeted by the operation.
 // - resultCb: a callback to receive the result of the operation. This can be nil.
-// - resultUserData: past as argument to resultCb.
+// - resultUserData: passed as argument to resultCb.
 iowa_status_t iowa_server_dm_exec(iowa_context_t contextP,
                                   uint32_t clientID,
                                   uint16_t objectID, uint16_t instanceID, uint16_t resourceID,
@@ -186,11 +181,11 @@ iowa_status_t iowa_server_dm_exec(iowa_context_t contextP,
 // Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
 // Parameters:
 // - contextP: returned by iowa_init().
-// - clientId: the ID of the client to do a delete on.
+// - clientId: the ID of the client to do a create on.
 // - objectId, instanceId: the URI targeted by the operation.
 // - dataCount, dataArrayP: the data to write.
 // - resultCb: a callback to receive the result of the operation. This can be nil.
-// - resultUserData: past as argument to resultCb.
+// - resultUserData: passed as argument to resultCb.
 iowa_status_t iowa_server_dm_create(iowa_context_t contextP,
                                     uint32_t clientId,
                                     uint16_t objectId, uint16_t instanceId,
@@ -206,7 +201,7 @@ iowa_status_t iowa_server_dm_create(iowa_context_t contextP,
 // - clientId: the ID of the client to do a delete on.
 // - objectId, instanceId: the URI targeted by the operation.
 // - resultCb: a callback to receive the result of the operation. This can be nil.
-// - resultUserData: past as argument to resultCb.
+// - resultUserData: passed as argument to resultCb.
 iowa_status_t iowa_server_dm_delete(iowa_context_t contextP,
                                     uint32_t clientId,
                                     uint16_t objectId, uint16_t instanceId,
@@ -220,7 +215,7 @@ iowa_status_t iowa_server_dm_delete(iowa_context_t contextP,
 // - clientID: the ID of the client to do a discover on.
 // - objectID, instanceID, resourceID: the URI targeted by the operation.
 // - resultCb: a callback to receive the result of the operation. This can be nil.
-// - resultUserData: past as argument to resultCb.
+// - resultUserData: passed as argument to resultCb.
 iowa_status_t iowa_server_dm_discover(iowa_context_t contextP,
                                       uint32_t clientID,
                                       uint16_t objectID, uint16_t instanceID, uint16_t resourceID,
@@ -238,7 +233,7 @@ iowa_status_t iowa_server_dm_discover(iowa_context_t contextP,
 // - clientId: the ID of the client to read.
 // - uriCount, uriP: the URIs targeted by the operation.
 // - responseCb: a callback to receive the result of the operation.
-// - userDataP: past as argument to resultCb.
+// - userDataP: passed as argument to resultCb.
 iowa_status_t iowa_server_read(iowa_context_t contextP,
                                uint32_t clientId,
                                size_t uriCount,
@@ -253,7 +248,7 @@ iowa_status_t iowa_server_read(iowa_context_t contextP,
 // - clientID: the ID of the client to observe.
 // - uriCount, uriP: the URIs targeted by the operation.
 // - responseCb: a callback to receive the notification.
-// - userDataP: past as argument to resultCb.
+// - userDataP: passed as argument to resultCb.
 // - observeIDP: OUT. ID of the observation.
 iowa_status_t iowa_server_observe(iowa_context_t contextP,
                                   uint32_t clientId,
@@ -280,7 +275,7 @@ iowa_status_t iowa_server_observe_cancel(iowa_context_t contextP,
 // - clientId: the ID of the client to write to.
 // - dataCount, dataArrayP: the data to write.
 // - responseCb: a callback to receive the result of the operation. This can be nil.
-// - userDataP: past as argument to resultCb.
+// - userDataP: passed as argument to resultCb.
 iowa_status_t iowa_server_write(iowa_context_t contextP,
                                 uint32_t clientId,
                                 size_t dataCount,
@@ -296,7 +291,7 @@ iowa_status_t iowa_server_write(iowa_context_t contextP,
 // - uriP: the URI targeted by the operation.
 // - attributesStr: the attributes to set.
 // - resultCb: a callback to receive the result of the operation. This can be nil.
-// - userDataP: past as argument to resultCb.
+// - userDataP: passed as argument to resultCb.
 iowa_status_t iowa_server_write_attributes_string(iowa_context_t contextP,
                                                   uint32_t clientId,
                                                   iowa_lwm2m_uri_t *uriP,
@@ -313,7 +308,7 @@ iowa_status_t iowa_server_write_attributes_string(iowa_context_t contextP,
 // Parameters:
 // - contextP: returned by iowa_init().
 // - responseCb: a callback to receive the result of the operation. This can be nil.
-// - userDataP: past as argument to resultCb.
+// - userDataP: passed as argument to resultCb.
 void iowa_server_configure_data_push(iowa_context_t contextP,
                                      iowa_response_callback_t responseCb,
                                      void *userDataP);
@@ -360,7 +355,7 @@ iowa_status_t iowa_bootstrap_server_new_incoming_connection(iowa_context_t conte
 // Parameters:
 // - contextP: returned by iowa_init().
 // - monitorCb: callback called by IOWA when a client updates its status.
-// - callbackUserData: past as argument to monitorCb.
+// - callbackUserData: passed as argument to monitorCb.
 iowa_status_t iowa_bootstrap_server_configure(iowa_context_t contextP,
                                               iowa_monitor_callback_t monitorCb,
                                               void *callbackUserData);
@@ -373,10 +368,10 @@ iowa_status_t iowa_bootstrap_server_configure(iowa_context_t contextP,
 // Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
 // Parameters:
 // - contextP: returned by iowa_init().
-// - clientId: the ID of the client to write to.
+// - clientId: the ID of the client to read from.
 // - uriP: the URI targeted by the operation.
 // - responseCb: a callback to receive the result of the operation.
-// - userDataP: past as argument to responseCb.
+// - userDataP: passed as argument to responseCb.
 iowa_status_t iowa_bootstrap_server_read(iowa_context_t contextP,
                                          uint32_t clientId,
                                          iowa_lwm2m_uri_t *uriP,
@@ -391,7 +386,7 @@ iowa_status_t iowa_bootstrap_server_read(iowa_context_t contextP,
 // - objectId, instanceId: the Object Instance targeted by the operation.
 // - dataCount, dataArray: the data to write.
 // - resultCb: a callback to receive the result of the operation. This can be nil.
-// - resultUserData: past as argument to resultCb.
+// - resultUserData: passed as argument to resultCb.
 iowa_status_t iowa_bootstrap_server_write(iowa_context_t contextP,
                                           uint32_t clientId,
                                           uint16_t objectId, uint16_t instanceId,
@@ -403,10 +398,10 @@ iowa_status_t iowa_bootstrap_server_write(iowa_context_t contextP,
 // Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
 // Parameters:
 // - contextP: returned by iowa_init().
-// - clientId: the ID of the client.
+// - clientId: the ID of the client to do a delete on.
 // - objectId, instanceId, resourceId: the URI to delete.
 // - resultCb: a callback to receive the result of the operation. This can be nil.
-// - resultUserData: past as argument to resultCb.
+// - resultUserData: passed as argument to resultCb.
 iowa_status_t iowa_bootstrap_server_delete(iowa_context_t contextP,
                                            uint32_t clientId,
                                            uint16_t objectId, uint16_t instanceId,
@@ -420,7 +415,7 @@ iowa_status_t iowa_bootstrap_server_delete(iowa_context_t contextP,
 // - clientID: the ID of the client to do a discover on.
 // - objectID: the ID of the Object targeted by the operation.
 // - resultCb: a callback to receive the result of the operation. This can be nil.
-// - resultUserData: past as argument to resultCb.
+// - resultUserData: passed as argument to resultCb.
 iowa_status_t iowa_bootstrap_server_discover(iowa_context_t contextP,
                                              uint32_t clientId,
                                              uint16_t objectId,
@@ -433,11 +428,21 @@ iowa_status_t iowa_bootstrap_server_discover(iowa_context_t contextP,
 // - contextP: returned by iowa_init().
 // - clientId: the ID of the client.
 // - resultCb: a callback to receive the result of the operation. This can be nil.
-// - resultUserData: past as argument to resultCb.
+// - resultUserData: passed as argument to resultCb.
 iowa_status_t iowa_bootstrap_server_finish(iowa_context_t contextP,
                                            uint32_t clientId,
                                            iowa_bootstrap_result_callback_t resultCb,
                                            void *resultUserData);
+
+// Send a Bootstrap-Pack to a client.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - contextP: returned by iowa_init().
+// - clientId: the ID of the client to send to.
+// - dataCount, dataArray: the data to send.
+iowa_status_t iowa_bootstrap_server_send_bspack(iowa_context_t contextP,
+                                                uint32_t clientId,
+                                                size_t dataCount, iowa_lwm2m_data_t *dataArray);
 
 /****************************
  * Bootstrap high level APIs
@@ -453,7 +458,7 @@ iowa_status_t iowa_bootstrap_server_finish(iowa_context_t contextP,
 // - lifetime: the lifetime in seconds of the registration.
 // - securityDataP: the security data to use when connecting to this Server.
 // - resultCb: a callback to receive the result of the operation. This can be nil.
-// - resultUserData: past as argument to resultCb.
+// - resultUserData: passed as argument to resultCb.
 iowa_status_t iowa_bootstrap_server_add_server(iowa_context_t contextP,
                                                uint32_t clientId,
                                                uint16_t shortServerId,
@@ -470,7 +475,7 @@ iowa_status_t iowa_bootstrap_server_add_server(iowa_context_t contextP,
 // - clientId: the ID of the client.
 // - shortServerId: the short ID assigned to this Server.
 // - resultCb: a callback to receive the result of the operation. This can be nil.
-// - resultUserData: past as argument to resultCb.
+// - resultUserData: passed as argument to resultCb.
 iowa_status_t iowa_bootstrap_server_remove_server(iowa_context_t contextP,
                                                   uint32_t clientId,
                                                   uint16_t shortServerId,
@@ -487,7 +492,7 @@ iowa_status_t iowa_bootstrap_server_remove_server(iowa_context_t contextP,
 // - bootstrapAccountTimeout: time to wait by the client before to purge the LwM2M Bootstrap-Server Account.
 // - securityDataP: the security data to use when connecting to this Server.
 // - resultCb: a callback to receive the result of the operation. This can be nil.
-// - resultUserData: past as argument to resultCb.
+// - resultUserData: passed as argument to resultCb.
 iowa_status_t iowa_bootstrap_server_add_bootstrap_server(iowa_context_t contextP,
                                                          uint32_t clientId,
                                                          const char *uri,
@@ -503,7 +508,7 @@ iowa_status_t iowa_bootstrap_server_add_bootstrap_server(iowa_context_t contextP
 // - contextP: returned by iowa_init().
 // - clientId: the ID of the client.
 // - resultCb: a callback to receive the result of the operation. This can be nil.
-// - resultUserData: past as argument to resultCb.
+// - resultUserData: passed as argument to resultCb.
 iowa_status_t iowa_bootstrap_server_remove_bootstrap_server(iowa_context_t contextP,
                                                             uint32_t clientId,
                                                             iowa_bootstrap_result_callback_t resultCb,
@@ -532,7 +537,7 @@ typedef iowa_status_t (*iowa_verify_client_callback_t) (const iowa_client_t *cli
 // Parameters:
 // - contextP: returned by iowa_init().
 // - verifyClientCb: callback called by IOWA when a client registers to the Server.
-// - callbackUserData: past as argument to verifyClientCb.
+// - callbackUserData: passed as argument to verifyClientCb.
 void iowa_server_set_verify_client_callback(iowa_context_t contextP,
                                             iowa_verify_client_callback_t verifyClientCb,
                                             void *callbackUserData);

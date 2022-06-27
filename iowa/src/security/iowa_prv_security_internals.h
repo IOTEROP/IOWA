@@ -22,6 +22,10 @@
 #ifndef _IOWA_PRV_SECURITY_INTERNALS_INCLUDE_
 #define _IOWA_PRV_SECURITY_INTERNALS_INCLUDE_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "iowa_prv_core.h"
 #include "iowa_prv_security.h"
 #include "iowa_config.h"
@@ -30,8 +34,32 @@
 * Includes
 */
 
+#if (IOWA_SECURITY_LAYER == IOWA_SECURITY_LAYER_MBEDTLS) || (IOWA_SECURITY_LAYER == IOWA_SECURITY_LAYER_MBEDTLS_PSK_ONLY) || (IOWA_SECURITY_LAYER == IOWA_SECURITY_LAYER_MBEDTLS_OSCORE_ONLY)
+#include "mbedtls/config.h"
+#include "mbedtls/debug.h"
+#include "mbedtls/error.h"
+#include "mbedtls/platform.h"
+#include "mbedtls/timing.h"
+#include "mbedtls/ssl_cookie.h"
+#ifdef IOWA_SECURITY_OSCORE_SUPPORT
+#include "mbedtls/hkdf.h"
+#endif // IOWA_SECURITY_OSCORE_SUPPORT
+#ifdef IOWA_SECURITY_CERTIFICATE_SUPPORT
+#include "mbedtls/pk.h"
+#include "mbedtls/x509_crt.h"
+#endif // IOWA_SECURITY_CERTIFICATE_SUPPORT
+#elif IOWA_SECURITY_LAYER == IOWA_SECURITY_LAYER_TINYDTLS
+#include "tinydtls.h"
+#include "dtls.h"
+#include "dtls_debug.h"
+#endif // IOWA_SECURITY_LAYER
+
 #if defined(IOWA_COAP_CLIENT_MODE) || defined(LWM2M_CLIENT_MODE)
 #define IOWA_SECURITY_CLIENT_MODE
+#endif
+
+#if defined(IOWA_COAP_SERVER_MODE) || defined(LWM2M_SERVER_MODE) || defined(LWM2M_BOOTSTRAP_SERVER_MODE) || defined(LWM2M_CLIENT_INCOMING_CONNECTION_SUPPORT)
+#define IOWA_SECURITY_SERVER_MODE
 #endif
 
 /**************************************************************
@@ -82,14 +110,45 @@ struct _iowa_security_session_t
     void                           *nextP;
     iowa_context_t                  contextP;
     comm_channel_t                 *channelP;
+    iowa_connection_type_t          type;
     char                           *uri;
     security_event_callback_t       eventCb;
     void                           *userDataCb;
     bool                            isSecure;
     iowa_security_state_t           state;
+    uint16_t                        shortServerID;
 #ifdef IOWA_SECURITY_CLIENT_MODE
     iowa_security_mode_t            securityMode;
 #endif
+#if (IOWA_SECURITY_LAYER == IOWA_SECURITY_LAYER_MBEDTLS) || (IOWA_SECURITY_LAYER == IOWA_SECURITY_LAYER_MBEDTLS_PSK_ONLY)
+    // Common
+    mbedtls_ssl_context      sslContext;
+    mbedtls_ssl_config       conf;
+    int                     *ciphersuites;
+    int32_t                  startTime;
+    uint32_t                 timeout;
+    bool                     dataAvailable;
+#ifdef IOWA_SECURITY_CERTIFICATE_SUPPORT
+    // Certificate
+    mbedtls_x509_crt        *caCert;
+    mbedtls_x509_crt        *cert;
+    mbedtls_pk_context      *privateKey;
+#endif
+#ifdef MBEDTLS_SSL_DTLS_CONNECTION_ID
+    uint8_t                  connId[MBEDTLS_CONN_ID_LENGTH];
+#endif
+    mbedtls_ssl_cookie_ctx   cookieContext;
+#elif IOWA_SECURITY_LAYER == IOWA_SECURITY_LAYER_TINYDTLS
+    dtls_context_t          *sslContext;
+    session_t               *sslSession;
+    dtls_handler_t          *dtlsHandler;
+    dtls_ecdsa_key_t        *ecdsaKey;
+    uint8_t                 *decodedBuffer;
+    size_t                   decodedBufferSize;
+    bool                     clientSide;
+#elif IOWA_SECURITY_LAYER == IOWA_SECURITY_LAYER_USER
+    void                    *userInternalsP;
+#endif // IOWA_SECURITY_LAYER
 };
 
 /**************************************************************
@@ -123,4 +182,8 @@ void tinydtlsDisconnect(iowa_security_session_t securityS);
 int tinydtlsSend(iowa_security_session_t securityS, uint8_t *buffer, size_t length);
 int tinydtlsRecv(iowa_security_session_t securityS, uint8_t *buffer, size_t length);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif // _IOWA_SECURITY_INTERNALS_INCLUDE_

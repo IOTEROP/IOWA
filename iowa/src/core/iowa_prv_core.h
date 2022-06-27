@@ -22,12 +22,17 @@
 #ifndef _IOWA_PRV_CORE_INCLUDE_
 #define _IOWA_PRV_CORE_INCLUDE_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <string.h>
 #include <limits.h>
 
 #include "iowa_config.h"
 
 #include "iowa_platform.h"
+#include "iowa_prv_core_backward_compatibility.h"
 #include "iowa_prv_data.h"
 #include "iowa_utils.h"
 #include "iowa_prv_comm.h"
@@ -65,14 +70,34 @@
 
 #define MSISDN_MAX_LENGTH 15
 
-
-#define INTERNAL_LWM2M_TYPE_BLOCK  100
+// Internal only data types
+#define INTERNAL_LWM2M_TYPE_BLOCK  (uint8_t)100    // used as a flag
 #define IOWA_LWM2M_TYPE_URI_ONLY   10
 #define IOWA_LWM2M_TYPE_NULL       11
 
-#define CORE_BUFFER_EMPTY (iowa_buffer_t){NULL, 0}
-
 #define CORE_FREE_AND_CLEAR(P) iowa_system_free((P)); (P) = NULL
+
+#define CORE_STR_EVENT_TYPE(S)                                                                      \
+((S) == IOWA_EVENT_UNDEFINED ? "IOWA_EVENT_UNDEFINED" :                                             \
+((S) == IOWA_EVENT_REG_UNREGISTERED ? "IOWA_EVENT_REG_UNREGISTERED" :                               \
+((S) == IOWA_EVENT_REG_REGISTERING ? "IOWA_EVENT_REG_REGISTERING" :                                 \
+((S) == IOWA_EVENT_REG_REGISTERED ? "IOWA_EVENT_REG_REGISTERED" :                                   \
+((S) == IOWA_EVENT_REG_UPDATING ? "IOWA_EVENT_REG_UPDATING" :                                       \
+((S) == IOWA_EVENT_REG_FAILED ? "IOWA_EVENT_REG_FAILED" :                                           \
+((S) == IOWA_EVENT_REG_UPDATE_FAILED ? "IOWA_EVENT_REG_UPDATE_FAILED" :                             \
+((S) == IOWA_EVENT_BS_PENDING ? "IOWA_EVENT_BS_PENDING" :                                           \
+((S) == IOWA_EVENT_BS_FINISHED ? "IOWA_EVENT_BS_FINISHED" :                                         \
+((S) == IOWA_EVENT_BS_FAILED ? "IOWA_EVENT_BS_FAILED" :                                             \
+((S) == IOWA_EVENT_OBSERVATION_STARTED ? "IOWA_EVENT_OBSERVATION_STARTED" :                         \
+((S) == IOWA_EVENT_OBSERVATION_NOTIFICATION ? "IOWA_EVENT_OBSERVATION_NOTIFICATION" :               \
+((S) == IOWA_EVENT_OBSERVATION_NOTIFICATION_ACKED ? "IOWA_EVENT_OBSERVATION_NOTIFICATION_ACKED" :   \
+((S) == IOWA_EVENT_OBSERVATION_NOTIFICATION_FAILED ? "IOWA_EVENT_OBSERVATION_NOTIFICATION_FAILED" : \
+((S) == IOWA_EVENT_OBSERVATION_CANCELED ? "IOWA_EVENT_OBSERVATION_CANCELED" :                       \
+((S) == IOWA_EVENT_OBJECT_INSTANCE_CREATED ? "IOWA_EVENT_OBJECT_INSTANCE_CREATED" :                 \
+((S) == IOWA_EVENT_OBJECT_INSTANCE_DELETED ? "IOWA_EVENT_OBJECT_INSTANCE_DELETED" :                 \
+((S) == IOWA_EVENT_EVALUATION_PERIOD ? "IOWA_EVENT_EVALUATION_PERIOD" :                             \
+"Unknown"))))))))))))))))))
+
 
 /************************************************
  * Datatypes
@@ -99,7 +124,7 @@ struct _iowa_context_t
 #ifdef LWM2M_CLIENT_MODE
     iowa_event_callback_t          eventCb;
 #endif
-    uint16_t                       action;
+    volatile uint16_t             action;
     void                          *userData;
 };
 
@@ -107,14 +132,68 @@ struct _iowa_context_t
 * Functions
 */
 
-
+// Implemented in iowa_client.c
 void clientNotificationLock(iowa_context_t contextP, bool enter);
 
+// Call event callback set by iowa_client_configure for Register and Bootstrap Events from server connection.
+// Returned value: none.
+// Parameters:
+// - contextP: the IOWA context on which iowa_client_configure was called.
+// - serverP: server information.
+// - eventType: event identification.
+// - code: for Registration events, the error code
+// Note:
+// - serverP can not be nil.
+// - This function is called in a critical section.
+void coreServerEventCallback(iowa_context_t contextP, lwm2m_server_t *serverP, iowa_event_type_t eventType, bool isInternal, uint8_t code);
 
-void coreObservationEventCallback(iowa_context_t contextP, lwm2m_observed_t *targetP, iowa_event_type_t eventType);
-void coreServerEventCallback(iowa_context_t contextP, lwm2m_server_t *serverP, iowa_event_type_t eventType);
+// Implemented in iowa_buffer.c
 
-
+// Initialize an iowa_buffer_t.
+// Returned value: the iowa_buffer_t in case of success or IOWA_BUFFER_EMPTY if dynamical allocation failed.
+// Parameters:
+// - dataP: data to copy and save in the iowa_buffer_t.
+// - length: dataP's length.
+// Note:
+// - if data is NULL, saved information is considered with length and value of 0.
+// - for any arguments, saved information are allocated
 iowa_buffer_t coreBufferNew(const uint8_t *dataP, size_t length);
 
+// Set an iowa_buffer_t.
+// Returned value: none.
+// Parameters:
+// - bufferP: iowa_buffer_t to set.
+// - dataP: data to set in the iowa_buffer_t.
+// - length: dataP's length.
+// Note:
+// - bufferP can not be nil.
+void coreBufferSet(iowa_buffer_t *bufferP, uint8_t *dataP, size_t length);
+
+// Extend an iowa_buffer_t.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - bufferP: iowa_buffer_t to extend. Can not be nil.
+// - dataP: data to copy and save in the iowa_buffer_t. Can not be nil.
+// - length: dataP's length. Can not be 0.
+iowa_status_t coreBufferExtend(iowa_buffer_t *bufferP, const uint8_t *dataP, size_t length);
+
+// Merge several iowa_buffer_t into one.
+// Returned value: the iowa_buffer_t in case of success or IOWA_BUFFER_EMPTY if dynamical allocation failed.
+// Parameters:
+// - bufferList: the several iowa_buffer_t to merge.
+// Note:
+// - bufferList can not be nil.
+// - overflow is not handle.
+iowa_buffer_t coreBufferMerge(iowa_linked_buffer_t *bufferList);
+
+// Clear iowa_buffer_t, free data allocated in the iowa_buffer_t.
+// Returned value: none.
+// Parameters:
+// - bufferP: iowa_buffer_t to clear.
+void coreBufferClear(iowa_buffer_t *bufferP);
+
+#ifdef __cplusplus
+}
 #endif
+
+#endif // _IOWA_PRV_CORE_INCLUDE_

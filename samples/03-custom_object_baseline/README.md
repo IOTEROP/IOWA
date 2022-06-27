@@ -1,6 +1,6 @@
 # Custom Object Baseline
 
-This is the [Baseline Client](../01-baseline_client) featuring an additional LwM2M Object with the following definition:
+This is the Baseline Client featuring an additional LwM2M Object with the following definition:
 
 *ID:* *3200*
 
@@ -31,7 +31,7 @@ The usage is the same as the Baseline Client sample.
 
 When registered to the LwM2M Server, you will notice that the *custom_object_baseline_client* features the additional LwM2M Object described above:
 
-![Custom Object Baseline Client](../../.images/custom_object_baseline_client.jpg)
+![Custom Object Baseline Client](images/custom_object_baseline_client.jpg)
 
 The Resource names displayed by the LwM2M Server are the names registered for the Object with this specific ID at the [OMNA LwM2M Repository](https://openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html). As explained, we are using this Object ID to make sure it is known by the LwM2M Server. Of course, the Resources do not reflect any real process.
 
@@ -135,6 +135,7 @@ typedef struct
         } asBuffer;
         struct
         {
+            size_t   totalSize;
             uint32_t details;
             uint8_t *buffer;
         } asBlock;
@@ -205,7 +206,7 @@ As always, the first argument is the IOWA context created in the Initialization 
 
 The second argument is the Object numerical ID. This ID must be unique.
 
-The third argument is the number of Instances this Object has, the fourth argument is the list of the IDs of these Instances. This parameter is useful only for multiple-instance Objects. As we do not provide a list of Instances and the instance callback (the eighth parameter) is nil, IOWA consider this Object to be a single-instance one. See the sample  06-custom_object_multiple_instance for more details.
+The third argument is the number of Instances this Object has, the fourth argument is the list of the IDs of these Instances. This parameter is useful only for multiple-instance Objects. As we do not provide a list of Instances and the instance callback (the eighth parameter) is nil, IOWA consider this Object to be a single-instance one. See the sample custom_object_multiple_instances for more details.
 
 The fifth and sixth arguments are the Object's Resources definition. This is an array of `iowa_lwm2m_resource_desc_t`.
 
@@ -341,7 +342,3 @@ Then when the callback is called with **IOWA_DM_FREE**, we can free the duplicat
 ## Next Steps
 
 The sample illustrates only the baseline of the creation of a custom LwM2M Object. The other custom object samples dive into more useful concepts.
-
-------------------------------------------------------------
-
-![IoTerop Logo](../../.images/IoTerop_logo.jpg)

@@ -22,31 +22,17 @@
 #ifndef _CORE_INTERNALS_
 #define _CORE_INTERNALS_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "iowa_config.h"
 
 #include "iowa_prv_core.h"
 
-#include "iowa_prv_core_check_config.h"
+#include "iowa_prv_core_check_config.h" // This include checks the IOWA config
 
 #define PAUSE_TIME_BUFFER 5
-
-#define CORE_STR_EVENT_TYPE(S)                                                      \
-((S) == IOWA_EVENT_UNDEFINED ? "IOWA_EVENT_UNDEFINED" :                             \
-((S) == IOWA_EVENT_REG_UNREGISTERED ? "IOWA_EVENT_REG_UNREGISTERED" :               \
-((S) == IOWA_EVENT_REG_REGISTERING ? "IOWA_EVENT_REG_REGISTERING" :                 \
-((S) == IOWA_EVENT_REG_REGISTERED ? "IOWA_EVENT_REG_REGISTERED" :                   \
-((S) == IOWA_EVENT_REG_UPDATING ? "IOWA_EVENT_REG_UPDATING" :                       \
-((S) == IOWA_EVENT_REG_FAILED ? "IOWA_EVENT_REG_FAILED" :                           \
-((S) == IOWA_EVENT_REG_UPDATE_FAILED ? "IOWA_EVENT_REG_UPDATE_FAILED" :             \
-((S) == IOWA_EVENT_BS_PENDING ? "IOWA_EVENT_BS_PENDING" :                           \
-((S) == IOWA_EVENT_BS_FINISHED ? "IOWA_EVENT_BS_FINISHED" :                         \
-((S) == IOWA_EVENT_BS_FAILED ? "IOWA_EVENT_BS_FAILED" :                             \
-((S) == IOWA_EVENT_OBSERVATION_STARTED ? "IOWA_EVENT_OBSERVATION_STARTED" :         \
-((S) == IOWA_EVENT_OBSERVATION_CANCELED ? "IOWA_EVENT_OBSERVATION_CANCELED" :       \
-((S) == IOWA_EVENT_OBJECT_INSTANCE_CREATED ? "IOWA_EVENT_OBJECT_INSTANCE_CREATED" : \
-((S) == IOWA_EVENT_OBJECT_INSTANCE_DELETED ? "IOWA_EVENT_OBJECT_INSTANCE_DELETED" : \
-((S) == IOWA_EVENT_EVALUATION_PERIOD ? "IOWA_EVENT_EVALUATION_PERIOD" :             \
-"Unknown")))))))))))))))
 
 typedef enum
 {
@@ -57,28 +43,52 @@ typedef enum
 
 typedef struct
 {
-    void *userData;
+    uint8_t *requestBufferP;
+    void    *userData;
 } operation_data_t;
 
+
+// defined in iowa_client.c
+
+// Get maximal delay before next planned operation.
+// Returned value: maximal delay wanted.
+// Parameters:
+// - contextP: returned by iowa_init().
 uint32_t clientGetMaxDelayOperation(iowa_context_t contextP);
+
+// This function will create an instance in the object Security and the linked instance in the object Server if the server is not a bootstrap server.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - contextP: the IOWA context.
+// - serverP: server information.
 iowa_status_t clientAddServer(iowa_context_t contextP, lwm2m_server_t *serverP);
+
+// This function will remove an instance in the object Security and if the server is not a bootstrap server, will remove the linked instance in the object Server.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - contextP: the IOWA context.
+// - serverP: server information.
 iowa_status_t clientRemoveServer(iowa_context_t contextP, lwm2m_server_t *serverP);
 
+// defined in iowa_context.c
 
+// Save the current IOWA context.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - contextP: returned by iowa_init().
+// - isSnapshot: boolean to save the runtime information.
+iowa_status_t core_saveContext(iowa_context_t contextP, bool isSnapshot);
 
+// Load a saved IOWA context.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - contextP: returned by iowa_init().
+// - bufferP: pointer to the buffer to load.
+// - bufferLength: length of the buffer.
+iowa_status_t core_loadContext(iowa_context_t contextP, uint8_t * bufferP, size_t bufferLength);
 
-
-
-
-
-iowa_status_t saveContext(iowa_context_t contextP, bool isSnapshot);
-
-
-
-
-
-
-
-iowa_status_t loadContext(iowa_context_t contextP, uint8_t * bufferP, size_t bufferLength);
+#ifdef __cplusplus
+}
+#endif
 
 #endif

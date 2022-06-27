@@ -9,7 +9,7 @@
 # |         |         |           |    |    |
 # |_________|_________|___________|____|____|
 #
-# Copyright (c) 2016-2019 IoTerop.
+# Copyright (c) 2016-2020 IoTerop.
 # All rights reserved.
 #
 # This program and the accompanying materials
@@ -31,14 +31,14 @@ set(BASE_HEADERS
     ${BASE_DIR}/iowa_prv_core.h
     ${BASE_DIR}/iowa_prv_timer.h
     ${BASE_DIR}/iowa_prv_core_internals.h
-    ${BASE_DIR}/iowa_prv_core_check_config.h)
+    ${BASE_DIR}/iowa_prv_core_check_config.h
+    ${BASE_DIR}/iowa_prv_core_backward_compatibility.h)
 
 set(BASE_SOURCES
     ${BASE_DIR}/iowa_base.c
     ${BASE_DIR}/iowa_buffer.c
     ${BASE_DIR}/iowa_context.c
-    ${BASE_DIR}/iowa_timer.c
-    ${BASE_DIR}/iowa_comms.c)
+    ${BASE_DIR}/iowa_timer.c)
 
 set(BASE_CLIENT_SOURCES
     ${BASE_DIR}/iowa_client.c)
@@ -97,6 +97,7 @@ set(DATA_SOURCES
     ${DATA_DIR}/iowa_senml_json.c
     ${DATA_DIR}/iowa_cbor.c
     ${DATA_DIR}/iowa_senml_cbor.c
+    ${DATA_DIR}/iowa_lwm2m_cbor.c
     ${DATA_DIR}/iowa_text_opaque.c
     ${DATA_DIR}/iowa_tlv.c
     ${DATA_DIR}/iowa_data_utils.c)
@@ -173,6 +174,7 @@ set(OBJECTS_SOURCES
     ${OBJECTS_DIR}/iowa_object_connectivity_stats.c
     ${OBJECTS_DIR}/iowa_object_device.c
     ${OBJECTS_DIR}/iowa_object_digital_output.c
+    ${OBJECTS_DIR}/iowa_object_dimmer.c
     ${OBJECTS_DIR}/iowa_object_firmware.c
     ${OBJECTS_DIR}/iowa_object_gps.c
     ${OBJECTS_DIR}/iowa_object_gyrometer.c
@@ -181,6 +183,8 @@ set(OBJECTS_SOURCES
     ${OBJECTS_DIR}/iowa_object_light_control.c
     ${OBJECTS_DIR}/iowa_object_location.c
     ${OBJECTS_DIR}/iowa_object_magnetometer.c
+    ${OBJECTS_DIR}/iowa_object_mqtt_broker.c
+    ${OBJECTS_DIR}/iowa_object_mqtt_publication.c
     ${OBJECTS_DIR}/iowa_object_oscore.c
     ${OBJECTS_DIR}/iowa_object_security.c
     ${OBJECTS_DIR}/iowa_object_server.c
@@ -255,6 +259,7 @@ set(IOWA_COMMON_OBJECT_HEADERS
     ${IOWA_OBJECT_HEADERS_DIR}/iowa_connectivity_monitoring.h
     ${IOWA_OBJECT_HEADERS_DIR}/iowa_connectivity_stats.h
     ${IOWA_OBJECT_HEADERS_DIR}/iowa_digital_output.h
+    ${IOWA_OBJECT_HEADERS_DIR}/iowa_dimmer.h
     ${IOWA_OBJECT_HEADERS_DIR}/iowa_firmware_update.h
     ${IOWA_OBJECT_HEADERS_DIR}/iowa_gps.h
     ${IOWA_OBJECT_HEADERS_DIR}/iowa_gyrometer.h

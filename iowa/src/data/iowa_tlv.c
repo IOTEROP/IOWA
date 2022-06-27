@@ -9,7 +9,7 @@
 * |         |         |           |    |    |
 * |_________|_________|___________|____|____|
 *
-* Copyright (c) 2019 IoTerop.
+* Copyright (c) 2019-2020 IoTerop.
 * All rights reserved.
 *
 * This program and the accompanying materials
@@ -25,7 +25,7 @@
 
 #ifdef LWM2M_SUPPORT_TLV
 
-#define PRV_TLV_TYPE_MASK 0xC0
+#define PRV_TLV_TYPE_MASK 0xC0U
 
 #define PRV_TLV_TYPE_UNKNOWN           (uint8_t)0xFF
 #define PRV_TLV_TYPE_OBJECT_INSTANCE   (uint8_t)0x00
@@ -85,6 +85,7 @@ static size_t prv_encodeInt(int64_t data,
         value = (int16_t)data;
         length = 2;
 
+        // Keep in mind that shifting negative value is platform dependent
         dataBuffer[0] = (uint8_t)((value >> 8) & 0xFF);
         dataBuffer[1] = (uint8_t)(value & 0xFF);
     }
@@ -145,7 +146,7 @@ static size_t prv_createHeader(uint8_t *header,
     headerLen = prv_getHeaderLength(id, dataLength);
 
     header[0] = 0;
-    header[0] = (uint8_t)(header[0] | (type & PRV_TLV_TYPE_MASK));
+    header[0] = (uint8_t)(header[0] | (uint8_t)(type & PRV_TLV_TYPE_MASK));
 
     if (id > 0xFF)
     {
@@ -217,15 +218,17 @@ static size_t prv_lwm2mDecodeTlv(uint8_t *buffer,
 
     if ((buffer[0] & 0x20) == 0x20)
     {
+        // id is 16 bits long
         if (bufferLength < 3)
         {
             return 0;
         }
         *oDataIndex += 1;
-        *oId = (uint16_t)((buffer[1]<<8) + buffer[2]);
+        *oId = ((uint16_t) buffer[1]<<8) + buffer[2];
     }
     else
     {
+        // id is 8 bits long
         *oId = buffer[1];
     }
     IOWA_LOG_ARG_TRACE(IOWA_PART_DATA, "ID: %u.", *oId);
@@ -233,10 +236,12 @@ static size_t prv_lwm2mDecodeTlv(uint8_t *buffer,
     switch (buffer[0] & 0x18)
     {
     case 0x00:
+        // no length field
         *oDataLength = buffer[0] & 0x07;
         break;
 
     case 0x08:
+        // length field is 8 bits long
         if (bufferLength < *oDataIndex + 1)
         {
             return 0;
@@ -246,24 +251,27 @@ static size_t prv_lwm2mDecodeTlv(uint8_t *buffer,
         break;
 
     case 0x10:
+        // length field is 16 bits long
         if (bufferLength < *oDataIndex + 2)
         {
             return 0;
         }
-        *oDataLength = (size_t)((buffer[*oDataIndex]<<8) + buffer[*oDataIndex+1]);
+        *oDataLength = ((size_t) buffer[*oDataIndex]<<8) + buffer[*oDataIndex+1];
         *oDataIndex += 2;
         break;
 
     case 0x18:
+        // length field is 24 bits long
         if (bufferLength < *oDataIndex + 3)
         {
             return 0;
         }
-        *oDataLength = (size_t)((buffer[*oDataIndex]<<16) + (buffer[*oDataIndex+1]<<8) + buffer[*oDataIndex+2]);
+        *oDataLength = (size_t)(((uint32_t)buffer[*oDataIndex]<<16) + (uint16_t)((uint16_t)buffer[*oDataIndex+1]<<8) + buffer[*oDataIndex+2]);
         *oDataIndex += 3;
         break;
 
     default:
+        // can't happen
         return 0;
     }
     IOWA_LOG_ARG_TRACE(IOWA_PART_DATA, "Data index: %u, length: %u bytes.", *oDataIndex, *oDataLength);
@@ -303,11 +311,14 @@ static iowa_status_t prv_getLength(iowa_lwm2m_uri_t *baseUriP,
     {
         uint16_t resId;
 
+        // Check if data has to be added
         if (dataUtilsIsInBaseUri(dataP + i, baseUriP, uriDepth) == false)
         {
+            // Loop on next element
             continue;
         }
 
+        // Check if this is a new instance
         if (i > 0
             && dataP[i].instanceID != dataP[i-1].instanceID)
         {
@@ -315,6 +326,7 @@ static iowa_status_t prv_getLength(iowa_lwm2m_uri_t *baseUriP,
             instanceDataLength = 0;
         }
 
+        // Check if this is a multiple resource
         if (dataP[i].resInstanceID != IOWA_LWM2M_ID_ALL)
         {
             resId = dataP[i].resInstanceID;
@@ -336,8 +348,9 @@ static iowa_status_t prv_getLength(iowa_lwm2m_uri_t *baseUriP,
             if (dataP[i].value.asInteger < 0)
             {
                 IOWA_LOG_ARG_WARNING(IOWA_PART_DATA, "Unsigned integer value has a negative value: %d", dataP[i].value.asInteger);
-                return IOWA_COAP_400_BAD_REQUEST;
+                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
             }
+            // Fall through
         case IOWA_LWM2M_TYPE_INTEGER:
         case IOWA_LWM2M_TYPE_TIME:
         {
@@ -368,10 +381,12 @@ static iowa_status_t prv_getLength(iowa_lwm2m_uri_t *baseUriP,
         }
 
         case IOWA_LWM2M_TYPE_BOOLEAN:
+            // Booleans are always encoded on one byte
             resourceDataLength += prv_getHeaderLength(resId, 1) + 1;
             break;
 
         case IOWA_LWM2M_TYPE_OBJECT_LINK:
+            // Object Link are always encoded on four bytes
             resourceDataLength += prv_getHeaderLength(resId, 4) + 4;
             break;
 
@@ -381,8 +396,11 @@ static iowa_status_t prv_getLength(iowa_lwm2m_uri_t *baseUriP,
             return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
         }
 
-        if (dataP[i].resInstanceID != IOWA_LWM2M_ID_ALL)
+        // Check if this is a multiple resource
+        if (dataP[i].resInstanceID != IOWA_LWM2M_ID_ALL
+                 && uriDepth != LWM2M_URI_DEPTH_RESOURCE_INSTANCE)
         {
+            // Check if this is a new multiple resource
             if (i + 1 == size
                 || dataP[i].resourceID != dataP[i+1].resourceID)
             {
@@ -411,7 +429,8 @@ static iowa_status_t prv_getLength(iowa_lwm2m_uri_t *baseUriP,
     return IOWA_COAP_NO_ERROR;
 }
 
-static size_t prv_checkFormatAndGetDataCount(uint8_t level,
+static size_t prv_checkFormatAndGetDataCount(iowa_lwm2m_uri_t *baseUriP,
+                                             uint8_t level,
                                              uint8_t *buffer,
                                              size_t bufferLength)
 {
@@ -434,34 +453,111 @@ static size_t prv_checkFormatAndGetDataCount(uint8_t level,
         switch (type)
         {
         case PRV_TLV_TYPE_OBJECT_INSTANCE:
+            if (level != PRV_TLV_TYPE_UNKNOWN)
+            {
+                IOWA_LOG_WARNING(IOWA_PART_DATA, "Object Instance type is not present at root level.");
+                return 0;
+            }
+            else
+            {
+                if (baseUriP->resourceId != IOWA_LWM2M_ID_ALL)
+                {
+                    IOWA_LOG_WARNING(IOWA_PART_DATA, "The base URI points under the Object Instance level.");
+                    return 0;
+                }
+            }
+
+            if (baseUriP->instanceId != IOWA_LWM2M_ID_ALL
+                && baseUriP->instanceId != id)
+            {
+                IOWA_LOG_WARNING(IOWA_PART_DATA, "Object Instance is not under the base URI.");
+                return 0;
+            }
+            break;
+
+        case PRV_TLV_TYPE_RESOURCE:
         case PRV_TLV_TYPE_MULTIPLE_RESOURCE:
+            if (level != PRV_TLV_TYPE_UNKNOWN)
+            {
+                if (level != PRV_TLV_TYPE_OBJECT_INSTANCE)
+                {
+                    IOWA_LOG_WARNING(IOWA_PART_DATA, "Resource type is not present at root level or under an Object Instance.");
+                    return 0;
+                }
+            }
+            else
+            {
+                if (baseUriP->resourceId != IOWA_LWM2M_ID_ALL
+                    && baseUriP->instanceId == IOWA_LWM2M_ID_ALL)
+                {
+                    IOWA_LOG_WARNING(IOWA_PART_DATA, "The base URI does not contain an Object Instance.");
+                    return 0;
+                }
+
+                if (type == PRV_TLV_TYPE_RESOURCE
+                    && baseUriP->resInstanceId != IOWA_LWM2M_ID_ALL)
+                {
+                    IOWA_LOG_WARNING(IOWA_PART_DATA, "The base URI points to a Resource Instance.");
+                    return 0;
+                }
+
+                level = PRV_TLV_TYPE_OBJECT_INSTANCE;
+            }
+            if (baseUriP->resourceId != IOWA_LWM2M_ID_ALL
+                && baseUriP->resourceId != id)
+            {
+                IOWA_LOG_WARNING(IOWA_PART_DATA, "Resource is not under the base URI.");
+                return 0;
+            }
+            break;
+
+        case PRV_TLV_TYPE_RESOURCE_INSTANCE:
+            if (level != PRV_TLV_TYPE_UNKNOWN)
+            {
+                if (level != PRV_TLV_TYPE_MULTIPLE_RESOURCE)
+                {
+                    IOWA_LOG_WARNING(IOWA_PART_DATA, "Resource Instance type is not present at root level or under a Multiple Resource.");
+                    return 0;
+                }
+            }
+            else
+            {
+                if (baseUriP->resourceId == IOWA_LWM2M_ID_ALL)
+                {
+                    IOWA_LOG_WARNING(IOWA_PART_DATA, "The base URI is missing the Resource ID.");
+                    return 0;
+                }
+
+                level = PRV_TLV_TYPE_MULTIPLE_RESOURCE;
+            }
+            if (baseUriP->resInstanceId != IOWA_LWM2M_ID_ALL
+                && baseUriP->resInstanceId != id)
+            {
+                IOWA_LOG_WARNING(IOWA_PART_DATA, "Resource Instance is not under the base URI.");
+                return 0;
+            }
+            break;
+
+        default:
+            IOWA_LOG_WARNING(IOWA_PART_DATA, "Unknown TLV type.");
+            return 0;
+        }
+
+        if (type == PRV_TLV_TYPE_OBJECT_INSTANCE
+            || type == PRV_TLV_TYPE_MULTIPLE_RESOURCE)
         {
             size_t instanceCount;
 
-            if (level != PRV_TLV_TYPE_OBJECT_INSTANCE)
+            instanceCount = prv_checkFormatAndGetDataCount(baseUriP, type, buffer + index + dataIndex, dataLength);
+            if (instanceCount == 0 && dataLength != 0)
             {
-                IOWA_LOG_ARG_WARNING(IOWA_PART_DATA, "%s type is not present at root level.", PRV_TLV_TYPE_LEVEL_STR(type));
-                return 0;
-            }
-
-            instanceCount = prv_checkFormatAndGetDataCount(type, buffer + index + dataIndex, dataLength);
-            if (instanceCount == 0
-                && dataLength != 0)
-            {
+                // Propagate the error
                 return 0;
             }
             dataCount += instanceCount;
-            break;
         }
-
-        default:
-            if ((type == PRV_TLV_TYPE_RESOURCE && level != PRV_TLV_TYPE_OBJECT_INSTANCE)
-                || (type == PRV_TLV_TYPE_RESOURCE_INSTANCE && level != PRV_TLV_TYPE_MULTIPLE_RESOURCE))
-            {
-                IOWA_LOG_ARG_WARNING(IOWA_PART_DATA, "%s type is not present in its corresponding level.", PRV_TLV_TYPE_LEVEL_STR(type));
-                return 0;
-            }
-
+        else
+        {
             dataCount++;
         }
     }
@@ -472,9 +568,7 @@ static size_t prv_checkFormatAndGetDataCount(uint8_t level,
 static size_t prv_tlvToLwm2mData(iowa_lwm2m_uri_t *baseUriP,
                                  uint8_t *buffer,
                                  size_t bufferLength,
-                                 iowa_lwm2m_data_t *dataP,
-                                 data_resource_type_callback_t resTypeCb,
-                                 void *userDataP)
+                                 iowa_lwm2m_data_t *dataP)
 {
     uint8_t type;
     uint16_t id;
@@ -502,7 +596,7 @@ static size_t prv_tlvToLwm2mData(iowa_lwm2m_uri_t *baseUriP,
             baseUri.objectId = baseUriP->objectId;
             baseUri.instanceId = id;
 
-            iData += prv_tlvToLwm2mData(&baseUri, buffer + index + dataIndex , dataLength, dataP + iData, resTypeCb, userDataP);
+            iData += prv_tlvToLwm2mData(&baseUri, buffer + index + dataIndex , dataLength, dataP + iData);
             break;
         }
 
@@ -515,7 +609,7 @@ static size_t prv_tlvToLwm2mData(iowa_lwm2m_uri_t *baseUriP,
             baseUri.instanceId = baseUriP->instanceId;
             baseUri.resourceId = id;
 
-            iData += prv_tlvToLwm2mData(&baseUri, buffer + index + dataIndex , dataLength, dataP + iData, resTypeCb, userDataP);
+            iData += prv_tlvToLwm2mData(&baseUri, buffer + index + dataIndex , dataLength, dataP + iData);
             break;
         }
 
@@ -530,13 +624,13 @@ static size_t prv_tlvToLwm2mData(iowa_lwm2m_uri_t *baseUriP,
             }
             else
             {
+                // This is a multiple resource
                 dataP[iData].resourceID = baseUriP->resourceId;
                 dataP[iData].resInstanceID = id;
             }
 
-            if (dataUtilsConvertUndefinedValue(buffer + index + dataIndex, dataLength, dataP + iData, IOWA_CONTENT_FORMAT_TLV, resTypeCb, userDataP) != IOWA_COAP_NO_ERROR)
+            if (IOWA_COAP_NO_ERROR != dataUtilsSetBuffer(buffer + index + dataIndex, dataLength, dataP+iData, IOWA_LWM2M_TYPE_UNDEFINED))
             {
-                IOWA_LOG_ERROR(IOWA_PART_DATA, "Failed to convert the undefined value.");
                 return 0;
             }
 
@@ -557,6 +651,7 @@ iowa_status_t tlvSerialize(iowa_lwm2m_uri_t *baseUriP,
                            uint8_t **bufferP,
                            size_t *bufferLengthP)
 {
+    // Warning: 'dataP' must be in order to convert correctly
     iowa_status_t result;
     iowa_lwm2m_uri_t baseUri;
     lwm2m_uri_depth_t uriDepth;
@@ -564,6 +659,11 @@ iowa_status_t tlvSerialize(iowa_lwm2m_uri_t *baseUriP,
     size_t i;
     size_t instanceDataLength;
     size_t resourceDataLength;
+
+    assert(dataP != NULL);
+    assert(size != 0);
+    assert(bufferP != NULL);
+    assert(bufferLengthP != NULL);
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_DATA, "size: %d", size);
 
@@ -615,11 +715,14 @@ iowa_status_t tlvSerialize(iowa_lwm2m_uri_t *baseUriP,
         uint16_t resId;
         uint8_t resType;
 
+        // Check if data has to be added
         if (dataUtilsIsInBaseUri(dataP + i, &baseUri, uriDepth) == false)
         {
+            // Loop on next element
             continue;
         }
 
+        // Check if this is a new instance
         if (i > 0
             && dataP[i].instanceID != dataP[i-1].instanceID)
         {
@@ -632,6 +735,7 @@ iowa_status_t tlvSerialize(iowa_lwm2m_uri_t *baseUriP,
             instanceDataLength = 0;
         }
 
+        // Check if this is a multiple resource
         if (dataP[i].resInstanceID != IOWA_LWM2M_ID_ALL)
         {
             resId = dataP[i].resInstanceID;
@@ -689,6 +793,7 @@ iowa_status_t tlvSerialize(iowa_lwm2m_uri_t *baseUriP,
         }
 
         case IOWA_LWM2M_TYPE_BOOLEAN:
+            // Booleans are always encoded on one byte
             headerLen = prv_createHeader(*bufferP + index, resType, resId, 1);
             index += headerLen;
             (*bufferP)[index] = dataP[i].value.asBoolean ? 1 : 0;
@@ -699,13 +804,15 @@ iowa_status_t tlvSerialize(iowa_lwm2m_uri_t *baseUriP,
 
         case IOWA_LWM2M_TYPE_OBJECT_LINK:
         {
+            // Object Link are always encoded on four bytes
             uint8_t buf[4];
 
-            buf[0] = (uint8_t)((dataP[i].value.asObjLink.objectId & 0xFF00) >> 8);
+            buf[0] = (uint8_t)((uint16_t)(dataP[i].value.asObjLink.objectId & 0xFF00) >> 8);
             buf[1] = (uint8_t)(dataP[i].value.asObjLink.objectId & 0x00FF);
-            buf[2] = (uint8_t)((dataP[i].value.asObjLink.instanceId & 0xFF00) >> 8);
+            buf[2] = (uint8_t)((uint16_t)(dataP[i].value.asObjLink.instanceId & 0xFF00) >> 8);
             buf[3] = (uint8_t)(dataP[i].value.asObjLink.instanceId & 0x00FF);
 
+            // Keep encoding as buffer
             headerLen = prv_createHeader(*bufferP + index, resType, resId, 4);
             index += headerLen;
             memcpy(*bufferP + index, buf, 4);
@@ -720,8 +827,11 @@ iowa_status_t tlvSerialize(iowa_lwm2m_uri_t *baseUriP,
             goto exit_function;
         }
 
-        if (dataP[i].resInstanceID != IOWA_LWM2M_ID_ALL)
+        // Check if this is a multiple resource
+        if (dataP[i].resInstanceID != IOWA_LWM2M_ID_ALL
+                 && uriDepth != LWM2M_URI_DEPTH_RESOURCE_INSTANCE)
         {
+            // Check if this is a new multiple resource
             if (i + 1 == size
                 || dataP[i].resourceID != dataP[i+1].resourceID)
             {
@@ -776,9 +886,7 @@ iowa_status_t tlvDeserialize(iowa_lwm2m_uri_t *baseUriP,
                              uint8_t *bufferP,
                              size_t bufferLength,
                              iowa_lwm2m_data_t **dataP,
-                             size_t *dataCountP,
-                             data_resource_type_callback_t resTypeCb,
-                             void *userDataP)
+                             size_t *dataCountP)
 {
     uint8_t tlvType;
     iowa_lwm2m_uri_t baseUri;
@@ -787,26 +895,26 @@ iowa_status_t tlvDeserialize(iowa_lwm2m_uri_t *baseUriP,
 
     *dataP = NULL;
 
+    // The Object ID can not be encoded in a LwM2M TLV record. Thus it must be provided by the base URI.
     if (baseUriP == NULL)
     {
-        LWM2M_URI_RESET(&baseUri);
+        IOWA_LOG_WARNING(IOWA_PART_DATA, "A base URI is required.");
+        return IOWA_COAP_400_BAD_REQUEST;
     }
     else
     {
+        if (dataUtilsGetUriDepth(baseUriP) == LWM2M_URI_DEPTH_ROOT)
+        {
+            IOWA_LOG_WARNING(IOWA_PART_DATA, "Object ID must be part of the base URI.");
+            return IOWA_COAP_400_BAD_REQUEST;
+        }
+
         baseUri = *baseUriP;
     }
 
-    switch (dataUtilsGetUriDepth(&baseUri))
-    {
-    case LWM2M_URI_DEPTH_RESOURCE_INSTANCE:
-        tlvType = PRV_TLV_TYPE_MULTIPLE_RESOURCE;
-        break;
+    tlvType = PRV_TLV_TYPE_UNKNOWN;
 
-    default:
-        tlvType = PRV_TLV_TYPE_OBJECT_INSTANCE;
-    }
-
-    *dataCountP = prv_checkFormatAndGetDataCount(tlvType, bufferP, bufferLength);
+    *dataCountP = prv_checkFormatAndGetDataCount(&baseUri, tlvType, bufferP, bufferLength);
     if (*dataCountP == 0)
     {
         return IOWA_COAP_400_BAD_REQUEST;
@@ -822,7 +930,7 @@ iowa_status_t tlvDeserialize(iowa_lwm2m_uri_t *baseUriP,
 #endif
     memset(*dataP, 0, *dataCountP * sizeof(iowa_lwm2m_data_t));
 
-    if (prv_tlvToLwm2mData(&baseUri, bufferP, bufferLength, *dataP, resTypeCb, userDataP) == 0)
+    if (prv_tlvToLwm2mData(&baseUri, bufferP, bufferLength, *dataP) == 0)
     {
         return IOWA_COAP_400_BAD_REQUEST;
     }
@@ -830,4 +938,4 @@ iowa_status_t tlvDeserialize(iowa_lwm2m_uri_t *baseUriP,
     return IOWA_COAP_NO_ERROR;
 }
 
-#endif
+#endif // LWM2M_SUPPORT_TLV

@@ -26,13 +26,7 @@
 extern "C" {
 #endif
 
-#include "iowa_prv_core.h"
-
-/**************************************************************
- * Data Structures and Constants
- **************************************************************/
-
-#define INVALID_SENSOR_ID 0xFFFFFFFF
+#include "iowa.h"
 
 /**************************************************************
  * Base64 encoding / decoding APIs
@@ -75,22 +69,6 @@ size_t iowa_utils_base64_decode(uint8_t * base64Buffer,
                                 size_t base64BufferLen,
                                 uint8_t * rawBuffer,
                                 size_t rawBufferLen);
-
-/**************************************************************
- * Helper APIs
- **************************************************************/
-
-// Transform an iowa_lwm2m_uri_t into an iowa_sensor_t.
-// Returned value: the sensor id or INVALID_SENSOR_ID in case of error.
-// Parameters:
-// - uriP: uri to transform.
-iowa_sensor_t iowa_utils_uri_to_sensor(iowa_lwm2m_uri_t *uriP);
-
-// Transform an iowa_sensor_t into an iowa_lwm2m_uri_t.
-// Returned value: an uri.
-// Parameters:
-// - id: sensorId to transform.
-iowa_lwm2m_uri_t iowa_utils_sensor_to_uri(iowa_sensor_t id);
 
 /**************************************************************
  * List APIs

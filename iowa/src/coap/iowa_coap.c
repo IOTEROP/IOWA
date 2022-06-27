@@ -9,7 +9,7 @@
 * |         |         |           |    |    |
 * |_________|_________|___________|____|____|
 *
-* Copyright (c) 2017-2019 IoTerop.
+* Copyright (c) 2017-2020 IoTerop.
 * All rights reserved.
 *
 * This program and the accompanying materials
@@ -22,11 +22,12 @@
 #include "iowa_prv_coap_internals.h"
 #include <stdbool.h>
 
-#define PRV_CONN_TYPE(S) ((S) == IOWA_CONN_DATAGRAM ? "Datagram" : \
-                         ((S) == IOWA_CONN_STREAM ? "Stream" :     \
-                         ((S) == IOWA_CONN_LORAWAN ? "LoRaWAN" :   \
-                         ((S) == IOWA_CONN_SMS ? "SMS" :           \
-                         "Unknown"))))
+#define PRV_CONN_TYPE(S) ((S) == IOWA_CONN_DATAGRAM ? "Datagram" :      \
+                         ((S) == IOWA_CONN_STREAM ? "Stream" :          \
+                         ((S) == IOWA_CONN_LORAWAN ? "LoRaWAN" :        \
+                         ((S) == IOWA_CONN_SMS ? "SMS" :                \
+                         ((S) == IOWA_CONN_WEBSOCKET ? "WebSocket" : \
+                         "Unknown")))))
 
 uint8_t coapInit(iowa_context_t contextP)
 {
@@ -50,6 +51,7 @@ uint8_t coapInit(iowa_context_t contextP)
 
 void coapClose(iowa_context_t contextP)
 {
+    // WARNING: This function is called in a critical section
     iowa_coap_peer_t *peerP;
 
     IOWA_LOG_TRACE(IOWA_PART_COAP, "Entering.");
@@ -59,6 +61,7 @@ void coapClose(iowa_context_t contextP)
     {
         iowa_coap_peer_t *nextPeerP;
 
+        // Keep the next peer address
         nextPeerP = peerP->base.next;
 
         coapPeerDelete(contextP, peerP);
@@ -89,12 +92,20 @@ uint8_t coapStep(iowa_context_t contextP)
 
         IOWA_LOG_ARG_TRACE(IOWA_PART_COAP, "Peer %p.", peerP);
 
+        // Save the next peer since the step function can delete the current peer.
         peerNextP = peerP->base.next;
         switch (peerP->base.type)
         {
 #ifdef IOWA_UDP_SUPPORT
         case IOWA_CONN_DATAGRAM:
             result = transactionStep(contextP, (coap_peer_datagram_t *)peerP, contextP->currentTime, &(contextP->timeout));
+            break;
+#endif
+
+#if defined(IOWA_TCP_SUPPORT) || defined(IOWA_WEBSOCKET_SUPPORT)
+        case IOWA_CONN_STREAM:
+        case IOWA_CONN_WEBSOCKET:
+            result = IOWA_COAP_NO_ERROR;
             break;
 #endif
 
@@ -117,7 +128,7 @@ uint8_t coapSend(iowa_context_t contextP,
                  coap_message_callback_t resultCallback,
                  void *userData)
 {
-
+    // WARNING: This function is called in a critical section
     uint8_t result;
 
     IOWA_LOG_TRACE(IOWA_PART_COAP, "Entering.");
@@ -162,6 +173,7 @@ void messageLog(const char *function,
         break;
 
     case IOWA_CONN_STREAM:
+    case IOWA_CONN_WEBSOCKET:
         iowa_log_arg(IOWA_PART_COAP, IOWA_LOG_LEVEL_INFO, function, line, "Code: %u.%02u (%s)",
                      messageP->code >> 5, messageP->code & 0x1F,
                      PRV_STR_COAP_CODE(messageP->code));
@@ -229,6 +241,12 @@ iowa_coap_message_t * iowa_coap_message_new(uint8_t type,
         && token == NULL)
     {
         IOWA_LOG_ERROR(IOWA_PART_COAP, "Token length is not zero but no token was provided.");
+        return NULL;
+    }
+
+    if (tokenLength > COAP_MSG_TOKEN_MAX_LEN)
+    {
+        IOWA_LOG_ARG_ERROR(IOWA_PART_COAP, "Token length is too big: %u.", tokenLength);
         return NULL;
     }
 #endif
@@ -361,7 +379,7 @@ void coapSendResponse(iowa_context_t contextP,
                       iowa_coap_message_t *messageP,
                       uint8_t code)
 {
-
+    // WARNING: This function is called in a critical section
     iowa_coap_message_t *responseP;
 
 
@@ -386,37 +404,6 @@ void coapSendResponse(iowa_context_t contextP,
 
         iowa_coap_message_free(responseP);
     }
-}
-
-void coapSendReset(iowa_context_t contextP,
-                   iowa_coap_peer_t *peerP,
-                   iowa_coap_message_t *messageP)
-{
-
-    iowa_coap_message_t *responseP;
-
-
-    if (coapPeerGetConnectionState(peerP) != SECURITY_STATE_CONNECTED)
-    {
-        IOWA_LOG_ARG_WARNING(IOWA_PART_COAP, "Peer %p is not connected.", peerP);
-
-        return;
-    }
-
-    responseP = iowa_coap_message_new(IOWA_COAP_TYPE_RESET, IOWA_COAP_CODE_EMPTY, 0, NULL);
-#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-    if (responseP == NULL)
-    {
-        IOWA_LOG_ERROR(IOWA_PART_COAP, "Failed to create new CoAP message.");
-        return;
-    }
-#endif
-
-    responseP->id = messageP->id;
-
-    peerSend(contextP, peerP, responseP, NULL, NULL);
-
-    iowa_coap_message_free(responseP);
 }
 
 /************************************************
@@ -448,7 +435,7 @@ iowa_status_t iowa_coap_uri_parse(const char *uri,
         IOWA_LOG_ERROR(IOWA_PART_LWM2M, "uri is nil.");
         return IOWA_COAP_400_BAD_REQUEST;
     }
-#endif
+#endif // IOWA_CONFIG_SKIP_ARGS_CHECK
 
     uriLen = strlen(uri);
 
@@ -475,6 +462,18 @@ iowa_status_t iowa_coap_uri_parse(const char *uri,
         type = IOWA_CONN_STREAM;
         isSecure = true;
         hostOffset = strlen(IOWA_URI_SCHEME_COAP_SEC_TCP);
+    }
+    else if (0 == strncmp(uri, IOWA_URI_SCHEME_COAP_WEBSOCKET, strlen(IOWA_URI_SCHEME_COAP_WEBSOCKET)))
+    {
+        type = IOWA_CONN_WEBSOCKET;
+        isSecure = false;
+        hostOffset = strlen(IOWA_URI_SCHEME_COAP_WEBSOCKET);
+    }
+    else if (0 == strncmp(uri, IOWA_URI_SCHEME_COAP_SEC_WEBSOCKET, strlen(IOWA_URI_SCHEME_COAP_SEC_WEBSOCKET)))
+    {
+        type = IOWA_CONN_WEBSOCKET;
+        isSecure = true;
+        hostOffset = strlen(IOWA_URI_SCHEME_COAP_SEC_WEBSOCKET);
     }
     else if (0 == strncmp(uri, IOWA_URI_SCHEME_COAP_SMS, strlen(IOWA_URI_SCHEME_COAP_SMS)))
     {
@@ -574,6 +573,13 @@ iowa_status_t iowa_coap_uri_parse(const char *uri,
             IOWA_LOG_INFO(IOWA_PART_COAP, "Invalid LoRaWAN URI: hostname present.");
             return IOWA_COAP_406_NOT_ACCEPTABLE;
         }
+        if (hostOffset == uriLen
+            || hostOffset == pathOffset
+            || hostOffset == queryOffset)
+        {
+            IOWA_LOG_INFO(IOWA_PART_COAP, "Invalid LoRaWAN URI: missing FPort.");
+            return IOWA_COAP_406_NOT_ACCEPTABLE;
+        }
 
         portOffset = hostOffset - 1;
     }
@@ -599,14 +605,23 @@ iowa_status_t iowa_coap_uri_parse(const char *uri,
     {
         *isSecureP = isSecure;
     }
+    if (portP != NULL)
+    {
+        *portP = NULL;
+    }
+    if (pathP != NULL)
+    {
+        *pathP = NULL;
+    }
+    if (queryP != NULL)
+    {
+        *queryP = NULL;
+    }
     if (hostnameP != NULL)
     {
-        if (hostOffset == 0
-            || type == IOWA_CONN_LORAWAN)
-        {
-            *hostnameP = NULL;
-        }
-        else
+        *hostnameP = NULL;
+        if (hostOffset != 0
+            && type != IOWA_CONN_LORAWAN)
         {
             size_t len;
 
@@ -631,7 +646,7 @@ iowa_status_t iowa_coap_uri_parse(const char *uri,
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
             if (*hostnameP == NULL)
             {
-                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+                goto exit_on_error_alloc;
             }
 #endif
         }
@@ -655,13 +670,26 @@ iowa_status_t iowa_coap_uri_parse(const char *uri,
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
                 if (*portP == NULL)
                 {
-                    return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+                    goto exit_on_error_alloc;
                 }
 #endif
             }
-            else
+            else if (type == IOWA_CONN_WEBSOCKET)
             {
-                *portP = NULL;
+                if (isSecure == true)
+                {
+                    *portP = utilsStrdup(COAP_DEFAULT_PORT_WS_SEC);
+                }
+                else
+                {
+                    *portP = utilsStrdup(COAP_DEFAULT_PORT_WS);
+                }
+#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
+                if (*portP == NULL)
+                {
+                    goto exit_on_error_alloc;
+                }
+#endif
             }
         }
         else
@@ -687,7 +715,7 @@ iowa_status_t iowa_coap_uri_parse(const char *uri,
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
             if (*portP == NULL)
             {
-                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+                goto exit_on_error_alloc;
             }
 #endif
         }
@@ -695,11 +723,7 @@ iowa_status_t iowa_coap_uri_parse(const char *uri,
 
     if (pathP != NULL)
     {
-        if (pathOffset == 0)
-        {
-            *pathP = NULL;
-        }
-        else
+        if (pathOffset != 0)
         {
             size_t len;
 
@@ -716,7 +740,7 @@ iowa_status_t iowa_coap_uri_parse(const char *uri,
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
             if (*pathP == NULL)
             {
-                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+                goto exit_on_error_alloc;
             }
 #endif
         }
@@ -724,11 +748,7 @@ iowa_status_t iowa_coap_uri_parse(const char *uri,
 
     if (queryP != NULL)
     {
-        if (queryOffset == 0)
-        {
-            *queryP = NULL;
-        }
-        else
+        if (queryOffset != 0)
         {
             queryOffset += 1;
 
@@ -736,45 +756,31 @@ iowa_status_t iowa_coap_uri_parse(const char *uri,
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
             if (*queryP == NULL)
             {
-                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+                goto exit_on_error_alloc;
             }
 #endif
         }
     }
 
-    IOWA_LOG_TRACE(IOWA_PART_COAP, "Exiting with no error.");
+    IOWA_LOG_TRACE(IOWA_PART_COAP, "Exiting on success.");
 
     return IOWA_COAP_NO_ERROR;
-}
 
-size_t iowa_coap_message_get_payload(iowa_coap_message_t *messageP,
-                                     iowa_content_format_t *formatP,
-                                     uint8_t **payloadP)
-{
-    if (messageP == NULL)
+#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
+exit_on_error_alloc:
+    if (hostnameP != NULL)
     {
-        return 0;
+        iowa_system_free(*hostnameP);
     }
-
-    if (payloadP != NULL)
+    if (portP != NULL)
     {
-        *payloadP = messageP->payload.data;
+        iowa_system_free(*portP);
     }
-
-    if (formatP != NULL)
+    if (pathP != NULL)
     {
-        iowa_coap_option_t *optionP;
-
-        optionP = iowa_coap_message_find_option(messageP, IOWA_COAP_OPTION_CONTENT_FORMAT);
-        if (optionP != NULL)
-        {
-            *formatP = optionP->value.asInteger;
-        }
-        else
-        {
-            *formatP = IOWA_CONTENT_FORMAT_UNSET;
-        }
+        iowa_system_free(*pathP);
     }
-
-    return messageP->payload.length;
+    IOWA_LOG_TRACE(IOWA_PART_COAP, "Exiting on error.");
+    return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+#endif
 }

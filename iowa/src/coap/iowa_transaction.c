@@ -21,6 +21,11 @@
 
 #include "iowa_prv_coap_internals.h"
 
+#if defined(IOWA_UDP_SUPPORT) || defined(IOWA_SMS_SUPPORT)
+static void prv_acknowledgeCleanup(coap_peer_datagram_t *peerP)
+{
+}
+#endif // IOWA_UDP_SUPPORT || IOWA_SMS_SUPPORT
 
 static coap_ack_t *prv_acknowledgeFind(coap_peer_datagram_t *peerP,
                                        iowa_coap_message_t *messageP)
@@ -95,7 +100,7 @@ uint8_t transactionNew(iowa_context_t contextP,
                        coap_message_callback_t resultCallback,
                        void *userData)
 {
-
+    // WARNING: This function is called in a critical section
     switch (messageP->type)
     {
     case IOWA_COAP_TYPE_CONFIRMABLE:
@@ -153,21 +158,21 @@ uint8_t transactionNew(iowa_context_t contextP,
             int32_t curTime;
 
             curTime = iowa_system_gettime();
-    #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
+#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
             if (curTime < 0)
             {
                 IOWA_LOG_ERROR_GETTIME(curTime);
                 break;
             }
-    #endif
+#endif
             ackP = (coap_ack_t *)iowa_system_malloc(sizeof(coap_ack_t));
-    #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
+#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
             if (ackP == NULL)
             {
                 IOWA_LOG_ERROR_MALLOC(sizeof(coap_ack_t));
                 return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
             }
-    #endif
+#endif
             memset(ackP, 0, sizeof(coap_ack_t));
 
             ackP->buffer_len = bufferLength;
@@ -177,10 +182,12 @@ uint8_t transactionNew(iowa_context_t contextP,
 
             peerP->ackList = (coap_ack_t *)IOWA_UTILS_LIST_ADD(peerP->ackList, ackP);
 
+            prv_acknowledgeCleanup(peerP);
+
             return IOWA_COAP_201_CREATED;
         }
     break;
-#endif
+#endif // IOWA_UDP_SUPPORT || IOWA_SMS_SUPPORT
 
     default:
         break;
@@ -194,7 +201,7 @@ uint8_t transactionStep(iowa_context_t contextP,
                         int32_t currentTime,
                         int32_t *timeoutP)
 {
-
+    // WARNING: This function is called in a critical section
 
     coap_ack_t *ackP;
     coap_ack_t *parentAckP;
@@ -210,7 +217,8 @@ uint8_t transactionStep(iowa_context_t contextP,
 
         nextP = ackP->next;
 
-        IOWA_LOG_ARG_TRACE(IOWA_PART_COAP, "Ack ID %u validity time: %u", ackP->mID, ackP->validity_time);
+        IOWA_LOG_ARG_TRACE(IOWA_PART_COAP, "Ack ID %u: validity time: %u, buffer size: %u.",
+                           ackP->mID, ackP->validity_time, ackP->buffer_len);
 
         if (ackP->validity_time <= currentTime)
         {
@@ -234,6 +242,7 @@ uint8_t transactionStep(iowa_context_t contextP,
         ackP = nextP;
     }
 
+    // TODO: handle NSTART
     transacP = peerP->transactionList;
     while (transacP != NULL)
     {
@@ -265,6 +274,7 @@ uint8_t transactionStep(iowa_context_t contextP,
             }
             else
             {
+                // Remove the transaction from the peer before to call the callback. Because the callback can delete the peer
                 peerP->transactionList = (coap_transaction_t *)IOWA_UTILS_LIST_REMOVE(peerP->transactionList, transacP);
                 if (transacP->callback != NULL)
                 {
@@ -293,7 +303,7 @@ void transactionHandleMessage(iowa_context_t contextP,
                               bool truncated,
                               size_t maxPayloadSize)
 {
-
+    // WARNING: This function is called in a critical section
     coap_transaction_t *transacP;
 
     IOWA_LOG_ARG_INFO(IOWA_PART_COAP, "peerP: %p, truncated: %s, maxPayloadSize: %u.", peerP, truncated ? "true" : "false", maxPayloadSize);
@@ -308,12 +318,18 @@ void transactionHandleMessage(iowa_context_t contextP,
 
         if (ackP != NULL)
         {
-            (void)peerSendBuffer(contextP, (iowa_coap_peer_t *)peerP, ackP->buffer, ackP->buffer_len);
+            if (ackP->buffer != NULL)
+            {
+                // We retransmit the previously sent acknowledge
+                (void)peerSendBuffer(contextP, (iowa_coap_peer_t *)peerP, ackP->buffer, ackP->buffer_len);
+            }
+            // else the peer already started more transmissions than the NSTART so we ignore this lost message.
         }
         else
         {
             if (!COAP_IS_REQUEST(messageP->code))
             {
+                // Acknowledge the reception of the message
                 coapSendResponse(contextP, (iowa_coap_peer_t *)peerP, messageP, IOWA_COAP_CODE_EMPTY);
             }
             peerHandleMessage(contextP, (iowa_coap_peer_t *)peerP, messageP, truncated, maxPayloadSize);
@@ -329,6 +345,7 @@ void transactionHandleMessage(iowa_context_t contextP,
         transacP = prv_transactionFind(peerP, messageP);
         if (transacP != NULL)
         {
+            // Remove the transaction from the peer before to call the callback. Because the callback can delete the peer
             peerP->transactionList = (coap_transaction_t *)IOWA_UTILS_LIST_REMOVE(peerP->transactionList, transacP);
             if (transacP->callback != NULL)
             {
@@ -353,6 +370,7 @@ void transactionHandleMessage(iowa_context_t contextP,
         transacP = prv_transactionFind(peerP, messageP);
         if (transacP != NULL)
         {
+            // Remove the transaction from the peer before to call the callback. Because the callback can delete the peer
             peerP->transactionList = (coap_transaction_t *)IOWA_UTILS_LIST_REMOVE(peerP->transactionList, transacP);
             if (transacP->callback != NULL)
             {

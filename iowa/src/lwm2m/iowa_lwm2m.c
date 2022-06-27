@@ -9,7 +9,7 @@
 * |         |         |           |    |    |
 * |_________|_________|___________|____|____|
 *
-* Copyright (c) 2018-2019 IoTerop.
+* Copyright (c) 2018-2020 IoTerop.
 * All rights reserved.
 *
 * This program and the accompanying materials
@@ -27,9 +27,9 @@
  * and Eclipse Distribution License v1.0 which accompany this distribution.
  *
  * The Eclipse Public License is available at
- *    http:
+ *    http://www.eclipse.org/legal/epl-v10.html
  * The Eclipse Distribution License is available at
- *    http:
+ *    http://www.eclipse.org/org/documents/edl-v10.php.
  *
  * Contributors:
  *    David Navarro, Intel Corporation - initial API and implementation
@@ -74,7 +74,7 @@
 
 iowa_status_t lwm2m_init(iowa_context_t contextP)
 {
-    IOWA_LOG_TRACE(IOWA_PART_LWM2M, "Entering");
+    IOWA_LOG_TRACE(IOWA_PART_LWM2M, "Entering.");
 
     contextP->lwm2mContextP = (lwm2m_context_t *)iowa_system_malloc(sizeof(lwm2m_context_t));
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
@@ -86,16 +86,18 @@ iowa_status_t lwm2m_init(iowa_context_t contextP)
 #endif
     memset(contextP->lwm2mContextP, 0, sizeof(lwm2m_context_t));
 
-    IOWA_LOG_TRACE(IOWA_PART_LWM2M, "LwM2M init done");
+    IOWA_LOG_TRACE(IOWA_PART_LWM2M, "LwM2M init done.");
 
     return IOWA_COAP_NO_ERROR;
 }
 
 void lwm2m_close(iowa_context_t contextP)
 {
-    IOWA_LOG_TRACE(IOWA_PART_LWM2M, "Entering");
+    // WARNING: This function is called in a critical section
+    IOWA_LOG_TRACE(IOWA_PART_LWM2M, "Entering.");
 
 #ifdef LWM2M_CLIENT_MODE
+    // Remove all the LwM2M servers
     while (contextP->lwm2mContextP->serverList != NULL)
     {
         lwm2m_server_t *serverP;
@@ -120,33 +122,74 @@ void lwm2m_close(iowa_context_t contextP)
     }
 
     iowa_system_free(contextP->lwm2mContextP->endpointName);
+#ifdef LWM2M_ALTPATH_SUPPORT
+    iowa_system_free(contextP->lwm2mContextP->altPath);
 #endif
+#endif // LWM2M_CLIENT_MODE
 
     iowa_system_free(contextP->lwm2mContextP);
     contextP->lwm2mContextP = NULL;
 
-    IOWA_LOG_TRACE(IOWA_PART_BASE, "LwM2M closed");
+    IOWA_LOG_TRACE(IOWA_PART_BASE, "LwM2M closed.");
 }
 
 #ifdef LWM2M_CLIENT_MODE
 
+#ifdef LWM2M_ALTPATH_SUPPORT
+iowa_status_t lwm2m_configure(iowa_context_t contextP,
+                              const char *endpointName,
+                              const char *msisdn,
+                              const char *altPath)
+#else
 iowa_status_t lwm2m_configure(iowa_context_t contextP,
                               const char *endpointName,
                               const char *msisdn)
+#endif
 {
-    IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "endpointName: \"%s\", msisdn: \"%s\"",
+#ifdef LWM2M_ALTPATH_SUPPORT
+    IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "endpointName: \"%s\", msisdn: \"%s\", altPath: \"%s\".",
+                      endpointName?endpointName:"NULL",
+                      msisdn?msisdn:"NULL",
+                      altPath?altPath:"NULL");
+#else
+    IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "endpointName: \"%s\", msisdn: \"%s\".",
                       endpointName?endpointName:"NULL",
                       msisdn?msisdn:"NULL");
+#endif
 
     contextP->lwm2mContextP->endpointName = utilsStrdup(endpointName);
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
     if (contextP->lwm2mContextP->endpointName == NULL
         && endpointName != NULL)
     {
-        IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Endpoint name copy failed");
+        IOWA_LOG_WARNING(IOWA_PART_LWM2M, "Endpoint name copy failed.");
         return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
     }
 #endif
+
+#ifdef LWM2M_ALTPATH_SUPPORT
+    if (altPath != NULL)
+    {
+        if (utils_isAltPathValid(altPath) == false)
+        {
+            iowa_system_free(contextP->lwm2mContextP->endpointName);
+            contextP->lwm2mContextP->endpointName = NULL;
+            IOWA_LOG_WARNING(IOWA_PART_LWM2M, "altPath is not valid.");
+            return IOWA_COAP_400_BAD_REQUEST;
+        }
+
+        contextP->lwm2mContextP->altPath = utilsStrdup(altPath);
+#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
+        if (contextP->lwm2mContextP->altPath == NULL)
+        {
+            iowa_system_free(contextP->lwm2mContextP->endpointName);
+            contextP->lwm2mContextP->endpointName = NULL;
+            IOWA_LOG_WARNING(IOWA_PART_LWM2M, "altPath copy failed.");
+            return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+        }
+#endif
+    }
+#endif // LWM2M_ALTPATH_SUPPORT
 
     return IOWA_COAP_NO_ERROR;
 }
@@ -155,6 +198,7 @@ void lwm2m_server_close(iowa_context_t contextP,
                         lwm2m_server_t *serverP,
                         bool sendDeregistration)
 {
+    // WARNING: This function is called in a critical section
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Close the LwM2M Server %d.", serverP->shortId);
 
     if (sendDeregistration == true)
@@ -178,13 +222,14 @@ void lwm2m_server_close(iowa_context_t contextP,
     attributesRemoveFromServer(serverP);
     observeRemoveFromServer(serverP);
 }
-#endif
+#endif // LWM2M_CLIENT_MODE
 
 iowa_status_t lwm2m_step(iowa_context_t contextP)
 {
+    // WARNING: This function is called in a critical section
     iowa_status_t result;
 
-    IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Entering with timeout: %u.", contextP->timeout);
+    IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Entering with timeout: %u.", contextP->timeout);
 
     result = IOWA_COAP_NO_ERROR;
 
@@ -198,10 +243,12 @@ iowa_status_t lwm2m_step(iowa_context_t contextP)
 
         if (contextP->lwm2mContextP->serverList == NULL)
         {
+            // Do nothing else, since there is no server
             break;
         }
 
         {
+            // At least one Server configured
             contextP->lwm2mContextP->state = STATE_DEVICE_MANAGEMENT;
         }
 
@@ -214,7 +261,7 @@ iowa_status_t lwm2m_step(iowa_context_t contextP)
         if (result != IOWA_COAP_NO_ERROR)
         {
             IOWA_LOG_ERROR(IOWA_PART_LWM2M, "No longer registered.");
-            contextP->lwm2mContextP->state = STATE_INITIAL;
+            contextP->lwm2mContextP->state = STATE_INITIAL; // Reset LwM2M FSM
 
             registration_resetServersStatus(contextP);
             contextP->timeout = 0;
@@ -225,13 +272,14 @@ iowa_status_t lwm2m_step(iowa_context_t contextP)
         break;
 
     default:
+        // Should not happen
         break;
     }
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Final state: %s.", LWM2M_STR_STATE(contextP->lwm2mContextP->state));
 #endif
 
-    IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Exiting with result: %u.%02u, timeout: %u.", (result & 0xFF) >> 5, (result & 0x1F), contextP->timeout);
+    IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Exiting with result: %u.%02u, timeout: %u.", (result & 0xFF) >> 5, (result & 0x1F), contextP->timeout);
 
     return result;
 }

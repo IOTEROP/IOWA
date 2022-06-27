@@ -10,6 +10,9 @@ cmake_minimum_required(VERSION 3.5)
 project(custom_object_multiple_instances C)
 
 get_property(IOWA_DIR GLOBAL PROPERTY iowa_sdk_folder)
+if (NOT IOWA_DIR)
+    set(IOWA_DIR ${CMAKE_CURRENT_LIST_DIR}/../../iowa)
+endif()
 
 include(${IOWA_DIR}/src/iowa.cmake)
 
@@ -20,8 +23,8 @@ add_executable(${PROJECT_NAME}
                ${CMAKE_CURRENT_LIST_DIR}/main.c
                ${CMAKE_CURRENT_LIST_DIR}/sample_object.c
                ${CMAKE_CURRENT_LIST_DIR}/iowa_config.h
-               ${CMAKE_CURRENT_LIST_DIR}/../00-abstraction_layer/core_abstraction.c
-               ${CMAKE_CURRENT_LIST_DIR}/../00-abstraction_layer/connection_abstraction.c
+               ${CMAKE_CURRENT_LIST_DIR}/../abstraction_layer/core_abstraction.c
+               ${CMAKE_CURRENT_LIST_DIR}/../abstraction_layer/connection_abstraction.c
                ${IOWA_CLIENT_SOURCES}
                ${IOWA_CLIENT_HEADERS})
 

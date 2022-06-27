@@ -94,6 +94,21 @@ void * iowa_system_connection_open(iowa_connection_type_t type,
                                    char * port,
                                    void * userData);
 
+// This function opens a connection to a LwM2M Server.
+// Used when IOWA_ABSTRACTION_EXTENSION is defined.
+// Returned value: a pointer to an user-defined type or NULL in case of error.
+// Parameters:
+// - type: the type of connection to open.
+// - hostname: the hostname to connect to as a nil-terminated string.
+// - port: the port to connect to as a nil-terminated string or NULL if irrelevant.
+// - ssid: the Short Server ID associated to the LwM2M Server.
+// - userData: the iowa_init() parameter.
+void * iowa_system_connection_open_server(iowa_connection_type_t type,
+                                          char *hostname,
+                                          char *port,
+                                          uint16_t ssid,
+                                          void *userData);
+
 // This function sends a buffer on a connection.
 // Returned value: the number of bytes sent or a negative number in case of error.
 // Parameters:

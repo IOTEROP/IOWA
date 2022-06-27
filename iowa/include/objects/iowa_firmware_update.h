@@ -61,18 +61,24 @@ extern "C" {
  * Data Structures and Constants
  **************************************************************/
 
-typedef enum
-{
-    IOWA_FW_STATUS_SUCCESSFUL              = 1,
-    IOWA_FW_STATUS_OUT_OF_STORAGE          = 2,
-    IOWA_FW_STATUS_OUT_OF_MEMORY           = 3,
-    IOWA_FW_STATUS_CONNECTION_LOST         = 4,
-    IOWA_FW_STATUS_INTEGRITY_CHECK_FAILURE = 5,
-    IOWA_FW_STATUS_UNSUPPORTED_TYPE        = 6,
-    IOWA_FW_STATUS_INVALID_URI             = 7,
-    IOWA_FW_STATUS_UPDATE_FAILED           = 8,
-    IOWA_FW_STATUS_UNSUPPORTED_PROTOCOL    = 9
-} iowa_fw_status_t;
+typedef uint16_t iowa_fw_status_t;
+
+#define IOWA_FW_STATUS_SUCCESSFUL               1
+#define IOWA_FW_STATUS_OUT_OF_STORAGE           2
+#define IOWA_FW_STATUS_OUT_OF_MEMORY            3
+#define IOWA_FW_STATUS_CONNECTION_LOST          4
+#define IOWA_FW_STATUS_INTEGRITY_CHECK_FAILURE  5
+#define IOWA_FW_STATUS_UNSUPPORTED_TYPE         6
+#define IOWA_FW_STATUS_INVALID_URI              7
+#define IOWA_FW_STATUS_UPDATE_FAILED            8
+#define IOWA_FW_STATUS_UNSUPPORTED_PROTOCOL     9
+
+typedef uint8_t iowa_fw_state_t;
+
+#define IOWA_FW_STATE_IDLE        0
+#define IOWA_FW_STATE_DOWNLOADING 1
+#define IOWA_FW_STATE_DOWNLOADED  2
+#define IOWA_FW_STATE_UPDATING    3
 
 #define IOWA_FIRMWARE_UPDATE_PROTOCOL_SUPPORT_COAP      (1<<0)
 #define IOWA_FIRMWARE_UPDATE_PROTOCOL_SUPPORT_COAPS     (1<<1)
@@ -169,6 +175,13 @@ iowa_status_t iowa_client_firmware_update_configure_full(iowa_context_t contextP
 iowa_status_t iowa_client_firmware_update_set_status(iowa_context_t contextP,
                                                      iowa_fw_status_t status);
 
+// Change the state of the firmware update state machine.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - contextP: returned by iowa_init().
+// - newState: the new state of the firmware update state machine.
+iowa_status_t iowa_client_firmware_update_change_state(iowa_context_t contextP,
+                                                       iowa_fw_state_t newState);
 
 #ifdef __cplusplus
 }

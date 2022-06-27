@@ -60,9 +60,6 @@ typedef enum
     IOWA_IPSO_ENERGY        = (uint16_t)3331,
     IOWA_IPSO_DIRECTION     = (uint16_t)3332,
 
-    //Sensors using Percentage
-    IOWA_IPSO_LEVEL_CONTROL = (uint16_t)3343,
-
     // Sensors using Booleans
     IOWA_IPSO_DIGITAL_INPUT = (uint16_t)3200,
     IOWA_IPSO_PRESENCE      = (uint16_t)3302,
@@ -76,6 +73,8 @@ typedef enum
 #define IOWA_LWM2M_MAGNETOMETER_OBJECT_ID   3314
 #define IOWA_LWM2M_GYROMETER_OBJECT_ID      3334
 #define IOWA_LWM2M_GPS_OBJECT_ID            3336
+#define IOWA_LWM2M_DIMMER_OBJECT_ID         3343
+#define IOWA_IPSO_LEVEL_CONTROL             3343
 
 // This is a macro to fill an iowa_lwm2m_desc_t with the values of LWM2M Reusable Resources.
 #define IOWA_SET_LWM2M_DESC_T_TO_IPSO_RSC(desc, RES) \

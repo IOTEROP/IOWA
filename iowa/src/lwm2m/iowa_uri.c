@@ -27,9 +27,9 @@
  * and Eclipse Distribution License v1.0 which accompany this distribution.
  *
  * The Eclipse Public License is available at
- *    http:
+ *    http://www.eclipse.org/legal/epl-v10.html
  * The Eclipse Distribution License is available at
- *    http:
+ *    http://www.eclipse.org/org/documents/edl-v10.php.
  *
  * Contributors:
  *    David Navarro, Intel Corporation - initial API and implementation
@@ -72,60 +72,27 @@
 
 #include "iowa_prv_lwm2m_internals.h"
 
-static int prv_parseNumber(uint8_t * uriString,
-                            size_t uriLength,
-                            size_t * headP)
-{
-    int result = 0;
-
-    if (uriString[*headP] == '/')
-    {
-
-        return -1;
-    }
-    while (*headP < uriLength && uriString[*headP] != '/')
-    {
-        if ('0' <= uriString[*headP] && uriString[*headP] <= '9')
-        {
-            result += uriString[*headP] - '0';
-            result *= 10;
-        }
-        else
-        {
-            return -1;
-        }
-        *headP += 1;
-    }
-
-    result /= 10;
-    return result;
-}
-
-
-int uri_getNumber(uint8_t * uriString,
-                  size_t uriLength)
-{
-    size_t index = 0;
-
-    if (uriString == NULL
-        || uriLength == 0)
-    {
-        return -1;
-    }
-
-    return prv_parseNumber(uriString, uriLength, &index);
-}
-
+#ifdef LWM2M_ALTPATH_SUPPORT
+lwm2m_uri_type_t uri_decode(char *altPath,
+                            iowa_coap_message_t *messageP,
+                            uint16_t number,
+                            iowa_lwm2m_uri_t *uriP)
+#else
 lwm2m_uri_type_t uri_decode(iowa_coap_message_t *messageP,
                             uint16_t number,
                             iowa_lwm2m_uri_t *uriP)
+#endif
 {
     iowa_coap_option_t *optionP;
 
     assert(messageP != NULL);
     assert(uriP != NULL);
 
+#ifdef LWM2M_ALTPATH_SUPPORT
+    IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "altPath: \"%s\", number: %u.", altPath != NULL ? altPath: "", number);
+#else
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "number: %u.", number);
+#endif
 
     LWM2M_URI_RESET(uriP);
 
@@ -147,6 +114,46 @@ lwm2m_uri_type_t uri_decode(iowa_coap_message_t *messageP,
         return LWM2M_URI_TYPE_BOOTSTRAP;
     }
 
+#ifdef LWM2M_ALTPATH_SUPPORT
+    if (altPath != NULL)
+    {
+        iowa_coap_option_t * pathOptionP;
+        iowa_coap_option_t * segmentOptionP;
+
+        // check alternate path
+        pathOptionP = iowa_coap_path_to_option(number, altPath, REG_PATH_DELIMITER);
+#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
+        if (NULL == pathOptionP)
+        {
+            return LWM2M_URI_TYPE_UNKNOWN;
+        }
+#endif
+        segmentOptionP = pathOptionP;
+        while (segmentOptionP != NULL)
+        {
+            if (optionP == NULL
+                || optionP->number != number)
+            {
+                iowa_coap_option_free(pathOptionP);
+                return LWM2M_URI_TYPE_UNKNOWN;
+            }
+            if (segmentOptionP->length != optionP->length
+                && 0 != strncmp((char *)segmentOptionP->value.asBuffer, (char *)optionP->value.asBuffer, optionP->length))
+            {
+                iowa_coap_option_free(pathOptionP);
+                return LWM2M_URI_TYPE_UNKNOWN;
+            }
+            segmentOptionP = segmentOptionP->next;
+            optionP = optionP->next;
+        }
+        iowa_coap_option_free(pathOptionP);
+
+        if (optionP == NULL)
+        {
+            return LWM2M_URI_TYPE_UNKNOWN;
+        }
+    }
+#endif
     if (optionP->length == 0)
     {
         optionP = optionP->next;
@@ -158,11 +165,13 @@ lwm2m_uri_type_t uri_decode(iowa_coap_message_t *messageP,
     }
     else
     {
-        int readNum;
+        int64_t readNum;
+        size_t result;
 
-
-        readNum = uri_getNumber(optionP->value.asBuffer, optionP->length);
-        if (readNum < 0
+        // Read object ID
+        result = dataUtilsBufferToInt(optionP->value.asBuffer, optionP->length, &readNum);
+        if (result == 0
+            || readNum < 0
             || readNum >= IOWA_LWM2M_ID_ALL)
         {
             return LWM2M_URI_TYPE_UNKNOWN;
@@ -173,9 +182,10 @@ lwm2m_uri_type_t uri_decode(iowa_coap_message_t *messageP,
         if (optionP != NULL
             && optionP->number == number)
         {
-
-            readNum = uri_getNumber(optionP->value.asBuffer, optionP->length);
-            if (readNum < 0
+            // Read object instance ID
+            result = dataUtilsBufferToInt(optionP->value.asBuffer, optionP->length, &readNum);
+            if (result == 0
+                || readNum < 0
                 || readNum >= IOWA_LWM2M_ID_ALL)
             {
                 return LWM2M_URI_TYPE_UNKNOWN;
@@ -186,9 +196,10 @@ lwm2m_uri_type_t uri_decode(iowa_coap_message_t *messageP,
             if (optionP != NULL
                 && optionP->number == number)
             {
-
-                readNum = uri_getNumber(optionP->value.asBuffer, optionP->length);
-                if (readNum < 0
+                // Read resource ID
+                result = dataUtilsBufferToInt(optionP->value.asBuffer, optionP->length, &readNum);
+                if (result == 0
+                    || readNum < 0
                     || readNum >= IOWA_LWM2M_ID_ALL)
                 {
                     return LWM2M_URI_TYPE_UNKNOWN;
@@ -207,9 +218,16 @@ lwm2m_uri_type_t uri_decode(iowa_coap_message_t *messageP,
     return LWM2M_URI_TYPE_DM;
 }
 
+#ifdef LWM2M_ALTPATH_SUPPORT
+iowa_coap_option_t * uri_encode(uint16_t number,
+                                char *altPath,
+                                iowa_lwm2m_uri_t *uriP,
+                                uint8_t buffer[PRV_URI_BUFFER_SIZE])
+#else
 iowa_coap_option_t * uri_encode(uint16_t number,
                                 iowa_lwm2m_uri_t *uriP,
                                 uint8_t buffer[PRV_URI_BUFFER_SIZE])
+#endif
 {
     iowa_coap_option_t *resultP;
     iowa_coap_option_t *optionP;
@@ -230,8 +248,28 @@ iowa_coap_option_t * uri_encode(uint16_t number,
     }
 
     optionP = resultP;
+#ifdef LWM2M_ALTPATH_SUPPORT
+    if (altPath != NULL)
+    {
+        // TODO: in lwm2m_init() check the length of altPath to fit in 16 bits
+        // same thing in registration_handleRequest
+        optionP->length = (uint16_t)strlen(altPath);
+        optionP->value.asBuffer = (uint8_t *)altPath;
 
+        optionP->next = iowa_coap_option_new(number);
+#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
+        if (optionP->next == NULL)
+        {
+            IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to create new CoAP option.");
+            iowa_coap_option_free(resultP);
+            return NULL;
+        }
+#endif
+        optionP = optionP->next;
+    }
+#endif
 
+    // length of a text version of a LwM2M ID is always less than an uint16_t max value
     if(uriP->objectId == IOWA_LWM2M_ID_ALL)
     {
         optionP->length = 0;
@@ -263,7 +301,7 @@ iowa_coap_option_t * uri_encode(uint16_t number,
 #endif
         optionP = optionP->next;
 
-
+        // length of a text version of a LwM2M ID is always less than an uint16_t max value
         optionP->length = (uint16_t)dataUtilsIntToBuffer(uriP->instanceId, buffer + index, PRV_URI_BUFFER_SIZE - index, false);
         if (optionP->length == 0)
         {
@@ -286,7 +324,7 @@ iowa_coap_option_t * uri_encode(uint16_t number,
 #endif
             optionP = optionP->next;
 
-
+            // length of a text version of a LwM2M ID is always less than an uint16_t max value
             optionP->length = (uint16_t)dataUtilsIntToBuffer(uriP->resourceId, buffer + index, PRV_URI_BUFFER_SIZE - index, false);
             if (optionP->length == 0)
             {

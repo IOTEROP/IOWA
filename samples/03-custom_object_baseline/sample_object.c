@@ -66,7 +66,7 @@ iowa_status_t sample_object_dataCallback(iowa_dm_operation_t operation,
                 {
                     // For the sake of the example, we return a copy of our string value.
                     dataP[i].value.asBuffer.length = strlen(objectValuesP->stringValue);
-                    dataP[i].value.asBuffer.buffer = strdup(objectValuesP->stringValue);
+                    dataP[i].value.asBuffer.buffer = (uint8_t *)strdup(objectValuesP->stringValue);
                     if (dataP[i].value.asBuffer.buffer == NULL)
                     {
                         return IOWA_COAP_500_INTERNAL_SERVER_ERROR;

@@ -27,9 +27,9 @@
  * and Eclipse Distribution License v1.0 which accompany this distribution.
  *
  * The Eclipse Public License is available at
- *    http:
+ *    http://www.eclipse.org/legal/epl-v10.html
  * The Eclipse Distribution License is available at
- *    http:
+ *    http://www.eclipse.org/org/documents/edl-v10.php.
  *
  * Contributors:
  *    David Navarro, Intel Corporation - initial API and implementation
@@ -75,49 +75,7 @@
 ** Public functions
 *************************************************************************************/
 
-size_t utils_stringToBinding(uint8_t *strBinding,
-                             size_t strBindingLen,
-                             lwm2m_binding_t *bindingP)
-{
-    size_t index;
-
-    assert(bindingP != NULL);
-
-    IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Entering with strBinding: %.*s.", strBindingLen, strBinding);
-
-    for (index = 0; index < strBindingLen; index++)
-    {
-        switch (strBinding[index])
-        {
-        case QUERY_BINDING_UDP:
-            *bindingP |= BINDING_U;
-            break;
-
-        case QUERY_BINDING_TCP:
-            *bindingP |= BINDING_T;
-            break;
-
-        case QUERY_BINDING_SMS:
-            *bindingP |= BINDING_S;
-            break;
-
-        case QUERY_BINDING_NON_IP:
-            *bindingP |= BINDING_N;
-            break;
-
-        case QUERY_BINDING_QUEUE_MODE:
-            *bindingP |= BINDING_Q;
-            break;
-
-        default:
-            return 0;
-        }
-    }
-
-    return index;
-}
-
-size_t utils_bindingToString(lwm2m_binding_t binding,
+size_t utils_bindingToString(iowa_lwm2m_binding_t binding,
                              bool queueMode,
                              uint8_t **strBindingP)
 {
@@ -125,10 +83,11 @@ size_t utils_bindingToString(lwm2m_binding_t binding,
     size_t cursor;
 
     assert(strBindingP != NULL);
-    assert((binding & (BINDING_U | BINDING_T | BINDING_S | BINDING_N)) != 0);
+    assert((binding & (IOWA_LWM2M_BINDING_UDP | IOWA_LWM2M_BINDING_TCP | IOWA_LWM2M_BINDING_SMS | IOWA_LWM2M_BINDING_NON_IP)) != 0);
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Entering with binding: %d, queueMode: %s.", binding, queueMode?"true":"false");
 
+    // Calculate the str length
     if (queueMode == true)
     {
         index = 1;
@@ -138,7 +97,7 @@ size_t utils_bindingToString(lwm2m_binding_t binding,
         index = 0;
     }
 
-    for (cursor = BINDING_U; cursor != BINDING_Q; cursor <<= 1)
+    for (cursor = IOWA_LWM2M_BINDING_UDP; cursor != BINDING_Q; cursor <<= 1)
     {
         if ((cursor & binding) != 0)
         {
@@ -158,9 +117,16 @@ size_t utils_bindingToString(lwm2m_binding_t binding,
     index = 0;
 
 #ifdef IOWA_UDP_SUPPORT
-    if ((binding & BINDING_U) != 0)
+    if ((binding & IOWA_LWM2M_BINDING_UDP) != 0)
     {
         (*strBindingP)[index] = QUERY_BINDING_UDP;
+        index++;
+    }
+#endif
+#if defined(IOWA_TCP_SUPPORT) || defined(IOWA_WEBSOCKET_SUPPORT)
+    if ((binding & IOWA_LWM2M_BINDING_TCP) != 0)
+    {
+        (*strBindingP)[index] = QUERY_BINDING_TCP;
         index++;
     }
 #endif
@@ -202,11 +168,12 @@ iowa_content_format_t utils_getMediaType(iowa_coap_message_t *messageP,
         return IOWA_CONTENT_FORMAT_UNSET;
     }
 
+    // CoAP formats are encoded on 16 bits
     format = (uint16_t)(optionP->value.asInteger);
     switch (format)
     {
     case IOWA_CONTENT_FORMAT_TEXT:
-    case LWM2M_CONTENT_FORMAT_CORE_LINK:
+    case IOWA_CONTENT_FORMAT_CORE_LINK:
     case IOWA_CONTENT_FORMAT_OPAQUE:
 #ifdef LWM2M_SUPPORT_TLV
     case IOWA_CONTENT_FORMAT_TLV_OLD:
@@ -222,6 +189,48 @@ iowa_content_format_t utils_getMediaType(iowa_coap_message_t *messageP,
 
     return format;
 }
+
+#ifdef LWM2M_ALTPATH_SUPPORT
+bool utils_isAltPathValid(const char *altPath)
+{
+    size_t index;
+
+    if (altPath == NULL)
+    {
+        return false;
+    }
+
+    if (strlen(altPath) <= 1
+        || altPath[0] != '/')
+    {
+        return false;
+    }
+
+    for (index = 1; altPath[index] != 0; index++)
+    {
+        // TODO: Support multi-segment alternative path
+        if (altPath[index] == '/')
+        {
+            return false;
+        }
+
+        // TODO: Check needs for sub-delims, ':' and '@'
+        if ((altPath[index] < 'A' || altPath[index] > 'Z')     // ALPHA
+            && (altPath[index] < 'a' || altPath[index] > 'z')
+            && (altPath[index] < '0' || altPath[index] > '9')  // DIGIT
+            && (altPath[index] != '-')                         // Other unreserved
+            && (altPath[index] != '.')
+            && (altPath[index] != '_')
+            && (altPath[index] != '~')
+            && (altPath[index] != '%'))                        // pct_encoded
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+#endif
 
 #if defined(LWM2M_CLIENT_MODE)
 iowa_status_t utilsConnectServer(iowa_context_t contextP,
@@ -244,6 +253,17 @@ iowa_status_t utilsConnectServer(iowa_context_t contextP,
             IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Cannot create the CoAP peer.");
             return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
         }
+
+        if (serverP->coapAckTimeout != PRV_SERVER_COAP_SETTING_UNSET)
+        {
+             (void)coapPeerConfiguration(serverP->runtime.peerP, true, IOWA_COAP_SETTING_ACK_TIMEOUT, &(serverP->coapAckTimeout));
+        }
+        if (serverP->coapMaxRetransmit != PRV_SERVER_COAP_SETTING_UNSET)
+        {
+             (void)coapPeerConfiguration(serverP->runtime.peerP, true, IOWA_COAP_SETTING_MAX_RETRANSMIT, &(serverP->coapMaxRetransmit));
+        }
+
+        securitySetSSID(serverP->runtime.peerP->base.securityS, serverP->shortId);
     }
 
     result = coapPeerConnect(contextP, serverP->runtime.peerP);
@@ -270,60 +290,28 @@ void utilsDisconnectServer(iowa_context_t contextP,
 void utilsFreeServer(iowa_context_t contextP,
                      lwm2m_server_t *serverP)
 {
+    // WARNING: This function is called in a critical section
+
     iowa_system_free(serverP->runtime.location);
     iowa_system_free(serverP->uri);
     iowa_system_free(serverP);
 }
 
-iowa_status_t lwm2mMergeData(iowa_lwm2m_data_t **dataP,
-                             size_t *dataCountP,
-                             lwm2m_data_array_t *dataArrayP,
-                             size_t dataArrayCount)
+#endif // LWM2M_CLIENT_MODE
+
+bool utilsListFindCallbackServer(void *nodeP,
+                                 void *criteriaP)
 {
-    *dataP = NULL;
-    *dataCountP = 0;
+    lwm2m_server_t *serverP;
 
-    IOWA_LOG_TRACE(IOWA_PART_LWM2M, "Entering.");
+    serverP = (lwm2m_server_t *)nodeP;
 
-    if (dataArrayCount > 0)
-    {
-        size_t ind;
-
-        for (ind = 0; ind < dataArrayCount; ind++)
-        {
-            *dataCountP += dataArrayP[ind].dataCount;
-        }
-
-        if (*dataCountP == 0)
-        {
-            IOWA_LOG_INFO(IOWA_PART_LWM2M, "Empty data.");
-            *dataP = NULL;
-            return IOWA_COAP_205_CONTENT;
-        }
-
-        *dataP = (iowa_lwm2m_data_t *)iowa_system_malloc(*dataCountP * sizeof(iowa_lwm2m_data_t));
-#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-        if (*dataP == NULL)
-        {
-            IOWA_LOG_ERROR_MALLOC(*dataCountP * sizeof(iowa_lwm2m_data_t));
-            *dataCountP = 0;
-            return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-        }
-        else
-#endif
-        {
-            *dataCountP = 0;
-            for (ind = 0; ind < dataArrayCount; ind++)
-            {
-                memcpy(&(*dataP)[*dataCountP], dataArrayP[ind].dataP, dataArrayP[ind].dataCount * sizeof(iowa_lwm2m_data_t));
-                iowa_system_free(dataArrayP[ind].dataP);
-
-                *dataCountP += dataArrayP[ind].dataCount;
-            }
-        }
-    }
-    return IOWA_COAP_205_CONTENT;
+    // Only return true when the current node match the short ID and it's not a Bootstrap Server
+    return serverP->shortId == *((uint16_t *)criteriaP);
 }
 
-#endif
-
+bool utilsListFindCallbackServerByPeer(void *nodeP,
+                                       void *criteriaP)
+{
+    return ((lwm2m_server_t *)nodeP)->runtime.peerP == criteriaP;
+}

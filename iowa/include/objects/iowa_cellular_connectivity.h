@@ -76,15 +76,15 @@ typedef struct
     iowa_lwm2m_object_link_t *activatedProfileNamesList;
     uint16_t                  activatedProfileNamesNumber;
     char                     *smsc;
-    int                       disableRadioPeriod;
+    int32_t                   disableRadioPeriod;
     char                     *moduleActivationCode;
-    int                       psmTimer;
-    int                       activeTimer;
-    int                       servingPlmnRateControl;
-    char                     *edrxParamIuMode;
-    char                     *edrxParamWbS1Mode;
-    char                     *edrxParamNbS1Mode;
-    char                     *edrxParamAGbmMode;
+    int32_t                   psmTimer;
+    int32_t                   activeTimer;
+    uint32_t                  servingPlmnRateControl;
+    uint8_t                  *edrxParamIuMode;
+    uint8_t                  *edrxParamWbS1Mode;
+    uint8_t                  *edrxParamNbS1Mode;
+    uint8_t                  *edrxParamAGbmMode;
 } iowa_cellular_connectivity_info_t;
 
 // The callback called to change the state of the cellular connectivity.

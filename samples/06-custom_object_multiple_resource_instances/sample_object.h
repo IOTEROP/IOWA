@@ -23,7 +23,7 @@
  * +------+---------+------------+----------+-------------------------------------+
  * | 5500 | Boolean |   R        | Single   | A read-only boolean value           |
  * | 5750 | String  |   R/W      | Single   | A writable string                   |
- * | 5503 | Integer |   R/W      | Single   | A writable integer value            |
+ * | 5503 | Integer |   R/W      | Multiple | A writable integer value            |
  *
  *********************************************************************************/
 

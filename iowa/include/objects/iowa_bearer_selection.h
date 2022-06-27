@@ -76,18 +76,18 @@ extern "C" {
 // - attachWoPdnConnection: 0=attach with PDN connection, 1=attach without PDN connection
 typedef struct
 {
-    int        *preferredCommBearerList;
+    uint8_t    *preferredCommBearerList;
     uint16_t    preferredCommBearerNumber;
-    int         acceptableGsm;
-    int         acceptableUmts;
-    int         acceptableLte;
-    int         acceptableEvDo;
+    int8_t      acceptableGsm;
+    int8_t      acceptableUmts;
+    int16_t     acceptableLte;
+    int16_t     acceptableEvDo;
     char       *cellLockList;
     char       *operatorList;
     bool        operatorListMode;
     char       *availablePlmns;
-    int         acceptableRsrpNbIot;
-    int         plmnSearchTimer;
+    int16_t     acceptableRsrpNbIot;
+    int32_t     plmnSearchTimer;
     bool        attachWoPdnConnection;
 } iowa_bearer_selection_info_t;
 

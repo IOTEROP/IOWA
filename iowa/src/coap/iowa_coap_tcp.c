@@ -9,7 +9,7 @@
 * |         |         |           |    |    |
 * |_________|_________|___________|____|____|
 *
-* Copyright (c) 2016-2019 IoTerop.
+* Copyright (c) 2016-2020 IoTerop.
 * All rights reserved.
 *
 * This program and the accompanying materials
@@ -17,8 +17,8 @@
 * IoTerop’s IOWA License (LICENSE.TXT) which
 * accompany this distribution.
 *
+*
 **********************************************/
 
 #include "iowa_prv_coap_internals.h"
 #include <stdbool.h>
-

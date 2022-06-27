@@ -9,13 +9,14 @@
 * |         |         |           |    |    |
 * |_________|_________|___________|____|____|
 *
-* Copyright (c) 2016-2019 IoTerop.
+* Copyright (c) 2016-2020 IoTerop.
 * All rights reserved.
 *
 * This program and the accompanying materials
 * are made available under the terms of
 * IoTerop’s IOWA License (LICENSE.TXT) which
 * accompany this distribution.
+*
 *
 **********************************************/
 
@@ -30,7 +31,7 @@ uint8_t messageSendUDP(iowa_context_t contextP,
                        coap_message_callback_t resultCallback,
                        void *userData)
 {
-
+    // WARNING: This function is called in a critical section
     coap_peer_datagram_t *peerP;
     size_t bufferLength;
     uint8_t *buffer;
@@ -86,7 +87,7 @@ void udpSecurityEventCb(iowa_security_session_t securityS,
                         void *userData,
                         iowa_context_t contextP)
 {
-
+    // WARNING: This function is called in a critical section
 
     coap_peer_datagram_t *peerP;
 
@@ -99,10 +100,13 @@ void udpSecurityEventCb(iowa_security_session_t securityS,
     switch (event)
     {
     case SECURITY_EVENT_CONNECTED:
+        // TODO: (in case of security) send any buffered message
+        // Propagate the signal to the upper layer
         PEER_CALL_EVENT_CALLBACK(contextP, peerP, COAP_EVENT_CONNECTED);
         break;
 
     case SECURITY_EVENT_DISCONNECTED:
+        // Propagate the signal to the upper layer
         PEER_CALL_EVENT_CALLBACK(contextP, peerP, COAP_EVENT_DISCONNECTED);
         break;
 
@@ -112,11 +116,6 @@ void udpSecurityEventCb(iowa_security_session_t securityS,
         int bufferLength;
 
         bufferLength = peerRecvBuffer(contextP, (iowa_coap_peer_t *)peerP, buffer, IOWA_BUFFER_SIZE);
-        if (bufferLength < 0)
-        {
-            PEER_CALL_EVENT_CALLBACK(contextP, peerP, COAP_EVENT_DISCONNECTED);
-            break;
-        }
         if (bufferLength > 0)
         {
             iowa_coap_message_t *messageP;
@@ -130,6 +129,7 @@ void udpSecurityEventCb(iowa_security_session_t securityS,
             if (result != IOWA_COAP_NO_ERROR)
             {
                 IOWA_LOG_ARG_WARNING(IOWA_PART_COAP, "Message parsing failed with error %u.%02u.", (result & 0xFF) >> 5, (result & 0x1F));
+                // ignore message
                 return;
             }
 
@@ -145,17 +145,21 @@ void udpSecurityEventCb(iowa_security_session_t securityS,
                 truncated = false;
             }
 
-#ifndef IOWA_COAP_BLOCK_MINIMAL_SUPPORT
-            if (iowa_coap_message_find_option(messageP, IOWA_COAP_OPTION_BLOCK_1) != NULL
-                || iowa_coap_message_find_option(messageP, IOWA_COAP_OPTION_BLOCK_2) != NULL)
+            if (iowa_coap_message_find_option(messageP, IOWA_COAP_OPTION_BLOCK_1) != NULL)
             {
-                IOWA_LOG_WARNING(IOWA_PART_COAP, "Received message containing Block option but IOWA_COAP_BLOCK_MINIMAL_SUPPORT is not defined.");
+                IOWA_LOG_WARNING(IOWA_PART_COAP, "Received message containing Block 1 option but IOWA_COAP_BLOCK_MINIMAL_SUPPORT is not defined.");
 
                 coapSendResponse(contextP, (iowa_coap_peer_t *)peerP, messageP, IOWA_COAP_402_BAD_OPTION);
                 iowa_coap_message_free(messageP);
                 return;
             }
-#endif
+            else if (iowa_coap_message_find_option(messageP, IOWA_COAP_OPTION_BLOCK_2) != NULL) //Server cannot respond to a Block message from the Client when Block is not supported.
+            {
+                IOWA_LOG_WARNING(IOWA_PART_COAP, "Received message containing Block 2 option but IOWA_COAP_BLOCK_MINIMAL_SUPPORT is not defined.");
+
+                iowa_coap_message_free(messageP);
+                return;
+            }
 
             transactionHandleMessage(contextP, peerP, messageP, truncated, maxPayloadSize);
 
@@ -166,8 +170,9 @@ void udpSecurityEventCb(iowa_security_session_t securityS,
     break;
 
     default:
+        // Should not happen
         break;
     }
 }
 
-#endif
+#endif // IOWA_UDP_SUPPORT

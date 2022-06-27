@@ -43,6 +43,9 @@ extern "C" {
 #define IOWA_URI_SCHEME_COAP_TCP      "coap+tcp://"
 #define IOWA_URI_SCHEME_COAP_SEC_TCP  "coaps+tcp://"
 
+#define IOWA_URI_SCHEME_COAP_WEBSOCKET      "coap+ws://"
+#define IOWA_URI_SCHEME_COAP_SEC_WEBSOCKET  "coaps+ws://"
+
 #define IOWA_URI_SCHEME_COAP_SMS         "coap+sms://"
 #define IOWA_URI_SCHEME_COAP_BINARY_SMS  "sms://"
 
@@ -59,12 +62,22 @@ extern "C" {
 #define IOWA_COAP_FORMAT_EXI          47
 #define IOWA_COAP_FORMAT_JSON         50
 
+/************************************************
+* CoAP Peer Settings
+*/
+
+#define IOWA_COAP_SETTING_ACK_TIMEOUT     1    // uint8_t
+#define IOWA_COAP_SETTING_MAX_RETRANSMIT  2    // uint8_t
+#define IOWA_COAP_SETTING_URI_LENGTH      3    // size_t
+#define IOWA_COAP_SETTING_URI             4    // char *
+
 /**************************************************************
  * Types
  **************************************************************/
 
 typedef struct _iowa_coap_peer_t iowa_coap_peer_t;
 typedef struct _iowa_coap_message_t iowa_coap_message_t;
+typedef uint8_t iowa_coap_setting_id_t;
 
 typedef enum
 {
@@ -122,6 +135,28 @@ iowa_coap_peer_t *iowa_coap_peer_new(iowa_context_t contextP,
 void iowa_coap_peer_delete(iowa_context_t contextP,
                            iowa_coap_peer_t *peerP);
 
+// Configure a CoAP peer
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// - contextP: as returned by iowa_init().
+// - peerP: a CoAP peer.
+// - settingId: the setting to set.
+// - argP: pointer to the setting value. Dependent on the setting Id.
+iowa_status_t iowa_coap_peer_configuration_set(iowa_context_t contextP,
+                                               iowa_coap_peer_t *peerP,
+                                               iowa_coap_setting_id_t settingId,
+                                               void *argP);
+
+// Retrieve the configuration of a CoAP peer
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// - contextP: as returned by iowa_init().
+// - peerP: a CoAP peer.
+// - settingId: the setting to get.
+// - argP: pointer to store the setting value. Dependent on the setting Id.
+iowa_status_t iowa_coap_peer_configuration_get(iowa_context_t contextP,
+                                               iowa_coap_peer_t *peerP,
+                                               iowa_coap_setting_id_t settingId,
+                                               void *argP);
+
 // Connect to a CoAP peer.
 // Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
 // Parameters:
@@ -143,8 +178,8 @@ void iowa_coap_peer_disconnect(iowa_context_t contextP,
 // Parameters:
 // - contextP: as returned by iowa_init().
 // - peerP: the CoAP peer to send the GET request to.
-// - path: the path component of the uri to retrieve. This can be nil.
-// - query: the query component of the uri to retrieve. This can be nil.
+// - path: the path component of the URI to retrieve. This can be nil.
+// - query: the query component of the URI to retrieve. This can be nil.
 // - resultCb: the callback to call when a reply is received or when the transmission fails.
 // - userData: past as parameter to resultCallback. This can be nil.
 iowa_status_t iowa_coap_peer_get(iowa_context_t contextP,
@@ -153,6 +188,20 @@ iowa_status_t iowa_coap_peer_get(iowa_context_t contextP,
                                  const char *query,
                                  iowa_coap_result_callback_t resultCb,
                                  void *userData);
+
+// Send a CoAP GET request to a peer acting as a forward-proxy.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - contextP: as returned by iowa_init().
+// - peerP: the CoAP peer acting as a forward-proxy.
+// - uri: the full URI of the resource to retrieve.
+// - resultCb: the callback to call when a reply is received or when the transmission fails.
+// - userData: past as parameter to resultCallback. This can be nil.
+iowa_status_t iowa_coap_peer_proxied_get(iowa_context_t contextP,
+                                         iowa_coap_peer_t *peerP,
+                                         const char *uri,
+                                         iowa_coap_result_callback_t resultCb,
+                                         void *userData);
 
 // Retrieve the pointer to the payload of a CoAP message.
 // Returned value: The length in bytes of the payload.
@@ -165,7 +214,7 @@ size_t iowa_coap_message_get_payload(iowa_coap_message_t *messageP,
                                      uint8_t **payloadP);
 
 // Retrieve block information in a CoAP message.
-// Returned value: IOWA_COAP_NO_ERROR in case of success, or IOWA_COAP_404_NOT_FOUND if the CoAP message has no block information.
+// Returned value: IOWA_COAP_NO_ERROR in case of successor an error status.
 // Parameters:
 // - messageP: the CoAP message to inspect.
 // - numberP: OUT. the block number.
@@ -175,6 +224,14 @@ iowa_status_t iowa_coap_message_get_block_info(iowa_coap_message_t *messageP,
                                                uint32_t *numberP,
                                                bool *moreP,
                                                uint16_t *sizeP);
+
+// Retrieve the total size of the content from a CoAP message considering block-wise transfer.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - messageP: the CoAP message to inspect.
+// - totalSizeP: OUT. the length in bytes of the content.
+iowa_status_t iowa_coap_message_get_content_total_size(iowa_coap_message_t *messageP,
+                                                       size_t *totalSizeP);
 
 // When receiving a reply with a block option, request the next block.
 // Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
@@ -197,7 +254,7 @@ iowa_status_t iowa_coap_block_request_next(iowa_context_t contextP,
 // - peerP: the CoAP peer to send the message to.
 // - messageP: the CoAP message containing the block transfer.
 // - blockNumber: the block number.
-// - resultCb: The callback to call when the next block is received.
+// - resultCb: The callback to call when the block is received.
 // - userData: past as parameter to resultCallback. This can be nil.
 uint8_t iowa_coap_block_request_block_number(iowa_context_t contextP,
                                              iowa_coap_peer_t *peerP,

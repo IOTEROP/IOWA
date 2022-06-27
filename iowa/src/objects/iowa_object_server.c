@@ -9,7 +9,7 @@
 * |         |         |           |    |    |
 * |_________|_________|___________|____|____|
 *
-* Copyright (c) 2016-2019 IoTerop.
+* Copyright (c) 2016-2020 IoTerop.
 * All rights reserved.
 *
 * This program and the accompanying materials
@@ -28,6 +28,12 @@
 /*************************************************************************************
 ** Private functions
 *************************************************************************************/
+
+static bool prv_listFindCallback(void *nodeP,
+                                 void *criteriaP)
+{
+    return ((lwm2m_server_t *)nodeP)->srvObjInstId == *((uint16_t *)criteriaP);
+}
 
 static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
                                               iowa_lwm2m_data_t *dataP,
@@ -54,14 +60,9 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
                 || dataP[i].instanceID != dataP[i - 1].instanceID)
             {
                 {
-                    targetP = contextP->lwm2mContextP->serverList;
+                    targetP = (lwm2m_server_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->serverList, prv_listFindCallback, &dataP[i].instanceID);
                 }
 
-                while (targetP != NULL
-                       && targetP->srvObjInstId != dataP[i].instanceID)
-                {
-                    targetP = targetP->next;
-                }
                 if (targetP == NULL)
                 {
                     CRIT_SECTION_LEAVE(contextP);
@@ -80,7 +81,7 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
                 dataP[i].value.asInteger = targetP->lifetime;
                 break;
 
-#ifndef IOWA_SERVER_RSC_DEFAULT_PERIODS_REMOVE
+#ifdef IOWA_SERVER_SUPPORT_RSC_DEFAULT_PERIODS
             case IOWA_LWM2M_SERVER_ID_MIN_PERIOD:
                 dataP[i].value.asInteger = targetP->defaultPmin;
                 break;
@@ -90,7 +91,7 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
                 break;
 #endif
 
-#ifndef IOWA_SERVER_RSC_DISABLE_TIMEOUT_REMOVE
+#ifdef IOWA_SERVER_SUPPORT_RSC_DISABLE_TIMEOUT
             case IOWA_LWM2M_SERVER_ID_TIMEOUT:
                 dataP[i].value.asInteger = targetP->disableTimeout;
                 break;
@@ -101,12 +102,12 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
                 break;
 
             case IOWA_LWM2M_SERVER_ID_BINDING:
-
+                // In LwM2M 1.0: Server transports + Server Queue mode
                 dataP[i].value.asBuffer.length = utils_bindingToString(targetP->binding, (targetP->binding & BINDING_Q) != 0, &dataP[i].value.asBuffer.buffer);
                 break;
 
             default:
-
+                // Should not happen
                 break;
             }
         }
@@ -122,7 +123,7 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
                 break;
 
             default:
-
+                // Do nothing
                 break;
             }
         }
@@ -135,14 +136,9 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
                 || dataP[i].instanceID != dataP[i - 1].instanceID)
             {
                 {
-                    targetP = contextP->lwm2mContextP->serverList;
+                    targetP = (lwm2m_server_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->serverList, prv_listFindCallback, &dataP[i].instanceID);
                 }
 
-                while (targetP != NULL
-                       && targetP->srvObjInstId != dataP[i].instanceID)
-                {
-                    targetP = targetP->next;
-                }
                 if (targetP == NULL)
                 {
                     CRIT_SECTION_LEAVE(contextP);
@@ -168,6 +164,7 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
                     targetP->lifetime = dataP[i].value.asInteger;
 
                     {
+                        coreServerEventCallback(contextP, targetP, IOWA_EVENT_SERVER_SETTING_CHANGED, false, IOWA_SERVER_SETTING_LIFETIME);
                         lwm2mUpdateRegistration(contextP, targetP, LWM2M_UPDATE_FLAG_LIFETIME);
 
                         CRIT_SECTION_LEAVE(contextP);
@@ -176,7 +173,7 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
                     }
                 }
                 break;
-#ifndef IOWA_SERVER_RSC_DEFAULT_PERIODS_REMOVE
+#ifdef IOWA_SERVER_SUPPORT_RSC_DEFAULT_PERIODS
             case IOWA_LWM2M_SERVER_ID_MIN_PERIOD:
                 if (dataP[i].value.asInteger < 0
                     || dataP[i].value.asInteger > UINT32_MAX)
@@ -186,6 +183,7 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
                     break;
                 }
                 targetP->defaultPmin = dataP[i].value.asInteger;
+                coreServerEventCallback(contextP, targetP, IOWA_EVENT_SERVER_SETTING_CHANGED, false, IOWA_SERVER_SETTING_DEFAULT_MIN_PERIOD);
                 break;
 
             case IOWA_LWM2M_SERVER_ID_MAX_PERIOD:
@@ -196,11 +194,12 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
                     result = IOWA_COAP_400_BAD_REQUEST;
                     break;
                 }
-                targetP->defaultPmax = dataP[i].value.asInteger;
+                    targetP->defaultPmax = dataP[i].value.asInteger;
+                    coreServerEventCallback(contextP, targetP, IOWA_EVENT_SERVER_SETTING_CHANGED, false, IOWA_SERVER_SETTING_DEFAULT_MAX_PERIOD);
                 break;
-#endif
+#endif // IOWA_SERVER_SUPPORT_RSC_DEFAULT_PERIODS
 
-#ifndef IOWA_SERVER_RSC_DISABLE_TIMEOUT_REMOVE
+#ifdef IOWA_SERVER_SUPPORT_RSC_DISABLE_TIMEOUT
             case IOWA_LWM2M_SERVER_ID_TIMEOUT:
                 if (dataP[i].value.asInteger < 0
                     || dataP[i].value.asInteger > INT32_MAX)
@@ -210,6 +209,7 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
                     break;
                 }
                 targetP->disableTimeout = dataP[i].value.asInteger;
+                coreServerEventCallback(contextP, targetP, IOWA_EVENT_SERVER_SETTING_CHANGED, false, IOWA_SERVER_SETTING_DISABLE_TIMEOUT);
                 break;
 #endif
 
@@ -218,6 +218,7 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
                 }
 
                 targetP->notifStoring = dataP[i].value.asBoolean;
+                coreServerEventCallback(contextP, targetP, IOWA_EVENT_SERVER_SETTING_CHANGED, false, IOWA_SERVER_SETTING_NOTIF_STORING);
                 break;
 
             case IOWA_LWM2M_SERVER_ID_BINDING:
@@ -226,7 +227,7 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
                 break;
 
             default:
-
+                // Should not happen
                 break;
             }
         }
@@ -237,7 +238,7 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
         {
             if (dataP[i].type != IOWA_LWM2M_TYPE_UNDEFINED)
             {
-
+                // dataP[i].type can only be IOWA_LWM2M_TYPE_UNDEFINED or IOWA_LWM2M_TYPE_STRING with an Execute operation
                 IOWA_LOG_ARG_WARNING(IOWA_PART_OBJECT, "No argument should be provided. Found: \"%.*s\".", dataP[i].value.asBuffer.length, dataP[i].value.asBuffer.buffer);
                 result = IOWA_COAP_400_BAD_REQUEST;
                 break;
@@ -246,15 +247,7 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
             if (i == 0
                 || dataP[i].instanceID != dataP[i - 1].instanceID)
             {
-                {
-                    targetP = contextP->lwm2mContextP->serverList;
-                }
-
-                while (targetP != NULL
-                       && targetP->srvObjInstId != dataP[i].instanceID)
-                {
-                    targetP = targetP->next;
-                }
+                targetP = (lwm2m_server_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->serverList, prv_listFindCallback, &dataP[i].instanceID);
                 if (targetP == NULL)
                 {
                     CRIT_SECTION_LEAVE(contextP);
@@ -273,7 +266,7 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
                 CRIT_SECTION_ENTER(contextP);
                 break;
 
-#ifndef IOWA_SERVER_RSC_DISABLE_TIMEOUT_REMOVE
+#ifdef IOWA_SERVER_SUPPORT_RSC_DISABLE_TIMEOUT
             case IOWA_LWM2M_SERVER_ID_DISABLE:
                 if (targetP->runtime.status == STATE_DISCONNECTED
                     || targetP->runtime.status == STATE_REG_REGISTERING
@@ -289,7 +282,7 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
 #endif
 
             default:
-
+                // Should not happen
                 break;
             }
         }
@@ -304,6 +297,26 @@ static iowa_status_t prv_serverObjectCallback(iowa_dm_operation_t operation,
     return result;
 }
 
+static iowa_status_t prv_serverResInstanceCallback(uint16_t objectID,
+                                                   uint16_t instanceID,
+                                                   uint16_t resourceID,
+                                                   uint16_t *nbResInstanceP,
+                                                   uint16_t **resInstanceArrayP,
+                                                   void *userData,
+                                                   iowa_context_t contextP)
+{
+    (void)objectID;
+    (void)instanceID;
+    (void)resourceID;
+    (void)userData;
+    (void)contextP;
+
+    *nbResInstanceP = 0;
+    *resInstanceArrayP = NULL;
+
+    return IOWA_COAP_NO_ERROR;
+}
+
 /*************************************************************************************
 ** Internal functions
 *************************************************************************************/
@@ -314,29 +327,33 @@ iowa_status_t objectServerInit(iowa_context_t contextP)
     iowa_lwm2m_resource_desc_t resources[PRV_RSC_NUMBER];
     int currentPt;
     const uint16_t nbrRes = PRV_RSC_NUMBER
-#ifdef IOWA_SERVER_RSC_DEFAULT_PERIODS_REMOVE
+#ifndef IOWA_SERVER_SUPPORT_RSC_DEFAULT_PERIODS
                             - 2
 #endif
-#ifdef IOWA_SERVER_RSC_DISABLE_TIMEOUT_REMOVE
+#ifndef IOWA_SERVER_SUPPORT_RSC_DISABLE_TIMEOUT
                             - 2
 #endif
+#ifndef IOWA_SERVER_SUPPORT_RSC_BOOTSTRAP_TRIGGER
                             - 1
-#ifdef IOWA_SERVER_RSC_REGISTRATION_BEHAVIOUR_REMOVE
+#endif
+#ifndef IOWA_SERVER_SUPPORT_RSC_REGISTRATION_BEHAVIOUR
                             - 4
 #endif
-#ifdef IOWA_SERVER_RSC_COMMUNICATION_ATTEMPTS_REMOVE
+#ifndef IOWA_SERVER_SUPPORT_RSC_COMMUNICATION_ATTEMPTS
                             - 4
 #endif
+#ifndef IOWA_SERVER_SUPPORT_RSC_MUTE_SEND
                             - 1
+#endif
                             ;
 
-    IOWA_LOG_INFO(IOWA_PART_OBJECT, "Entering");
+    IOWA_LOG_INFO(IOWA_PART_OBJECT, "Entering.");
 
-
+    // Get the resource list
     currentPt = 0;
 
     SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SERVER, SHORT_ID, resources, currentPt);
-#ifndef IOWA_SERVER_RSC_DEFAULT_PERIODS_REMOVE
+#ifdef IOWA_SERVER_SUPPORT_RSC_DEFAULT_PERIODS
     SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SERVER, MIN_PERIOD, resources, currentPt);
     SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SERVER, MAX_PERIOD, resources, currentPt);
 #endif
@@ -344,24 +361,12 @@ iowa_status_t objectServerInit(iowa_context_t contextP)
     SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SERVER, STORING, resources, currentPt);
     SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SERVER, BINDING, resources, currentPt);
     SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SERVER, UPDATE, resources, currentPt);
-#ifndef IOWA_SERVER_RSC_DISABLE_TIMEOUT_REMOVE
+#ifdef IOWA_SERVER_SUPPORT_RSC_DISABLE_TIMEOUT
     SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SERVER, DISABLE, resources, currentPt);
     SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SERVER, TIMEOUT, resources, currentPt);
 #endif
-#ifndef IOWA_SERVER_RSC_REGISTRATION_BEHAVIOUR_REMOVE
-    SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SERVER, PRIORITY, resources, currentPt);
-    SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SERVER, INITIAL_DELAY, resources, currentPt);
-    SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SERVER, REG_FAIL_BLOCK, resources, currentPt);
-    SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SERVER, BOOTSTRAP_REG_FAIL, resources, currentPt);
-#endif
-#ifndef IOWA_SERVER_RSC_COMMUNICATION_ATTEMPTS_REMOVE
-    SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SERVER, COMM_RETRY_COUNT, resources, currentPt);
-    SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SERVER, COMM_RETRY_TIMER, resources, currentPt);
-    SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SERVER, COMM_SEQUENCE_DELAY, resources, currentPt);
-    SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SERVER, COMM_SEQUENCE_COUNT, resources, currentPt);
-#endif
 
-
+    // Inform the stack
     result = customObjectAdd(contextP,
                              IOWA_LWM2M_SERVER_OBJECT_ID,
                              OBJECT_MULTIPLE,
@@ -369,7 +374,7 @@ iowa_status_t objectServerInit(iowa_context_t contextP)
                              nbrRes, resources,
                              prv_serverObjectCallback,
                              NULL,
-                             NULL,
+                             prv_serverResInstanceCallback,
                              NULL);
 
     IOWA_LOG_ARG_INFO(IOWA_PART_OBJECT, "Exiting with code %u.%02u.", (result & 0xFF) >> 5, (result & 0x1F));
@@ -384,7 +389,7 @@ iowa_status_t objectServerCreate(iowa_context_t contextP,
 
     assert(id != IOWA_LWM2M_ID_ALL);
 
-    IOWA_LOG_INFO(IOWA_PART_OBJECT, "Adding new server object");
+    IOWA_LOG_INFO(IOWA_PART_OBJECT, "Adding new server object.");
 
     result = objectAddInstance(contextP,
                                IOWA_LWM2M_SERVER_OBJECT_ID,
@@ -401,8 +406,7 @@ iowa_status_t objectServerRemove(iowa_context_t contextP,
 {
     iowa_status_t result;
 
-    IOWA_LOG_ARG_INFO(IOWA_PART_OBJECT, "Removing server object (instance: %d)", id);
-
+    IOWA_LOG_ARG_INFO(IOWA_PART_OBJECT, "Removing server object (instance: %d).", id);
 
     result = objectRemoveInstance(contextP,
                                   IOWA_LWM2M_SERVER_OBJECT_ID,
@@ -415,10 +419,10 @@ iowa_status_t objectServerRemove(iowa_context_t contextP,
 
 iowa_status_t objectServerClose(iowa_context_t contextP)
 {
-
+    // WARNING: This function is called in a critical section
     iowa_status_t result;
 
-    IOWA_LOG_INFO(IOWA_PART_OBJECT, "Closing server object");
+    IOWA_LOG_INFO(IOWA_PART_OBJECT, "Closing server object.");
 
     result = customObjectRemove(contextP, IOWA_LWM2M_SERVER_OBJECT_ID);
 
