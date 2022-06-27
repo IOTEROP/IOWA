@@ -27,20 +27,15 @@
 /*************************************************************************************
 ** Private functions
 *************************************************************************************/
-#define PRV_ADD_RES_ID_TO_ARRAY(array, pt, RES) (array)[(pt)] = (IPSO_RSC_ID_##RES); (pt) += 1
-
-
-
-
-
+// Free instance of this object
+// Returned value: none.
+// Parameters:
+// - instanceP: address of the instance to free
 static void prv_freeInstance(ipso_instance_t *instanceP)
 {
-    if (instanceP != NULL)
-    {
-        iowa_system_free(instanceP->appType);
-        iowa_system_free(instanceP->unit);
-        iowa_system_free(instanceP);
-    }
+    iowa_system_free(instanceP->appType);
+    iowa_system_free(instanceP->unit);
+    iowa_system_free(instanceP);
 }
 
 static uint16_t prv_getResourceDesc(iowa_IPSO_ID_t type,
@@ -136,23 +131,6 @@ static uint16_t prv_getResourceDesc(iowa_IPSO_ID_t type,
         SET_LWM2M_DESC_T_TO_IPSO_RSC((*resArrayP), currentPt, MIN_MEASURED_VALUE);
         SET_LWM2M_DESC_T_TO_IPSO_RSC((*resArrayP), currentPt, MAX_MEASURED_VALUE);
         SET_LWM2M_DESC_T_TO_IPSO_RSC((*resArrayP), currentPt, RESET_MIN_AND_MAX_MEASURED_VALUES);
-        break;
-
-    case IOWA_IPSO_LEVEL_CONTROL:
-        resCount = 4;
-
-        *resArrayP = (iowa_lwm2m_resource_desc_t *)iowa_system_malloc(resCount * sizeof(iowa_lwm2m_resource_desc_t));
-#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-        if (*resArrayP == NULL)
-        {
-            IOWA_LOG_ERROR_MALLOC(resCount * sizeof(iowa_lwm2m_resource_desc_t));
-            return 0;
-        }
-#endif
-        SET_LWM2M_DESC_T_TO_IPSO_RSC((*resArrayP), currentPt, LEVEL);
-        SET_LWM2M_DESC_T_TO_IPSO_RSC((*resArrayP), currentPt, APPLICATION_TYPE);
-        SET_LWM2M_DESC_T_TO_IPSO_RSC((*resArrayP), currentPt, ON_TIME);
-        SET_LWM2M_DESC_T_TO_IPSO_RSC((*resArrayP), currentPt, OFF_TIME);
         break;
 
     case IOWA_IPSO_DIGITAL_INPUT:
@@ -292,21 +270,20 @@ static uint16_t prv_getResourceList(iowa_IPSO_ID_t type,
             return 0;
         }
 #endif
-
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, ANALOG_INPUT_CURRENT_VALUE);
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, MIN_MEASURED_VALUE);
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, MAX_MEASURED_VALUE);
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, RESET_MIN_AND_MAX_MEASURED_VALUES);
+        *resArrayP[currentPt] = IPSO_RSC_ID_ANALOG_INPUT_CURRENT_VALUE;
+        ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, MIN_MEASURED_VALUE);
+        ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, MAX_MEASURED_VALUE);
+        ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, RESET_MIN_AND_MAX_MEASURED_VALUES);
 
         if (withAppType == true)
         {
-            PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, APPLICATION_TYPE);
+            ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, APPLICATION_TYPE);
         }
 
         if (withRange == true)
         {
-            PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, MIN_RANGE_VALUE);
-            PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, MAX_RANGE_VALUE);
+            ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, MIN_RANGE_VALUE);
+            ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, MAX_RANGE_VALUE);
         }
 
         break;
@@ -330,15 +307,15 @@ static uint16_t prv_getResourceList(iowa_IPSO_ID_t type,
             return 0;
         }
 #endif
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, SENSOR_VALUE);
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, RESET_CUMULATIVE_ENERGY);
+        *resArrayP[currentPt] = IPSO_RSC_ID_SENSOR_VALUE;
+        ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, RESET_CUMULATIVE_ENERGY);
         if (withUnit == true)
         {
-            PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, SENSOR_UNITS);
+            ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, SENSOR_UNITS);
         }
         if (withAppType == true)
         {
-            PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, APPLICATION_TYPE);
+            ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, APPLICATION_TYPE);
         }
         break;
 
@@ -357,39 +334,14 @@ static uint16_t prv_getResourceList(iowa_IPSO_ID_t type,
             return 0;
         }
 #endif
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, COMPASS_DIRECTION);
+        *resArrayP[currentPt] = IPSO_RSC_ID_COMPASS_DIRECTION;
         if (withAppType == true)
         {
-            PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, APPLICATION_TYPE);
+            ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, APPLICATION_TYPE);
         }
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, MIN_MEASURED_VALUE);
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, MAX_MEASURED_VALUE);
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, RESET_MIN_AND_MAX_MEASURED_VALUES);
-        break;
-
-    case IOWA_IPSO_LEVEL_CONTROL:
-
-        resCount = 3;
-        if (withAppType == true)
-        {
-            resCount++;
-        }
-
-        *resArrayP = (uint16_t *)iowa_system_malloc(resCount * sizeof(uint16_t));
-#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-        if (*resArrayP == NULL)
-        {
-            IOWA_LOG_ERROR_MALLOC(resCount * sizeof(uint16_t));
-            return 0;
-        }
-#endif
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, LEVEL);
-        if (withAppType == true)
-        {
-            PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, APPLICATION_TYPE);
-        }
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, ON_TIME);
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, OFF_TIME);
+        ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, MIN_MEASURED_VALUE);
+        ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, MAX_MEASURED_VALUE);
+        ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, RESET_MIN_AND_MAX_MEASURED_VALUES);
         break;
 
     case IOWA_IPSO_DIGITAL_INPUT:
@@ -409,11 +361,11 @@ static uint16_t prv_getResourceList(iowa_IPSO_ID_t type,
             return 0;
         }
 #endif
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, DIGITAL_INPUT_STATE);
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, DIGITAL_INPUT_COUNTER);
+        *resArrayP[currentPt] = IPSO_RSC_ID_DIGITAL_INPUT_STATE;
+        ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, DIGITAL_INPUT_COUNTER);
         if (withAppType == true)
         {
-            PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, APPLICATION_TYPE);
+            ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, APPLICATION_TYPE);
         }
         break;
 
@@ -432,13 +384,13 @@ static uint16_t prv_getResourceList(iowa_IPSO_ID_t type,
             return 0;
         }
 #endif
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, DIGITAL_INPUT_STATE);
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, DIGITAL_INPUT_COUNTER);
+        *resArrayP[currentPt] = IPSO_RSC_ID_DIGITAL_INPUT_STATE;
+        ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, DIGITAL_INPUT_COUNTER);
         if (withAppType == true)
         {
-            PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, SENSOR_TYPE);
+            ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, SENSOR_TYPE);
         }
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, DIGITAL_INPUT_COUNTER_RESET);
+        ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, DIGITAL_INPUT_COUNTER_RESET);
         break;
 
     default:
@@ -469,26 +421,25 @@ static uint16_t prv_getResourceList(iowa_IPSO_ID_t type,
             return 0;
         }
 #endif
-
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, SENSOR_VALUE);
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, MIN_MEASURED_VALUE);
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, MAX_MEASURED_VALUE);
-        PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, RESET_MIN_AND_MAX_MEASURED_VALUES);
+        *resArrayP[currentPt] = IPSO_RSC_ID_SENSOR_VALUE;
+        ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, MIN_MEASURED_VALUE);
+        ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, MAX_MEASURED_VALUE);
+        ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, RESET_MIN_AND_MAX_MEASURED_VALUES);
 
         if (withUnit == true)
         {
-            PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, SENSOR_UNITS);
+            ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, SENSOR_UNITS);
         }
 
         if (isCTO == true && withAppType == true)
         {
-            PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, APPLICATION_TYPE);
+            ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, APPLICATION_TYPE);
         }
 
         if (withRange == true)
         {
-            PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, MIN_RANGE_VALUE);
-            PRV_ADD_RES_ID_TO_ARRAY(*resArrayP, currentPt, MAX_RANGE_VALUE);
+            ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, MIN_RANGE_VALUE);
+            ADD_RES_ID_TO_ARRAY(IPSO_RSC, *resArrayP, currentPt, MAX_RANGE_VALUE);
         }
     }
 
@@ -517,7 +468,7 @@ static iowa_status_t prv_ipsoObjectCallback(iowa_dm_operation_t operation,
         if (i == 0
             || dataP[i].instanceID != dataP[i - 1].instanceID)
         {
-
+            // No need to check if the instance has been find
             instanceP = (ipso_instance_t *)IOWA_UTILS_LIST_FIND(objDataP->instanceList, listFindCallbackBy16bitsId, &dataP[i].instanceID);
         }
 
@@ -527,44 +478,6 @@ static iowa_status_t prv_ipsoObjectCallback(iowa_dm_operation_t operation,
         case IOWA_DM_READ:
             switch (dataP[i].resourceID)
             {
-            case IPSO_RSC_ID_ON_TIME:
-                dataP[i].value.asInteger = instanceP->onTime;
-                if (instanceP->value > (0.f + FLT_EPSILON))
-                {
-                    int32_t currentTime;
-
-                    currentTime = iowa_system_gettime();
-#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-                    if (currentTime < 0 || currentTime < instanceP->timePowerOn)
-                    {
-                        CRIT_SECTION_LEAVE(contextP);
-                        IOWA_LOG_ERROR_GETTIME(currentTime);
-                        return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-                    }
-#endif
-
-                    dataP[i].value.asInteger += currentTime - instanceP->timePowerOn;
-                }
-                break;
-            case IPSO_RSC_ID_OFF_TIME:
-                dataP[i].value.asInteger = instanceP->offTime;
-                if (instanceP->value <= (0.f + FLT_EPSILON))
-                {
-                    int32_t currentTime;
-
-                    currentTime = iowa_system_gettime();
-#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-                    if (currentTime < 0 || currentTime < instanceP->timePowerOff)
-                    {
-                        CRIT_SECTION_LEAVE(contextP);
-                        IOWA_LOG_ERROR_GETTIME(currentTime);
-                        return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-                    }
-#endif
-
-                    dataP[i].value.asInteger += currentTime - instanceP->timePowerOff;
-                }
-                break;
             case IPSO_RSC_ID_SENSOR_VALUE:
             case IPSO_RSC_ID_ANALOG_INPUT_CURRENT_VALUE:
             case IPSO_RSC_ID_CUMULATIVE_ACTIVE_POWER:
@@ -586,9 +499,18 @@ static iowa_status_t prv_ipsoObjectCallback(iowa_dm_operation_t operation,
                 break;
 
             case IPSO_RSC_ID_SENSOR_UNITS:
-
-                dataP[i].value.asBuffer.buffer = (uint8_t*)instanceP->unit;
-                dataP[i].value.asBuffer.length = strlen(instanceP->unit);
+                // 'instanceP->unit' can not be nil
+                dataP[i].value.asBuffer.length = utilsStrlen(instanceP->unit);
+                dataP[i].value.asBuffer.buffer = (uint8_t *)iowa_system_malloc(dataP[i].value.asBuffer.length);
+#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
+                if (dataP[i].value.asBuffer.buffer == NULL)
+                {
+                    IOWA_LOG_ERROR_MALLOC(dataP[i].value.asBuffer.length);
+                    result = IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+                    break; // Exit the case
+                }
+#endif
+                memcpy(dataP[i].value.asBuffer.buffer, instanceP->unit, dataP[i].value.asBuffer.length);
                 break;
 
             case IPSO_RSC_ID_MIN_MEASURED_VALUE:
@@ -609,8 +531,17 @@ static iowa_status_t prv_ipsoObjectCallback(iowa_dm_operation_t operation,
 
             case IPSO_RSC_ID_APPLICATION_TYPE:
             case IPSO_RSC_ID_SENSOR_TYPE:
-                dataP[i].value.asBuffer.buffer = (uint8_t*)instanceP->appType;
-                dataP[i].value.asBuffer.length = strlen(instanceP->appType);
+                dataP[i].value.asBuffer.length = utilsStrlen(instanceP->appType);
+                dataP[i].value.asBuffer.buffer = (uint8_t *)iowa_system_malloc(dataP[i].value.asBuffer.length);
+#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
+                if (dataP[i].value.asBuffer.buffer == NULL)
+                {
+                    IOWA_LOG_ERROR_MALLOC(dataP[i].value.asBuffer.length);
+                    result = IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+                    break; // Exit the case
+                }
+#endif
+                memcpy(dataP[i].value.asBuffer.buffer, instanceP->appType, dataP[i].value.asBuffer.length);
                 break;
 
             default:
@@ -639,66 +570,6 @@ static iowa_status_t prv_ipsoObjectCallback(iowa_dm_operation_t operation,
             }
             break;
 
-            case IPSO_RSC_ID_ON_TIME:
-            {
-                if (dataP[i].value.asInteger != 0)
-                {
-                    IOWA_LOG_WARNING(IOWA_PART_OBJECT, "Can only write 0 to the 'On Time' resource");
-                    result = IOWA_COAP_406_NOT_ACCEPTABLE;
-                }
-                else
-                {
-                    instanceP->onTime = 0;
-                    if (instanceP->value > (0.f + FLT_EPSILON))
-                    {
-                        int32_t currentTime;
-
-                        currentTime = iowa_system_gettime();
-#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-                        if (currentTime < 0 || currentTime < instanceP->timePowerOn)
-                        {
-                            IOWA_LOG_ERROR_GETTIME(currentTime);
-                            result = IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-                            break;
-                        }
-#endif
-                        instanceP->timePowerOn = currentTime;
-                    }
-                    customObjectResourceChanged(contextP, dataP[i].objectID, dataP[i].instanceID, IPSO_RSC_ID_ON_TIME);
-                }
-            }
-            break;
-
-            case IPSO_RSC_ID_OFF_TIME:
-            {
-                if (dataP[i].value.asInteger != 0)
-                {
-                    IOWA_LOG_WARNING(IOWA_PART_OBJECT, "Can only write 0 to the 'Off Time' resource");
-                    result = IOWA_COAP_406_NOT_ACCEPTABLE;
-                }
-                else
-                {
-                    instanceP->offTime = 0;
-                    if (instanceP->value <= (0.f + FLT_EPSILON))
-                    {
-                        int32_t currentTime;
-
-                        currentTime = iowa_system_gettime();
-#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-                        if (currentTime < 0 || currentTime < instanceP->timePowerOff)
-                        {
-                            IOWA_LOG_ERROR_GETTIME(currentTime);
-                            result = IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-                            break;
-                        }
-#endif
-                        instanceP->timePowerOff = currentTime;
-                    }
-                    customObjectResourceChanged(contextP, dataP[i].objectID, dataP[i].instanceID, IPSO_RSC_ID_OFF_TIME);
-                }
-            }
-            break;
-
             default:
                 result = IOWA_COAP_405_METHOD_NOT_ALLOWED;
                 break;
@@ -711,7 +582,7 @@ static iowa_status_t prv_ipsoObjectCallback(iowa_dm_operation_t operation,
 
             if (dataP[i].type != IOWA_LWM2M_TYPE_UNDEFINED)
             {
-
+                // dataP[i].type can only be IOWA_LWM2M_TYPE_UNDEFINED or IOWA_LWM2M_TYPE_STRING with an Execute operation
                 IOWA_LOG_ARG_WARNING(IOWA_PART_OBJECT, "No argument should be provided. Found: \"%.*s\".", dataP[i].value.asBuffer.length, dataP[i].value.asBuffer.buffer);
                 result = IOWA_COAP_400_BAD_REQUEST;
                 break;
@@ -750,6 +621,21 @@ static iowa_status_t prv_ipsoObjectCallback(iowa_dm_operation_t operation,
         }
         break;
 
+        case IOWA_DM_FREE:
+            switch (dataP[i].resourceID)
+            {
+            case IPSO_RSC_ID_SENSOR_UNITS:
+            case IPSO_RSC_ID_APPLICATION_TYPE:
+            case IPSO_RSC_ID_SENSOR_TYPE:
+                iowa_system_free(dataP[i].value.asBuffer.buffer);
+                break;
+
+            default:
+                // Should not happen
+                break;
+            }
+            break;
+
         default:
             break;
         }
@@ -766,23 +652,23 @@ static iowa_status_t prv_checkResourceValue(iowa_IPSO_ID_t type,
 {
     switch (type)
     {
-
-    case IOWA_IPSO_LEVEL_CONTROL:
-        if (value < 0.f || value > 100.f)
+    //Sensors using Percentage
+    case IOWA_IPSO_DIRECTION:
+        if (value < 0.f || value > 360.f)
         {
-            IOWA_LOG_ARG_ERROR(IOWA_PART_OBJECT, "Percentage value %0.3f is outside the range [0,100].", (double)value);
+            IOWA_LOG_ARG_ERROR(IOWA_PART_OBJECT, "Direction value %0.3f is outside the range [0,360].", (double)value);
             return IOWA_COAP_406_NOT_ACCEPTABLE;
         }
         break;
 
-
+    // Sensors using Booleans
     case IOWA_IPSO_DIGITAL_INPUT:
     case IOWA_IPSO_PRESENCE:
     case IOWA_IPSO_ON_OFF_SWITCH:
     case IOWA_IPSO_PUSH_BUTTON:
-
-        if (dataUtilsCompareFloatingPointNumbers((double)value, 0., FLT_EPSILON) == false
-            && dataUtilsCompareFloatingPointNumbers((double)value, 1., FLT_EPSILON) == false)
+        // Reject if value is not exactly 0 (false) or 1 (true) with FLT_EPSILON margin
+        if (dataUtilsCompareFloatingPointNumbers((double)value, 0.) == false
+            && dataUtilsCompareFloatingPointNumbers((double)value, 1.) == false)
         {
             IOWA_LOG_ARG_ERROR(IOWA_PART_OBJECT, "Value %0.3f is neither 0 nor 1.", (double)value);
             return IOWA_COAP_406_NOT_ACCEPTABLE;
@@ -797,7 +683,8 @@ static iowa_status_t prv_checkResourceValue(iowa_IPSO_ID_t type,
 #endif
 
 static void prv_updateResourceValues(iowa_context_t contextP,
-                                     iowa_sensor_t id,
+                                     lwm2m_object_t *objectP,
+                                     uint16_t instIndex,
                                      ipso_instance_t *instanceP,
                                      size_t valueCount,
                                      iowa_ipso_timed_value_t *valueArray)
@@ -807,25 +694,25 @@ static void prv_updateResourceValues(iowa_context_t contextP,
 
     prevValue = instanceP->value;
 
-    if (customObjectHasResource(contextP, GET_OBJECT_ID_FROM_SENSOR(id), GET_INSTANCE_ID_FROM_SENSOR(id), IPSO_RSC_ID_DIGITAL_INPUT_STATE) == true)
+    if (object_hasResource(objectP, instIndex, IPSO_RSC_ID_DIGITAL_INPUT_STATE) == true)
     {
         bool hasCounter;
 
-        hasCounter = customObjectHasResource(contextP, GET_OBJECT_ID_FROM_SENSOR(id), GET_INSTANCE_ID_FROM_SENSOR(id), IPSO_RSC_ID_DIGITAL_INPUT_COUNTER);
+        hasCounter = object_hasResource(objectP, instIndex, IPSO_RSC_ID_DIGITAL_INPUT_COUNTER);
 
         for (index = 0; index < valueCount; index++)
         {
-
+            // Value is not changed if the difference between the old and the new value is not strictly superior to FLT_EPSILON
             if ((prevValue > valueArray[index].value && prevValue - valueArray[index].value > FLT_EPSILON)
                 || (valueArray[index].value > prevValue && valueArray[index].value - prevValue > FLT_EPSILON))
             {
-                customObjectResourceChanged(contextP, GET_OBJECT_ID_FROM_SENSOR(id), GET_INSTANCE_ID_FROM_SENSOR(id), IPSO_RSC_ID_DIGITAL_INPUT_STATE);
+                customObjectResourceChanged(contextP, objectP->objID, objectP->instanceArray[instIndex].id, IPSO_RSC_ID_DIGITAL_INPUT_STATE);
 
                 if (hasCounter == true
                     && (valueArray[index].value > prevValue && valueArray[index].value - prevValue > FLT_EPSILON))
                 {
                     instanceP->max += 1.f;
-                    customObjectResourceChanged(contextP, GET_OBJECT_ID_FROM_SENSOR(id), GET_INSTANCE_ID_FROM_SENSOR(id), IPSO_RSC_ID_DIGITAL_INPUT_COUNTER);
+                    customObjectResourceChanged(contextP, objectP->objID, objectP->instanceArray[instIndex].id, IPSO_RSC_ID_DIGITAL_INPUT_COUNTER);
                 }
             }
             prevValue = valueArray[index].value;
@@ -837,15 +724,15 @@ static void prv_updateResourceValues(iowa_context_t contextP,
         bool hasMin;
         bool hasMax;
 
-        if (customObjectHasResource(contextP, GET_OBJECT_ID_FROM_SENSOR(id), GET_INSTANCE_ID_FROM_SENSOR(id), IPSO_RSC_ID_LEVEL) == true)
+        if (object_hasResource(objectP, instIndex, IPSO_RSC_ID_LEVEL) == true)
         {
             valueId = IPSO_RSC_ID_LEVEL;
         }
-        else if(customObjectHasResource(contextP, GET_OBJECT_ID_FROM_SENSOR(id), GET_INSTANCE_ID_FROM_SENSOR(id), IPSO_RSC_ID_COMPASS_DIRECTION) == true)
+        else if(object_hasResource(objectP, instIndex, IPSO_RSC_ID_COMPASS_DIRECTION) == true)
         {
             valueId = IPSO_RSC_ID_COMPASS_DIRECTION;
         }
-        else if(customObjectHasResource(contextP, GET_OBJECT_ID_FROM_SENSOR(id), GET_INSTANCE_ID_FROM_SENSOR(id), IPSO_RSC_ID_ANALOG_INPUT_CURRENT_VALUE) == true)
+        else if(object_hasResource(objectP, instIndex, IPSO_RSC_ID_ANALOG_INPUT_CURRENT_VALUE) == true)
         {
             valueId = IPSO_RSC_ID_ANALOG_INPUT_CURRENT_VALUE;
         }
@@ -854,26 +741,26 @@ static void prv_updateResourceValues(iowa_context_t contextP,
             valueId = IPSO_RSC_ID_SENSOR_VALUE;
         }
 
-        hasMin = customObjectHasResource(contextP, GET_OBJECT_ID_FROM_SENSOR(id), GET_INSTANCE_ID_FROM_SENSOR(id), IPSO_RSC_ID_MIN_MEASURED_VALUE);
-        hasMax = customObjectHasResource(contextP, GET_OBJECT_ID_FROM_SENSOR(id), GET_INSTANCE_ID_FROM_SENSOR(id), IPSO_RSC_ID_MAX_MEASURED_VALUE);
+        hasMin = object_hasResource(objectP, instIndex, IPSO_RSC_ID_MIN_MEASURED_VALUE);
+        hasMax = object_hasResource(objectP, instIndex, IPSO_RSC_ID_MAX_MEASURED_VALUE);
 
         for (index = 0; index < valueCount; index++)
         {
-            if (dataUtilsCompareFloatingPointNumbers(valueArray[index].value, prevValue, FLT_EPSILON) == false)
+            if (dataUtilsCompareFloatingPointNumbers(valueArray[index].value, prevValue) == false)
             {
-                customObjectResourceChanged(contextP, GET_OBJECT_ID_FROM_SENSOR(id), GET_INSTANCE_ID_FROM_SENSOR(id), valueId);
+                customObjectResourceChanged(contextP, objectP->objID, objectP->instanceArray[instIndex].id, valueId);
 
                 if (hasMin == true
                     && valueArray[index].value < instanceP->min)
                 {
                     instanceP->min = valueArray[index].value;
-                    customObjectResourceChanged(contextP, GET_OBJECT_ID_FROM_SENSOR(id), GET_INSTANCE_ID_FROM_SENSOR(id), IPSO_RSC_ID_MIN_MEASURED_VALUE);
+                    customObjectResourceChanged(contextP, objectP->objID, objectP->instanceArray[instIndex].id, IPSO_RSC_ID_MIN_MEASURED_VALUE);
                 }
                 else if (hasMax == true
                          && valueArray[index].value > instanceP->max)
                 {
                     instanceP->max = valueArray[index].value;
-                    customObjectResourceChanged(contextP, GET_OBJECT_ID_FROM_SENSOR(id), GET_INSTANCE_ID_FROM_SENSOR(id), IPSO_RSC_ID_MAX_MEASURED_VALUE);
+                    customObjectResourceChanged(contextP, objectP->objID, objectP->instanceArray[instIndex].id, IPSO_RSC_ID_MAX_MEASURED_VALUE);
                 }
             }
             prevValue = valueArray[index].value;
@@ -899,12 +786,18 @@ iowa_status_t iowa_client_IPSO_add_sensor(iowa_context_t contextP,
     iowa_status_t result;
     uint16_t resourceCount;
     uint16_t *resourceArray;
-    int32_t currentTime;
 
     IOWA_LOG_ARG_INFO(IOWA_PART_OBJECT, "Adding IPSO sensor with type: %u, value: %f, unit: \"%s\", appType: \"%s\", rangeMin: %f, rangeMax: %f.", type, (double)value, unit, appType, (double)rangeMin, (double)rangeMax);
 
 #ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
+    // IOWA_IPSO_LEVEL_CONTROL is no longer managed by this API
+    if (IOWA_IPSO_LEVEL_CONTROL == type)
+    {
+        IOWA_LOG_ERROR(IOWA_PART_OBJECT, "Sensors of type IOWA_IPSO_LEVEL_CONTROL are now managed only by the iowa_client_*_dimmer_object() APIs.");
+        return IOWA_COAP_402_BAD_OPTION;
+    }
 
+    // Check if the value is valid
     result = prv_checkResourceValue(type, value);
     if (result != IOWA_COAP_NO_ERROR)
     {
@@ -945,27 +838,7 @@ iowa_status_t iowa_client_IPSO_add_sensor(iowa_context_t contextP,
 #endif
 
     instanceP->value = value;
-    instanceP->onTime = 0;
-    instanceP->offTime = 0;
 
-    currentTime = iowa_system_gettime();
-#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-    if (currentTime < 0)
-    {
-        IOWA_LOG_ERROR_GETTIME(currentTime);
-        prv_freeInstance(instanceP);
-        return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-    }
-#endif
-
-    if (value > (0.f + FLT_EPSILON))
-    {
-        instanceP->timePowerOn = currentTime;
-    }
-    else
-    {
-        instanceP->timePowerOff = currentTime;
-    }
     instanceP->min = value;
     instanceP->max = value;
     instanceP->rangeMin = rangeMin;
@@ -1021,7 +894,7 @@ iowa_status_t iowa_client_IPSO_add_sensor(iowa_context_t contextP,
     }
 
     resourceCount = prv_getResourceList(type, &resourceArray,
-                                        ((dataUtilsCompareFloatingPointNumbers(rangeMin, 0, FLT_EPSILON) == false) || (dataUtilsCompareFloatingPointNumbers(rangeMax, 0, FLT_EPSILON) == false)),
+                                        ((dataUtilsCompareFloatingPointNumbers(rangeMin, 0) == false) || (dataUtilsCompareFloatingPointNumbers(rangeMax, 0) == false)),
                                         instanceP->unit != NULL,
                                         instanceP->appType != NULL);
     if (resourceCount == 0)
@@ -1051,7 +924,7 @@ iowa_status_t iowa_client_IPSO_add_sensor(iowa_context_t contextP,
 
     CRIT_SECTION_LEAVE(contextP);
 
-    *idP = type << 16 | instanceP->id;
+    *idP = ((uint32_t) type << 16 | instanceP->id);
 
     IOWA_LOG_ARG_INFO(IOWA_PART_OBJECT, "Exiting with code %u.%02u.", (result & 0xFF) >> 5, (result & 0x1F));
     return result;
@@ -1067,13 +940,53 @@ iowa_status_t iowa_client_IPSO_remove_sensor(iowa_context_t contextP,
 
     IOWA_LOG_ARG_INFO(IOWA_PART_OBJECT, "Removing IPSO sensor /%d/%d.", (uint16_t)(id >> 16), id & 0xFFFF);
 
+#ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
+    // Object ID can only be part of iowa_IPSO_ID_t
+    switch(GET_OBJECT_ID_FROM_SENSOR(id))
+    {
+        case IOWA_IPSO_ANALOG_INPUT:
+        case IOWA_IPSO_GENERIC:
+        case IOWA_IPSO_ILLUMINANCE:
+        case IOWA_IPSO_TEMPERATURE:
+        case IOWA_IPSO_HUMIDITY:
+        case IOWA_IPSO_BAROMETER:
+        case IOWA_IPSO_VOLTAGE:
+        case IOWA_IPSO_CURRENT:
+        case IOWA_IPSO_FREQUENCY:
+        case IOWA_IPSO_DEPTH:
+        case IOWA_IPSO_PERCENTAGE:
+        case IOWA_IPSO_ALTITUDE:
+        case IOWA_IPSO_LOAD:
+        case IOWA_IPSO_PRESSURE:
+        case IOWA_IPSO_LOUDNESS:
+        case IOWA_IPSO_CONCENTRATION:
+        case IOWA_IPSO_ACIDITY:
+        case IOWA_IPSO_CONDUCTIVITY:
+        case IOWA_IPSO_POWER:
+        case IOWA_IPSO_POWER_FACTOR:
+        case IOWA_IPSO_RATE:
+        case IOWA_IPSO_DISTANCE:
+        case IOWA_IPSO_ENERGY:
+        case IOWA_IPSO_DIRECTION:
+        case IOWA_IPSO_DIGITAL_INPUT:
+        case IOWA_IPSO_PRESENCE:
+        case IOWA_IPSO_ON_OFF_SWITCH:
+        case IOWA_IPSO_PUSH_BUTTON:
+            break;
+
+        default:
+            IOWA_LOG_ERROR(IOWA_PART_OBJECT, "IOWA sensor value is not from an IPSO object");
+            return IOWA_COAP_402_BAD_OPTION;
+    }
+#endif
+
     CRIT_SECTION_ENTER(contextP);
 
     objDataP = (ipso_object_t *)objectGetData(contextP, GET_OBJECT_ID_FROM_SENSOR(id));
     if (objDataP == NULL)
     {
         CRIT_SECTION_LEAVE(contextP);
-        IOWA_LOG_ARG_ERROR(IOWA_PART_OBJECT, "IPSO sensor with Object ID %d has not been found.", GET_OBJECT_ID_FROM_SENSOR(id));
+        IOWA_LOG_ARG_WARNING(IOWA_PART_OBJECT, "IPSO sensor with Object ID %d has not been found.", GET_OBJECT_ID_FROM_SENSOR(id));
         return IOWA_COAP_404_NOT_FOUND;
     }
 
@@ -1082,7 +995,7 @@ iowa_status_t iowa_client_IPSO_remove_sensor(iowa_context_t contextP,
     if (instanceP == NULL)
     {
         CRIT_SECTION_LEAVE(contextP);
-        IOWA_LOG_ARG_ERROR(IOWA_PART_OBJECT, "IPSO sensor with Object Instance ID %d has not been found.", instanceId);
+        IOWA_LOG_ARG_WARNING(IOWA_PART_OBJECT, "IPSO sensor with Object Instance ID %d has not been found.", instanceId);
         return IOWA_COAP_404_NOT_FOUND;
     }
 
@@ -1111,19 +1024,18 @@ iowa_status_t iowa_client_IPSO_update_value(iowa_context_t contextP,
                                             float value)
 {
     ipso_instance_t *instanceP;
-    lwm2m_object_t *dataP;
+    lwm2m_object_t *objectP;
     iowa_ipso_timed_value_t valueToUpdate;
-#ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
-    iowa_status_t result;
-#endif
     uint16_t objectId;
+    uint16_t instIndex;
 
     IOWA_LOG_ARG_INFO(IOWA_PART_OBJECT, "Updating IPSO object /%d/%d. New value: %f.", (uint16_t)(id >> 16), id & 0xFFFF, (double)value);
-
 
     objectId = GET_OBJECT_ID_FROM_SENSOR(id);
 
 #ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
+    // Check if the value is valid
+    iowa_status_t result;
 
     result = prv_checkResourceValue((iowa_IPSO_ID_t)objectId, value);
     if (result != IOWA_COAP_NO_ERROR)
@@ -1135,8 +1047,7 @@ iowa_status_t iowa_client_IPSO_update_value(iowa_context_t contextP,
 
     CRIT_SECTION_ENTER(contextP);
 
-    dataP = (lwm2m_object_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->objectList, listFindCallbackBy16bitsId, &objectId);
-    if (dataP == NULL)
+    if (object_find(contextP, objectId, GET_INSTANCE_ID_FROM_SENSOR(id), IOWA_LWM2M_ID_ALL, &objectP, &instIndex, NULL) != IOWA_COAP_NO_ERROR)
     {
         IOWA_LOG_ERROR(IOWA_PART_OBJECT, "The structure 'lwm2m_object_t' associated with the IPSO sensor has not been found.");
         CRIT_SECTION_LEAVE(contextP);
@@ -1153,45 +1064,10 @@ iowa_status_t iowa_client_IPSO_update_value(iowa_context_t contextP,
 
     clientNotificationLock(contextP, true);
 
-
+    // Update the resources value
     valueToUpdate.value = value;
     valueToUpdate.timestamp = 0;
-    prv_updateResourceValues(contextP, id, instanceP, 1, &valueToUpdate);
-
-    if ((instanceP->value <= (0.f + FLT_EPSILON)) && (value > (0.f + FLT_EPSILON)))
-    {
-        int32_t currentTime;
-
-        currentTime = iowa_system_gettime();
-#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-        if (currentTime < 0)
-        {
-            IOWA_LOG_ERROR_GETTIME(currentTime);
-            CRIT_SECTION_LEAVE(contextP);
-            return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-        }
-#endif
-        instanceP->timePowerOn = currentTime;
-        instanceP->offTime += currentTime - instanceP->timePowerOff;
-        customObjectResourceChanged(contextP, objectId, GET_INSTANCE_ID_FROM_SENSOR(id), IPSO_RSC_ID_OFF_TIME);
-    }
-    else if ((instanceP->value > (0.f + FLT_EPSILON)) && (value <= (0.f + FLT_EPSILON)))
-    {
-        int32_t currentTime;
-
-        currentTime = iowa_system_gettime();
-#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-        if (currentTime < 0 || currentTime < instanceP->timePowerOn)
-        {
-            IOWA_LOG_ERROR_GETTIME(currentTime);
-            CRIT_SECTION_LEAVE(contextP);
-            return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-        }
-#endif
-        instanceP->onTime += currentTime - instanceP->timePowerOn;
-        instanceP->timePowerOff = currentTime;
-        customObjectResourceChanged(contextP, objectId, GET_INSTANCE_ID_FROM_SENSOR(id), IPSO_RSC_ID_ON_TIME);
-    }
+    prv_updateResourceValues(contextP, objectP, instIndex, instanceP, 1, &valueToUpdate);
 
     instanceP->value = value;
 

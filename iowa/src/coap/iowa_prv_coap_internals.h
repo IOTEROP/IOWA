@@ -22,6 +22,10 @@
 #ifndef _IOWA_PRV_COAP_INTERNALS_INCLUDE_
 #define _IOWA_PRV_COAP_INTERNALS_INCLUDE_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <string.h>
 
 #include "iowa_config.h"
@@ -41,13 +45,13 @@
 * Constants
 */
 
-#define PRV_STREAM_MSG_MAX_HEADER_AND_TOKEN_LENGTH 5 + COAP_MSG_TOKEN_MAX_LEN
+#define PRV_STREAM_MSG_MAX_HEADER_AND_TOKEN_LENGTH 5 + COAP_MSG_TOKEN_MAX_LEN  // Code + 4 bytes of length + 8 bytes of token (no length field)
 
 #define PRV_OPT_HEADER_LENGTH              1
-#define PRV_OPT_HEADER_CONSERVATIVE_LENGTH 3
-#define PRV_OPT_DELTA_SHIFT                4
-#define PRV_OPT_DELTA_MASK                 0xF0
-#define PRV_OPT_LENGTH_MASK                0x0F
+#define PRV_OPT_HEADER_CONSERVATIVE_LENGTH 3  // in case of delta > 269 to be safe.
+#define PRV_OPT_DELTA_SHIFT                4U
+#define PRV_OPT_DELTA_MASK                 0xF0U
+#define PRV_OPT_LENGTH_MASK                0x0FU
 #define PRV_OPT_LIMIT_1                    13
 #define PRV_OPT_LIMIT_2                    269
 #define PRV_INTEGER_LIMIT                  1000000000
@@ -59,28 +63,34 @@
 
 #define COAP_RESERVED_MID 0
 
-#define COAP_FIRST_MID 107
+// Do not use 0 as the first message ID. The observation mechanism uses 0 as an unset value.
+#define COAP_FIRST_MID 1
 
 #define COAP_BLOCK_OPTION_MAX_LENGTH 4
 
-#define COAP_UDP_ACK_TIMEOUT       2
-#define COAP_UDP_ACK_RANDOM_FACTOR 1.5
-#define COAP_UDP_ACK_REAL_TIMEOUT  3
+#define COAP_DEFAULT_NSTART        1
+
+#define COAP_UDP_ACK_TIMEOUT       2 // seconds
+#define COAP_UDP_ACK_REAL_TIMEOUT  3 // COAP_ACK_TIMEOUT * COAP_ACK_RANDOM_FACTOR
 #define COAP_UDP_MAX_RETRANSMIT    4
-#define COAP_UDP_NSTART            1
-#define COAP_UDP_MAX_TRANSMIT_WAIT (uint32_t)(((COAP_UDP_ACK_TIMEOUT * ( (1 << (COAP_UDP_MAX_RETRANSMIT + 1) ) - 1) * COAP_UDP_ACK_RANDOM_FACTOR)))
 
-#define COAP_SMS_ACK_TIMEOUT       10
-#define COAP_SMS_ACK_RANDOM_FACTOR 1.5
-#define COAP_SMS_ACK_REAL_TIMEOUT  15
+#define COAP_SMS_ACK_TIMEOUT       10 // seconds
+#define COAP_SMS_ACK_REAL_TIMEOUT  15 // COAP_ACK_TIMEOUT * COAP_ACK_RANDOM_FACTOR
 #define COAP_SMS_MAX_RETRANSMIT    4
-#define COAP_SMS_NSTART            1
-#define COAP_SMS_MAX_TRANSMIT_WAIT (uint32_t)(((COAP_SMS_ACK_TIMEOUT * ( (1 << (COAP_SMS_MAX_RETRANSMIT + 1) ) - 1) * COAP_SMS_ACK_RANDOM_FACTOR)))
 
-#define COAP_LORAWAN_ACK_REAL_TIMEOUT  0
+#define COAP_LORAWAN_ACK_REAL_TIMEOUT  0 // Disable transaction retransmission
 #define COAP_LORAWAN_MAX_RETRANSMIT    0
 #define COAP_LORAWAN_NSTART            1
-#define COAP_LORAWAN_MAX_TRANSMIT_WAIT 0
+#define COAP_LORAWAN_MAX_TRANSMIT_WAIT 120
+
+#define COAP_TCP_MAX_TRANSMIT_WAIT 20
+
+#define COAP_ACK_RANDOM_FACTOR  1.5
+#define COAP_MAX_LATENCY        100
+#define COAP_PROCESSING_DELAY   2
+
+#define COAP_COMPUTE_MAX_TRANSMIT_WAIT(T, R) (uint32_t)((((T) * ((1 << ((R) + 1)) - 1) * COAP_ACK_RANDOM_FACTOR))) // 93 seconds
+#define COAP_COMPUTE_MAX_TRANSMIT_SPAN(T, R) (uint32_t)((((T) * ((1 << (R)) - 1) * COAP_ACK_RANDOM_FACTOR)))       // 45 seconds
 
 /************************************************
  * Macros
@@ -98,14 +108,14 @@
                                 ((S) == IOWA_COAP_TYPE_RESET ? "Reset" :                     \
                                 "Unknown"))))
 
-#define PRV_STR_COAP_CODE(S) ((S) == IOWA_COAP_CODE_EMPTY ? "Empty" :                                               \
-                             ((S) == IOWA_COAP_CODE_GET ? "Get" :                                                   \
-                             ((S) == IOWA_COAP_CODE_POST ? "Post" :                                                 \
-                             ((S) == IOWA_COAP_CODE_PUT ? "Put" :                                                   \
-                             ((S) == IOWA_COAP_CODE_DELETE ? "Delete" :                                             \
-                             ((S) == IOWA_COAP_CODE_FETCH ? "Fetch" :                                               \
-                             ((S) == IOWA_COAP_CODE_PATCH ? "Patch" :                                               \
-                             ((S) == IOWA_COAP_CODE_IPATCH ? "iPatch" :                                             \
+#define PRV_STR_COAP_CODE(S) ((S) == IOWA_COAP_CODE_EMPTY ? "Empty" :                                          \
+                             ((S) == IOWA_COAP_CODE_GET ? "GET" :                                              \
+                             ((S) == IOWA_COAP_CODE_POST ? "POST" :                                            \
+                             ((S) == IOWA_COAP_CODE_PUT ? "PUT" :                                              \
+                             ((S) == IOWA_COAP_CODE_DELETE ? "DELETE" :                                        \
+                             ((S) == IOWA_COAP_CODE_FETCH ? "FETCH" :                                          \
+                             ((S) == IOWA_COAP_CODE_PATCH ? "PATCH" :                                          \
+                             ((S) == IOWA_COAP_CODE_IPATCH ? "iPATCH" :                                        \
                              ((S) == IOWA_COAP_201_CREATED ? "Created" :                                       \
                              ((S) == IOWA_COAP_202_DELETED ? "Deleted" :                                       \
                              ((S) == IOWA_COAP_203_VALID ? "Valid" :                                           \
@@ -199,7 +209,7 @@ struct _coap_exchange_t
 {
     struct _coap_exchange_t *next;
     uint8_t                  token[COAP_MSG_TOKEN_MAX_LEN];
-    uint8_t                  tokenLength;
+    uint8_t                  tokenLength; // '0' means no token.
     coap_message_callback_t  callback;
     void                    *userData;
 };
@@ -219,6 +229,16 @@ struct _block_transfer_t
     size_t          index;
 };
 
+struct _block_payload_t
+{
+    struct _block_payload_t *next;
+    iowa_linked_buffer_t    *bufferP;
+    iowa_coap_message_t     *messageP;
+    iowa_coap_option_t      *optionP;
+    coap_message_callback_t  resultCallback;
+    void                    *userData;
+};
+
 typedef struct
 {
     coap_peer_base_t    base;
@@ -226,7 +246,6 @@ typedef struct
     uint8_t             maxRetransmit;
     uint16_t            transmitWait;
     uint16_t            nextMID;
-    uint16_t            lastMID;
     coap_transaction_t *transactionList;
     coap_ack_t         *ackList;
 } coap_peer_datagram_t;
@@ -237,6 +256,7 @@ typedef struct
     coap_stream_state_t  state;
 } coap_peer_stream_t;
 
+// The CoAP stack internal context.
 struct _coap_context_t
 {
     iowa_coap_peer_t              *peerList;
@@ -254,108 +274,172 @@ typedef struct
 * Functions
 */
 
-
+// Implemented in iowa_coap_utils.c
 void coapUtilsfreeApplicationData(application_coap_data_t *dataP);
 void coapMessageCallback(iowa_coap_peer_t *fromPeer, uint8_t code, iowa_coap_message_t *messageP, void *userData, iowa_context_t contextP);
+void coapInternalMessageCallback(iowa_coap_peer_t *fromPeer, uint8_t code, iowa_coap_message_t *messageP, void *userData, iowa_context_t contextP);
 
-
+// Implemented in iowa_coap.c
 void messageLog(const char *function, unsigned int line, const char *info, iowa_connection_type_t type, iowa_coap_message_t *messageP);
+#if IOWA_LOG_LEVEL >= IOWA_LOG_LEVEL_INFO
 #define COAP_LOG_MESSAGE(I, T, M) messageLog(__func__, __LINE__, (I), (T), (M))
+#else
+#define COAP_LOG_MESSAGE(I, T, M)
+#endif
 
-
-void peer_free(iowa_context_t contextP, iowa_coap_peer_t *peerP);
-iowa_coap_peer_t * peer_new(iowa_connection_type_t type);
+// Implemented in iowa_peer.c
 uint8_t peerSend(iowa_context_t contextP, iowa_coap_peer_t *peerP, iowa_coap_message_t *messageP, coap_message_callback_t resultCallback, void *userData);
 int peerSendBuffer(iowa_context_t contextP, iowa_coap_peer_t *peerP, uint8_t *buffer, size_t bufferLength);
 int peerRecvBuffer(iowa_context_t contextP, iowa_coap_peer_t *peerP, uint8_t *buffer, size_t bufferLength);
 void peerHandleMessage(iowa_context_t contextP, iowa_coap_peer_t *peerP, iowa_coap_message_t *messageP, bool truncated, size_t maxPayloadSize);
 
-
+// Implemented in iowa_transaction.c
 void transactionFree(coap_transaction_t *transacP);
 uint8_t transactionNew(iowa_context_t contextP, coap_peer_datagram_t *peerP, iowa_coap_message_t *messageP, uint8_t *buffer, size_t bufferLength, coap_message_callback_t resultCallback, void *userData);
 uint8_t transactionStep(iowa_context_t contextP, coap_peer_datagram_t *peerP, int32_t currentTime, int32_t *timeoutP);
 void transactionHandleMessage(iowa_context_t contextP, coap_peer_datagram_t *peerP, iowa_coap_message_t *messageP, bool truncated, size_t maxPayloadSize);
 void acknowledgeFree(coap_ack_t *ackP);
 
+// Implemented in iowa_message.c
 
+// Extract a received COAP message's information from its header.
+// Returned value: the COAP message's header length in case of success or 0 if an error occurred.
+// Parameters:
+// - buffer: a buffer containing a received COAP message over an UDP socket.
+// - bufferLength: the COAP message length.
+// - messageP: OUT. a pointer to a coap message.
 size_t messageDatagramParseHeader(uint8_t *buffer, size_t bufferLength, iowa_coap_message_t **messageP);
 uint8_t messageDatagramParse(uint8_t *buffer, size_t bufferLength, iowa_coap_message_t **messageP);
 iowa_coap_message_t *messageDuplicate(iowa_coap_message_t *messageP, bool withMemory);
+// Get the COAP message's header length from its first byte.
+// Returned value: the COAP message's header length in case of success or 0 if an error occurred.
+// Parameters:
+// - lenField: the first byte of a received COAP message over a TCP socket.
 uint8_t messageStreamParseLengthField(uint8_t lenField);
+// Extract a received COAP message's information from its header.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - buffer: a buffer containing a received COAP message's header over a TCP socket.
+// - bufferLength: the header's length.
+// - messageP: OUT. a pointer to a coap message.
+// - lengthP: OUT. the COAP message's body length.
 uint8_t messageStreamParseHeader(uint8_t *buffer, size_t bufferLength, iowa_coap_message_t **messageP, size_t *lengthP);
 
+// implemented in iowa_block.c
 
+// Send a message by block.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - contextP: IOWA context.
+// - peerP: pointer to the COAP peer.
+// - exchangeP: a strcut containing the request message infos and the result callback.
+// - maxPayloadSize: the maximum payload length that can be sent in a single block.
 uint8_t blockPush(iowa_context_t contextP, iowa_coap_peer_t *peerP, coap_exchange_t *exchangeP, size_t maxPayloadSize);
+// Handle received block messages.
+// Parameters:
+// - contextP: IOWA context.
+// - peerP: pointer to the COAP peer.
+// - exchangeP: a strcut containing the request message infos and the result callback.
+// - replyP: a COAP message.
+// - truncated: a bool to indicate if the response has been truncated or not.
 void blockHandleMessage(iowa_context_t contextP, iowa_coap_peer_t *peerP, coap_exchange_t *exchangeP, iowa_coap_message_t *replyP, bool truncated);
+// Send the code error 413, used in case of handling a too large payload.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - contextP: IOWA context.
+// - peerP: pointer to the COAP peer.
+// - messageP: message to be sent with the request token.
+// - maxPayloadSize: the maximum payload length that can be sent in a single block.
 uint8_t blockSend413Reply(iowa_context_t contextP, iowa_coap_peer_t *peerP, iowa_coap_message_t *messageP, size_t maxPayloadSize);
-uint8_t blockRequestNumber(iowa_context_t contextP, iowa_coap_peer_t *peerP, iowa_coap_message_t *messageP, uint32_t number, bool more, uint8_t szx, coap_message_callback_t  resultCallback, void *userData);
+// Request a specific block.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - contextP: IOWA context.
+// - peerP: pointer to the COAP peer.
+// - messageP: a pointer to a COAP message.
+// - number: the number of the block to be requested.
+// - szx: the size of the block to be requested.
+// - resultCallback: the callback to handle the response.
+// - userData: user data.
+uint8_t blockRequestNumber(iowa_context_t contextP, iowa_coap_peer_t *peerP, iowa_coap_message_t *messageP, uint32_t number, uint8_t szx, coap_message_callback_t resultCallback, void *userData);
+// Resize the message payload.
+// Parameters:
+// - messageP: a pointer to a COAP message.
 void blockResizePayload(iowa_coap_message_t *messageP);
+// Free the block.
+// Parameters:
+// - a pointer to a block.
 void blockFree(block_transfer_t *blockP);
+iowa_status_t blockCreateOption(size_t maxPayloadSize, iowa_coap_option_t **optionPP);
 
-
+// Implemented in iowa_coap_lorawan.c
 uint8_t messageSendLoRaWAN(iowa_context_t contextP, iowa_coap_peer_t *peerBaseP, iowa_coap_message_t *messageP, coap_message_callback_t resultCallback, void *userData);
 void lorawanSecurityEventCb(iowa_security_session_t securityS, iowa_security_event_t event, void *userData, iowa_context_t contextP);
 
-
+// Implemented in iowa_coap_udp.c
 uint8_t messageSendUDP(iowa_context_t contextP, iowa_coap_peer_t *peerBaseP, iowa_coap_message_t *messageP, coap_message_callback_t resultCallback, void *userData);
 void udpSecurityEventCb(iowa_security_session_t securityS, iowa_security_event_t event, void *userData, iowa_context_t contextP);
 
-
+// Implemented in iowa_coap_tcp.c
 uint8_t messageSendTCP(iowa_context_t contextP, iowa_coap_peer_t *peerBaseP, iowa_coap_message_t *messageP);
 uint8_t peerConnectTCP(iowa_context_t contextP, coap_peer_stream_t *peerP);
 void tcpSecurityEventCb(iowa_security_session_t securityS, iowa_security_event_t event, void *userData, iowa_context_t contextP);
 
-
+// Implemented in iowa_coap_sms.c
 uint8_t messageSendSMS(iowa_context_t contextP, iowa_coap_peer_t *peerBaseP, iowa_coap_message_t *messageP, coap_message_callback_t resultCallback, void *userData);
 void smsSecurityEventCb(iowa_security_session_t securityS, iowa_security_event_t event, void *userData, iowa_context_t contextP);
 
+// Implemented in iowa_oscore.c
 
-
-
-
-
-
-
+// Create an OSCORE peer context from an URI. Used on the client side.
+// Returned value: A new initialized OSCORE peer context or null in case of error.
+// Parameters:
+// - contextP: as returned by iowa_init().
+// - uri: the URI associated to the peer.
 oscore_peer_context_t *oscore_contextCreateFromURI(iowa_context_t contextP,
                                                    const char *uri);
 
-
-
-
-
-
-
+// Create an OSCORE peer context from an OSCORE CoAP option. Used on the server side.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - contextP: as returned by iowa_init().
+// - optionP: A CoAP option received from the peer.
+// - peerContextPP: OUT. The newly initialized OSCORE peer context.
 iowa_status_t oscore_contextCreateFromOption(iowa_context_t contextP,
                                              iowa_coap_option_t *optionP,
                                              oscore_peer_context_t **peerContextPP);
 
-
-
-
-
+// Delete an OSCORE peer context.
+// Returned value: None.
+// Parameters:
+// - peerContextP: Pointer to the OSCORE peer context to delete. This can be nil.
 void oscore_contextDelete(oscore_peer_context_t *peerContextP);
 
-
-
-
-
-
-
+// Encrypt a CoAP message.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - peerContextP: Pointer to the OSCORE peer context to use.
+// - plainMessageP: CoAP message to encrypt.
+// - encryptedMessageP: OUT. Encrypted CoAP message.
 iowa_status_t oscore_encryptMessage(iowa_context_t contextP,
                                     oscore_peer_context_t *peerContextP,
                                     iowa_coap_message_t *plainMessageP,
                                     iowa_coap_message_t **encryptedMessageP);
 
-
-
-
-
-
-
+// Decrypt a CoAP message.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - peerContextP: Pointer to the OSCORE peer context to use.
+// - encryptedMessageP: CoAP message to decrypt.
+// - plainMessageP: OUT. Decrypted CoAP message.
 iowa_status_t oscore_decryptMessage(iowa_context_t contextP,
                                     iowa_coap_peer_t *peerP,
                                     oscore_peer_context_t *peerContextP,
                                     iowa_coap_message_t *encryptedMessageP,
                                     iowa_coap_message_t **plainMessageP);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif // _IOWA_PRV_COAP_INTERNALS_INCLUDE_

@@ -9,7 +9,7 @@
 * |         |         |           |    |    |
 * |_________|_________|___________|____|____|
 *
-* Copyright (c) 2017-2019 IoTerop.
+* Copyright (c) 2017-2020 IoTerop.
 * All rights reserved.
 *
 * This program and the accompanying materials
@@ -20,8 +20,6 @@
 **********************************************/
 
 #include "iowa_prv_logger.h"
-
-#ifndef IOWA_LOGGER_USER
 
 #define PRV_STR_LEVEL(S) ((S) == IOWA_LOG_LEVEL_ERROR ? "error" :     \
                          ((S) == IOWA_LOG_LEVEL_WARNING ? "warning" : \
@@ -52,53 +50,95 @@ static void prv_printf(const char *format, ...)
     va_end(args);
 }
 
+
+// Generate lines such as:
+// AA BB CC DD  EE FF GG HH  II JJ KK LL  MM NN OO PP   |abcdefghijklmnop
+//^  ^  ^  ^  ^^  ^  ^  ^  ^^  ^  ^  ^  ^^  ^  ^  ^  ^^^                 ^
+// including a space at the beginning, doubled spaces every 4 bytes, first separator and a trailing NUL
+#define PRV_MAX_LINE_LEN 1 + 16*3 + 4 + 1 + 1 + 16 + 1 + 1
+
+#define PRV_HEX(n) ((n) < 10 ? ('0' + (n)) : ('A' + ((n)-10)))
+
 static void prv_logBuffer(const uint8_t *buffer,
                           size_t bufferLength)
 {
     size_t i;
 
-    prv_printf("%d bytes\r\n", bufferLength);
+#ifdef IOWA_LOG_BUFFER_LIMIT
+    if (IOWA_LOG_BUFFER_LIMIT < bufferLength)
+    {
+        prv_printf("%d bytes (truncated)\r\n", bufferLength);
+        bufferLength = IOWA_LOG_BUFFER_LIMIT;
+    }
+    else
+#else
+    {
+        prv_printf("%d bytes\r\n", bufferLength);
+    }
+#endif
 
     for (i = 0; i < bufferLength; i += 16)
     {
         size_t j;
+        char lineBuf[PRV_MAX_LINE_LEN];
+        uint8_t byte;
+        char* outC;        // Output character
 
-        prv_printf("  ");
+        outC = lineBuf;   // We'll output a line each 16 bytes
 
+        *outC++ = ' ';
+
+        // Print the buffer by byte
         for (j = 0; j < 16 && i + j < bufferLength; j++)
         {
-            prv_printf("%02X ", buffer[i + j]);
-            if (j % 4 == 3)
+            byte = buffer[i + j];
+
+            *outC++ = PRV_HEX(byte >> 4);
+            *outC++ = PRV_HEX(byte & 0x0F);
+            *outC++ = ' ';
+
+            if ((j & 3) == 3)
             {
-                prv_printf(" ");
+                *outC++ = ' ';
             }
         }
 
-        while (j < 16)
+        // Complete the line with whitespace if there are not 16 bytes
+        while (j < 16) // keep the previous value for the variable 'j'
         {
-            prv_printf("   ");
-            if (j % 4 == 3)
+            *outC++ = ' ';
+            *outC++ = ' ';
+            *outC++ = ' ';
+
+            if ((j & 3) == 3)
             {
-                prv_printf(" ");
+                *outC++ = ' ';
             }
+
             j++;
         }
 
-        prv_printf(" |");
+        *outC++ = ' ';
+        *outC++ = '|';
 
+        // Print the buffer with writable characters if possible
         for (j = 0; j < 16 && i + j < bufferLength; j++)
         {
-            if (isprint(buffer[i + j])
-                && !isspace(buffer[i + j]))
+            byte = buffer[i + j];
+
+            if (isprint(byte) && !isspace(byte))
             {
-                prv_printf("%c", buffer[i + j]);
+                *outC++ = byte;
             }
             else
             {
-                prv_printf(".");
+                *outC++ = '.';
             }
         }
-        prv_printf("|\r\n");
+
+	*outC++ = '\0';
+
+        prv_printf("%s|\r\n", lineBuf);
     }
 }
 
@@ -178,4 +218,3 @@ void iowa_log_arg_buffer(uint8_t part,
     }
 }
 
-#endif

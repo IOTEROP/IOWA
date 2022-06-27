@@ -43,31 +43,31 @@ extern "C" {
 /**************************************************************
  * Data Structures and Constants
  **************************************************************/
-#define IOWA_APN_CONNECTION_PROFILE_RSC_PROFILE_NAME                            (1<<0)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_APN                                     (1<<1)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_AUTO_SELECT_APN_DEVICE                  (1<<2)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_ENABLE_STATUS                           (1<<3)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_AUTHENTICATION_TYPE                     (1<<4)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_USER_NAME                               (1<<5)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_SECRET                                  (1<<6)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_RECONNECT_SCHEDULE                      (1<<7)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_VALIDITY                                (1<<8)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_CONN_ESTABLISHMENT_TIME                 (1<<9)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_CONN_ESTABLISHMENT_RESULT               (1<<10)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_CONN_ESTABLISHMENT_REJECT_CAUSE         (1<<11)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_CONNECTION_END_TIME                     (1<<12)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_TOTAL_BYTES_SENT                        (1<<13)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_TOTAL_BYTES_RECEIVED                    (1<<14)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_IP_ADDRESS                              (1<<15)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_PREFIX_LENGTH                           (1<<16)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_SUBNET_MASK                             (1<<17)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_GATEWAY                                 (1<<18)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_PRIMARY_DNS_ADDRESS                     (1<<19)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_SECONDARY_DNS_ADDRESS                   (1<<20)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_QCI                                     (1<<21)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_TOTAL_PACKETS_SENT                      (1<<22)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_PDN_TYPE                                (1<<23)
-#define IOWA_APN_CONNECTION_PROFILE_RSC_APN_RATE_CONTROL                        (1<<24)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_PROFILE_NAME                            (1L<<0)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_APN                                     (1L<<1)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_AUTO_SELECT_APN_DEVICE                  (1L<<2)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_ENABLE_STATUS                           (1L<<3)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_AUTHENTICATION_TYPE                     (1L<<4)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_USER_NAME                               (1L<<5)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_SECRET                                  (1L<<6)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_RECONNECT_SCHEDULE                      (1L<<7)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_VALIDITY                                (1L<<8)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_CONN_ESTABLISHMENT_TIME                 (1L<<9)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_CONN_ESTABLISHMENT_RESULT               (1L<<10)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_CONN_ESTABLISHMENT_REJECT_CAUSE         (1L<<11)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_CONNECTION_END_TIME                     (1L<<12)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_TOTAL_BYTES_SENT                        (1L<<13)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_TOTAL_BYTES_RECEIVED                    (1L<<14)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_IP_ADDRESS                              (1L<<15)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_PREFIX_LENGTH                           (1L<<16)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_SUBNET_MASK                             (1L<<17)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_GATEWAY                                 (1L<<18)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_PRIMARY_DNS_ADDRESS                     (1L<<19)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_SECONDARY_DNS_ADDRESS                   (1L<<20)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_QCI                                     (1L<<21)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_TOTAL_PACKETS_SENT                      (1L<<22)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_PDN_TYPE                                (1L<<23)
+#define IOWA_APN_CONNECTION_PROFILE_RSC_APN_RATE_CONTROL                        (1L<<24)
 
 // APN connection profile details
 // Elements:
@@ -100,22 +100,22 @@ typedef struct
     char       *apn;
     bool        autoSelect;
     bool        enableStatus;
-    int         authenticationType;
+    uint8_t     authenticationType;
     char       *userName;
     char       *secret;
     char       *reconnectSchedule;
     char      **validityList;
     uint16_t    validityNumber;
-    int        *connectionEstablishmentTimeList;
+    uint32_t   *connectionEstablishmentTimeList;
     uint16_t    connectionEstablishmentTimeNumber;
-    int        *connectionEstablishmentResultList;
+    uint8_t    *connectionEstablishmentResultList;
     uint16_t    connectionEstablishmentResultNumber;
-    int        *connectionEstablishmentRejectCauseList;
+    uint8_t    *connectionEstablishmentRejectCauseList;
     uint16_t    connectionEstablishmentRejectCauseNumber;
-    int        *connectionEndTimeList;
+    uint32_t   *connectionEndTimeList;
     uint16_t    connectionEndTimeNumber;
-    int         totalBytesSent;
-    int         totalBytesReceived;
+    uint32_t    totalBytesSent;
+    uint32_t    totalBytesReceived;
     char      **ipAddressList;
     uint16_t    ipAddressNumber;
     char      **prefixLengthList;
@@ -128,10 +128,10 @@ typedef struct
     uint16_t    primaryDnsAddressNumber;
     char      **secondaryDnsAddressList;
     uint16_t    secondaryDnsAddressNumber;
-    int         qci;
-    int         totalPacketsSent;
-    int         pdnType;
-    int         apnRateControl;
+    uint8_t     qci;
+    uint32_t    totalPacketsSent;
+    uint8_t     pdnType;
+    uint32_t    apnRateControl;
 } iowa_apn_connection_profile_details_t;
 
 // The callback called to change the state of the APN connection profile.

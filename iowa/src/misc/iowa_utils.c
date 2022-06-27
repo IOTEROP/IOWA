@@ -21,7 +21,7 @@
 
 #include "iowa_prv_misc.h"
 
-static char b64Alphabet[64] =
+static char b64ClassicAlphabet[64] =
 {
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
     'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
@@ -29,12 +29,21 @@ static char b64Alphabet[64] =
     'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'
 };
 
+static char b64UriSafeAlphabet[64] =
+{
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+    'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
+    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+    'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', '_'
+};
+
 /*************************************************************************************
 ** Private functions
 *************************************************************************************/
 
 static bool prv_b64Revert(uint8_t input,
-                          uint8_t *output)
+                          uint8_t *output,
+                          uint8_t mode)
 {
     if (input >= 'A' && input <= 'Z')
     {
@@ -53,11 +62,46 @@ static bool prv_b64Revert(uint8_t input,
         switch (input)
         {
         case '+':
-            *output = 62;
+            if (mode == BASE64_MODE_CLASSIC)
+            {
+                *output = 62;
+            }
+            else
+            {
+                return false;
+            }
             break;
         case '/':
-            *output = 63;
+            if (mode == BASE64_MODE_CLASSIC)
+            {
+                *output = 63;
+            }
+            else
+            {
+                return false;
+            }
             break;
+        case '-':
+            if (mode == BASE64_MODE_URI_SAFE)
+            {
+                *output = 62;
+            }
+            else
+            {
+                return false;
+            }
+            break;
+        case '_':
+            if (mode == BASE64_MODE_URI_SAFE)
+            {
+                *output = 63;
+            }
+            else
+            {
+                return false;
+            }
+            break;
+
         default:
             return false;
         }
@@ -120,14 +164,14 @@ iowa_sensor_t iowa_utils_uri_to_sensor(iowa_lwm2m_uri_t *uriP)
         switch (uriP->instanceId)
         {
         case IOWA_LWM2M_ID_ALL:
-            return INVALID_SENSOR_ID;
+            return IOWA_INVALID_SENSOR_ID;
 
         default:
             return OBJECT_INSTANCE_ID_TO_SENSOR(uriP->objectId, uriP->instanceId);
         }
         break;
 
-#ifndef IOWA_DEVICE_RSC_POWER_SOURCE_REMOVE
+#ifdef IOWA_DEVICE_SUPPORT_RSC_POWER_SOURCE
     case IOWA_LWM2M_DEVICE_OBJECT_ID:
         if (uriP->instanceId == LWM2M_SINGLE_OBJECT_INSTANCE_ID)
         {
@@ -141,10 +185,17 @@ iowa_sensor_t iowa_utils_uri_to_sensor(iowa_lwm2m_uri_t *uriP)
                 {
                     return OBJECT_INSTANCE_ID_TO_SENSOR(uriP->objectId, uriP->resInstanceId);
                 }
-                return INVALID_SENSOR_ID;
+                return IOWA_INVALID_SENSOR_ID;
+
+            case IOWA_LWM2M_DEVICE_ID_CURRENT_TIME:
+                if (uriP->resInstanceId == IOWA_LWM2M_ID_ALL)
+                {
+                    return IOWA_DEVICE_TIME_SENSOR_ID;
+                }
+                return IOWA_INVALID_SENSOR_ID;
 
             default:
-                return INVALID_SENSOR_ID;
+                return IOWA_INVALID_SENSOR_ID;
             }
         }
         break;
@@ -154,7 +205,7 @@ iowa_sensor_t iowa_utils_uri_to_sensor(iowa_lwm2m_uri_t *uriP)
         break;
     }
 
-    return INVALID_SENSOR_ID;
+    return IOWA_INVALID_SENSOR_ID;
 }
 
 iowa_lwm2m_uri_t iowa_utils_sensor_to_uri(iowa_sensor_t id)
@@ -172,7 +223,14 @@ iowa_lwm2m_uri_t iowa_utils_sensor_to_uri(iowa_sensor_t id)
     {
     case IOWA_LWM2M_DEVICE_OBJECT_ID:
         uri.instanceId = LWM2M_SINGLE_OBJECT_INSTANCE_ID;
-        uri.resInstanceId = GET_INSTANCE_ID_FROM_SENSOR(id);
+        if (id == IOWA_DEVICE_TIME_SENSOR_ID)
+        {
+            uri.resourceId = IOWA_LWM2M_DEVICE_ID_CURRENT_TIME;
+        }
+        else
+        {
+            uri.resInstanceId = GET_INSTANCE_ID_FROM_SENSOR(id);
+        }
         break;
 
     default:
@@ -208,17 +266,8 @@ size_t iowa_utils_base64_get_decoded_size(uint8_t *base64Buffer,
         IOWA_LOG_ERROR(IOWA_PART_SYSTEM, "Base64 buffer is empty.");
         return 0;
     }
-    else if (base64BufferLen % 4)
-    {
-        IOWA_LOG_ERROR(IOWA_PART_SYSTEM, "Base64 buffer is not a multiple of 4.");
-        return 0;
-    }
 
-    resultLen = (base64BufferLen >> 2) * 3;
-
-
-
-    resultLen -= (size_t)(base64Buffer[base64BufferLen - 1] == BASE64_PADDING) + (size_t)(base64Buffer[base64BufferLen - 2] == BASE64_PADDING);
+    resultLen = utils_b64GetDecodedSize(base64Buffer, base64BufferLen, true);
 
     return resultLen;
 }
@@ -228,8 +277,6 @@ size_t iowa_utils_base64_encode(uint8_t * rawBuffer,
                                 uint8_t * base64Buffer,
                                 size_t base64BufferLen)
 {
-    size_t dataIndex;
-    size_t resultIndex;
     size_t resultLen;
 
     if (base64Buffer == NULL
@@ -249,37 +296,7 @@ size_t iowa_utils_base64_encode(uint8_t * rawBuffer,
         return 0;
     }
 
-    dataIndex = 0;
-    resultIndex = 0;
-    while (dataIndex < rawBufferLen)
-    {
-        switch (rawBufferLen - dataIndex)
-        {
-        case 0:
-
-            break;
-        case 1:
-            base64Buffer[resultIndex] = (uint8_t)(b64Alphabet[rawBuffer[dataIndex] >> 2]);
-            base64Buffer[resultIndex + 1] = (uint8_t)(b64Alphabet[(rawBuffer[dataIndex] & 0x03) << 4]);
-            base64Buffer[resultIndex + 2] = (uint8_t)BASE64_PADDING;
-            base64Buffer[resultIndex + 3] = (uint8_t)BASE64_PADDING;
-            break;
-        case 2:
-            base64Buffer[resultIndex] = (uint8_t)(b64Alphabet[rawBuffer[dataIndex] >> 2]);
-            base64Buffer[resultIndex + 1] = (uint8_t)(b64Alphabet[(rawBuffer[dataIndex] & 0x03) << 4 | (rawBuffer[dataIndex + 1] >> 4)]);
-            base64Buffer[resultIndex + 2] = (uint8_t)(b64Alphabet[(rawBuffer[dataIndex + 1] & 0x0F) << 2]);
-            base64Buffer[resultIndex + 3] = (uint8_t)BASE64_PADDING;
-            break;
-        default:
-            base64Buffer[resultIndex] = (uint8_t)(b64Alphabet[rawBuffer[dataIndex] >> 2]);
-            base64Buffer[resultIndex + 1] = (uint8_t)(b64Alphabet[(rawBuffer[dataIndex] & 0x03) << 4 | (rawBuffer[dataIndex + 1] >> 4)]);
-            base64Buffer[resultIndex + 2] = (uint8_t)(b64Alphabet[((rawBuffer[dataIndex + 1] & 0x0F) << 2) | (rawBuffer[dataIndex + 2] >> 6)]);
-            base64Buffer[resultIndex + 3] = (uint8_t)(b64Alphabet[(rawBuffer[dataIndex + 2] & 0x3F)]);
-            break;
-        }
-        dataIndex += 3;
-        resultIndex += 4;
-    }
+    utils_b64Encode(rawBuffer, rawBufferLen, base64Buffer, &base64BufferLen, BASE64_MODE_CLASSIC);
 
     return resultLen;
 }
@@ -289,8 +306,6 @@ size_t iowa_utils_base64_decode(uint8_t * base64Buffer,
                                 uint8_t * rawBuffer,
                                 size_t rawBufferLen)
 {
-    size_t dataIndex;
-    size_t resultIndex;
     size_t resultLen;
 
     if (base64Buffer == NULL
@@ -315,105 +330,7 @@ size_t iowa_utils_base64_decode(uint8_t * base64Buffer,
         return 0;
     }
 
-
-    while (base64Buffer[base64BufferLen - 1] == BASE64_PADDING)
-    {
-        base64BufferLen--;
-    }
-
-    memset(rawBuffer, 0, rawBufferLen);
-
-    dataIndex = 0;
-    resultIndex = 0;
-    while ((dataIndex < base64BufferLen) && (base64BufferLen - dataIndex) >= 4)
-    {
-        uint8_t tmp[4];
-        uint8_t i;
-
-        for (i = 0; i < 4; i++)
-        {
-            if (false == prv_b64Revert(base64Buffer[dataIndex + i], tmp + i))
-            {
-                IOWA_LOG_ARG_ERROR(IOWA_PART_SYSTEM,
-                                   "Invalid character in input buffer at position %u [0x%02X]",
-                                   dataIndex + i, base64Buffer[dataIndex + i]);
-                return 0;
-            }
-        }
-
-        rawBuffer[resultIndex] = (uint8_t)(tmp[0] << 2) | (uint8_t)(tmp[1] >> 4);
-        rawBuffer[resultIndex + 1] = (uint8_t)(tmp[1] << 4) | (uint8_t)(tmp[2] >> 2);
-        rawBuffer[resultIndex + 2] = (uint8_t)(tmp[2] << 6) | tmp[3];
-
-        dataIndex += 4;
-        resultIndex += 3;
-    }
-    switch (base64BufferLen - dataIndex)
-    {
-    case 0:
-        break;
-    case 2:
-    {
-        uint8_t tmp[2];
-
-        if (false == prv_b64Revert(base64Buffer[base64BufferLen - 2], tmp))
-        {
-            IOWA_LOG_ARG_ERROR(IOWA_PART_SYSTEM,
-                               "Invalid character in input buffer at position %u [0x%02X]",
-                               base64BufferLen - 2,
-                               base64Buffer[base64BufferLen - 2]);
-            return 0;
-        }
-        if (false == prv_b64Revert(base64Buffer[base64BufferLen - 1], tmp + 1))
-        {
-            IOWA_LOG_ARG_ERROR(IOWA_PART_SYSTEM,
-                               "Invalid character in input buffer at position %u [0x%02X]",
-                               base64BufferLen - 1,
-                               base64Buffer[base64BufferLen - 1]);
-            return 0;
-        }
-
-        rawBuffer[resultIndex] = (uint8_t)(tmp[0] << 2) | (uint8_t)(tmp[1] >> 4);
-    }
-    break;
-    case 3:
-    {
-        uint8_t tmp[3];
-
-        if (false == prv_b64Revert(base64Buffer[base64BufferLen - 3], tmp))
-        {
-            IOWA_LOG_ARG_ERROR(IOWA_PART_SYSTEM,
-                               "Invalid character in input buffer at position %u [0x%02X]",
-                               base64BufferLen - 3,
-                               base64Buffer[base64BufferLen - 3]);
-            return 0;
-        }
-        if (false == prv_b64Revert(base64Buffer[base64BufferLen - 2], tmp + 1))
-        {
-            IOWA_LOG_ARG_ERROR(IOWA_PART_SYSTEM,
-                               "Invalid character in input buffer at position %u [0x%02X]",
-                               base64BufferLen - 2,
-                               base64Buffer[base64BufferLen - 2]);
-            return 0;
-        }
-        if (false == prv_b64Revert(base64Buffer[base64BufferLen - 1], tmp + 2))
-        {
-            IOWA_LOG_ARG_ERROR(IOWA_PART_SYSTEM,
-                               "Invalid character in input buffer at position %u [0x%02X]",
-                               base64BufferLen - 1,
-                               base64Buffer[base64BufferLen - 1]);
-            return 0;
-        }
-
-        rawBuffer[resultIndex] = (uint8_t)(tmp[0] << 2) | (uint8_t)(tmp[1] >> 4);
-        rawBuffer[resultIndex + 1] = (uint8_t)(tmp[1] << 4) | (uint8_t)(tmp[2] >> 2);
-    }
-    break;
-    default:
-        IOWA_LOG_ERROR(IOWA_PART_SYSTEM, "Unexpected error occurred during decoding the Base64 buffer");
-        resultLen = 0;
-    break;
-    }
+    resultLen = utils_b64Decode(base64Buffer, base64BufferLen, rawBuffer, BASE64_MODE_CLASSIC);
 
     return resultLen;
 }
@@ -442,40 +359,6 @@ char * utilsStrdup(const char *str)
     strcpy(dest, str);
 
     return dest;
-}
-
-void * utilsRealloc(void *src,
-                    size_t sizeSrc,
-                    size_t sizeDst)
-{
-    void *dst;
-    size_t sizeCpy;
-
-    IOWA_LOG_ARG_TRACE(IOWA_PART_SYSTEM, "src: %p, src size: %u, dest size: %u.", src, sizeSrc, sizeDst);
-
-    dst = iowa_system_malloc(sizeDst);
-#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-    if (dst == NULL)
-    {
-        IOWA_LOG_ERROR_MALLOC(sizeDst);
-        return NULL;
-    }
-#endif
-
-    sizeCpy = sizeSrc;
-    if (sizeDst < sizeCpy)
-    {
-        sizeCpy = sizeDst;
-    }
-
-    if (src != NULL && sizeCpy > 0)
-    {
-        memcpy(dst, src, sizeCpy);
-    }
-
-    iowa_system_free(src);
-
-    return dst;
 }
 
 void * utilsCalloc(size_t number, size_t size)
@@ -534,7 +417,7 @@ bool utilsCmpBufferWithString(const uint8_t *buffer,
         return false;
     }
 
-
+    // Both are non null and have the same size
     return memcmp(buffer, str, size) == 0;
 }
 
@@ -556,7 +439,7 @@ size_t utilsStringCopy(char *buffer, size_t length, const char *str)
 
     strLength = utilsStrlen(str);
     if (strLength == 0
-        || strLength > length)
+        || strLength >= length)
     {
         return 0;
     }
@@ -583,6 +466,283 @@ void utilsCopyValue(void *dst,
     {
         ((uint8_t *)dst)[i] = ((const uint8_t *)src)[len - 1 - i];
     }
-#endif
-#endif
+#endif // LWM2M_LITTLE_ENDIAN
+#endif // LWM2M_BIG_ENDIAN
+}
+
+void utils_b64Encode(uint8_t *rawBuffer,
+                     size_t rawBufferLen,
+                     uint8_t *base64Buffer,
+                     size_t *base64BufferLenP,
+                     uint8_t mode)
+{
+    size_t dataIndex;
+    size_t resultIndex;
+    char *alphabet;
+
+    switch (mode)
+    {
+    case BASE64_MODE_URI_SAFE:
+        alphabet = b64UriSafeAlphabet;
+        break;
+
+    case BASE64_MODE_CLASSIC:
+    default:
+        alphabet = b64ClassicAlphabet;
+        break;
+    }
+
+    *base64BufferLenP = 0;
+
+    dataIndex = 0;
+    resultIndex = 0;
+    while (dataIndex < rawBufferLen)
+    {
+        switch (rawBufferLen - dataIndex)
+        {
+        case 0:
+            // should never happen
+            break;
+
+        case 1:
+            base64Buffer[resultIndex] = (uint8_t)(alphabet[rawBuffer[dataIndex] >> 2]);
+            base64Buffer[resultIndex + 1] = (uint8_t)(alphabet[(uint8_t)(((uint8_t)(rawBuffer[dataIndex] & 0x03)) << 4)]);
+            switch (mode)
+            {
+            case BASE64_MODE_URI_SAFE:
+                *base64BufferLenP += 2;
+                break;
+
+            case BASE64_MODE_CLASSIC:
+            default:
+                *base64BufferLenP += 4;
+                base64Buffer[resultIndex + 2] = (uint8_t)BASE64_PADDING;
+                base64Buffer[resultIndex + 3] = (uint8_t)BASE64_PADDING;
+                break;
+            }
+            break;
+
+        case 2:
+            base64Buffer[resultIndex] = (uint8_t)(alphabet[rawBuffer[dataIndex] >> 2]);
+            base64Buffer[resultIndex + 1] = (uint8_t)(alphabet[(uint8_t)(((uint8_t)(rawBuffer[dataIndex] & 0x03)) << 4)
+                                                               | (uint8_t)(rawBuffer[dataIndex + 1] >> 4)]);
+            base64Buffer[resultIndex + 2] = (uint8_t)(alphabet[(uint8_t)((uint8_t)(rawBuffer[dataIndex + 1] & 0x0F) << 2)]);
+            switch (mode)
+            {
+            case BASE64_MODE_URI_SAFE:
+                *base64BufferLenP += 3;
+                break;
+
+            case BASE64_MODE_CLASSIC:
+            default:
+                *base64BufferLenP += 4;
+                base64Buffer[resultIndex + 3] = (uint8_t)BASE64_PADDING;
+                break;
+            }
+            break;
+
+        default:
+            *base64BufferLenP += 4;
+            base64Buffer[resultIndex] = (uint8_t)(alphabet[rawBuffer[dataIndex] >> 2]);
+            base64Buffer[resultIndex + 1] = (uint8_t)(alphabet[(uint8_t)((uint8_t)(rawBuffer[dataIndex] & 0x03) << 4)
+                                                               | (uint8_t)(rawBuffer[dataIndex + 1] >> 4)]);
+            base64Buffer[resultIndex + 2] = (uint8_t)(alphabet[(uint8_t)((uint8_t)(rawBuffer[dataIndex + 1] & 0x0F) << 2)
+                                                               | (uint8_t)(rawBuffer[dataIndex + 2] >> 6)]);
+            base64Buffer[resultIndex + 3] = (uint8_t)(alphabet[(rawBuffer[dataIndex + 2] & 0x3F)]);
+            break;
+        }
+
+        dataIndex += 3;
+        resultIndex += 4;
+    }
+}
+
+size_t utils_b64Decode(uint8_t *base64Buffer,
+                       size_t base64BufferLen,
+                       uint8_t *rawBuffer,
+                       uint8_t mode)
+{
+    size_t dataIndex;
+    size_t resultIndex;
+
+    if (mode == BASE64_MODE_CLASSIC)
+    {
+        uint8_t i;
+
+        if (base64BufferLen % 4 != 0)
+        {
+            IOWA_LOG_WARNING(IOWA_PART_SYSTEM, "Base64 buffer is not a multiple of 4.");
+            return 0;
+        }
+
+        i = 0;
+
+        // Remove padding
+        while (base64Buffer[base64BufferLen - 1] == BASE64_PADDING)
+        {
+            i++;
+            if (i > 2)
+            {
+                IOWA_LOG_WARNING(IOWA_PART_SYSTEM, "Base64 buffer has too much padding.");
+                return 0;
+            }
+            base64BufferLen--;
+        }
+    }
+
+    dataIndex = 0;
+    resultIndex = 0;
+    while ((dataIndex < base64BufferLen)
+           && (base64BufferLen - dataIndex) >= 4)
+    {
+        uint8_t tmp[4];
+        uint8_t i;
+
+        for (i = 0; i < 4; i++)
+        {
+            if (false == prv_b64Revert(base64Buffer[dataIndex + i], tmp + i, mode))
+            {
+                IOWA_LOG_ARG_ERROR(IOWA_PART_SYSTEM,
+                                   "Invalid character in input buffer at position %u [0x%02X]",
+                                   dataIndex + i, base64Buffer[dataIndex + i]);
+                return 0;
+            }
+        }
+
+        rawBuffer[resultIndex] = (uint8_t)(tmp[0] << 2) | (uint8_t)(tmp[1] >> 4);
+        rawBuffer[resultIndex + 1] = (uint8_t)(tmp[1] << 4) | (uint8_t)(tmp[2] >> 2);
+        rawBuffer[resultIndex + 2] = (uint8_t)(tmp[2] << 6) | tmp[3];
+
+        dataIndex += 4;
+        resultIndex += 3;
+    }
+    switch (base64BufferLen - dataIndex)
+    {
+    case 0:
+        break;
+    case 2:
+    {
+        uint8_t tmp[2];
+
+        if (false == prv_b64Revert(base64Buffer[base64BufferLen - 2], tmp, mode))
+        {
+            IOWA_LOG_ARG_ERROR(IOWA_PART_SYSTEM,
+                               "Invalid character in input buffer at position %u [0x%02X]",
+                               base64BufferLen - 2,
+                               base64Buffer[base64BufferLen - 2]);
+            return 0;
+        }
+        if (false == prv_b64Revert(base64Buffer[base64BufferLen - 1], tmp + 1, mode))
+        {
+            IOWA_LOG_ARG_ERROR(IOWA_PART_SYSTEM,
+                               "Invalid character in input buffer at position %u [0x%02X]",
+                               base64BufferLen - 1,
+                               base64Buffer[base64BufferLen - 1]);
+            return 0;
+        }
+
+        rawBuffer[resultIndex] = (uint8_t)(tmp[0] << 2) | (uint8_t)(tmp[1] >> 4);
+        resultIndex += 1;
+    }
+    break;
+    case 3:
+    {
+        uint8_t tmp[3];
+
+        if (false == prv_b64Revert(base64Buffer[base64BufferLen - 3], tmp, mode))
+        {
+            IOWA_LOG_ARG_ERROR(IOWA_PART_SYSTEM,
+                               "Invalid character in input buffer at position %u [0x%02X]",
+                               base64BufferLen - 3,
+                               base64Buffer[base64BufferLen - 3]);
+            return 0;
+        }
+        if (false == prv_b64Revert(base64Buffer[base64BufferLen - 2], tmp + 1, mode))
+        {
+            IOWA_LOG_ARG_ERROR(IOWA_PART_SYSTEM,
+                               "Invalid character in input buffer at position %u [0x%02X]",
+                               base64BufferLen - 2,
+                               base64Buffer[base64BufferLen - 2]);
+            return 0;
+        }
+        if (false == prv_b64Revert(base64Buffer[base64BufferLen - 1], tmp + 2, mode))
+        {
+            IOWA_LOG_ARG_ERROR(IOWA_PART_SYSTEM,
+                               "Invalid character in input buffer at position %u [0x%02X]",
+                               base64BufferLen - 1,
+                               base64Buffer[base64BufferLen - 1]);
+            return 0;
+        }
+
+        rawBuffer[resultIndex] = (uint8_t)(tmp[0] << 2) | (uint8_t)(tmp[1] >> 4);
+        rawBuffer[resultIndex + 1] = (uint8_t)(tmp[1] << 4) | (uint8_t)(tmp[2] >> 2);
+        resultIndex += 2;
+    }
+    break;
+    default:
+        IOWA_LOG_ERROR(IOWA_PART_SYSTEM, "Unexpected error occurred during decoding the Base64 buffer");
+        resultIndex = 0;
+        break;
+    }
+
+    return resultIndex;
+}
+
+size_t utils_b64GetDecodedSize(uint8_t *base64Buffer,
+                               size_t base64BufferLen,
+                               bool withPadding)
+{
+    size_t resultLen;
+    uint8_t lenRemainder;
+
+    assert(base64Buffer != NULL);
+    assert(base64BufferLen != 0);
+
+    lenRemainder = (uint8_t) (base64BufferLen % 4);
+
+    if (withPadding == true)
+    {
+        if (lenRemainder != 0)
+        {
+            IOWA_LOG_WARNING(IOWA_PART_SYSTEM, "Base64 buffer is not a multiple of 4.");
+            return 0;
+        }
+    }
+    else
+    {
+        if (lenRemainder == 1)
+        {
+            IOWA_LOG_WARNING(IOWA_PART_SYSTEM, "Base64 buffer is too short.");
+            return 0;
+        }
+    }
+
+    resultLen = (base64BufferLen >> 2) * 3;
+
+    if (withPadding == true)
+    {
+        // Check the padding and adjust the raw length. Here the length of the base64BufferLen is > 0 and % 4
+        // Maximum Base64 padding is 2
+        if (base64Buffer[base64BufferLen - 3] == BASE64_PADDING)
+        {
+            IOWA_LOG_WARNING(IOWA_PART_SYSTEM, "Base64 buffer has too much padding.");
+            return 0;
+        }
+
+        resultLen -= (size_t)(base64Buffer[base64BufferLen - 1] == BASE64_PADDING) + (size_t)(base64Buffer[base64BufferLen - 2] == BASE64_PADDING);
+    }
+    else
+    {
+        // Maximum Base64 padding is 2
+        if (lenRemainder == 2)
+        {
+            resultLen += 1;
+        }
+        if (lenRemainder == 3)
+        {
+            resultLen += 2;
+        }
+    }
+
+    return resultLen;
 }

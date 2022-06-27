@@ -41,25 +41,14 @@
     {5503, IOWA_LWM2M_TYPE_INTEGER, IOWA_OPERATION_READ | IOWA_OPERATION_WRITE, IOWA_RESOURCE_FLAG_NONE}      \
 }
 
-// A structure containing the values of the writable resources of the object
+// A structure containing the values of the writable resources of the object instance and the instance ID
 typedef struct
 {
+    uint16_t id;
     bool  booleanValue;
     int   integerValue;
     char *stringValue;
 } sample_instance_values_t;
-
-typedef struct _sample_instance__t
-{
-    struct _sample_instance__t *next;
-    uint16_t id;
-    sample_instance_values_t *instanceValuesP;
-} sample_instance_t;
-
-typedef struct
-{
-    sample_instance_t *instanceList;
-} sample_object_t;
 
 // The function called by IOWA when an operation is to be performed on the Object resources
 iowa_status_t sample_object_dataCallback(iowa_dm_operation_t operation,
@@ -67,18 +56,3 @@ iowa_status_t sample_object_dataCallback(iowa_dm_operation_t operation,
                                          size_t numData,
                                          void *userData,
                                          iowa_context_t iowaH);
-
-// The function called by IOWA when an operation is to be performed on the Object instances
-iowa_status_t sample_object_InstanceCallback(iowa_dm_operation_t operation,
-                                             uint16_t objectID,
-                                             uint16_t instanceID,
-                                             void *userData,
-                                             iowa_context_t contextP);
-
-// The function to add a new instance to the sample object
-iowa_status_t sample_object_add_instance(sample_object_t *objectP,
-                                         sample_instance_values_t *instanceValuesP,
-                                         uint16_t id);
-
-// The function to free sample object memory
-iowa_status_t sample_object_remove_object(sample_object_t *objectP);

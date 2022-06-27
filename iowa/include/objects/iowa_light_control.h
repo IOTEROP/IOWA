@@ -53,8 +53,9 @@ extern "C" {
 
 // Defines used when declaring a new light control object.
 // These defines are more general than the ones above, multiple ressources are supported by each define.
-#define IOWA_LIGHT_CONTROL_POWER  (IOWA_LIGHT_CONTROL_RSC_CUMULATIVE_ACTIVE_POWER \
-                                   | IOWA_LIGHT_CONTROL_RSC_POWER_FACTOR)
+#define IOWA_LIGHT_CONTROL_POWER  (IOWA_LIGHT_CONTROL_RSC_CUMULATIVE_ACTIVE_POWER   \
+                                   | IOWA_LIGHT_CONTROL_RSC_POWER_FACTOR            \
+                                   | IOWA_LIGHT_CONTROL_RSC_ON_TIME)
 
 // The callback called to change the state of the light.
 // Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.

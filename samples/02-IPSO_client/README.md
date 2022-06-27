@@ -1,6 +1,6 @@
-# IPSO Client
+# IPSO Object Client
 
-This is the [Baseline Client](../01-baseline_client) featuring an additional IPSO Temperature Object (ID: 3303).
+This is the Baseline Client featuring an additional IPSO Temperature Object (ID: 3303).
 
 Among the IPSO-defined Objects, several of them, representing ambient sensors, have the same Resources. IOWA provides a single set of APIs to manipulate these Objects.
 
@@ -16,13 +16,13 @@ The usage is the same as the Baseline Client sample.
 
 When registered to the LwM2M Server, you will notice that the *IPSO_client* features an additional LwM2M IPSO Temperature Object (ID: 3303). This Temperature Object presents several Resources:
 
-![IPSO Temperature](../../.images/IPSO_client.jpg)
+![IPSO Temperature](images/IPSO_client.jpg)
 
 *IPSO_client* updates the "Sensor Value" each three seconds, cycling between the values 20, 21, 22, and 23.
 
 If you set up an Observation on this Object, the basic view will present such a graph:
 
-![IPSO Temperature graph](../../.images/IPSO_client_graph.jpg)
+![IPSO Temperature graph](images/IPSO_client_graph.jpg)
 
 After two minutes, *IPSO_client* unregisters from the LwM2M Server.
 
@@ -140,7 +140,3 @@ The second argument is the identifier of the sensor, retrieved from the call to 
 IOWA implements a lot of LwM2M Objects natively and provides high-level APIS to feature them in your LwM2M Client. Samples for these can be found among the full SDK samples.
 
 If you want to implement your own LwM2M Objects, look at the Custom Object samples.
-
-------------------------------------------------------------
-
-![IoTerop Logo](../../.images/IoTerop_logo.jpg)

@@ -30,7 +30,7 @@ extern "C" {
 #include <stdint.h>
 #include <stdbool.h>
 
-#define IOWA_VERSION "2020-03"
+#define IOWA_VERSION "2022-05-Eval"
 
 /**************************************************************
 * Types
@@ -89,10 +89,24 @@ typedef uint8_t iowa_lwm2m_data_type_t;
 #define IOWA_LWM2M_TYPE_OPAQUE_BLOCK      102
 #define IOWA_LWM2M_TYPE_CORE_LINK_BLOCK   106
 
+typedef enum
+{
+    IOWA_LWM2M_VERSION_UNDEFINED = 0,
+    IOWA_LWM2M_VERSION_1_0 = 1,
+    IOWA_LWM2M_VERSION_1_1 = 2
+} iowa_lwm2m_protocol_version_t;
+
+typedef struct
+{
+    uint8_t major;
+    uint8_t minor;
+} iowa_object_version_t;
+
 typedef struct
 {
     uint16_t objectId;
     uint16_t instanceId;
+    iowa_object_version_t version;
 } iowa_lwm2m_object_link_t;
 
 typedef struct
@@ -114,6 +128,7 @@ typedef struct
         } asBuffer;
         struct
         {
+            size_t   totalSize;
             uint32_t details;
             uint8_t *buffer;
         } asBlock;
@@ -166,12 +181,14 @@ typedef enum
     IOWA_CONN_DATAGRAM,
     IOWA_CONN_STREAM,
     IOWA_CONN_LORAWAN,
-    IOWA_CONN_SMS
+    IOWA_CONN_SMS,
+    IOWA_CONN_WEBSOCKET
 } iowa_connection_type_t;
 
 typedef uint16_t iowa_content_format_t;
 
 #define IOWA_CONTENT_FORMAT_TEXT       0
+#define IOWA_CONTENT_FORMAT_CORE_LINK  40
 #define IOWA_CONTENT_FORMAT_OPAQUE     42
 #define IOWA_CONTENT_FORMAT_CBOR       60
 #define IOWA_CONTENT_FORMAT_SENML_JSON 110
@@ -180,6 +197,7 @@ typedef uint16_t iowa_content_format_t;
 #define IOWA_CONTENT_FORMAT_JSON_OLD   1543
 #define IOWA_CONTENT_FORMAT_TLV        11542
 #define IOWA_CONTENT_FORMAT_JSON       11543
+#define IOWA_CONTENT_FORMAT_LWM2M_CBOR 11544
 #define IOWA_CONTENT_FORMAT_UNSET      0xFFFF
 
 typedef struct
@@ -297,6 +315,12 @@ void iowa_stop(iowa_context_t contextP);
 iowa_status_t iowa_flush_before_pause(iowa_context_t contextP,
                                       int32_t duration,
                                       uint32_t *delayP);
+
+// Inform IOWA that iowa_system_gettime() has lost track of time and that IOWA must re-synchronize.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - contextP: returned by iowa_init().
+iowa_status_t iowa_clock_reset(iowa_context_t contextP);
 
 // Save the current IOWA context.
 // Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.

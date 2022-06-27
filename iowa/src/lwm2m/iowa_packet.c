@@ -27,9 +27,9 @@
  * and Eclipse Distribution License v1.0 which accompany this distribution.
  *
  * The Eclipse Public License is available at
- *    http:
+ *    http://www.eclipse.org/legal/epl-v10.html
  * The Eclipse Distribution License is available at
- *    http:
+ *    http://www.eclipse.org/org/documents/edl-v10.php.
  *
  * Contributors:
  *    David Navarro, Intel Corporation - initial API and implementation
@@ -109,57 +109,6 @@ Contains code snippets which are:
 #include "iowa_prv_lwm2m_internals.h"
 
 #ifdef LWM2M_CLIENT_MODE
-void lwm2m_client_handle_out_of_bound_request(iowa_coap_peer_t *fromPeer,
-                                              uint8_t code,
-                                              iowa_coap_message_t *requestP,
-                                              void *userData,
-                                              iowa_context_t contextP)
-{
-    lwm2m_uri_type_t type;
-    iowa_lwm2m_uri_t uri;
-
-    (void)code;
-    (void)userData;
-
-    IOWA_LOG_TRACE(IOWA_PART_LWM2M, "Entering");
-
-    if (requestP->type == IOWA_COAP_TYPE_RESET)
-    {
-        IOWA_LOG_INFO(IOWA_PART_LWM2M, "Received a CoAP reset");
-        goto premature_exit;
-    }
-    if (requestP->code == IOWA_COAP_CODE_EMPTY)
-    {
-        IOWA_LOG_TRACE(IOWA_PART_LWM2M, "Received an empty CoAP packet");
-        goto premature_exit;
-    }
-
-    type = uri_decode(requestP, IOWA_COAP_OPTION_URI_PATH, &uri);
-    if (type != LWM2M_URI_TYPE_DM)
-    {
-        IOWA_LOG_WARNING(IOWA_PART_LWM2M, "Unhandled URI.");
-        goto premature_exit;
-    }
-
-    switch (requestP->code)
-    {
-    case IOWA_COAP_CODE_POST:
-        if (uri.objectId == IOWA_LWM2M_SERVER_OBJECT_ID
-            && uri.instanceId != IOWA_LWM2M_ID_ALL
-            && uri.resourceId == IOWA_LWM2M_SERVER_ID_UPDATE
-            && uri.resInstanceId == IOWA_LWM2M_ID_ALL)
-        {
-            object_execute(contextP, &uri, IOWA_LWM2M_ID_ALL, requestP->payload.data, requestP->payload.length);
-        }
-        break;
-
-    default:
-        break;
-    }
-
-premature_exit:
-    coapPeerDelete(contextP, fromPeer);
-}
 
 void lwm2m_client_handle_request(iowa_coap_peer_t *fromPeer,
                                  uint8_t code,
@@ -167,6 +116,7 @@ void lwm2m_client_handle_request(iowa_coap_peer_t *fromPeer,
                                  void *userData,
                                  iowa_context_t contextP)
 {
+    // WARNING: This function is called in a critical section
     lwm2m_server_t *serverP;
     iowa_lwm2m_uri_t uri;
     lwm2m_uri_type_t type;
@@ -190,7 +140,17 @@ void lwm2m_client_handle_request(iowa_coap_peer_t *fromPeer,
         return;
     }
 
+    if (!COAP_IS_REQUEST(requestP->code))
+    {
+        IOWA_LOG_TRACE(IOWA_PART_LWM2M, "Received an unexpected response. Ignoring.");
+        return;
+    }
+
+#ifdef LWM2M_ALTPATH_SUPPORT
+    type = uri_decode(contextP->lwm2mContextP->altPath, requestP, IOWA_COAP_OPTION_URI_PATH, &uri);
+#else
     type = uri_decode(requestP, IOWA_COAP_OPTION_URI_PATH, &uri);
+#endif
 
     switch (type)
     {

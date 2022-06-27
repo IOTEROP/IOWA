@@ -98,10 +98,10 @@ iowa_list_t * iowa_utils_list_add(iowa_list_t *headP,
         return headP;
     }
 
-
+    // Link the head as the next node of 'nodeP'
     nodeP->nextP = headP;
 
-
+    // 'nodeP' is the new head of the list
     return nodeP;
 }
 
@@ -119,11 +119,11 @@ iowa_list_t * iowa_utils_list_remove(iowa_list_t *headP,
 
     if (nodeP == headP)
     {
-
+        // Node to remove is the first one, return the next node of the list
         return headP->nextP;
     }
 
-
+    // Look for the parent i.e. the node just before the one to remove
     parent = headP;
     while (parent->nextP != NULL
            && parent->nextP != nodeP)
@@ -133,11 +133,11 @@ iowa_list_t * iowa_utils_list_remove(iowa_list_t *headP,
 
     if (parent->nextP != NULL)
     {
-
+        // Node was found, unlink it
         parent->nextP = nodeP->nextP;
     }
 
-
+    // The head of the list stays the same
     return headP;
 }
 
@@ -150,13 +150,13 @@ void iowa_utils_list_free(iowa_list_t *headP,
     {
         iowa_list_t *nextNodeP;
 
-
+        // Keep the next node
         nextNodeP = headP->nextP;
 
-
+        // Free the first node
         freeCb(headP);
 
-
+        // Continue with the rest of the list
         headP = nextNodeP;
     }
 }
@@ -215,7 +215,7 @@ iowa_list_t * iowa_utils_list_find_and_remove(iowa_list_t *headP,
 
     if (nodeP != NULL)
     {
-
+        // Keep the node found
         *nodeP = currentNodeP;
     }
 
@@ -223,18 +223,18 @@ iowa_list_t * iowa_utils_list_find_and_remove(iowa_list_t *headP,
     {
         if (currentNodeP != NULL)
         {
-
+            // Node was found, unlink it
             previousNodeP->nextP = currentNodeP->nextP;
         }
         else
         {
-
+            // Node has not been found
             previousNodeP->nextP = NULL;
         }
     }
     else
     {
-
+        // Node found was the head of the queue
         headP = headP->nextP;
     }
 

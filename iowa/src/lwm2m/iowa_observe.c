@@ -28,9 +28,9 @@
  * and Eclipse Distribution License v1.0 which accompany this distribution.
  *
  * The Eclipse Public License is available at
- *    http:
+ *    http://www.eclipse.org/legal/epl-v10.html
  * The Eclipse Distribution License is available at
- *    http:
+ *    http://www.eclipse.org/org/documents/edl-v10.php.
  *
  * Contributors:
  *    David Navarro, Intel Corporation - initial API and implementation
@@ -73,9 +73,23 @@
 
 #if defined(LWM2M_CLIENT_MODE)
 
+// T: threshold, N: new value, P: previous value
 #define TEST_THRESHOLD(T,N,P) (((N) < (T) && (P) >= (T)) || ((N) > (T) && (P) <= (T)))
 
+// Check if message received match with the observe set.
+// Returned value: true if message matched with observe or false if not.
+// Parameters:
+// - OBS: observe's information, lwm2m_observed_t.
+// - MSG: message received, iowa_coap_message_t.
+// Note: used it only as condition (if, while ...)
 #define PRV_OBSERVE_MATCH_TOKEN(OBS,MSG) ((MSG->tokenLength == OBS->tokenLen) && (memcmp(MSG->token, OBS->token, OBS->tokenLen) == 0))
+
+static void prv_notificationCallback(iowa_coap_peer_t *fromPeer,
+                                     uint8_t status,
+                                     iowa_coap_message_t * requestP,
+                                     void * userData,
+                                     iowa_context_t contextP);
+
 
 static void prv_addMID(lwm2m_observed_t * observedP,
                        uint16_t mId)
@@ -86,6 +100,17 @@ static void prv_addMID(lwm2m_observed_t * observedP,
     observedP->lastMid[0] = mId;
 }
 
+static bool prv_observeFind(void *nodeP,
+                            void *criteriaP)
+{
+    return nodeP == criteriaP;
+}
+
+// Check if message received match with one of the last notification.
+// Returned value: true if message matched with notification or false if not.
+// Parameters:
+// - observedP: observe's information.
+// - messageP: message received.
 static bool prv_notificationMatch(lwm2m_observed_t * observedP,
                                   iowa_coap_message_t * messageP)
 {
@@ -99,6 +124,133 @@ static bool prv_notificationMatch(lwm2m_observed_t * observedP,
         }
     }
     return false;
+}
+
+static void prv_callObservationEventCallback(iowa_context_t contextP,
+                                             lwm2m_observed_t *targetP,
+                                             iowa_event_type_t eventType,
+                                             lwm2m_value_t *valueP)
+{
+    // WARNING: This function is called in a critical section
+    IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Entering with new event: %s", CORE_STR_EVENT_TYPE(eventType));
+
+    if (contextP->eventCb != NULL)
+    {
+        iowa_event_t event;
+        lwm2m_server_t *serverP;
+
+        memset(&event, 0, sizeof(iowa_event_t));
+
+        event.details.observation.maxPeriod = UINT32_MAX;
+        event.details.observation.maxEvalPeriod = UINT32_MAX;
+        event.eventType = eventType;
+
+        if (eventType == IOWA_EVENT_OBSERVATION_NOTIFICATION)
+        {
+            event.details.observation.notificationNumber = targetP->counter;
+        }
+        else if (eventType == IOWA_EVENT_OBSERVATION_NOTIFICATION_ACKED
+                 || eventType == IOWA_EVENT_OBSERVATION_NOTIFICATION_FAILED)
+        {
+            event.details.observation.notificationNumber = valueP->counter;
+        }
+
+        for (serverP = contextP->lwm2mContextP->serverList; serverP != NULL; serverP = serverP->next)
+        {
+            lwm2m_observed_t *observedP;
+
+            observedP = serverP->runtime.observedList;
+            while (observedP != NULL)
+            {
+                if (observedP == targetP
+                   || (valueP != NULL
+                       && valueP->tokenLen == observedP->tokenLen
+                       && memcmp(valueP->token, observedP->token, valueP->tokenLen) == 0))
+                {
+                    event.serverShortId = serverP->shortId;
+                    if (targetP == NULL)
+                    {
+                        targetP = observedP;
+                    }
+                    // end the loop
+                    observedP = NULL;
+                    serverP = NULL;
+                }
+                else
+                {
+                    observedP = observedP->next;
+                }
+            }
+            if (serverP == NULL)
+            {
+                break;
+            }
+        }
+
+        if (targetP == NULL)
+        {
+            // Observation no longer exists
+            return;
+        }
+
+        {
+            size_t ind;
+            ind = 0;
+
+            if (targetP->timeAttrP != NULL && targetP->timeAttrP->flags != 0)
+            {
+                if ((targetP->timeAttrP->flags & LWM2M_ATTR_FLAG_MIN_PERIOD) != 0)
+                {
+                    event.details.observation.minPeriod = targetP->timeAttrP->minPeriod;
+                }
+                else
+                {
+                    event.details.observation.minPeriod = 0;
+                }
+                if ((targetP->timeAttrP->flags & LWM2M_ATTR_FLAG_MAX_PERIOD) != 0)
+                {
+                    event.details.observation.maxPeriod = targetP->timeAttrP->maxPeriod;
+                }
+                else
+                {
+                    event.details.observation.maxPeriod = UINT32_MAX;
+                }
+            }
+
+            if (LWM2M_URI_IS_SET_INSTANCE(&(targetP->uriInfoP[ind].uri)))
+            {
+                event.details.observation.sensorId = OBJECT_INSTANCE_ID_TO_SENSOR(targetP->uriInfoP[ind].uri.objectId, targetP->uriInfoP[ind].uri.instanceId);
+                event.details.observation.resourceId = targetP->uriInfoP[ind].uri.resourceId;
+
+                CRIT_SECTION_LEAVE(contextP);
+                contextP->eventCb(&event, contextP->userData, contextP);
+                CRIT_SECTION_ENTER(contextP);
+            }
+            else
+            {
+                lwm2m_object_t *objectP;
+
+                for (objectP = contextP->lwm2mContextP->objectList; objectP != NULL; objectP = objectP->next)
+                {
+                    if (objectP->objID == targetP->uriInfoP[ind].uri.objectId)
+                    {
+                        uint16_t instIndex;
+
+                        for (instIndex = 0; instIndex < objectP->instanceCount; instIndex++)
+                        {
+                            event.details.observation.sensorId = OBJECT_INSTANCE_ID_TO_SENSOR(objectP->objID, objectP->instanceArray[instIndex].id);
+                            event.details.observation.resourceId = IOWA_LWM2M_ID_ALL;
+
+                            CRIT_SECTION_LEAVE(contextP);
+                            contextP->eventCb(&event, contextP->userData, contextP);
+                            CRIT_SECTION_ENTER(contextP);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }
 
 void observe_delete(lwm2m_observed_t *observedP)
@@ -130,6 +282,12 @@ void observeRemoveFromServer(lwm2m_server_t *serverP)
     }
 }
 
+// Update observe according with its attributes.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - contextP: LwM2M context
+// - serverP: server's information.
+// - observedP: observe's information.
 iowa_status_t observe_updateObserve(iowa_context_t contextP,
                                     lwm2m_server_t *serverP,
                                     lwm2m_observed_t *observedP)
@@ -144,6 +302,7 @@ iowa_status_t observe_updateObserve(iowa_context_t contextP,
 
     for (ind = 0; ind < observedP->uriCount; ind++)
     {
+        // Get the attributes for the current observation
         if (attributesGet(serverP, &observedP->uriInfoP[ind].uri, &attr, true, true) == true)
         {
             if ((attr.flags & LWM2M_ATTR_FLAG_MIN_PERIOD) != 0
@@ -262,8 +421,6 @@ iowa_status_t observe_updateObserve(iowa_context_t contextP,
         }
     }
 
-    coreObservationEventCallback(contextP, observedP, IOWA_EVENT_OBSERVATION_STARTED);
-
     return IOWA_COAP_NO_ERROR;
 }
 
@@ -273,27 +430,10 @@ static void prv_observeRemove(iowa_context_t contextP,
 {
     IOWA_LOG_TRACE(IOWA_PART_LWM2M, "Entering.");
 
-    coreObservationEventCallback(contextP, observedP, IOWA_EVENT_OBSERVATION_CANCELED);
+    serverP->runtime.observedList = (lwm2m_observed_t *)IOWA_UTILS_LIST_FIND_AND_REMOVE(serverP->runtime.observedList, prv_observeFind, observedP, NULL);
 
-    if (observedP == serverP->runtime.observedList)
-    {
-        serverP->runtime.observedList = observedP->next;
-    }
-    else
-    {
-        lwm2m_observed_t * parentP;
+    prv_callObservationEventCallback(contextP, observedP, IOWA_EVENT_OBSERVATION_CANCELED, NULL);
 
-        parentP = serverP->runtime.observedList;
-        while (parentP != NULL
-                && parentP->next != observedP)
-        {
-            parentP = parentP->next;
-        }
-        if (parentP != NULL)
-        {
-            parentP->next = observedP->next;
-        }
-    }
     observe_delete(observedP);
 }
 
@@ -315,11 +455,13 @@ iowa_status_t observe_handleRequest(iowa_context_t contextP,
 
     switch (obsOptionP->value.asInteger)
     {
-    case LWM2M_OBSERVE_REQUEST_NEW:
+    case IOWA_COAP_OBSERVE_REQUEST_NEW:
     {
         iowa_status_t result;
         iowa_coap_option_t *optionP;
         size_t ind;
+        bool newObserved;
+        bool eventRequired;
 
         if (!LWM2M_URI_IS_SET_INSTANCE(uriP)
             && LWM2M_URI_IS_SET_RESOURCE(uriP))
@@ -331,35 +473,105 @@ iowa_status_t observe_handleRequest(iowa_context_t contextP,
             return IOWA_COAP_400_BAD_REQUEST;
         }
 
-        observedP = (lwm2m_observed_t *)iowa_system_malloc(sizeof(lwm2m_observed_t));
-#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
+        //Check if the token already exist.
+        for (observedP = serverP->runtime.observedList; observedP != NULL; observedP = observedP->next)
+        {
+            if (PRV_OBSERVE_MATCH_TOKEN(observedP, requestP))
+            {
+                IOWA_LOG_INFO(IOWA_PART_LWM2M, "An observation has been found with a matching token.");
+                break;
+            }
+        }
+
         if (observedP == NULL)
         {
-            IOWA_LOG_ERROR_MALLOC(sizeof(lwm2m_observed_t));
-            return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-        }
-#endif
-        memset(observedP, 0, sizeof(lwm2m_observed_t));
+            newObserved = true;
+            eventRequired = true;
 
-        observedP->uriInfoP = (lwm2m_observed_uri_info_t *)iowa_system_malloc(uriCount * sizeof(lwm2m_observed_uri_info_t));
+            observedP = (lwm2m_observed_t *)iowa_system_malloc(sizeof(lwm2m_observed_t));
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-        if (observedP->uriInfoP == NULL)
-        {
-            iowa_system_free(observedP);
-            IOWA_LOG_ERROR_MALLOC(uriCount * sizeof(lwm2m_observed_uri_info_t));
-            return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-        }
+            if (observedP == NULL)
+            {
+                IOWA_LOG_ERROR_MALLOC(sizeof(lwm2m_observed_t));
+                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+            }
 #endif
-        memset(observedP->uriInfoP, 0, uriCount * sizeof(lwm2m_observed_uri_info_t));
+            memset(observedP, 0, sizeof(lwm2m_observed_t));
 
-        observedP->uriCount = uriCount;
+            observedP->uriInfoP = (lwm2m_observed_uri_info_t *)iowa_system_malloc(uriCount * sizeof(lwm2m_observed_uri_info_t));
+#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
+            if (observedP->uriInfoP == NULL)
+            {
+                iowa_system_free(observedP);
+                IOWA_LOG_ERROR_MALLOC(uriCount * sizeof(lwm2m_observed_uri_info_t));
+                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+            }
+#endif
+            memset(observedP->uriInfoP, 0, uriCount * sizeof(lwm2m_observed_uri_info_t));
+
+            observedP->tokenLen = requestP->tokenLength;
+            memcpy(observedP->token, requestP->token, requestP->tokenLength);
+            observedP->uriCount = uriCount;
+        }
+        else
+        {
+            newObserved = false;
+
+            // Check if the targets are the same
+            if (observedP->uriCount == uriCount)
+            {
+                eventRequired = false;
+
+                for (ind = 0; ind < observedP->uriCount; ind++)
+                {
+                    size_t uriIndex;
+
+                    uriIndex = 0;
+                    while (uriIndex < uriCount
+                           && observedP->uriInfoP[ind].uri.objectId == uriP[uriIndex].objectId
+                           && observedP->uriInfoP[ind].uri.instanceId == uriP[uriIndex].instanceId
+                           && observedP->uriInfoP[ind].uri.resourceId == uriP[uriIndex].resourceId
+                           && observedP->uriInfoP[ind].uri.resInstanceId == uriP[uriIndex].resInstanceId)
+                    {
+                        uriIndex++;
+                    }
+                    if (uriIndex != uriCount)
+                    {
+                        eventRequired = true;
+                        break;
+                    }
+                }
+            }
+            else // observedP->uriCount != uriCount
+            {
+                eventRequired = true;
+
+                for (ind = 0; ind < observedP->uriCount; ind++)
+                {
+                    iowa_system_free(observedP->uriInfoP[ind].uriAttrP);
+                }
+                iowa_system_free(observedP->uriInfoP);
+
+                observedP->uriInfoP = (lwm2m_observed_uri_info_t *)iowa_system_malloc(uriCount * sizeof(lwm2m_observed_uri_info_t));
+#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
+                if (observedP->uriInfoP == NULL)
+                {
+                    // Since the observed already exists we've to remove it from the server's observedList
+                    prv_observeRemove(contextP, serverP, observedP);
+                    IOWA_LOG_ERROR_MALLOC(uriCount * sizeof(lwm2m_observed_uri_info_t));
+                    return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+                }
+#endif
+                memset(observedP->uriInfoP, 0, uriCount * sizeof(lwm2m_observed_uri_info_t));
+                observedP->uriCount = uriCount;
+            }
+        }
+
         for (ind = 0; ind < uriCount; ind++)
         {
             memcpy(&observedP->uriInfoP[ind].uri, &uriP[ind], sizeof(iowa_lwm2m_uri_t));
         }
 
-        observedP->tokenLen = requestP->tokenLength;
-        memcpy(observedP->token, requestP->token, requestP->tokenLength);
         observedP->counter = 0;
         observedP->lastTime = contextP->currentTime;
         observedP->format = format;
@@ -370,7 +582,14 @@ iowa_status_t observe_handleRequest(iowa_context_t contextP,
                 && !LWM2M_URI_IS_SET_RESOURCE_INSTANCE(&observedP->uriInfoP[ind].uri))
             {
                 size_t dataIndex;
-                        dataIndex = 0;
+
+                for (dataIndex = 0; dataIndex < dataCount; dataIndex++)
+                {
+                    if (dataP[dataIndex].objectID == observedP->uriInfoP[ind].uri.objectId
+                        && dataP[dataIndex].instanceID == observedP->uriInfoP[ind].uri.instanceId
+                        && dataP[dataIndex].resourceID == observedP->uriInfoP[ind].uri.resourceId
+                        && dataP[dataIndex].resInstanceID == observedP->uriInfoP[ind].uri.resInstanceId)
+                    {
                         switch (dataP[dataIndex].type)
                         {
                         case IOWA_LWM2M_TYPE_INTEGER:
@@ -388,13 +607,23 @@ iowa_status_t observe_handleRequest(iowa_context_t contextP,
                         default:
                             break;
                         }
+                        break; // resource was found
+                    }
+                }
             }
         }
 
         result = observe_updateObserve(contextP, serverP, observedP);
         if (result != IOWA_COAP_NO_ERROR)
         {
-            observe_delete(observedP);
+            if (newObserved == true)
+            {
+                observe_delete(observedP);
+            }
+            else
+            {
+                prv_observeRemove(contextP, serverP, observedP);
+            }
             IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to retrieve the observe attributes.");
             return result;
         }
@@ -403,21 +632,39 @@ iowa_status_t observe_handleRequest(iowa_context_t contextP,
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
         if (optionP == NULL)
         {
-            observe_delete(observedP);
+            if (newObserved == true)
+            {
+                observe_delete(observedP);
+            }
+            else
+            {
+                prv_observeRemove(contextP, serverP, observedP);
+            }
             IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to create new CoAP option.");
             return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
         }
 #endif
-        observedP->next = serverP->runtime.observedList;
-        serverP->runtime.observedList = observedP;
 
-        optionP->value.asInteger = LWM2M_OBSERVE_REQUEST_NEW;
+        optionP->value.asInteger = IOWA_COAP_OBSERVE_REQUEST_NEW;
         observedP->counter++;
         iowa_coap_message_add_option(responseP, optionP);
+
+        if (newObserved == true)
+        {
+            // Add the new observation to the list
+            observedP->next = serverP->runtime.observedList;
+            serverP->runtime.observedList = observedP;
+        }
+
+        if (eventRequired == true)
+        {
+            prv_callObservationEventCallback(contextP, observedP, IOWA_EVENT_OBSERVATION_STARTED, NULL);
+        }
+
         break;
     }
 
-    case LWM2M_OBSERVE_REQUEST_CANCEL:
+    case IOWA_COAP_OBSERVE_REQUEST_CANCEL:
         observe_cancel(contextP, serverP, requestP);
         break;
 
@@ -518,6 +765,7 @@ iowa_status_t observe_setParameters(iowa_context_t contextP,
         {
             if (LWM2M_URI_IS_SET_RESOURCE(uriP))
             {
+                // Parameters have been set at resource level
                 if (observedP->uriInfoP[ind].uri.resourceId == uriP->resourceId
                     && observedP->uriInfoP[ind].uri.instanceId == uriP->instanceId
                     && observedP->uriInfoP[ind].uri.objectId == uriP->objectId)
@@ -527,6 +775,7 @@ iowa_status_t observe_setParameters(iowa_context_t contextP,
             }
             else if (LWM2M_URI_IS_SET_INSTANCE(uriP))
             {
+                // Parameters have been set at instance level
                 if (observedP->uriInfoP[ind].uri.instanceId == uriP->instanceId
                     && observedP->uriInfoP[ind].uri.objectId == uriP->objectId)
                 {
@@ -535,6 +784,7 @@ iowa_status_t observe_setParameters(iowa_context_t contextP,
             }
             else
             {
+                // Parameters have been set at object level
                 if (observedP->uriInfoP[ind].uri.objectId == uriP->objectId)
                 {
                     result = observe_updateObserve(contextP, serverP, observedP);
@@ -546,11 +796,80 @@ iowa_status_t observe_setParameters(iowa_context_t contextP,
                 IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to update the observe attributes.");
                 return result;
             }
+            prv_callObservationEventCallback(contextP, observedP, IOWA_EVENT_OBSERVATION_STARTED, NULL);
         }
         observedP = observedP->next;
     }
 
     return IOWA_COAP_204_CHANGED;
+}
+
+static void prv_notificationCallback(iowa_coap_peer_t *fromPeer,
+                                     uint8_t status,
+                                     iowa_coap_message_t * requestP,
+                                     void * userData,
+                                     iowa_context_t contextP)
+{
+    // WARNING: This function is called in a critical section
+    lwm2m_value_t *valueP;
+    lwm2m_server_t *serverP;
+
+    (void)status;
+
+    IOWA_LOG_TRACE(IOWA_PART_LWM2M, "Entering notification callback");
+
+    valueP = (lwm2m_value_t *)userData;
+
+    serverP = (lwm2m_server_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->serverList, utilsListFindCallbackServerByPeer, fromPeer);
+    if (serverP == NULL)
+    {
+        IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "No server found from the peer: %p.", fromPeer);
+        valueFree(valueP);
+        return;
+    }
+
+    serverP->runtime.flags &= (uint16_t)~(LWM2M_SERVER_FLAG_OBSERVE_SENDING);
+
+    if (requestP != NULL)
+    {
+
+        serverP->runtime.flags |= LWM2M_SERVER_FLAG_AVAILABLE;
+        if (requestP->type == IOWA_COAP_TYPE_ACKNOWLEDGEMENT)
+        {
+            prv_callObservationEventCallback(contextP, NULL, IOWA_EVENT_OBSERVATION_NOTIFICATION_ACKED, valueP);
+        }
+        else
+        {
+            lwm2m_observed_t *observedP;
+
+            for (observedP = serverP->runtime.observedList; observedP != NULL; observedP = observedP->next)
+            {
+                if (valueP->tokenLen == observedP->tokenLen
+                    && memcmp(valueP->token, observedP->token, valueP->tokenLen) == 0)
+                {
+                    break;
+                }
+            }
+            if (observedP == NULL)
+            {
+                IOWA_LOG_INFO(IOWA_PART_LWM2M, "No observation associated to the current notification stored.");
+                valueFree(valueP);
+                return;
+            }
+
+            prv_callObservationEventCallback(contextP, observedP, IOWA_EVENT_OBSERVATION_NOTIFICATION_FAILED, valueP);
+            prv_observeRemove(contextP, serverP, observedP);
+        }
+    }
+    else
+    {
+
+        prv_callObservationEventCallback(contextP, NULL, IOWA_EVENT_OBSERVATION_NOTIFICATION_FAILED, valueP);
+
+        serverP->runtime.flags &= (uint16_t)(~LWM2M_SERVER_FLAG_AVAILABLE);
+    }
+
+    valueFree(valueP);
 }
 
 void lwm2m_resource_value_changed(iowa_context_t contextP,
@@ -592,21 +911,34 @@ void lwm2m_resource_value_changed(iowa_context_t contextP,
     }
 }
 
+// Update observe according with its attributes.
+// Parameters:
+// - contextP: iowa context.
+// - serverP: server's information.
+// - observedP: observe's information.
+// - dataP: data to send.
+// - dataCount: number of data.
 static void prv_checkAndSendNotification(iowa_context_t contextP,
                                          lwm2m_server_t * serverP,
                                          lwm2m_observed_t * observedP,
                                          iowa_lwm2m_data_t * dataP,
                                          size_t dataCount)
 {
+    // WARNING: This function is called in a critical section
     iowa_status_t result;
     size_t ind;
     uint8_t *bufferP;
     size_t bufferLength;
+    lwm2m_value_t *valueP;
 
     IOWA_LOG_TRACE(IOWA_PART_LWM2M, "Entering.");
 
+    prv_callObservationEventCallback(contextP, observedP, IOWA_EVENT_OBSERVATION_NOTIFICATION, NULL);
+
+    // Update each lastValue when URI is resource and numeric
     for (ind = 0; ind < observedP->uriCount; ind++)
     {
+        //Check if it's a resource with no multiple instance && a numeric resource
         if (LWM2M_URI_IS_SET_RESOURCE(&observedP->uriInfoP[ind].uri)
             && !LWM2M_URI_IS_SET_RESOURCE_INSTANCE(&observedP->uriInfoP[ind].uri)
             && LWM2M_OBSERVE_IS_NUMERIC(&observedP->uriInfoP[ind]))
@@ -646,6 +978,29 @@ static void prv_checkAndSendNotification(iowa_context_t contextP,
 
     observedP->lastTime = contextP->currentTime;
 
+    if (serverP->notifStoring == true)
+    {
+        valueP = (lwm2m_value_t *)iowa_system_malloc(sizeof(lwm2m_value_t));
+#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
+        if (valueP == NULL)
+        {
+            IOWA_LOG_ERROR_MALLOC(sizeof(lwm2m_value_t));
+            iowa_system_free(bufferP);
+            return;
+        }
+#endif
+
+        memset(valueP, 0, sizeof(lwm2m_value_t));
+
+        valueP->counter = observedP->counter;
+        memcpy(valueP->token, observedP->token, observedP->tokenLen);
+        valueP->tokenLen = observedP->tokenLen;
+    }
+    else
+    {
+        valueP = NULL;
+    }
+
     {
         if (serverP->runtime.status == STATE_REG_REGISTERED
             || serverP->runtime.status == STATE_REG_UPDATE_PENDING)
@@ -653,14 +1008,17 @@ static void prv_checkAndSendNotification(iowa_context_t contextP,
             iowa_coap_message_t *messageP;
             iowa_coap_option_t *optionP;
             uint8_t messageType;
+            coap_message_callback_t callbackP;
 
             if (serverP->notifStoring == true)
             {
                 messageType = IOWA_COAP_TYPE_CONFIRMABLE;
+                callbackP = prv_notificationCallback;
             }
             else
             {
                 messageType = IOWA_COAP_TYPE_NON_CONFIRMABLE;
+                callbackP = NULL;
             }
 
             messageP = iowa_coap_message_new(messageType, IOWA_COAP_205_CONTENT, observedP->tokenLen, observedP->token);
@@ -699,11 +1057,10 @@ static void prv_checkAndSendNotification(iowa_context_t contextP,
             optionP->value.asInteger = observedP->counter;
             iowa_coap_message_add_option(messageP, optionP);
 
-            messageP->payload.data = bufferP;
-            messageP->payload.length = bufferLength;
+            coreBufferSet(&(messageP->payload),bufferP, bufferLength);
 
             IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Send notification number %d.", observedP->counter);
-            (void)coapSend(contextP, serverP->runtime.peerP, messageP, NULL, NULL);
+            (void)coapSend(contextP, serverP->runtime.peerP, messageP, callbackP, valueP);
 
             prv_addMID(observedP, messageP->id);
 
@@ -718,6 +1075,7 @@ static void prv_checkAndSendNotification(iowa_context_t contextP,
 
 void observe_step(iowa_context_t contextP)
 {
+    // WARNING: This function is called in a critical section
     lwm2m_server_t *serverP;
 
     IOWA_LOG_TRACE(IOWA_PART_LWM2M, "Entering.");
@@ -725,23 +1083,25 @@ void observe_step(iowa_context_t contextP)
     for (serverP = contextP->lwm2mContextP->serverList; serverP != NULL; serverP = serverP->next)
     {
         lwm2m_observed_t *observedP;
-        iowa_status_t result;
-        iowa_lwm2m_data_t *dataP;
-        size_t dataCount;
-        size_t ind;
-        dataP = NULL;
-        dataCount = 0;
 
         for (observedP = serverP->runtime.observedList; observedP != NULL; observedP = observedP->next)
         {
+            iowa_status_t result;
+            iowa_lwm2m_data_t *dataP;
+            size_t dataCount;
+            size_t ind;
             bool sendNotif;
             bool nextObs;
-
+            dataP = NULL;
+            dataCount = 0;
             sendNotif = false;
             nextObs = false;
+
+            // if tag true
             if ((observedP->flags & LWM2M_OBSERVE_FLAG_UPDATE) != 0
                 && (contextP->lwm2mContextP->internalFlag & CONTEXT_FLAG_INSIDE_CALLBACK) == 0)
             {
+                //Check if there is timeAttribute
                 if (observedP->timeAttrP != NULL)
                 {
                     if ((observedP->timeAttrP->flags & LWM2M_ATTR_FLAG_MIN_PERIOD) != 0)
@@ -749,6 +1109,8 @@ void observe_step(iowa_context_t contextP)
                         IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Checking minimum period (%d s).", observedP->timeAttrP->minPeriod);
                         if (observedP->lastTime + observedP->timeAttrP->minPeriod > contextP->currentTime)
                         {
+                            // pmin is set and did not elapsed. Ignore this notification.
+                            observedP->flags &= (uint8_t)~(LWM2M_OBSERVE_FLAG_UPDATE);
                             nextObs = true;
                         }
                     }
@@ -757,6 +1119,7 @@ void observe_step(iowa_context_t contextP)
                 {
                     for (ind = 0; ind < observedP->uriCount; ind++)
                     {
+                        //Get value to send
                         result = object_read(contextP, &observedP->uriInfoP[ind].uri, serverP->shortId, &dataCount, &dataP);
                         {
                             if (result != IOWA_COAP_205_CONTENT)
@@ -765,6 +1128,7 @@ void observe_step(iowa_context_t contextP)
                                 return;
                             }
                         }
+                        //Check if it's a resource with no multiple instance && a numeric resource && if there is a ST, LT, GT set
                         if (LWM2M_URI_IS_SET_RESOURCE(&observedP->uriInfoP[ind].uri)
                             && !LWM2M_URI_IS_SET_RESOURCE_INSTANCE(&observedP->uriInfoP[ind].uri)
                             && observedP->uriInfoP[ind].uriAttrP != NULL
@@ -832,7 +1196,7 @@ void observe_step(iowa_context_t contextP)
                                     {
                                         diff = 0 - diff;
                                     }
-                                    if (diff >= observedP->uriInfoP[ind].uriAttrP->step)
+                                    if (diff >= observedP->uriInfoP[ind].uriAttrP->step) //Todo : check FLT_EPSILON
                                     {
                                         IOWA_LOG_INFO(IOWA_PART_LWM2M, "Notify on step condition.");
                                         sendNotif = true;
@@ -842,24 +1206,31 @@ void observe_step(iowa_context_t contextP)
                         }
                         else
                         {
-                            sendNotif = true;
+                            if ((observedP->uriInfoP[ind].flags & LWM2M_OBSERVE_FLAG_UPDATE) != 0)
+                            {
+                                sendNotif = true;
+                            }
                         }
                     }
                     if (sendNotif == true)
                     {
                         prv_checkAndSendNotification(contextP, serverP, observedP, dataP, dataCount);
                     }
-                    object_free(contextP, dataCount, dataP);
-                    iowa_system_free(dataP);
+                    {
+                        object_free(contextP, dataCount, dataP);
+                        iowa_system_free(dataP);
+                    }
                     observedP->flags &= (uint8_t)~(LWM2M_OBSERVE_FLAG_UPDATE);
                 }
             }
-            else
+            else // Check pmax
             {
+                //Check if there is timeAttribute
                 if (observedP->timeAttrP != NULL)
                 {
                     if ((observedP->timeAttrP->flags & LWM2M_ATTR_FLAG_MAX_PERIOD) != 0)
                     {
+                        // Ignore pmax if lesser than pmin
                         if (((observedP->timeAttrP->flags & LWM2M_ATTR_FLAG_MIN_PERIOD) != 0
                             && observedP->timeAttrP->maxPeriod >= observedP->timeAttrP->minPeriod)
                             || ((observedP->timeAttrP->flags & LWM2M_ATTR_FLAG_MIN_PERIOD) == 0))
@@ -871,6 +1242,7 @@ void observe_step(iowa_context_t contextP)
 
                                 for (ind = 0; ind < observedP->uriCount; ind++)
                                 {
+                                    //Get value to send
                                     result = object_read(contextP, &observedP->uriInfoP[ind].uri, serverP->shortId, &dataCount, &dataP);
                                     {
                                         if (result != IOWA_COAP_205_CONTENT)
@@ -891,6 +1263,7 @@ void observe_step(iowa_context_t contextP)
             if (observedP->timeAttrP != NULL
                 && (observedP->timeAttrP->flags & LWM2M_ATTR_FLAG_MAX_PERIOD) != 0)
             {
+                // Ignore pmax if lesser than pmin
                 if (((observedP->timeAttrP->flags & LWM2M_ATTR_FLAG_MIN_PERIOD) != 0
                     && observedP->timeAttrP->maxPeriod >= observedP->timeAttrP->minPeriod)
                     || ((observedP->timeAttrP->flags & LWM2M_ATTR_FLAG_MIN_PERIOD) == 0))
@@ -909,5 +1282,5 @@ void observe_step(iowa_context_t contextP)
     }
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Exiting with timeoutP: %ds.", contextP->timeout);
 }
-#endif
+#endif // LWM2M_CLIENT_MODE
 

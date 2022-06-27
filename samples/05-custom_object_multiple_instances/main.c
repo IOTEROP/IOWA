@@ -70,9 +70,8 @@ int main(int argc,
     char endpoint_name[64];
     iowa_device_info_t devInfo;
     iowa_lwm2m_resource_desc_t sample_object_resources[SAMPLE_RES_COUNT] = SAMPLE_RES_DESCRIPTION;
-    sample_object_t sampleObject;
-    sample_instance_values_t instanceValues;
-    uint16_t instanceId;
+    sample_instance_values_t instanceValues[3];
+    uint16_t instanceIds[2];
 
     (void)argc;
     (void)argv;
@@ -95,7 +94,7 @@ int main(int argc,
     memset(&devInfo, 0, sizeof(iowa_device_info_t));
     devInfo.manufacturer = "https://ioterop.com";
     devInfo.deviceType = "IOWA sample from https://github.com/IOTEROP/IOWA-Samples";
-    devInfo.modelNumber = "custom_multi_instance_object_client";
+    devInfo.modelNumber = "custom_object_multiple_instances";
 
     // Configure the LwM2M Client
     result = iowa_client_configure(iowaH, endpoint_name, &devInfo, NULL);
@@ -105,34 +104,38 @@ int main(int argc,
         goto cleanup;
     }
 
-    // Create of a custom object with a multiple instances with 3 resources each
-    // Actual values are stored in a struct sample_object_values_t
-    memset(&sampleObject, 0, sizeof(sample_object_t));
-    instanceId = 0;
+    // Create of a custom object with three instances
+    // Actual values are stored in an array of struct sample_instance_values_t
+    instanceValues[0].id = 0;   // ID of the first instance
+    instanceValues[0].booleanValue = true;
+    instanceValues[0].integerValue = 10;
+    instanceValues[0].stringValue = strdup("First instance");
+
+    instanceValues[1].id = 3;   // ID of the first instance
+    instanceValues[1].booleanValue = false;
+    instanceValues[1].integerValue = 34;
+    instanceValues[1].stringValue = strdup("Second instance");
+
+    instanceValues[2].id = 5;   // ID of the first instance
+    instanceValues[2].booleanValue = true;
+    instanceValues[2].integerValue = 256;
+    instanceValues[2].stringValue = strdup("Third instance");
+
+    // Add the Object in IOWA, indicating the presence of two instances.
+    instanceIds[0] = instanceValues[0].id;
+    instanceIds[1] = instanceValues[1].id;
 
     result = iowa_client_add_custom_object(iowaH,
                                            SAMPLE_OBJECT_ID,                            // The ID of our custom object
-                                           1, &instanceId,                              // This is a multiple instance object
+                                           2, instanceIds,                             // The IDs of the instances
                                            SAMPLE_RES_COUNT, sample_object_resources,   // the object's resources description
                                            sample_object_dataCallback,                  // the callback to handle operations on Resources
-                                           sample_object_InstanceCallback,              // the server can create new instances
+                                           NULL,                                        // the server cannot create or delete instances
                                            NULL,                                        // there are no multiple instances Resources
-                                           &sampleObject);                              // to access our object from the callback
+                                           &instanceValues);                            // to access our object values from the callback
     if (result != IOWA_COAP_NO_ERROR)
     {
         fprintf(stderr, "Adding a custom object failed (%u.%02u).\r\n", (result & 0xFF) >> 5, (result & 0x1F));
-        goto cleanup;
-    }
-
-    // Add a new instance for the sample object.
-    instanceValues.booleanValue = true;
-    instanceValues.integerValue = 5;
-    instanceValues.stringValue = "First instance of sample object";
-
-    result = sample_object_add_instance(&sampleObject, &instanceValues, instanceId);
-    if (result != IOWA_COAP_NO_ERROR)
-    {
-        fprintf(stderr, "Failed to add a news instance to sample object (%u.%02u).\r\n", (result & 0xFF) >> 5, (result & 0x1F));
         goto cleanup;
     }
 
@@ -146,13 +149,49 @@ int main(int argc,
 
     printf("Registering to the LwM2M server at \"" SERVER_URI "\" under the Endpoint name \"%s\".\r\nUse Ctrl-C to stop.\r\n\n", endpoint_name);
 
-    // Let IOWA run for two minutes
-    result = iowa_step(iowaH, 120);
+    // Let IOWA run for one minute
+    result = iowa_step(iowaH, 60);
+    if (result != IOWA_COAP_NO_ERROR)
+    {
+        fprintf(stderr, "iowa_step() failed (%u.%02u).\r\n", (result & 0xFF) >> 5, (result & 0x1F));
+        goto cleanup;
+    }
+
+    // Declare the third instance.
+    result = iowa_client_object_instance_changed(iowaH, SAMPLE_OBJECT_ID, instanceValues[2].id, IOWA_DM_CREATE);
+    if (result != IOWA_COAP_NO_ERROR)
+    {
+        fprintf(stderr, "Failed to add a new instance to sample object (%u.%02u).\r\n", (result & 0xFF) >> 5, (result & 0x1F));
+        goto cleanup;
+    }
+
+    // Let IOWA run for thirty secondes
+    result = iowa_step(iowaH, 30);
+    if (result != IOWA_COAP_NO_ERROR)
+    {
+        fprintf(stderr, "iowa_step() failed (%u.%02u).\r\n", (result & 0xFF) >> 5, (result & 0x1F));
+        goto cleanup;
+    }
+
+    // Remove the first instance.
+    result = iowa_client_object_instance_changed(iowaH, SAMPLE_OBJECT_ID, instanceValues[0].id, IOWA_DM_DELETE);
+    if (result != IOWA_COAP_NO_ERROR)
+    {
+        fprintf(stderr, "Failed to remove an instance from sample object (%u.%02u).\r\n", (result & 0xFF) >> 5, (result & 0x1F));
+        goto cleanup;
+    }
+
+    // Let IOWA run for thirty secondes
+    result = iowa_step(iowaH, 30);
+    if (result != IOWA_COAP_NO_ERROR)
+    {
+        fprintf(stderr, "iowa_step() failed (%u.%02u).\r\n", (result & 0xFF) >> 5, (result & 0x1F));
+        goto cleanup;
+    }
 
 cleanup:
     iowa_client_remove_custom_object(iowaH, SAMPLE_OBJECT_ID);
     iowa_client_remove_server(iowaH, SERVER_SHORT_ID);
-    sample_object_remove_object(&sampleObject);
     iowa_close(iowaH);
 
     return 0;

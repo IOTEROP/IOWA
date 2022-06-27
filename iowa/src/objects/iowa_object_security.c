@@ -9,7 +9,7 @@
 * |         |         |           |    |    |
 * |_________|_________|___________|____|____|
 *
-* Copyright (c) 2018-2019 IoTerop.
+* Copyright (c) 2018-2020 IoTerop.
 * All rights reserved.
 *
 * This program and the accompanying materials
@@ -42,9 +42,9 @@ iowa_status_t objectSecurityInit(iowa_context_t contextP)
                             - 1
                             ;
 
-    IOWA_LOG_INFO(IOWA_PART_OBJECT, "Init security object");
+    IOWA_LOG_INFO(IOWA_PART_OBJECT, "Init security object.");
 
-
+    // Get the resources list
     currentPt = 0;
 
     SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SECURITY, URI, resources, currentPt);
@@ -58,7 +58,7 @@ iowa_status_t objectSecurityInit(iowa_context_t contextP)
     SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SECURITY, HOLD_OFF, resources, currentPt);
     SET_LWM2M_DESC_T_TO_OBJECT_RSC(IOWA_LWM2M_SECURITY, BOOTSTRAP_TIMEOUT, resources, currentPt);
 
-
+    // Inform the stack
     result = customObjectAdd(contextP,
                              IOWA_LWM2M_SECURITY_OBJECT_ID,
                              OBJECT_MULTIPLE,
@@ -79,7 +79,7 @@ iowa_status_t objectSecurityCreate(iowa_context_t contextP,
 {
     iowa_status_t result;
 
-    IOWA_LOG_INFO(IOWA_PART_OBJECT, "Adding new security object");
+    IOWA_LOG_INFO(IOWA_PART_OBJECT, "Adding new security object.");
 
     result = objectAddInstance(contextP,
                                IOWA_LWM2M_SECURITY_OBJECT_ID,
@@ -96,8 +96,7 @@ iowa_status_t objectSecurityRemove(iowa_context_t contextP,
 {
     iowa_status_t result;
 
-    IOWA_LOG_ARG_INFO(IOWA_PART_OBJECT, "Removing security object (instance: %d)", id);
-
+    IOWA_LOG_ARG_INFO(IOWA_PART_OBJECT, "Removing security object (instance: %d).", id);
 
     result = objectRemoveInstance(contextP,
                                   IOWA_LWM2M_SECURITY_OBJECT_ID,
@@ -110,10 +109,10 @@ iowa_status_t objectSecurityRemove(iowa_context_t contextP,
 
 iowa_status_t objectSecurityClose(iowa_context_t contextP)
 {
-
+    // WARNING: This function is called in a critical section
     iowa_status_t result;
 
-    IOWA_LOG_INFO(IOWA_PART_OBJECT, "Closing security object");
+    IOWA_LOG_INFO(IOWA_PART_OBJECT, "Closing security object.");
 
     result = customObjectRemove(contextP, IOWA_LWM2M_SECURITY_OBJECT_ID);
 

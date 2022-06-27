@@ -1,6 +1,6 @@
-# Custom Object Dynamic
+# Dynamic Custom Object
 
-This is the [Custom Object Baseline Client](../03-baseline_custom_object_client) with dynamic Resource values. The  Clients still features the same custom LwM2M Object:
+This is the Custom Object Baseline Client with dynamic Resource values. The Client still features the same custom LwM2M Object:
 
 *ID:* *3200*
 
@@ -27,7 +27,7 @@ The usage is the same as the Custom Object Baseline Client sample.
 
 If you set an Observation on the Object or the Object Instance, you will notice that the values of the Boolean Resource (ID: 5500) and Integer Resource (ID: 5503) are updated:
 
-![Custom Object Dynamic Client](../../.images/custom_object_dynamic_client.jpg)
+![Custom Object Dynamic Client](images/custom_object_dynamic_client.jpg)
 
 After two minutes, *custom_object_dynamic_client* unregisters from the LwM2M Server.
 
@@ -148,7 +148,3 @@ The Object data callback is the same as in the Custom Object Baseline Client sam
 ## Next Steps
 
 The sample illustrates how to handle changes of the values of a custom LwM2M Object. The other custom object samples explain how to manage multiple instances of the custom LwM2M Object, or Resources with multiple Resource Instances.
-
-------------------------------------------------------------
-
-![IoTerop Logo](../../.images/IoTerop_logo.jpg)

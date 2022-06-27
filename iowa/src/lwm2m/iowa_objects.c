@@ -27,9 +27,9 @@
  * and Eclipse Distribution License v1.0 which accompany this distribution.
  *
  * The Eclipse Public License is available at
- *    http:
+ *    http://www.eclipse.org/legal/epl-v10.html
  * The Eclipse Distribution License is available at
- *    http:
+ *    http://www.eclipse.org/org/documents/edl-v10.php.
  *
  * Contributors:
  *    David Navarro, Intel Corporation - initial API and implementation
@@ -77,6 +77,17 @@
 
 #include "iowa_access_control_list.h"
 
+#define PRV_DEFAULT_MANDATORY_OBJECT_MINOR_VERSION    1
+#define PRV_DEFAULT_MAJOR_OBJECT_VERSION              1
+#define PRV_DEFAULT_MINOR_OBJECT_VERSION              0
+#define PRV_MAX_VERSION_LENGTH                        7  // 255(3) + .(1) + 255(3) = 7
+
+// Call object's data callback by getting out critical section.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - op: The operation to perform on the resource among **IOWA_DM_READ**, **IOWA_DM_FREE**, **IOWA_DM_WRITE** and **IOWA_DM_EXECUTE**.
+// - objectP: object's information
+// - dataCount, dataP: data concerning by the operation
 static iowa_status_t prv_callDataCb(iowa_context_t contextP,
                                     iowa_dm_operation_t op,
                                     lwm2m_object_t *objectP,
@@ -98,6 +109,7 @@ static iowa_status_t prv_getResourceDimension(iowa_context_t contextP,
                                               uint16_t *nbResInstanceP,
                                               uint16_t **resInstanceArrayP)
 {
+    // WARNING: This function is called in a critical section
     iowa_status_t result;
 
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Calling resInstanceCb(%u, %u, %u).", objectP->objID, objectP->instanceArray[instanceIndex].id, objectP->resourceArray[resourceIndex].id);
@@ -129,13 +141,11 @@ static iowa_status_t prv_addInstance(lwm2m_object_t *objectP,
                                      uint16_t resourceCount,
                                      uint16_t *resourceArray)
 {
-    uint16_t instIndex;
     lwm2m_instance_details_t *newArray;
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Adding instance %u with %u resources to Object %u.", id, resourceCount, objectP->objID);
 
-    instIndex = object_getInstanceIndex(objectP, id);
-    if (instIndex != objectP->instanceCount)
+    if (IOWA_COAP_404_NOT_FOUND != object_getInstanceIndex(objectP, id, NULL))
     {
         IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Instance %u already exists in Object %u.", id, objectP->objID);
         return IOWA_COAP_406_NOT_ACCEPTABLE;
@@ -223,8 +233,7 @@ static iowa_status_t prv_removeInstance(lwm2m_object_t *objectP,
     {
         lwm2m_instance_details_t *newArray;
 
-        instIndex = object_getInstanceIndex(objectP, id);
-        if (instIndex == objectP->instanceCount)
+        if (IOWA_COAP_NO_ERROR != object_getInstanceIndex(objectP, id, &instIndex))
         {
             IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Instance %u does not exist in Object %u.", id, objectP->objID);
             return IOWA_COAP_404_NOT_FOUND;
@@ -267,13 +276,30 @@ static uint16_t prv_getResourceIndex(lwm2m_object_t *objectP,
                                      uint16_t instIndex,
                                      uint16_t id)
 {
-    uint16_t i;
+    uint16_t index;
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Looking for resource %u in Object %u, instance index: %u.", id, objectP->objID, instIndex);
+
+    for (index = 0; index < objectP->resourceCount; index++)
+    {
+        if (objectP->resourceArray[index].id == id)
+        {
+            IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Resource %u found at index %u in Object %u.", id, index, objectP->objID);
+            break;
+        }
+    }
+    if (index == objectP->resourceCount)
+    {
+        IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Resource %u does not exist in Object %u.", id, objectP->objID);
+        return objectP->resourceCount;
+    }
 
     if (instIndex < objectP->instanceCount
         && objectP->instanceArray[instIndex].resArray != NULL)
     {
+        uint16_t i;
+
+        // check if resource exists in this instance
         for (i = 0; i < objectP->instanceArray[instIndex].resCount; i++)
         {
             if (objectP->instanceArray[instIndex].resArray[i] == id)
@@ -284,22 +310,13 @@ static uint16_t prv_getResourceIndex(lwm2m_object_t *objectP,
         if (i == objectP->instanceArray[instIndex].resCount)
         {
             IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Resource %u not found in Object %u, instance index: %u.", id, objectP->objID, instIndex);
-            return objectP->resourceCount;
-        }
-    }
-
-    for (i = 0; i < objectP->resourceCount; i++)
-    {
-        if (objectP->resourceArray[i].id == id)
-        {
-            IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Resource %u found at index %u in Object %u.", id, i, objectP->objID);
-            return i;
+            index = objectP->resourceCount;
         }
     }
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Resource %u not found in Object %u.", id, objectP->objID);
 
-    return objectP->resourceCount;
+    return index;
 }
 
 static iowa_status_t prv_extendDataArray(size_t *arraySizeP,
@@ -319,6 +336,7 @@ static iowa_status_t prv_extendDataArray(size_t *arraySizeP,
         return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
     }
 #endif
+    memset(newArray, 0, newSize * sizeof(iowa_lwm2m_data_t));
 
     if (*arrayP != NULL)
     {
@@ -374,6 +392,7 @@ static iowa_status_t prv_addResourceToDataArray(iowa_context_t contextP,
 
     if (IS_RSC_MULTIPLE(objectP->resourceArray[resIndex]))
     {
+        // multiple resource
         iowa_status_t result;
         uint16_t nbResInstance;
         uint16_t *resInstanceArray;
@@ -390,6 +409,11 @@ static iowa_status_t prv_addResourceToDataArray(iowa_context_t contextP,
         {
             uint16_t i;
             size_t dataSizeNeeded;
+            if (resInstanceId != IOWA_LWM2M_ID_ALL)
+            {
+                dataSizeNeeded = 1;
+            }
+            else
             {
                 dataSizeNeeded = nbResInstance;
             }
@@ -410,6 +434,8 @@ static iowa_status_t prv_addResourceToDataArray(iowa_context_t contextP,
 
             for (i = 0; i < nbResInstance; i++)
             {
+                if (resInstanceId == IOWA_LWM2M_ID_ALL
+                    || resInstanceArray[i] == resInstanceId)
                 {
                     (*arrayP)[*indexP].objectID = objectP->objID;
                     (*arrayP)[*indexP].instanceID = instanceId;
@@ -421,10 +447,20 @@ static iowa_status_t prv_addResourceToDataArray(iowa_context_t contextP,
             }
             iowa_system_free(resInstanceArray);
         }
+        if (resInstanceId != IOWA_LWM2M_ID_ALL
+            && *indexP == 0)
+        {
+            return IOWA_COAP_404_NOT_FOUND;
+        }
     }
     else
     {
         IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Resource /%u/n/%u is a single one.", objectP->objID, objectP->resourceArray[resIndex].id);
+
+        if (resInstanceId != IOWA_LWM2M_ID_ALL)
+        {
+            return IOWA_COAP_404_NOT_FOUND;
+        }
 
         if (*indexP + 1 > *arraySizeP)
         {
@@ -481,12 +517,14 @@ static iowa_status_t prv_getResourceReadableArray(iowa_context_t contextP,
 
     if (uriP->instanceId != IOWA_LWM2M_ID_ALL)
     {
-        instIndex = object_getInstanceIndex(objectP, uriP->instanceId);
-        if (instIndex == objectP->instanceCount)
+        // single instance read
+
+        result = object_getInstanceIndex(objectP, uriP->instanceId, &instIndex);
+        if (result != IOWA_COAP_NO_ERROR)
         {
             IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Instance %u not found.", uriP->instanceId);
 
-            return IOWA_COAP_404_NOT_FOUND;
+            return result;
         }
 
         if (uriP->resourceId != IOWA_LWM2M_ID_ALL)
@@ -517,6 +555,8 @@ static iowa_status_t prv_getResourceReadableArray(iowa_context_t contextP,
         }
         else
         {
+            // multiple resource read
+
             iowaDataArraySize = objectP->resourceCount;
             iowaDataArray = (iowa_lwm2m_data_t *)iowa_system_malloc(iowaDataArraySize * sizeof(iowa_lwm2m_data_t));
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
@@ -552,6 +592,7 @@ static iowa_status_t prv_getResourceReadableArray(iowa_context_t contextP,
     }
     else
     {
+        // multiple object instances read
         iowaDataArraySize = (size_t)(objectP->instanceCount * objectP->resourceCount);
         iowaDataArray = (iowa_lwm2m_data_t *)iowa_system_malloc(iowaDataArraySize * sizeof(iowa_lwm2m_data_t));
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
@@ -607,6 +648,7 @@ static iowa_status_t prv_getResourceReadableArray(iowa_context_t contextP,
     return result;
 }
 
+// TODO: Temporary function
 static iowa_status_t prv_convertAttributes(attributes_t *paramP,
                                            attribute_t **attrP)
 {
@@ -750,11 +792,12 @@ static iowa_status_t prv_adaptCreatePayload(lwm2m_object_t *objectP,
                                             iowa_lwm2m_data_t *dataArray,
                                             bool bootstapWrite)
 {
-    size_t dataIndex;
+    size_t dataIndex;          // index in dataArray
     uint16_t resourceIndex;
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Checking %u resources. bootstapWrite: %s.", *dataCountP, bootstapWrite ? "true" : "false");
 
+    // check that we have only one Object and, if not allowed, one Object Instance
     for (dataIndex = 1; dataIndex < *dataCountP; dataIndex++)
     {
         if (dataArray[dataIndex].objectID != dataArray[0].objectID
@@ -776,6 +819,7 @@ static iowa_status_t prv_adaptCreatePayload(lwm2m_object_t *objectP,
 
             IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Remove the Resource %u from the list.", dataArray[dataIndex].resourceID);
 
+            // Move the resource not found at the end of the list and decrement the data count
             data = dataArray[dataIndex];
             dataArray[dataIndex] = dataArray[*dataCountP-1];
             dataArray[*dataCountP-1] = data;
@@ -797,6 +841,7 @@ static iowa_status_t prv_adaptCreatePayload(lwm2m_object_t *objectP,
 
     if (bootstapWrite == false)
     {
+        // check that all mandatory resources are present
         for (resourceIndex = 0; resourceIndex < objectP->resourceCount; resourceIndex++)
         {
             if (IS_RSC_MANDATORY(objectP->resourceArray[resourceIndex])
@@ -828,12 +873,14 @@ static iowa_status_t prv_writeData(iowa_context_t contextP,
                                    size_t dataCount,
                                    iowa_lwm2m_data_t *dataArrayP)
 {
+    // WARNING: This function is called in a critical section
     iowa_status_t result;
 
     (void)serverShortId;
 
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Object ID: %u, dataCount: %u.\nCalling dataCallback(IOWA_DM_WRITE) on:", objectP->objID, dataCount);
 
+#if (IOWA_LOG_LEVEL >= IOWA_LOG_LEVEL_INFO)
     {
         size_t index;
 
@@ -842,6 +889,7 @@ static iowa_status_t prv_writeData(iowa_context_t contextP,
             IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "\t/%u/%u/%u with type %s", objectP->objID, dataArrayP[index].instanceID, dataArrayP[index].resourceID, STR_LWM2M_TYPE(dataArrayP[index].type));
         }
     }
+#endif
 
     result = prv_callDataCb(contextP, IOWA_DM_WRITE, objectP, dataCount, dataArrayP);
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "dataCallback() returned code %u.%02u.", (result & 0xFF) >> 5, (result & 0x1F));
@@ -859,6 +907,7 @@ static iowa_status_t prv_create(iowa_context_t contextP,
                                 size_t dataCount,
                                 iowa_lwm2m_data_t *dataP)
 {
+    // WARNING: This function is called in a critical section
     iowa_status_t result;
     uint16_t instanceId;
 
@@ -874,10 +923,7 @@ static iowa_status_t prv_create(iowa_context_t contextP,
 
     if (instanceId != IOWA_LWM2M_ID_ALL)
     {
-        uint16_t instanceIndex;
-
-        instanceIndex = object_getInstanceIndex(objectP, instanceId);
-        if (instanceIndex != objectP->instanceCount)
+        if (IOWA_COAP_404_NOT_FOUND != object_getInstanceIndex(objectP, instanceId, NULL))
         {
             IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Instance %u already exists in Object %u.", instanceId, dataP[0].objectID);
             return IOWA_COAP_400_BAD_REQUEST;
@@ -1045,7 +1091,34 @@ static iowa_status_t prv_deleteObjectInstance(iowa_context_t contextP,
     return IOWA_COAP_202_DELETED;
 }
 
+static iowa_status_t prv_deleteObjectResInstance(iowa_context_t contextP,
+                                                 lwm2m_object_t *objectP,
+                                                 iowa_lwm2m_uri_t *uriP,
+                                                 uint16_t serverShortId)
+{
+    iowa_status_t result;
+    iowa_lwm2m_data_t data;
+
+    (void)serverShortId;
+
+    IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Calling dataCallback(IOWA_DM_DELETE) on /%u/%u/%u.", objectP->objID, uriP->instanceId, uriP->resourceId);
+
+    memset(&data, 0, sizeof(iowa_lwm2m_data_t));
+
+    data.objectID = uriP->objectId;
+    data.instanceID = uriP->instanceId;
+    data.resourceID = uriP->resourceId;
+    data.resInstanceID = IOWA_LWM2M_ID_ALL;
+
+    CRIT_SECTION_LEAVE(contextP);
+    result = objectP->dataCb(IOWA_DM_DELETE, &data, 1, objectP->userData, contextP);
+    CRIT_SECTION_ENTER(contextP);
+
+    return result;
+}
+
 static void prv_instanceEventCallback(iowa_context_t contextP,
+                                      uint16_t serverShortId,
                                       iowa_lwm2m_uri_t * uriP,
                                       iowa_event_type_t eventType)
 {
@@ -1055,6 +1128,7 @@ static void prv_instanceEventCallback(iowa_context_t contextP,
     {
         event.eventType = eventType;
         event.details.objectInstance.uriP = uriP;
+        event.serverShortId = serverShortId;
 
         CRIT_SECTION_LEAVE(contextP);
         contextP->eventCb(&event, contextP->userData, contextP);
@@ -1062,94 +1136,215 @@ static void prv_instanceEventCallback(iowa_context_t contextP,
     }
 }
 
-uint16_t object_getInstanceIndex(lwm2m_object_t *objectP,
-                                 uint16_t id)
+iowa_status_t object_getInstanceIndex(lwm2m_object_t *objectP,
+                                      uint16_t id,
+                                      uint16_t *indexP)
 {
-    uint16_t i;
+    uint16_t index;
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Looking for instance %u in Object %u.", id, objectP->objID);
 
     if (id == IOWA_LWM2M_ID_ALL)
     {
-        return objectP->instanceCount;
+        return IOWA_COAP_404_NOT_FOUND;
     }
 
-    switch (objectP->type)
+    index = objectP->instanceCount;
+
+    if (OBJECT_SINGLE == objectP->type)
     {
-    case OBJECT_SINGLE:
-    case OBJECT_SINGLE_ADVANCED:
         IOWA_LOG_TRACE(IOWA_PART_LWM2M, "This is a single-instance Object.");
         if (id == LWM2M_SINGLE_OBJECT_INSTANCE_ID)
         {
-            return 0;
+            index = 0;
         }
-        else
+    }
+    else
+    {
+        for (index = 0; index < objectP->instanceCount; index++)
         {
-            return 1;
-        }
-
-    case OBJECT_MULTIPLE:
-    case OBJECT_MULTIPLE_ADVANCED:
-        for (i = 0; i < objectP->instanceCount; i++)
-        {
-            if (objectP->instanceArray[i].id == id)
+            if (objectP->instanceArray[index].id == id)
             {
-                IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Instance %u found at index %u in Object %u.", id, i, objectP->objID);
+                IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Instance %u found at index %u in Object %u.", id, index, objectP->objID);
                 break;
             }
         }
-        return i;
-
-    default:
-        return objectP->instanceCount;
     }
+
+    if (indexP != NULL)
+    {
+       *indexP = index;
+    }
+
+    if (index == objectP->instanceCount)
+    {
+        return IOWA_COAP_404_NOT_FOUND;
+    }
+
+    return IOWA_COAP_NO_ERROR;
+}
+
+iowa_status_t object_find(iowa_context_t contextP,
+                          uint16_t objectID,
+                          uint16_t instanceID,
+                          uint16_t resourceID,
+                          lwm2m_object_t **objectPP,
+                          uint16_t *instanceIndexP,
+                          uint16_t *resourceIndexP)
+{
+    lwm2m_object_t *objectP;
+    uint16_t instIndex;
+    uint16_t resIndex;
+
+    IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Looking for /%u/%u/%u.", objectID, instanceID, resourceID);
+
+    objectP = (lwm2m_object_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->objectList, listFindCallbackBy16bitsId, &objectID);
+    if (NULL == objectP)
+    {
+        IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Object %u not found.", objectID);
+        return IOWA_COAP_404_NOT_FOUND;
+    }
+
+    if (instanceID != IOWA_LWM2M_ID_ALL)
+    {
+        if (IOWA_COAP_NO_ERROR != object_getInstanceIndex(objectP, instanceID, &instIndex))
+        {
+            IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Instance /%u/%u not found.", objectID, instanceID);
+
+            return IOWA_COAP_404_NOT_FOUND;
+        }
+    }
+    else
+    {
+        instIndex = objectP->instanceCount;
+    }
+
+    if (resourceID != IOWA_LWM2M_ID_ALL)
+    {
+        resIndex = prv_getResourceIndex(objectP, instIndex, resourceID);
+        if (resIndex == objectP->resourceCount)
+        {
+            IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Resource %u not found.", resourceID);
+            return IOWA_COAP_404_NOT_FOUND;
+        }
+    }
+    else
+    {
+        resIndex = objectP->resourceCount;
+    }
+
+    if (objectPP != NULL)
+    {
+        *objectPP = objectP;
+    }
+    if (instanceIndexP != NULL)
+    {
+        *instanceIndexP = instIndex;
+    }
+    if (resourceIndexP != NULL)
+    {
+        *resourceIndexP = resIndex;
+    }
+
+    return IOWA_COAP_NO_ERROR;
+}
+
+static iowa_status_t prv_addObjectVersion(lwm2m_object_t *objectP,
+                                          link_t *linkP,
+                                          size_t *linkIndex)
+{
+    iowa_status_t result;
+
+    result = IOWA_COAP_NO_ERROR;
+
+    if (objectP->version.major != PRV_DEFAULT_MAJOR_OBJECT_VERSION || objectP->version.minor != PRV_DEFAULT_MINOR_OBJECT_VERSION)
+    {
+        uint8_t version[PRV_MAX_VERSION_LENGTH];
+        size_t bufferLength;
+        size_t convertLength;
+        size_t versionLength;
+
+        IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Adding version attribute to Object %d.", objectP->objID);
+
+        bufferLength = PRV_MAX_VERSION_LENGTH;
+
+        // major version
+        convertLength = dataUtilsIntToBuffer(objectP->version.major, version, bufferLength, false);
+        if (convertLength == 0)
+        {
+            IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to convert Object major version to string.");
+            return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+        }
+        // dot
+        version[convertLength] = '.';
+        versionLength = convertLength + 1;
+        bufferLength -= convertLength + 1;
+        // minor version
+        convertLength = dataUtilsIntToBuffer(objectP->version.minor, version + versionLength, bufferLength, false);
+        if (convertLength == 0)
+        {
+            IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to convert Object minor version to string.");
+            return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+        }
+        versionLength += convertLength;
+
+        result = coreLinkAddBufferAttribute(linkP + *linkIndex, KEY_OBJECT_VERSION, (uint8_t *)version, versionLength, false);
+    }
+
+    return result;
+}
+
+iowa_status_t object_getTargets(iowa_context_t contextP,
+                                uint16_t objectId,
+                                lwm2m_object_t **startPP,
+                                lwm2m_object_t **endPP)
+{
+    if (IOWA_LWM2M_ID_ALL == objectId)
+    {
+        *startPP = contextP->lwm2mContextP->objectList;
+        *endPP = NULL;
+    }
+    else
+    {
+        *startPP = (lwm2m_object_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->objectList, listFindCallbackBy16bitsId, &objectId);
+        if (*startPP == NULL)
+        {
+            IOWA_LOG_ARG_ERROR(IOWA_PART_LWM2M, "Object with ID %u not found.", objectId);
+            return IOWA_COAP_404_NOT_FOUND;
+        }
+        *endPP = (*startPP)->next;
+    }
+
+    return IOWA_COAP_NO_ERROR;
 }
 
 iowa_status_t object_checkReadable(iowa_context_t contextP,
+                                   uint16_t serverShortId,
                                    iowa_lwm2m_uri_t * uriP)
 {
+    iowa_status_t result;
     lwm2m_object_t * targetP;
     uint16_t instIndex;
-    uint16_t index;
+    uint16_t resIndex;
 
-    IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "URI: /%u/%u/%u", uriP->objectId, uriP->instanceId, uriP->resourceId);
+    IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "SSID: %u, URI: /%u/%u/%u", serverShortId, uriP->objectId, uriP->instanceId, uriP->resourceId);
 
-    targetP = (lwm2m_object_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->objectList, listFindCallbackBy16bitsId, &uriP->objectId);
-    if (NULL == targetP)
+    result = object_find(contextP, uriP->objectId, uriP->instanceId, uriP->resourceId, &targetP, &instIndex, &resIndex);
+    if (result != IOWA_COAP_NO_ERROR)
     {
-        IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Object %u not found.", uriP->objectId);
+        IOWA_LOG_TRACE(IOWA_PART_LWM2M, "URI not found.");
         return IOWA_COAP_404_NOT_FOUND;
     }
 
-    if (!LWM2M_URI_IS_SET_INSTANCE(uriP))
+    if (LWM2M_URI_IS_SET_RESOURCE(uriP))
     {
-        IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "/%u is readable.", uriP->objectId);
-        return IOWA_COAP_205_CONTENT;
-    }
+        if (!IS_RSC_READABLE(targetP->resourceArray[resIndex]))
+        {
+            IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "/%u/%u/%u is not readable.", uriP->objectId, uriP->instanceId, uriP->resourceId);
 
-    instIndex = object_getInstanceIndex(targetP, uriP->instanceId);
-    if (instIndex == targetP->instanceCount)
-    {
-        return IOWA_COAP_404_NOT_FOUND;
-    }
+            return IOWA_COAP_405_METHOD_NOT_ALLOWED;
+        }
 
-    if (!LWM2M_URI_IS_SET_RESOURCE(uriP))
-    {
-        IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "/%u/%u is readable.", uriP->objectId, uriP->instanceId);
-        return IOWA_COAP_205_CONTENT;
-    }
-
-    index = prv_getResourceIndex(targetP, instIndex, uriP->resourceId);
-    if (index == targetP->resourceCount)
-    {
-        return IOWA_COAP_404_NOT_FOUND;
-    }
-
-    if (!IS_RSC_READABLE(targetP->resourceArray[index]))
-    {
-        IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "/%u/%u/%u is not readable.", uriP->objectId, uriP->instanceId, uriP->resourceId);
-
-        return IOWA_COAP_405_METHOD_NOT_ALLOWED;
     }
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "/%u/%u/%u is readable.", uriP->objectId, uriP->instanceId, uriP->resourceId);
@@ -1157,53 +1352,28 @@ iowa_status_t object_checkReadable(iowa_context_t contextP,
     return IOWA_COAP_205_CONTENT;
 }
 
-void object_sendReadEvent(iowa_context_t contextP,
-                          uint16_t objectId,
-                          uint16_t instanceId)
-{
-    if (contextP->eventCb != NULL)
-    {
-        iowa_event_t event;
-
-        memset(&event, 0, sizeof(iowa_event_t));
-
-        event.eventType = IOWA_EVENT_READ;
-        event.details.sensor.sensorId = OBJECT_INSTANCE_ID_TO_SENSOR(objectId, instanceId);
-
-        CRIT_SECTION_LEAVE(contextP);
-        contextP->eventCb(&event, contextP->userData, contextP);
-        CRIT_SECTION_ENTER(contextP);
-    }
-}
-
-bool object_isAsynchronous(iowa_context_t contextP,
-                           iowa_lwm2m_uri_t *uriP)
+bool object_checkResourceFlag(iowa_context_t contextP,
+                              iowa_lwm2m_uri_t *uriP,
+                              uint8_t flag)
 {
     lwm2m_object_t *objectP;
-    uint16_t index;
+    uint16_t resIndex;
 
-    IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "URI: /%u/%u/%u", uriP->objectId, uriP->instanceId, uriP->resourceId);
+    IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Checking flag 0x%02X of URI: /%u/%u/%u", flag, uriP->objectId, uriP->instanceId, uriP->resourceId);
 
-    objectP = (lwm2m_object_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->objectList, listFindCallbackBy16bitsId, &(uriP->objectId));
-    if (NULL == objectP)
+    if (object_find(contextP, uriP->objectId, uriP->instanceId, uriP->resourceId, &objectP, NULL, &resIndex) != IOWA_COAP_NO_ERROR)
     {
-        IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Object %u not found.", uriP->objectId);
+        IOWA_LOG_TRACE(IOWA_PART_LWM2M, "URI not found.");
         return false;
     }
 
-    for (index = 0; index < objectP->resourceCount; index++)
+    if ((objectP->resourceArray[resIndex].flags & flag) == flag)
     {
-        if ((!LWM2M_URI_IS_SET_RESOURCE(uriP)
-             || uriP->resourceId == objectP->resourceArray[index].id)
-            && IS_RSC_ASYNCHRONOUS(objectP->resourceArray[index]))
-        {
-            IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Resource /%u/I/%u is asynchronous.", uriP->objectId, objectP->resourceArray[index].id);
-
-            return true;
-        }
+        IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Resource /%u/I/%u is multiple.", uriP->objectId, objectP->resourceArray[resIndex].id);
+        return true;
     }
 
-    IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "No asynchronous resource in Object %u.", uriP->objectId);
+    IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "No multiple resource in Object %u.", uriP->objectId);
 
     return false;
 }
@@ -1214,26 +1384,19 @@ iowa_lwm2m_data_type_t object_getResourceType(uint16_t objectId,
 {
     iowa_context_t contextP;
     lwm2m_object_t *objectP;
-    size_t index;
+    uint16_t resIndex;
+
+    IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "objectId: %u, resourceId: %u", objectId, resourceId);
 
     contextP = (iowa_context_t)userDataP;
 
-    objectP = (lwm2m_object_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->objectList, listFindCallbackBy16bitsId, &objectId);
-    if (NULL == objectP)
+    if (object_find(contextP, objectId, IOWA_LWM2M_ID_ALL, resourceId, &objectP, NULL, &resIndex) != IOWA_COAP_NO_ERROR)
     {
-        IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Object %u not found.", objectId);
+        IOWA_LOG_TRACE(IOWA_PART_LWM2M, "URI not found.");
         return IOWA_LWM2M_TYPE_UNDEFINED;
     }
 
-    for (index = 0; index < objectP->resourceCount; index++)
-    {
-        if (objectP->resourceArray[index].id == resourceId)
-        {
-            return objectP->resourceArray[index].type;
-        }
-    }
-
-    return IOWA_LWM2M_TYPE_UNDEFINED;
+    return objectP->resourceArray[resIndex].type;
 }
 
 iowa_status_t object_read(iowa_context_t contextP,
@@ -1242,16 +1405,17 @@ iowa_status_t object_read(iowa_context_t contextP,
                           size_t *dataCountP,
                           iowa_lwm2m_data_t **dataArrayP)
 {
+    // WARNING: This function is called in a critical section
     iowa_status_t result;
     lwm2m_object_t *objectP;
 
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "URI: /%u/%u/%u/%u", uriP->objectId, uriP->instanceId, uriP->resourceId, uriP->resInstanceId);
 
-    objectP = (lwm2m_object_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->objectList, listFindCallbackBy16bitsId, &uriP->objectId);
-    if (NULL == objectP)
+    result = object_find(contextP, uriP->objectId, uriP->instanceId, uriP->resourceId, &objectP, NULL, NULL);
+    if (result != IOWA_COAP_NO_ERROR)
     {
-        IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Object %u not found.", uriP->objectId);
-        return IOWA_COAP_404_NOT_FOUND;
+        IOWA_LOG_INFO(IOWA_PART_LWM2M, "URI not found.");
+        return result;
     }
 
     result = prv_getResourceReadableArray(contextP, objectP, uriP, serverShortId, false, dataCountP, dataArrayP);
@@ -1284,172 +1448,6 @@ iowa_status_t object_read(iowa_context_t contextP,
     }
 
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Exiting with code %u.%02u.", (result & 0xFF) >> 5, (result & 0x1F));
-    return result;
-}
-
-iowa_status_t object_readBlock(iowa_context_t contextP,
-                               iowa_lwm2m_uri_t *uriP,
-                               uint32_t blockInfo,
-                               size_t *dataCountP,
-                               iowa_lwm2m_data_t **dataArrayP)
-{
-    iowa_status_t result;
-    lwm2m_object_t *objectP;
-    uint16_t instIndex;
-    uint16_t resIndex;
-    iowa_lwm2m_data_type_t blockType;
-
-    IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "URI: /%u/%u/%u/%u, blockInfo: 0x%08X.", uriP->objectId, uriP->instanceId, uriP->resourceId, uriP->resInstanceId, blockInfo);
-
-    if (!LWM2M_URI_IS_SET_RESOURCE(uriP))
-    {
-        IOWA_LOG_WARNING(IOWA_PART_LWM2M, "Cannot read by blocks several resources.");
-        return IOWA_COAP_408_REQUEST_ENTITY_INCOMPLETE;
-    }
-
-    objectP = (lwm2m_object_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->objectList, listFindCallbackBy16bitsId , &(uriP->objectId));
-    if (NULL == objectP)
-    {
-        IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Object %u not found.", uriP->objectId);
-        return IOWA_COAP_404_NOT_FOUND;
-    }
-
-    instIndex = object_getInstanceIndex(objectP, uriP->instanceId);
-    if (instIndex == objectP->instanceCount)
-    {
-        IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Instance %u not found.", uriP->instanceId);
-
-        return IOWA_COAP_404_NOT_FOUND;
-    }
-
-    resIndex = prv_getResourceIndex(objectP, instIndex, uriP->resourceId);
-    if (resIndex == objectP->resourceCount)
-    {
-        IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Resource %u not found.", uriP->resourceId);
-        return IOWA_COAP_404_NOT_FOUND;
-    }
-
-    if (!IS_RSC_READABLE(objectP->resourceArray[resIndex]))
-    {
-        IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "/%u/%u/%u is not readable.", objectP->objID, uriP->instanceId, uriP->resourceId);
-        return IOWA_COAP_405_METHOD_NOT_ALLOWED;
-    }
-
-    switch (objectP->resourceArray[resIndex].type)
-    {
-    case IOWA_LWM2M_TYPE_STRING:
-        blockType = IOWA_LWM2M_TYPE_STRING_BLOCK;
-        break;
-
-    case IOWA_LWM2M_TYPE_OPAQUE:
-        blockType = IOWA_LWM2M_TYPE_OPAQUE_BLOCK;
-        break;
-
-    case IOWA_LWM2M_TYPE_CORE_LINK:
-        blockType = IOWA_LWM2M_TYPE_CORE_LINK_BLOCK;
-        break;
-
-    default:
-        IOWA_LOG_ARG_INFO(IOWA_PART_DATA, "/%u/%u/%u type is not String, Opaque, or CoRE Link. Exiting with 4.08 Request Entity Incomplete.", objectP->objID, uriP->instanceId, uriP->resourceId);
-        return IOWA_COAP_408_REQUEST_ENTITY_INCOMPLETE;
-    }
-
-    if (IS_RSC_MULTIPLE(objectP->resourceArray[resIndex])
-        && !LWM2M_URI_IS_SET_RESOURCE_INSTANCE(uriP))
-    {
-        IOWA_LOG_WARNING(IOWA_PART_LWM2M, "Cannot read by blocks several resource instances.");
-        return IOWA_COAP_408_REQUEST_ENTITY_INCOMPLETE;
-    }
-
-    if (!IS_RSC_STREAMABLE(objectP->resourceArray[resIndex]))
-    {
-        IOWA_LOG_ARG_WARNING(IOWA_PART_LWM2M, "Resource /%u/%u/%u does not support read by blocks.", objectP->objID, uriP->instanceId, uriP->resourceId);
-        return IOWA_COAP_408_REQUEST_ENTITY_INCOMPLETE;
-    }
-
-    *dataArrayP = (iowa_lwm2m_data_t *)iowa_system_malloc(sizeof(iowa_lwm2m_data_t));
-#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-    if (*dataArrayP == NULL)
-    {
-        IOWA_LOG_ERROR_MALLOC(sizeof(iowa_lwm2m_data_t));
-        return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-    }
-#endif
-    memset(*dataArrayP, 0, sizeof(iowa_lwm2m_data_t));
-    *dataCountP = 1;
-
-    (*dataArrayP)[0].objectID = uriP->objectId;
-    (*dataArrayP)[0].instanceID = uriP->instanceId;
-    (*dataArrayP)[0].resourceID = uriP->resourceId;
-    (*dataArrayP)[0].resInstanceID = uriP->resInstanceId;
-    (*dataArrayP)[0].type = blockType;
-    (*dataArrayP)[0].value.asBlock.details = blockInfo;
-
-    result = prv_callDataCb(contextP, IOWA_DM_READ, objectP, *dataCountP, *dataArrayP);
-
-    if (result == IOWA_COAP_NO_ERROR)
-    {
-        result = IOWA_COAP_205_CONTENT;
-    }
-
-    if (result != IOWA_COAP_205_CONTENT
-        && (*dataArrayP) != NULL)
-    {
-        object_free(contextP, *dataCountP, *dataArrayP);
-        iowa_system_free(*dataArrayP);
-        *dataArrayP = NULL;
-    }
-
-    IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Exiting with code %u.%02u.", (result & 0xFF) >> 5, (result & 0x1F));
-    return result;
-}
-
-iowa_status_t object_bootstrapRead(iowa_context_t contextP,
-                                   iowa_lwm2m_uri_t *uriP,
-                                   size_t *dataCountP,
-                                   iowa_lwm2m_data_t **dataArrayP)
-{
-    iowa_status_t result;
-    lwm2m_object_t *objectP;
-
-    IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "URI: /%u/%u/%u/%u", uriP->objectId, uriP->instanceId, uriP->resourceId, uriP->resInstanceId);
-
-    objectP = (lwm2m_object_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->objectList, listFindCallbackBy16bitsId, &uriP->objectId);
-    if (NULL == objectP)
-    {
-        IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Object %u not found.", uriP->objectId);
-        return IOWA_COAP_404_NOT_FOUND;
-    }
-
-    result = prv_getResourceReadableArray(contextP, objectP, uriP, IOWA_LWM2M_ID_ALL, true, dataCountP, dataArrayP);
-    if (result != IOWA_COAP_NO_ERROR)
-    {
-        IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to retrieve resource list.");
-        return result;
-    }
-
-    if (*dataCountP == 0)
-    {
-        IOWA_LOG_INFO(IOWA_PART_LWM2M, "No values to read.");
-        return IOWA_COAP_205_CONTENT;
-    }
-
-    result = prv_callDataCb(contextP, IOWA_DM_READ, objectP, *dataCountP, *dataArrayP);
-    if (result == IOWA_COAP_NO_ERROR)
-    {
-        result = IOWA_COAP_205_CONTENT;
-    }
-
-    if (result != IOWA_COAP_205_CONTENT
-        && (*dataArrayP) != NULL)
-    {
-        object_free(contextP, *dataCountP, *dataArrayP);
-        iowa_system_free(*dataArrayP);
-        *dataArrayP = NULL;
-    }
-
-    IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Exiting with code %u.%02u.", (result & 0xFF) >> 5, (result & 0x1F));
-
     return result;
 }
 
@@ -1500,49 +1498,11 @@ void object_free(iowa_context_t contextP,
     }
 }
 
-iowa_status_t object_readRequest(iowa_context_t contextP,
-                                 iowa_lwm2m_uri_t *uriP,
-                                 uint16_t serverShortId)
-{
-    iowa_status_t result;
-    lwm2m_object_t *objectP;
-    size_t dataCount;
-    iowa_lwm2m_data_t *dataArray;
-
-    IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "URI: /%u/%u/%u/%u", uriP->objectId, uriP->instanceId, uriP->resourceId, uriP->resInstanceId);
-
-    objectP = (lwm2m_object_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->objectList, listFindCallbackBy16bitsId, &(uriP->objectId));
-    if (NULL == objectP)
-    {
-        IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Object %u not found.", uriP->objectId);
-        return IOWA_COAP_404_NOT_FOUND;
-    }
-
-    result = prv_getResourceReadableArray(contextP, objectP, uriP, serverShortId, false, &dataCount, &dataArray);
-    if (result != IOWA_COAP_NO_ERROR)
-    {
-        IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to retrieve resource list.");
-        return result;
-    }
-
-    if (dataCount == 0)
-    {
-        IOWA_LOG_INFO(IOWA_PART_LWM2M, "No values to read.");
-        return IOWA_COAP_205_CONTENT;
-    }
-
-    result = prv_callDataCb(contextP, IOWA_DM_READ_REQUEST, objectP, dataCount, dataArray);
-
-    iowa_system_free(dataArray);
-
-    return result;
-}
-
 iowa_status_t object_checkWritePayload(iowa_context_t contextP,
                                        size_t dataCount,
                                        iowa_lwm2m_data_t *dataArray)
 {
-    size_t dataIndex;
+    size_t dataIndex;          // index in dataArray
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Checking %u resources", dataCount);
 
@@ -1557,11 +1517,10 @@ iowa_status_t object_checkWritePayload(iowa_context_t contextP,
     while (dataIndex < dataCount)
     {
         lwm2m_object_t *objectP;
-        size_t objLen;
-        size_t resIndex;
-        uint16_t instanceIndex;
-        uint16_t resourceIndex;
-        size_t instIndex;
+        size_t objLen;           // number of data_t matching an Object
+        size_t resIndex;         // index of a data_t matching a Resource of an Object or Object Instance in dataArray
+        uint16_t resourceIndex;  // index of a Resource inside a lwm2m_object_t
+        size_t instIndex;        // index of the first data_t matching the beginning of an Object Instance in dataArray
 
         objectP = (lwm2m_object_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->objectList, listFindCallbackBy16bitsId, &dataArray[dataIndex].objectID);
         if (NULL == objectP)
@@ -1577,18 +1536,22 @@ iowa_status_t object_checkWritePayload(iowa_context_t contextP,
             objLen++;
         }
 
-        instanceIndex = object_getInstanceIndex(objectP, dataArray[dataIndex].instanceID);
-
-        if (instanceIndex == objectP->instanceCount)
-        {
-            IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Instance %u not found in Object %u.", dataArray[dataIndex].instanceID, dataArray[dataIndex].objectID);
-            return IOWA_COAP_404_NOT_FOUND;
-        }
-
         instIndex = dataIndex;
         while (instIndex < objLen)
         {
-            size_t instLen;
+            size_t instLen;   // number of data_t matching an Object Instance
+            uint16_t instanceIndex;  // index of an Instance inside a lwm2m_object_t
+
+            if (instIndex == 0
+                || dataArray[instIndex].instanceID != dataArray[instIndex-1].instanceID)
+            {
+                // check that the targeted instance exist
+                if (IOWA_COAP_NO_ERROR != object_getInstanceIndex(objectP, dataArray[instIndex].instanceID, &instanceIndex))
+                {
+                    IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Instance %u not found in Object %u.", dataArray[instIndex].instanceID, dataArray[instIndex].objectID);
+                    return IOWA_COAP_404_NOT_FOUND;
+                }
+            }
 
             instLen = 1;
             while (instIndex + instLen < objLen
@@ -1601,6 +1564,7 @@ iowa_status_t object_checkWritePayload(iowa_context_t contextP,
             {
                 iowa_status_t result;
 
+                // check the resource exists in the Object Instance
                 resourceIndex = prv_getResourceIndex(objectP, instanceIndex, dataArray[resIndex].resourceID);
 
                 if (resourceIndex == objectP->resourceCount)
@@ -1631,82 +1595,11 @@ iowa_status_t object_checkWritePayload(iowa_context_t contextP,
     return IOWA_COAP_NO_ERROR;
 }
 
-iowa_status_t object_bootstrapWrite(iowa_context_t contextP,
-                                    size_t dataCount,
-                                    iowa_lwm2m_data_t *dataP)
-{
-    iowa_status_t result;
-    lwm2m_object_t *objectP;
-
-    objectP = (lwm2m_object_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->objectList, listFindCallbackBy16bitsId, &dataP[0].objectID);
-    if (NULL == objectP)
-    {
-        IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Object %u not found.", dataP[0].objectID);
-        return IOWA_COAP_404_NOT_FOUND;
-    }
-
-    result = prv_adaptCreatePayload(objectP, &dataCount, dataP, true);
-    if (result == IOWA_COAP_NO_ERROR)
-    {
-        if (dataCount == 0)
-        {
-            IOWA_LOG_INFO(IOWA_PART_LWM2M, "Payload contains only unsupported resources.");
-            result = IOWA_COAP_NO_ERROR;
-        }
-        else
-        {
-            size_t i;
-
-            i = 0;
-            while (i < dataCount
-                   && result == IOWA_COAP_NO_ERROR)
-            {
-                size_t n;
-                uint16_t instanceIndex;
-
-                if (dataP[0].instanceID == IOWA_LWM2M_ID_ALL)
-                {
-                    n = dataCount;
-                }
-                else
-                {
-                    n = 1;
-                    while (i + n < dataCount
-                           && dataP[i].instanceID == dataP[i + n].instanceID)
-                    {
-                        n++;
-                    }
-                }
-
-                instanceIndex = object_getInstanceIndex(objectP, dataP[i].instanceID);
-                if (instanceIndex == objectP->instanceCount)
-                {
-                    result = prv_create(contextP, objectP, n, dataP + i);
-                }
-                else
-                {
-                    result = prv_writeData(contextP, objectP, IOWA_LWM2M_ID_ALL, n, dataP + i);
-                }
-
-                i += n;
-            }
-        }
-    }
-
-    if (result == IOWA_COAP_NO_ERROR)
-    {
-        result = IOWA_COAP_204_CHANGED;
-    }
-
-    IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Exiting with code %u.%02u", (result & 0xFF) >> 5, (result & 0x1F));
-
-    return result;
-}
-
 iowa_status_t object_write(iowa_context_t contextP,
                            uint16_t serverShortId,
                            size_t dataCount,
-                           iowa_lwm2m_data_t *dataP)
+                           iowa_lwm2m_data_t *dataP,
+                           bool isPartial)
 {
     iowa_status_t result;
     lwm2m_object_t *objectP;
@@ -1749,6 +1642,19 @@ iowa_status_t object_write(iowa_context_t contextP,
             j++;
         }
 
+        if (dataP[i].resInstanceID != IOWA_LWM2M_ID_ALL
+            && isPartial == false)
+        {
+            iowa_lwm2m_uri_t uri;
+
+            uri.objectId = dataP[i].objectID;
+            uri.instanceId = dataP[i].instanceID;
+            uri.resourceId = dataP[i].resourceID;
+            uri.resInstanceId = IOWA_LWM2M_ID_ALL;
+
+            prv_deleteObjectResInstance(contextP, objectP, &uri, serverShortId);
+        }
+
         result = prv_writeData(contextP, objectP, serverShortId, j - i, dataP + i);
 
         i = j;
@@ -1775,6 +1681,7 @@ iowa_status_t object_execute(iowa_context_t contextP,
                              uint8_t *buffer,
                              size_t length)
 {
+    // WARNING: This function is called in a critical section
     iowa_status_t result;
     lwm2m_object_t * objectP;
     uint16_t instIndex;
@@ -1785,27 +1692,11 @@ iowa_status_t object_execute(iowa_context_t contextP,
 
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "URI: /%u/%u/%u", uriP->objectId, uriP->instanceId, uriP->resourceId);
 
-    objectP = (lwm2m_object_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->objectList, listFindCallbackBy16bitsId, &uriP->objectId);
-    if (NULL == objectP)
+    result = object_find(contextP, uriP->objectId, uriP->instanceId, uriP->resourceId, &objectP, &instIndex, &resIndex);
+    if (result != IOWA_COAP_NO_ERROR)
     {
-        IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Object %u not found.", uriP->objectId);
-        return IOWA_COAP_404_NOT_FOUND;
-    }
-
-    instIndex = object_getInstanceIndex(objectP, uriP->instanceId);
-    if (instIndex == objectP->instanceCount)
-    {
-        IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Instance %u not found.", uriP->instanceId);
-
-        return IOWA_COAP_404_NOT_FOUND;
-    }
-
-    resIndex = prv_getResourceIndex(objectP, instIndex, uriP->resourceId);
-    if (resIndex == objectP->resourceCount)
-    {
-        IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Resource %u not found.", uriP->resourceId);
-
-        return IOWA_COAP_404_NOT_FOUND;
+        IOWA_LOG_INFO(IOWA_PART_LWM2M, "URI not found.");
+        return result;
     }
 
     if (!IS_RSC_EXECUTABLE(objectP->resourceArray[resIndex]))
@@ -1874,7 +1765,7 @@ iowa_status_t object_create(iowa_context_t contextP,
     {
         {
             lwm2m_uri_set(&uri, dataP[0].objectID, dataP[0].instanceID, IOWA_LWM2M_ID_ALL, IOWA_LWM2M_ID_ALL);
-            prv_instanceEventCallback(contextP, &uri, IOWA_EVENT_OBJECT_INSTANCE_CREATED);
+            prv_instanceEventCallback(contextP, serverShortId, &uri, IOWA_EVENT_OBJECT_INSTANCE_CREATED);
 
             result = IOWA_COAP_201_CREATED;
         }
@@ -1889,6 +1780,7 @@ iowa_status_t object_delete(iowa_context_t contextP,
                             iowa_lwm2m_uri_t *uriP,
                             uint16_t serverShortId)
 {
+    // WARNING: This function is called in a critical section
     lwm2m_object_t *objectP;
     iowa_status_t result;
 
@@ -1911,10 +1803,7 @@ iowa_status_t object_delete(iowa_context_t contextP,
 
     if (LWM2M_URI_IS_SET_INSTANCE(uriP))
     {
-        uint16_t instIndex;
-
-        instIndex = object_getInstanceIndex(objectP, uriP->instanceId);
-        if (instIndex == objectP->instanceCount)
+        if (IOWA_COAP_NO_ERROR != object_getInstanceIndex(objectP, uriP->instanceId, NULL))
         {
             IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Instance %u not found.", uriP->instanceId);
 
@@ -1925,6 +1814,7 @@ iowa_status_t object_delete(iowa_context_t contextP,
     }
     else
     {
+        // Loop on all Object Instances
         result = IOWA_COAP_202_DELETED;
 
         while (objectP->instanceCount != 0
@@ -1939,7 +1829,7 @@ iowa_status_t object_delete(iowa_context_t contextP,
     if (result == IOWA_COAP_202_DELETED
         && contextP->lwm2mContextP->state == STATE_DEVICE_MANAGEMENT)
     {
-        prv_instanceEventCallback(contextP, uriP, IOWA_EVENT_OBJECT_INSTANCE_DELETED);
+        prv_instanceEventCallback(contextP, serverShortId, uriP, IOWA_EVENT_OBJECT_INSTANCE_DELETED);
         lwm2mUpdateRegistration(contextP, NULL, LWM2M_UPDATE_FLAG_OBJECTS);
         CRIT_SECTION_LEAVE(contextP);
         INTERRUPT_SELECT(contextP);
@@ -1956,39 +1846,31 @@ iowa_status_t object_getList(iowa_context_t contextP,
                              link_t **linkP,
                              size_t *nbLinkP)
 {
+    iowa_status_t result;
     size_t linkIndex;
     lwm2m_object_t *objectP;
+    lwm2m_object_t *startP;
+    lwm2m_object_t *endP;
 
-    IOWA_LOG_TRACE(IOWA_PART_LWM2M, "Entering.");
+    IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Entering. objectId: %u.", objectId);
 
-    *nbLinkP = 0;
-
-    switch (objectId)
+    result = object_getTargets(contextP, objectId, &startP, &endP);
+    if (result != IOWA_COAP_NO_ERROR)
     {
-    case IOWA_LWM2M_ID_ALL:
-        (*nbLinkP)++;
+        return result;
+    }
 
-        for (objectP = contextP->lwm2mContextP->objectList; objectP != NULL; objectP = objectP->next)
-        {
-            if (objectP->instanceCount > 0)
-            {
-                *nbLinkP += objectP->instanceCount;
-            }
-            else
-            {
-                (*nbLinkP)++;
-            }
-        }
-        break;
+    if (IOWA_LWM2M_ID_ALL == objectId)
+    {
+        *nbLinkP = 1;
+    }
+    else
+    {
+        *nbLinkP = 0;
+    }
 
-    default:
-        objectP = (lwm2m_object_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->objectList, listFindCallbackBy16bitsId, &objectId);
-        if (objectP == NULL)
-        {
-            IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Object %u not found.", objectId);
-            return IOWA_COAP_404_NOT_FOUND;
-        }
-
+    for (objectP = startP; objectP != endP && IOWA_COAP_NO_ERROR == result; objectP = objectP->next)
+    {
         if (objectP->instanceCount > 0)
         {
             *nbLinkP += objectP->instanceCount;
@@ -1999,6 +1881,7 @@ iowa_status_t object_getList(iowa_context_t contextP,
         }
     }
 
+    // Allocate the links.
     *linkP = (link_t *)iowa_system_malloc(*nbLinkP * sizeof(link_t));
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
     if (*linkP == NULL)
@@ -2009,40 +1892,36 @@ iowa_status_t object_getList(iowa_context_t contextP,
 #endif
     memset(*linkP, 0, *nbLinkP * sizeof(link_t));
 
-    linkIndex = 0;
-    switch (objectId)
+    // Set the links URI
+    if (IOWA_LWM2M_ID_ALL == objectId)
     {
-    case IOWA_LWM2M_ID_ALL:
-        LWM2M_URI_RESET(&(*linkP)[linkIndex].uri);
-        linkIndex++;
+        // Add Root URI
+        LWM2M_URI_RESET(&(*linkP)[0].uri);
+        linkIndex = 1;
+    }
+    else
+    {
+        linkIndex = 0;
+    }
 
-        for (objectP = contextP->lwm2mContextP->objectList; objectP != NULL; objectP = objectP->next)
-        {
-            if (objectP->instanceCount > 0)
-            {
-                uint16_t instanceIndex;
-
-                for (instanceIndex = 0; instanceIndex < objectP->instanceCount; instanceIndex++)
-                {
-                    LWM2M_URI_RESET(&(*linkP)[linkIndex].uri);
-                    (*linkP)[linkIndex].uri.objectId = objectP->objID;
-                    (*linkP)[linkIndex].uri.instanceId = objectP->instanceArray[instanceIndex].id;
-                    linkIndex++;
-                }
-            }
-            else
-            {
-                LWM2M_URI_RESET(&(*linkP)[linkIndex].uri);
-                (*linkP)[linkIndex].uri.objectId = objectP->objID;
-                linkIndex++;
-            }
-        }
-        break;
-
-    default:
+    // Add Objects URI
+    for (objectP = contextP->lwm2mContextP->objectList; objectP != NULL; objectP = objectP->next)
+    {
         if (objectP->instanceCount > 0)
         {
             uint16_t instanceIndex;
+            iowa_status_t result;
+
+            if (IOWA_LWM2M_ID_ALL == objectId)
+            {
+                result = prv_addObjectVersion(objectP, *linkP, &linkIndex);
+                if (result != IOWA_COAP_NO_ERROR)
+                {
+                    iowa_system_free(*linkP);
+                    IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to add object version to the payload");
+                    return result;
+                }
+            }
 
             for (instanceIndex = 0; instanceIndex < objectP->instanceCount; instanceIndex++)
             {
@@ -2056,6 +1935,7 @@ iowa_status_t object_getList(iowa_context_t contextP,
         {
             LWM2M_URI_RESET(&(*linkP)[linkIndex].uri);
             (*linkP)[linkIndex].uri.objectId = objectP->objID;
+            linkIndex++;
         }
     }
 
@@ -2077,6 +1957,7 @@ iowa_status_t object_getTree(iowa_context_t contextP,
 
     uriDepth = dataUtilsGetUriDepth(uriP);
 
+    // Check arguments
 #ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
     switch (uriDepth)
     {
@@ -2090,6 +1971,7 @@ iowa_status_t object_getTree(iowa_context_t contextP,
     }
 #endif
 
+    // Count the number of link.
     objectP = (lwm2m_object_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->objectList, listFindCallbackBy16bitsId, &uriP->objectId);
     if (objectP == NULL)
     {
@@ -2124,8 +2006,7 @@ iowa_status_t object_getTree(iowa_context_t contextP,
         switch (objectP->type)
         {
         case OBJECT_MULTIPLE_ADVANCED:
-            instanceIndex = object_getInstanceIndex(objectP, uriP->instanceId);
-            if (instanceIndex == objectP->instanceCount)
+            if (IOWA_COAP_NO_ERROR != object_getInstanceIndex(objectP, uriP->instanceId, &instanceIndex))
             {
                 IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Instance %u not found.", uriP->instanceId);
                 return IOWA_COAP_404_NOT_FOUND;
@@ -2134,25 +2015,14 @@ iowa_status_t object_getTree(iowa_context_t contextP,
             *nbLinkP += objectP->instanceArray[instanceIndex].resCount;
             break;
 
-        case OBJECT_SINGLE_ADVANCED:
-            instanceIndex = object_getInstanceIndex(objectP, uriP->instanceId);
-            if (instanceIndex == objectP->instanceCount)
-            {
-                IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Instance %u not found.", uriP->instanceId);
-                return IOWA_COAP_404_NOT_FOUND;
-            }
-
-            *nbLinkP += objectP->resourceCount;
-            break;
-
         default:
             *nbLinkP += objectP->resourceCount;
         }
         break;
 
     case LWM2M_URI_DEPTH_RESOURCE:
-        instanceIndex = object_getInstanceIndex(objectP, uriP->instanceId);
-        if (instanceIndex == objectP->instanceCount)
+        // Handle resource cases.
+        if (IOWA_COAP_NO_ERROR != object_getInstanceIndex(objectP, uriP->instanceId, &instanceIndex))
         {
             IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Instance %u not found.", uriP->instanceId);
             return IOWA_COAP_404_NOT_FOUND;
@@ -2171,6 +2041,7 @@ iowa_status_t object_getTree(iowa_context_t contextP,
         return IOWA_COAP_405_METHOD_NOT_ALLOWED;
     }
 
+    // Allocate the links.
     *linkP = (link_t *)iowa_system_malloc(*nbLinkP * sizeof(link_t));
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
     if (*linkP == NULL)
@@ -2181,20 +2052,29 @@ iowa_status_t object_getTree(iowa_context_t contextP,
 #endif
     memset(*linkP, 0, *nbLinkP * sizeof(link_t));
 
+    // Set the links URI and their attributes
     linkIndex = 0;
     switch (uriDepth)
     {
     case LWM2M_URI_DEPTH_OBJECT:
     {
         attributes_t attr;
+        iowa_status_t result;
 
         LWM2M_URI_RESET(&(*linkP)[linkIndex].uri);
+
+        result = prv_addObjectVersion(objectP, *linkP, &linkIndex);
+        if (result != IOWA_COAP_NO_ERROR)
+        {
+            iowa_system_free(*linkP);
+            IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to add object version to the payload");
+            return result;
+        }
         (*linkP)[linkIndex].uri.objectId = uriP->objectId;
 
         if (attributesGet(serverP, &(*linkP)[linkIndex].uri, &attr, false, false) == true)
         {
-            iowa_status_t result;
-
+            // No inheritance
             result = prv_convertAttributes(&attr, &(*linkP)[linkIndex].attrP);
             if (result != IOWA_COAP_NO_ERROR)
             {
@@ -2245,8 +2125,7 @@ iowa_status_t object_getTree(iowa_context_t contextP,
         attributes_t attr;
         iowa_status_t result;
 
-        instanceIndex = object_getInstanceIndex(objectP, uriP->instanceId);
-        if (instanceIndex == objectP->instanceCount)
+        if (IOWA_COAP_NO_ERROR != object_getInstanceIndex(objectP, uriP->instanceId, &instanceIndex))
         {
             IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Instance %u not found.", uriP->instanceId);
             iowa_system_free(*linkP);
@@ -2281,6 +2160,7 @@ iowa_status_t object_getTree(iowa_context_t contextP,
                 (*linkP)[linkIndex].uri.instanceId = uriP->instanceId;
                 (*linkP)[linkIndex].uri.resourceId = objectP->instanceArray[instanceIndex].resArray[resourceIndex];
 
+                // No inheritance
                 resIndex = prv_getResourceIndex(objectP, instanceIndex, objectP->instanceArray[instanceIndex].resArray[resourceIndex]);
                 result = prv_getResourceAttributes(contextP, objectP, serverP, &(*linkP)[linkIndex], instanceIndex, resIndex, false);
                 if (result != IOWA_COAP_NO_ERROR)
@@ -2302,6 +2182,7 @@ iowa_status_t object_getTree(iowa_context_t contextP,
                 (*linkP)[linkIndex].uri.instanceId = uriP->instanceId;
                 (*linkP)[linkIndex].uri.resourceId = objectP->resourceArray[resourceIndex].id;
 
+                // No inheritance
                 result = prv_getResourceAttributes(contextP, objectP, serverP, &(*linkP)[linkIndex], instanceIndex, resourceIndex, false);
                 if (result != IOWA_COAP_NO_ERROR)
                 {
@@ -2326,6 +2207,7 @@ iowa_status_t object_getTree(iowa_context_t contextP,
         (*linkP)[linkIndex].uri.instanceId = uriP->instanceId;
         (*linkP)[linkIndex].uri.resourceId = uriP->resourceId;
 
+        // Inheritance from object and object instance level
         result = prv_getResourceAttributes(contextP, objectP, serverP, &(*linkP)[linkIndex], instanceIndex, resourceIndex, true);
         if (result != IOWA_COAP_NO_ERROR)
         {
@@ -2355,6 +2237,7 @@ iowa_status_t customObjectAdd(iowa_context_t contextP,
                               iowa_RI_callback_t resInstanceCallback,
                               void *userData)
 {
+    // WARNING: This function is called in a critical section
     lwm2m_object_t *objectP;
 
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Adding new custom object with ID: %u, instanceCount: %u and resourceCount: %u", objectID, instanceCount, resourceCount);
@@ -2456,6 +2339,7 @@ iowa_status_t customObjectAdd(iowa_context_t contextP,
         }
     }
 
+    objectP->version.major = PRV_DEFAULT_MAJOR_OBJECT_VERSION;
     objectP->type = type;
     objectP->resourceCount = resourceCount;
     objectP->dataCb = dataCallback;
@@ -2465,6 +2349,14 @@ iowa_status_t customObjectAdd(iowa_context_t contextP,
 
     memcpy(objectP->resourceArray, resourceArray, resourceCount * sizeof(iowa_lwm2m_resource_desc_t));
 
+    switch (objectID)
+    {
+    case IOWA_LWM2M_SERVER_OBJECT_ID:
+    case IOWA_LWM2M_DEVICE_OBJECT_ID:
+    default:
+        objectP->version.minor = PRV_DEFAULT_MINOR_OBJECT_VERSION;
+        break;
+    }
     contextP->lwm2mContextP->objectList = (lwm2m_object_t *)IOWA_UTILS_LIST_ADD(contextP->lwm2mContextP->objectList, objectP);
 
     if (contextP->lwm2mContextP->state == STATE_DEVICE_MANAGEMENT)
@@ -2502,6 +2394,7 @@ void customObjectDelete(lwm2m_object_t *objectP)
 iowa_status_t customObjectRemove(iowa_context_t contextP,
                                  uint16_t objectID)
 {
+    // WARNING: This function is called in a critical section
     lwm2m_object_t *objectP;
 
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Removing custom object with ID: %u", objectID);
@@ -2509,7 +2402,7 @@ iowa_status_t customObjectRemove(iowa_context_t contextP,
     contextP->lwm2mContextP->objectList = (lwm2m_object_t *)IOWA_UTILS_LIST_FIND_AND_REMOVE(contextP->lwm2mContextP->objectList, listFindCallbackBy16bitsId, &objectID, &objectP);
     if (objectP == NULL)
     {
-        IOWA_LOG_ARG_ERROR(IOWA_PART_LWM2M, "Object ID %u not found.", objectID);
+        IOWA_LOG_ARG_WARNING(IOWA_PART_LWM2M, "Object ID %u not found.", objectID);
         return IOWA_COAP_404_NOT_FOUND;
     }
 
@@ -2533,6 +2426,7 @@ void customObjectResourceChanged(iowa_context_t contextP,
                                  uint16_t instanceID,
                                  uint16_t resourceID)
 {
+    // WARNING: This function is called in a critical section
     iowa_lwm2m_uri_t uri;
 
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Ressource %u on object /%u/%u changed", resourceID, objectID, instanceID);
@@ -2542,7 +2436,7 @@ void customObjectResourceChanged(iowa_context_t contextP,
     uri.resourceId = resourceID;
     uri.resInstanceId = IOWA_LWM2M_ID_ALL;
 
-    if (object_checkReadable(contextP, &uri) == IOWA_COAP_205_CONTENT)
+    if (object_checkReadable(contextP, IOWA_LWM2M_ID_ALL, &uri) == IOWA_COAP_205_CONTENT)
     {
         lwm2m_resource_value_changed(contextP, &uri);
         CRIT_SECTION_LEAVE(contextP);
@@ -2557,6 +2451,7 @@ iowa_status_t objectAddInstance(iowa_context_t contextP,
                                 uint16_t resourceCount,
                                 uint16_t *resourceArray)
 {
+    // WARNING: This function is called in a critical section
     lwm2m_object_t * objectP;
     iowa_status_t result;
 
@@ -2573,17 +2468,6 @@ iowa_status_t objectAddInstance(iowa_context_t contextP,
     {
     case OBJECT_SINGLE:
         result = IOWA_COAP_405_METHOD_NOT_ALLOWED;
-        break;
-
-    case OBJECT_SINGLE_ADVANCED:
-        if (instanceID == 0)
-        {
-            result = prv_addInstance(objectP, instanceID, 0, NULL);
-        }
-        else
-        {
-            result = IOWA_COAP_406_NOT_ACCEPTABLE;
-        }
         break;
 
     case OBJECT_MULTIPLE:
@@ -2624,6 +2508,7 @@ iowa_status_t objectRemoveInstance(iowa_context_t contextP,
                                    uint16_t objectID,
                                    uint16_t instanceID)
 {
+    // WARNING: This function is called in a critical section
     lwm2m_object_t * objectP;
     iowa_status_t result;
 
@@ -2632,7 +2517,7 @@ iowa_status_t objectRemoveInstance(iowa_context_t contextP,
     objectP = (lwm2m_object_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->objectList, listFindCallbackBy16bitsId, &objectID);
     if (NULL == objectP)
     {
-        IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Object %u not found.", objectID);
+        IOWA_LOG_ARG_WARNING(IOWA_PART_LWM2M, "Object %u not found.", objectID);
         return IOWA_COAP_404_NOT_FOUND;
     }
 
@@ -2644,6 +2529,7 @@ iowa_status_t objectRemoveInstance(iowa_context_t contextP,
         switch (objectID)
         {
         case IOWA_LWM2M_SECURITY_OBJECT_ID:
+            // No need to update registration for objects not exposed to the Server
             break;
 
         default:
@@ -2659,39 +2545,11 @@ iowa_status_t objectRemoveInstance(iowa_context_t contextP,
     return result;
 }
 
-bool customObjectHasResource(iowa_context_t contextP,
-                             uint16_t objectID,
-                             uint16_t instanceID,
-                             uint16_t resourceID)
+bool object_hasResource(lwm2m_object_t *objectP,
+                        uint16_t instIndex,
+                        uint16_t resourceID)
 {
-    lwm2m_object_t *objectP;
-    uint16_t instIndex;
     uint16_t resIndex;
-
-    IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Looking for resource %u in instance %u of Object %u. ", resourceID, instanceID, objectID);
-
-    objectP = (lwm2m_object_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->objectList, listFindCallbackBy16bitsId, &objectID);
-    if (NULL == objectP)
-    {
-        IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Object %u not found.", objectID);
-        return false;
-    }
-
-    if (instanceID != IOWA_LWM2M_ID_ALL)
-    {
-
-        instIndex = object_getInstanceIndex(objectP, instanceID);
-        if (instIndex == objectP->instanceCount)
-        {
-            IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Instance %u not found.", instanceID);
-
-            return false;
-        }
-    }
-    else
-    {
-        instIndex = objectP->instanceCount;
-    }
 
     resIndex = prv_getResourceIndex(objectP, instIndex, resourceID);
 

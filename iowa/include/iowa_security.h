@@ -41,11 +41,20 @@ typedef struct _iowa_security_session_t *iowa_security_session_t;
 
 typedef uint8_t iowa_security_mode_t;
 
-#define IOWA_SEC_PRE_SHARED_KEY 0x00
-#define IOWA_SEC_RAW_PUBLIC_KEY 0x01
-#define IOWA_SEC_CERTIFICATE    0x02
-#define IOWA_SEC_NONE           0x03
-#define IOWA_SEC_OSCORE         0xF0
+#define IOWA_SEC_PRE_SHARED_KEY       0x00
+#define IOWA_SEC_RAW_PUBLIC_KEY       0x01
+#define IOWA_SEC_CERTIFICATE          0x02
+#define IOWA_SEC_NONE                 0x03
+#define IOWA_SEC_CERTIFICATE_WITH_EST 0x04
+#define IOWA_SEC_OSCORE               0xF0
+
+typedef uint8_t iowa_cert_usage_mode_t;
+
+#define IOWA_CERTIFICATE_USAGE_CA_CONSTRAINT                    0x00
+#define IOWA_CERTIFICATE_USAGE_SERVICE_CERTIFICATE_CONSTRAINT   0x01
+#define IOWA_CERTIFICATE_USAGE_TRUST_ANCHOR_ASSERTION           0x02
+#define IOWA_CERTIFICATE_USAGE_DOMAIN_ISSUED_CERTIFICATE        0x03
+
 
 typedef enum
 {
@@ -212,6 +221,12 @@ void iowa_security_session_generate_event(iowa_security_session_t securityS,
 // Parameters:
 // - securityS: a security session.
 iowa_connection_type_t iowa_security_session_get_connection_type(iowa_security_session_t securityS);
+
+// Get the underlying connection of a security session.
+// Returned value: the connection as returned by iowa_system_connection_open() or nil.
+// Parameters:
+// - securityS: a security session.
+void * iowa_security_session_get_connection(iowa_security_session_t securityS);
 
 // Get the security mode of a security session.
 // Returned value: the security mode.

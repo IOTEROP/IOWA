@@ -9,7 +9,7 @@
 * |         |         |           |    |    |
 * |_________|_________|___________|____|____|
 *
-* Copyright (c) 2019 IoTerop.
+* Copyright (c) 2019-2020 IoTerop.
 * All rights reserved.
 *
 * This program and the accompanying materials
@@ -23,7 +23,7 @@
 #include "iowa_prv_data_internals.h"
 
 #define PRV_STR_LENGTH                 32
-#define PRV_OBJECT_LINK_TEXT_MAX_LEN   (size_t)11
+#define PRV_OBJECT_LINK_TEXT_MAX_LEN   (size_t)11 // 65535:65535
 
 /*************************************************************************************
 ** Public functions
@@ -33,9 +33,13 @@ iowa_status_t textSerialize(iowa_lwm2m_data_t *dataP,
                             uint8_t **bufferP,
                             size_t *bufferLengthP)
 {
+    assert(dataP != NULL);
+    assert(bufferP != NULL);
+    assert(bufferLengthP != NULL);
+
     IOWA_LOG_ARG_TRACE(IOWA_PART_DATA, "Entering with data type: %s.", STR_LWM2M_TYPE(dataP->type));
 
-
+    // dataP array length is assumed to be 1.
     switch (dataP->type)
     {
     case IOWA_LWM2M_TYPE_STRING:
@@ -68,22 +72,24 @@ iowa_status_t textSerialize(iowa_lwm2m_data_t *dataP,
         }
         else
         {
-
+            // Only encode in Base64 if buffer is not nil
             size_t bufferLength;
 
             bufferLength = iowa_utils_base64_get_encoded_size(dataP->value.asBuffer.length);
 
-
+            // 'bufferLength' cannot be equal to zero
             *bufferP = (uint8_t *)iowa_system_malloc(bufferLength);
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-            if (NULL == *bufferP)
+            if (*bufferP == NULL)
             {
                 IOWA_LOG_ERROR_MALLOC(bufferLength);
                 return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
             }
 #endif
 
-            *bufferLengthP = iowa_utils_base64_encode(dataP->value.asBuffer.buffer, dataP->value.asBuffer.length, *bufferP, bufferLength);
+            *bufferLengthP = bufferLength;
+            utils_b64Encode(dataP->value.asBuffer.buffer, dataP->value.asBuffer.length, *bufferP, bufferLengthP, BASE64_MODE_CLASSIC);
+
             if (*bufferLengthP == 0)
             {
                 IOWA_LOG_WARNING(IOWA_PART_DATA, "Opaque to Base64 conversion failed");
@@ -96,9 +102,9 @@ iowa_status_t textSerialize(iowa_lwm2m_data_t *dataP,
         if (dataP->value.asInteger < 0)
         {
             IOWA_LOG_ARG_WARNING(IOWA_PART_DATA, "Unsigned integer value has a negative value: %d", dataP->value.asInteger);
-            return IOWA_COAP_400_BAD_REQUEST;
+            return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
         }
-
+        // Fall through
     case IOWA_LWM2M_TYPE_INTEGER:
     case IOWA_LWM2M_TYPE_TIME:
     {
@@ -113,7 +119,7 @@ iowa_status_t textSerialize(iowa_lwm2m_data_t *dataP,
 
         *bufferP = (uint8_t *)iowa_system_malloc(*bufferLengthP);
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-        if (NULL == *bufferP)
+        if (*bufferP == NULL)
         {
             IOWA_LOG_ERROR_MALLOC(*bufferLengthP);
             return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
@@ -198,22 +204,18 @@ iowa_status_t textSerialize(iowa_lwm2m_data_t *dataP,
     return IOWA_COAP_NO_ERROR;
 }
 
-iowa_status_t textDeserialize(iowa_lwm2m_uri_t *baseUriP,
-                              uint8_t *bufferP,
-                              size_t bufferLength,
-                              iowa_lwm2m_data_t **dataP,
-                              size_t *dataCountP,
-                              data_resource_type_callback_t resTypeCb,
-                              void *userDataP)
+static iowa_status_t prv_commonDeserialize(iowa_lwm2m_uri_t *baseUriP,
+                                           uint8_t *bufferP,
+                                           size_t bufferLength,
+                                           iowa_lwm2m_data_t **dataP,
+                                           size_t *dataCountP)
 {
-    iowa_status_t result;
-
     IOWA_LOG_TRACE(IOWA_PART_DATA, "Entering.");
 
     *dataCountP = 0;
     *dataP = NULL;
 
-
+    // Check arguments
     if (baseUriP == NULL)
     {
         IOWA_LOG_INFO(IOWA_PART_DATA, "No base URI provided.");
@@ -237,29 +239,56 @@ iowa_status_t textDeserialize(iowa_lwm2m_uri_t *baseUriP,
 #endif
     memset(*dataP, 0, sizeof(iowa_lwm2m_data_t));
 
+    if (bufferLength != 0)
+    {
+        if (IOWA_COAP_NO_ERROR != dataUtilsSetBuffer(bufferP, bufferLength, *dataP, IOWA_LWM2M_TYPE_UNDEFINED))
+        {
+            iowa_system_free(dataP);
+            return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+        }
+    }
+
     (*dataP)->objectID = baseUriP->objectId;
     (*dataP)->instanceID = baseUriP->instanceId;
     (*dataP)->resourceID = baseUriP->resourceId;
     (*dataP)->resInstanceID = baseUriP->resInstanceId;
-
-    result = dataUtilsConvertUndefinedValue(bufferP, bufferLength, *dataP, IOWA_CONTENT_FORMAT_TEXT, resTypeCb, userDataP);
-    if (result != IOWA_COAP_NO_ERROR)
-    {
-        IOWA_LOG_ERROR(IOWA_PART_DATA, "Failed to convert the undefined value.");
-        iowa_system_free(*dataP);
-        *dataP = NULL;
-        return result;
-    }
 
     *dataCountP = 1;
 
     return IOWA_COAP_NO_ERROR;
 }
 
+iowa_status_t textDeserialize(iowa_lwm2m_uri_t *baseUriP,
+                              uint8_t *bufferP,
+                              size_t bufferLength,
+                              iowa_lwm2m_data_t **dataP,
+                              size_t *dataCountP)
+{
+    iowa_status_t result;
+
+    IOWA_LOG_TRACE(IOWA_PART_DATA, "Entering.");
+
+    *dataCountP = 0;
+    *dataP = NULL;
+
+    result = prv_commonDeserialize(baseUriP, bufferP, bufferLength, dataP, dataCountP);
+
+    if (IOWA_COAP_NO_ERROR == result)
+    {
+        (*dataP)->type = IOWA_LWM2M_TYPE_STRING;
+    }
+
+    return result;
+}
+
 iowa_status_t opaqueSerialize(iowa_lwm2m_data_t *dataP,
                               uint8_t **bufferP,
                               size_t *bufferLengthP)
 {
+    assert(dataP != NULL);
+    assert(bufferP != NULL);
+    assert(bufferLengthP != NULL);
+
     IOWA_LOG_ARG_TRACE(IOWA_PART_DATA, "Entering with data type: %s.", STR_LWM2M_TYPE(dataP->type));
 
     switch (dataP->type)
@@ -279,7 +308,7 @@ iowa_status_t opaqueSerialize(iowa_lwm2m_data_t *dataP,
     }
     else
     {
-
+        // dataP array length is assumed to be 1.
         *bufferP = (uint8_t *)iowa_system_malloc(dataP->value.asBuffer.length);
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
         if (*bufferP == NULL)
@@ -300,9 +329,7 @@ iowa_status_t opaqueDeserialize(iowa_lwm2m_uri_t *baseUriP,
                                 uint8_t *bufferP,
                                 size_t bufferLength,
                                 iowa_lwm2m_data_t **dataP,
-                                size_t *dataCountP,
-                                data_resource_type_callback_t resTypeCb,
-                                void *userDataP)
+                                size_t *dataCountP)
 {
     iowa_status_t result;
 
@@ -311,45 +338,12 @@ iowa_status_t opaqueDeserialize(iowa_lwm2m_uri_t *baseUriP,
     *dataCountP = 0;
     *dataP = NULL;
 
+    result = prv_commonDeserialize(baseUriP, bufferP, bufferLength, dataP, dataCountP);
 
-    if (baseUriP == NULL)
+    if (IOWA_COAP_NO_ERROR == result)
     {
-        IOWA_LOG_INFO(IOWA_PART_DATA, "No base URI provided.");
-        return IOWA_COAP_406_NOT_ACCEPTABLE;
-    }
-#ifndef IOWA_CONFIG_SKIP_ARGS_CHECK
-    if (baseUriP->resourceId == IOWA_LWM2M_ID_ALL)
-    {
-        IOWA_LOG_INFO(IOWA_PART_DATA, "This format does only support single resource.");
-        return IOWA_COAP_406_NOT_ACCEPTABLE;
-    }
-#endif
-
-    *dataP = (iowa_lwm2m_data_t *)iowa_system_malloc(sizeof(iowa_lwm2m_data_t));
-#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-    if (*dataP == NULL)
-    {
-        IOWA_LOG_ERROR_MALLOC(sizeof(iowa_lwm2m_data_t));
-        return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-    }
-#endif
-    memset(*dataP, 0, sizeof(iowa_lwm2m_data_t));
-
-    (*dataP)->objectID = baseUriP->objectId;
-    (*dataP)->instanceID = baseUriP->instanceId;
-    (*dataP)->resourceID = baseUriP->resourceId;
-    (*dataP)->resInstanceID = baseUriP->resInstanceId;
-
-    result = dataUtilsConvertUndefinedValue(bufferP, bufferLength, *dataP, IOWA_CONTENT_FORMAT_OPAQUE, resTypeCb, userDataP);
-    if (result != IOWA_COAP_NO_ERROR)
-    {
-        IOWA_LOG_ERROR(IOWA_PART_DATA, "Failed to convert the undefined value.");
-        iowa_system_free(*dataP);
-        *dataP = NULL;
-        return result;
+        (*dataP)->type = IOWA_LWM2M_TYPE_OPAQUE;
     }
 
-    *dataCountP = 1;
-
-    return IOWA_COAP_NO_ERROR;
+    return result;
 }

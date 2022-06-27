@@ -68,7 +68,6 @@ iowa_status_t iowa_client_IPSO_add_sensor(iowa_context_t contextP,
 // Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
 // Parameters:
 // - contextP: returned by iowa_init().
-// - type: type of the IPSO Object.
 // - id: ID of the sensor.
 iowa_status_t iowa_client_IPSO_remove_sensor(iowa_context_t contextP,
                                              iowa_sensor_t id);

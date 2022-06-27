@@ -55,15 +55,17 @@ size_t option_getSerializedLength(iowa_coap_option_t *optionP,
 
     if (isIntegerCallback(optionP))
     {
-        uint32_t limit;
-
-        limit = 10;
-
-        while (optionP->value.asInteger > limit
-               && limit < PRV_INTEGER_LIMIT)
+        if (optionP->value.asInteger > UINT16_MAX)
         {
-            length += 1;
-            limit *= 10;
+            length += sizeof(uint32_t);
+        }
+        else if (optionP->value.asInteger > UINT8_MAX)
+        {
+            length += sizeof(uint16_t);
+        }
+        else
+        {
+            length += sizeof(uint8_t);
         }
     }
     else
@@ -83,6 +85,8 @@ size_t option_getSerializedLength(iowa_coap_option_t *optionP,
     return length;
 }
 
+// This function does not test that buffer is large enough to contain the serialized options.
+// This is intentional as the caller should have used option_getSerializedLength().
 size_t option_serialize(iowa_coap_option_t *optionList,
                         uint8_t *buffer,
                         coap_option_callback_t isIntegerCallback)
@@ -109,7 +113,7 @@ size_t option_serialize(iowa_coap_option_t *optionList,
         {
             optBuffer[0] = PRV_OPT_EXTEND_2 << PRV_OPT_DELTA_SHIFT;
             delta = (uint16_t)(delta - PRV_OPT_LIMIT_2);
-            optBuffer[1] = (uint8_t)((delta & 0xFF00) >> 8);
+            optBuffer[1] = (uint8_t)((uint16_t)(delta & 0xFF00) >> 8);
             optBuffer[2] = (uint8_t)(delta & 0xFF);
             lengthOffset = 3;
             hdrLen = 3;
@@ -134,18 +138,19 @@ size_t option_serialize(iowa_coap_option_t *optionList,
 
         if (isIntegerCallback(optionP))
         {
+            // 32-bit integer text value can not be more than 10
             valueLen = 0;
-            if ((optionP->value.asInteger & 0xFF000000) != 0)
+            if ((optionP->value.asInteger & 0xFF000000L) != 0)
             {
                 optBuffer[hdrLen + valueLen] = (uint8_t)((optionP->value.asInteger >> 24) & 0xFF);
                 valueLen = (uint16_t)(valueLen + 1);
             }
-            if ((optionP->value.asInteger & 0xFFFF0000) != 0)
+            if ((optionP->value.asInteger & 0xFFFF0000L) != 0)
             {
                 optBuffer[hdrLen + valueLen] = (uint8_t)((optionP->value.asInteger >> 16) & 0xFF);
                 valueLen = (uint16_t)(valueLen + 1);
             }
-            if ((optionP->value.asInteger & 0xFFFFFF00) != 0)
+            if ((optionP->value.asInteger & 0xFFFFFF00L) != 0)
             {
                 optBuffer[hdrLen + valueLen] = (uint8_t)((optionP->value.asInteger >> 8) & 0xFF);
                 valueLen = (uint16_t)(valueLen + 1);
@@ -165,7 +170,7 @@ size_t option_serialize(iowa_coap_option_t *optionList,
             {
                 optBuffer[0] |= PRV_OPT_EXTEND_2;
                 valueLen = (uint16_t)(valueLen - PRV_OPT_LIMIT_2);
-                optBuffer[lengthOffset] = (uint8_t)((valueLen & 0xFF00) >> 8);
+                optBuffer[lengthOffset] = (uint8_t)((uint16_t)(valueLen & 0xFF00U) >> 8);
                 optBuffer[lengthOffset + 1] = (uint8_t)(valueLen & 0xFF);
                 hdrLen = (uint8_t)(hdrLen + 2);
             }
@@ -211,7 +216,7 @@ uint8_t option_parse(uint8_t *buffer,
         uint16_t delta;
         uint16_t length;
 
-        delta = (buffer[index] & PRV_OPT_DELTA_MASK) >> PRV_OPT_DELTA_SHIFT;
+        delta = ((uint8_t)(buffer[index] & PRV_OPT_DELTA_MASK)) >> PRV_OPT_DELTA_SHIFT;
         length = buffer[index] & PRV_OPT_LENGTH_MASK;
         index += PRV_OPT_HEADER_LENGTH;
         if (index > bufferLength)
@@ -234,7 +239,7 @@ uint8_t option_parse(uint8_t *buffer,
             break;
 
         case PRV_OPT_EXTEND_2:
-            delta = (uint16_t)(PRV_OPT_LIMIT_2 + (buffer[index] << 8) + buffer[index + 1]);
+            delta = PRV_OPT_LIMIT_2 + ((uint16_t) buffer[index] << 8) + buffer[index + 1];
             index += 2;
             break;
 
@@ -262,7 +267,7 @@ uint8_t option_parse(uint8_t *buffer,
             break;
 
         case PRV_OPT_EXTEND_2:
-            length = (uint16_t)(PRV_OPT_LIMIT_2 + (buffer[index] << 8) + buffer[index + 1]);
+            length = PRV_OPT_LIMIT_2 + ((uint16_t) buffer[index] << 8) + buffer[index + 1];
             index += 2;
             break;
 
@@ -446,6 +451,7 @@ bool iowa_coap_option_compare_to_path(const iowa_coap_option_t *optionP,
         case 0:
             if (path[i] == delimiter)
             {
+                // Skip the first delimiter to allow subpath compare
                 i++;
             }
             break;
@@ -458,6 +464,7 @@ bool iowa_coap_option_compare_to_path(const iowa_coap_option_t *optionP,
             i++;
         }
 
+        // Check the current segment
         for (j=0; j<optionP->length; j++)
         {
             if (path[i] == '\0'
@@ -470,6 +477,7 @@ bool iowa_coap_option_compare_to_path(const iowa_coap_option_t *optionP,
             i++;
         }
 
+        // Go to next option path
         optionP = optionP->next;
     }
 

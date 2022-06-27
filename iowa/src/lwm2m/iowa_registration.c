@@ -9,7 +9,7 @@
 * |         |         |           |    |    |
 * |_________|_________|___________|____|____|
 *
-* Copyright (c) 2018-2019 IoTerop.
+* Copyright (c) 2018-2022 IoTerop.
 * All rights reserved.
 *
 * This program and the accompanying materials
@@ -27,9 +27,9 @@
  * and Eclipse Distribution License v1.0 which accompany this distribution.
  *
  * The Eclipse Public License is available at
- *    http:
+ *    http://www.eclipse.org/legal/epl-v10.html
  * The Eclipse Distribution License is available at
- *    http:
+ *    http://www.eclipse.org/org/documents/edl-v10.php.
  *
  * Contributors:
  *    David Navarro, Intel Corporation - initial API and implementation
@@ -78,13 +78,20 @@
 #include "iowa_prv_lwm2m_internals.h"
 #include "iowa_prv_coap_internals.h"
 
-#define MAX_LOCATION_LENGTH         10
+#define MAX_LOCATION_LENGTH         10      // strlen("/rd/65534") + 1
 #define PRV_LINK_URI_SEPARATOR      "/"
 #define PRV_LINK_URI_SEPARATOR_SIZE 1
 
-#define PRV_RESULT_NO_ERROR_LIFETIME 1
-#define PRV_RESULT_NO_ERROR_NO_LIFETIME 0
-#define PRV_RESULT_ERROR    -1
+#define PRV_DECIMAL_POINT                  '.'
+#define PRV_DEFAULT_MAJOR_OBJECT_VERSION    1
+#define PRV_DEFAULT_MINOR_OBJECT_VERSION    0
+
+#define PRV_RESULT_NO_ERROR_LIFETIME     1
+#define PRV_RESULT_NO_ERROR_NO_LIFETIME  0
+#define PRV_RESULT_ERROR                 -1
+#define PRV_REG_INITAL_TOKEN             {0, 0, 1}
+
+#define PRV_DEFAULT_MAX_REGISTRATION_DELAY 93
 
 /*************************************************************************************
 ** Private functions
@@ -94,20 +101,23 @@
 static iowa_status_t prv_getRegistrationQuery(iowa_context_t contextP, lwm2m_server_t *serverP, size_t *lengthP, char **bufferP);
 static iowa_status_t prv_getRegistrationPayload(iowa_context_t contextP, uint8_t **payloadP, size_t *payloadLengthP);
 static int32_t prv_getUpdateDelay(lwm2m_server_t *serverP);
-static void prv_serverRegistrationFailing(iowa_context_t contextP, lwm2m_server_t *serverP);
+static void prv_serverRegistrationFailing(iowa_context_t contextP, lwm2m_server_t *serverP, bool isInternal, uint8_t code);
 static void prv_handleRegistrationUpdateReply(iowa_coap_peer_t *fromPeerP, uint8_t status, iowa_coap_message_t * responseP, void * userData, iowa_context_t contextP);
 static void prv_updateRegistration(iowa_context_t contextP, lwm2m_server_t *serverP);
 static void prv_handleClientUpdateTimer(iowa_context_t contextP, void *userData);
 static void prv_handleClientLifetimeTimer(iowa_context_t contextP, void *userData);
 static void prv_handleRegistrationReply(iowa_coap_peer_t *fromPeer, uint8_t status, iowa_coap_message_t *responseP, void * userData, iowa_context_t contextP);
 static iowa_status_t prv_register(iowa_context_t contextP, lwm2m_server_t *serverP);
-#ifndef IOWA_SERVER_RSC_REGISTRATION_BEHAVIOUR_REMOVE
-static bool prv_checkStartServerRegistration(iowa_context_t contextP, lwm2m_server_t *serverP);
-#endif
-static iowa_status_t prv_initiateServerConnection(iowa_context_t contextP, lwm2m_server_t *serverP);
-#endif
+static iowa_status_t prv_initiateServerConnection(iowa_context_t contextP, lwm2m_server_t *serverP, bool registrationFailureOnError);
+#endif // LWM2M_CLIENT_MODE
 
 #ifdef LWM2M_CLIENT_MODE
+static bool prv_getServerByPeer(void *nodeP,
+                                void *criteria)
+{
+    return (((lwm2m_server_t *)nodeP)->runtime.peerP == (iowa_coap_peer_t *)criteria);
+}
+
 iowa_status_t prv_getRegistrationQuery(iowa_context_t contextP,
                                        lwm2m_server_t *serverP,
                                        size_t *lengthP,
@@ -115,19 +125,22 @@ iowa_status_t prv_getRegistrationQuery(iowa_context_t contextP,
 {
     size_t length;
     size_t res;
-#if defined(IOWA_UDP_SUPPORT) || defined(IOWA_TCP_SUPPORT) || defined(IOWA_SMS_SUPPORT)
+#if defined(IOWA_UDP_SUPPORT) || defined(IOWA_TCP_SUPPORT) || defined(IOWA_WEBSOCKET_SUPPORT) || defined(IOWA_SMS_SUPPORT)
     uint8_t *strBinding;
     size_t strBindingLen;
+
+    // SonarQube does not raise any issue but some compilers emit warning hence the superfluous initialization of strBindingLen.
+    strBindingLen = 0;
 #endif
 
-
+    // Calculate the query length
     switch (coapPeerGetConnectionType(serverP->runtime.peerP))
     {
 
     default:
     {
-#if defined(IOWA_UDP_SUPPORT) || defined(IOWA_TCP_SUPPORT) || defined(IOWA_SMS_SUPPORT)
-        lwm2m_binding_t binding;
+#if defined(IOWA_UDP_SUPPORT) || defined(IOWA_TCP_SUPPORT) || defined(IOWA_WEBSOCKET_SUPPORT) || defined(IOWA_SMS_SUPPORT)
+        iowa_lwm2m_binding_t binding;
 
         length = QUERY_LIFETIME_LEN + dataUtilsIntToBufferLength(serverP->lifetime, false) + 1 + QUERY_DELIMITER_LEN + QUERY_VERSION_LEN + LWM2M_VERSION_LEN;
         if (contextP->lwm2mContextP->endpointName != NULL)
@@ -137,26 +150,22 @@ iowa_status_t prv_getRegistrationQuery(iowa_context_t contextP,
 
         switch (serverP->lwm2mVersion)
         {
-#ifndef LWM2M_VERSION_1_0_REMOVE
         case IOWA_LWM2M_VERSION_1_0:
-
+            // In LwM2M 1.0: Server transports + Server Queue mode
             binding = serverP->binding;
             break;
-#endif
 
         default:
             goto exit_on_error;
         }
 
-        if (binding != BINDING_U)
+        if (binding != IOWA_LWM2M_BINDING_UDP) // UDP binding is the default binding
         {
             switch (serverP->lwm2mVersion)
             {
-#ifndef LWM2M_VERSION_1_0_REMOVE
             case IOWA_LWM2M_VERSION_1_0:
                 strBindingLen = utils_bindingToString(binding, (binding & BINDING_Q) != 0, &strBinding);
                 break;
-#endif
 
             default:
                 goto exit_on_error;
@@ -169,11 +178,11 @@ iowa_status_t prv_getRegistrationQuery(iowa_context_t contextP,
             strBindingLen = 0;
         }
 
-#endif
+#endif // IOWA_UDP_SUPPORT || IOWA_TCP_SUPPORT  || IOWA_WEBSOCKET_SUPPORT || IOWA_SMS_SUPPORT
     }
     }
 
-
+    // Allocate the memory
     *bufferP = (char *)iowa_system_malloc(length);
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
     if (*bufferP == NULL)
@@ -183,7 +192,7 @@ iowa_status_t prv_getRegistrationQuery(iowa_context_t contextP,
     }
 #endif
 
-
+    // Fill the query
     *lengthP = utilsStringCopy(*bufferP, length, QUERY_LIFETIME);
 
     res = dataUtilsIntToBuffer(serverP->lifetime, (uint8_t*)*bufferP + *lengthP, length - *lengthP, false);
@@ -197,16 +206,14 @@ iowa_status_t prv_getRegistrationQuery(iowa_context_t contextP,
     {
 
     default:
-#if defined(IOWA_UDP_SUPPORT) || defined(IOWA_TCP_SUPPORT) || defined(IOWA_SMS_SUPPORT)
+#if defined(IOWA_UDP_SUPPORT) || defined(IOWA_TCP_SUPPORT) || defined(IOWA_WEBSOCKET_SUPPORT) || defined(IOWA_SMS_SUPPORT)
         *lengthP += utilsStringCopy(*bufferP + *lengthP, length - *lengthP, QUERY_DELIMITER QUERY_VERSION);
 
         switch (serverP->lwm2mVersion)
         {
-#ifndef LWM2M_VERSION_1_0_REMOVE
         case IOWA_LWM2M_VERSION_1_0:
             *lengthP += utilsStringCopy(*bufferP + *lengthP, length - *lengthP, LWM2M_VERSION_1_0);
             break;
-#endif
 
         default:
             goto exit_on_error;
@@ -232,7 +239,7 @@ iowa_status_t prv_getRegistrationQuery(iowa_context_t contextP,
             iowa_system_free(strBinding);
         }
 
-#endif
+#endif // IOWA_UDP_SUPPORT || IOWA_TCP_SUPPORT  || IOWA_WEBSOCKET_SUPPORT || IOWA_SMS_SUPPORT
         break;
     }
 
@@ -257,7 +264,7 @@ iowa_status_t prv_getRegistrationPayload(iowa_context_t contextP,
     size_t nbLink;
     size_t linkIndex;
 
-
+    // Get CoRE Link
     result = object_getList(contextP, IOWA_LWM2M_ID_ALL, &linkP, &nbLink);
     if (result != IOWA_COAP_NO_ERROR)
     {
@@ -265,13 +272,26 @@ iowa_status_t prv_getRegistrationPayload(iowa_context_t contextP,
         return result;
     }
 
-
+    // Remove not needed object in registration message
     linkIndex = 0;
     while (linkIndex < nbLink)
     {
         switch (linkP[linkIndex].uri.objectId)
         {
         case IOWA_LWM2M_ID_ALL:
+#ifdef LWM2M_ALTPATH_SUPPORT
+            if (contextP->lwm2mContextP->altPath != NULL)
+            {
+                result = coreLinkAddBufferAttribute(linkP, KEY_RESOURCE_TYPE, (uint8_t *)REG_RESOURCE_TYPE, REG_RESOURCE_TYPE_LEN, false);
+                if (result != IOWA_COAP_NO_ERROR)
+                {
+                    coreLinkFree(linkP, nbLink);
+                    return result;
+                }
+                linkIndex++;
+            }
+            else
+#endif
             {
                 nbLink--;
                 memmove(linkP + linkIndex, linkP + linkIndex + 1, (nbLink - linkIndex) * sizeof(link_t));
@@ -287,7 +307,11 @@ iowa_status_t prv_getRegistrationPayload(iowa_context_t contextP,
             linkIndex++;
         }
     }
+#ifdef LWM2M_ALTPATH_SUPPORT
+    result = coreLinkSerialize(linkP, nbLink, contextP->lwm2mContextP->altPath, payloadP, payloadLengthP);
+#else
     result = coreLinkSerialize(linkP, nbLink, payloadP, payloadLengthP);
+#endif
     coreLinkFree(linkP, nbLink);
 
     return result;
@@ -299,6 +323,11 @@ int32_t prv_getUpdateDelay(lwm2m_server_t *serverP)
     int32_t conservativeLifetime;
 
     coapMaxTransmitWait = coapPeerGetMaxTxWait(serverP->runtime.peerP);
+    if (coapMaxTransmitWait < 0)
+    {
+        IOWA_LOG_ERROR(IOWA_PART_BASE, "Failed to get max transmit time.");
+        return -1;
+    }
 
     conservativeLifetime = serverP->lifetime;
 
@@ -308,7 +337,7 @@ int32_t prv_getUpdateDelay(lwm2m_server_t *serverP)
     }
     else
     {
-        conservativeLifetime = conservativeLifetime >> 1;
+        conservativeLifetime = (uint32_t)conservativeLifetime >> 1;
     }
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Conservative lifetime is %ds.", conservativeLifetime);
@@ -317,9 +346,11 @@ int32_t prv_getUpdateDelay(lwm2m_server_t *serverP)
 }
 
 void prv_serverRegistrationFailing(iowa_context_t contextP,
-                                   lwm2m_server_t *serverP)
+                                   lwm2m_server_t *serverP,
+                                   bool isInternal,
+                                   uint8_t code)
 {
-
+    // WARNING: This function is called in a critical section
     IOWA_LOG_ARG_WARNING(IOWA_PART_LWM2M, "Registration or Registration Update to Server %d failed.", serverP->shortId);
 
     lwm2m_server_close(contextP, serverP, false);
@@ -329,8 +360,8 @@ void prv_serverRegistrationFailing(iowa_context_t contextP,
 
     contextP->timeout = 0;
 
-
-    coreServerEventCallback(contextP, serverP, IOWA_EVENT_REG_FAILED);
+    // After the server event callback, don't try to access 'serverP' pointer since the application callback could have removed it
+    coreServerEventCallback(contextP, serverP, IOWA_EVENT_REG_FAILED, isInternal, code);
 }
 
 void prv_handleRegistrationUpdateReply(iowa_coap_peer_t *fromPeerP,
@@ -339,23 +370,17 @@ void prv_handleRegistrationUpdateReply(iowa_coap_peer_t *fromPeerP,
                                        void *userDataP,
                                        iowa_context_t contextP)
 {
-
+    // WARNING: This function is called in a critical section
     lwm2m_server_t *serverP;
     uint8_t *updateFlagsP;
 
 
     (void)status;
 
-    updateFlagsP = (uint8_t *)userDataP;
+    updateFlagsP = (uint8_t *)userDataP; // The user data contains the registration flags to remove
 
-
-    for (serverP = contextP->lwm2mContextP->serverList; serverP != NULL; serverP = serverP->next)
-    {
-        if (serverP->runtime.peerP == fromPeerP)
-        {
-            break;
-        }
-    }
+    // Find the Server from the CoAP peer
+    serverP = (lwm2m_server_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->serverList, utilsListFindCallbackServerByPeer, fromPeerP);
     if (serverP == NULL)
     {
         iowa_system_free(updateFlagsP);
@@ -364,17 +389,17 @@ void prv_handleRegistrationUpdateReply(iowa_coap_peer_t *fromPeerP,
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Entering with Server state: %s.", LWM2M_SERVER_STR_STATUS(serverP->runtime.status));
 
-
+    // Set the availability of the Server
     if (responseP == NULL)
     {
-        serverP->runtime.flags &= ~LWM2M_SERVER_FLAG_AVAILABLE;
+        serverP->runtime.flags &= (uint16_t)(~LWM2M_SERVER_FLAG_AVAILABLE);
     }
     else
     {
         serverP->runtime.flags |= LWM2M_SERVER_FLAG_AVAILABLE;
     }
 
-
+    // Handle the Registration Update reply
     switch (serverP->runtime.status)
     {
     case STATE_REG_UPDATE_PENDING:
@@ -389,7 +414,7 @@ void prv_handleRegistrationUpdateReply(iowa_coap_peer_t *fromPeerP,
                     if (serverP->runtime.lifetimeTimerP == NULL)
                     {
                         IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to create the timer.");
-                        prv_serverRegistrationFailing(contextP, serverP);
+                        prv_serverRegistrationFailing(contextP, serverP, true, IOWA_COAP_500_INTERNAL_SERVER_ERROR);
                         goto exit;
                     }
                 }
@@ -398,7 +423,7 @@ void prv_handleRegistrationUpdateReply(iowa_coap_peer_t *fromPeerP,
                     if (coreTimerReset(contextP, serverP->runtime.lifetimeTimerP, serverP->lifetime) != IOWA_COAP_NO_ERROR)
                     {
                         IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to reset the timer.");
-                        prv_serverRegistrationFailing(contextP, serverP);
+                        prv_serverRegistrationFailing(contextP, serverP, true, IOWA_COAP_500_INTERNAL_SERVER_ERROR);
                         goto exit;
                     }
                 }
@@ -409,7 +434,7 @@ void prv_handleRegistrationUpdateReply(iowa_coap_peer_t *fromPeerP,
                     if (serverP->runtime.updateTimerP == NULL)
                     {
                         IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to create the timer.");
-                        prv_serverRegistrationFailing(contextP, serverP);
+                        prv_serverRegistrationFailing(contextP, serverP, true, IOWA_COAP_500_INTERNAL_SERVER_ERROR);
                         goto exit;
                     }
                 }
@@ -418,22 +443,22 @@ void prv_handleRegistrationUpdateReply(iowa_coap_peer_t *fromPeerP,
                     if (coreTimerReset(contextP, serverP->runtime.updateTimerP, prv_getUpdateDelay(serverP)) != IOWA_COAP_NO_ERROR)
                     {
                         IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to reset the timer.");
-                        prv_serverRegistrationFailing(contextP, serverP);
+                        prv_serverRegistrationFailing(contextP, serverP, true, IOWA_COAP_500_INTERNAL_SERVER_ERROR);
                         goto exit;
                     }
                 }
 
                 serverP->runtime.status = STATE_REG_REGISTERED;
 
-
-                coreServerEventCallback(contextP, serverP, IOWA_EVENT_REG_REGISTERED);
+                // After the server event callback, don't try to access 'serverP' pointer since the application callback could have removed it
+                coreServerEventCallback(contextP, serverP, IOWA_EVENT_REG_REGISTERED, false, IOWA_COAP_NO_ERROR);
 
                 IOWA_LOG_INFO(IOWA_PART_LWM2M, "Registration update successful.");
                 break;
 
             default:
                 IOWA_LOG_ARG_WARNING(IOWA_PART_LWM2M, "Received from the Server: %u.%02u.", (responseP->code & 0xFF) >> 5, (responseP->code & 0x1F));
-                prv_serverRegistrationFailing(contextP, serverP);
+                prv_serverRegistrationFailing(contextP, serverP, false, responseP->code);
             }
         }
         else
@@ -442,18 +467,18 @@ void prv_handleRegistrationUpdateReply(iowa_coap_peer_t *fromPeerP,
 
             if (updateFlagsP != NULL)
             {
-
+                // Set back the registration update flags since the Server didn't receive the update
                 serverP->runtime.update |= *updateFlagsP;
             }
-            serverP->runtime.status = STATE_REG_REGISTERED;
+            serverP->runtime.status = STATE_REG_REGISTERED; // Fallback to registered state since the registration update mechanism is finished.
 
-
-            coreServerEventCallback(contextP, serverP, IOWA_EVENT_REG_UPDATE_FAILED);
+            // After the server event callback, don't try to access 'serverP' pointer since the application callback could have removed it
+            coreServerEventCallback(contextP, serverP, IOWA_EVENT_REG_UPDATE_FAILED, true, IOWA_COAP_503_SERVICE_UNAVAILABLE);
         }
         break;
 
     default:
-
+        // Do nothing
         break;
     }
 
@@ -464,19 +489,27 @@ exit:
 void prv_updateRegistration(iowa_context_t contextP,
                             lwm2m_server_t *serverP)
 {
-
+    // WARNING: This function is called in a critical section
     iowa_coap_message_t *messageP;
     iowa_coap_option_t *optionP;
     uint8_t *payload;
-    uint8_t lifetimeBuffer[QUERY_LIFETIME_LEN + QUERY_LIFETIME_MAX_LEN];
+    char *bufferP;
+    size_t length;
     iowa_status_t result;
-    uint8_t token;
+    uint8_t token[COAP_MSG_TOKEN_MAX_LEN];
+    uint8_t tokenLength;
     uint8_t *updateFlagsP;
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Server ID: %u, with update: 0x%02X.", serverP->shortId, serverP->runtime.update);
 
-    coapPeerGenerateToken(serverP->runtime.peerP, 1, &token);
-    messageP = iowa_coap_message_new(IOWA_COAP_TYPE_CONFIRMABLE, IOWA_COAP_CODE_POST, 1, &token);
+    result = coapPeerGenerateToken(serverP->runtime.peerP, &tokenLength, token);
+    if (result != IOWA_COAP_NO_ERROR)
+    {
+        IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failure to generate a new token.");
+        return;
+    }
+
+    messageP = iowa_coap_message_new(IOWA_COAP_TYPE_CONFIRMABLE, IOWA_COAP_CODE_POST, tokenLength, token);
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
     if (messageP == NULL)
     {
@@ -489,37 +522,107 @@ void prv_updateRegistration(iowa_context_t contextP,
     if (optionP == NULL)
     {
         iowa_coap_message_free(messageP);
-        IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Exiting.");
+        IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to create a COAP message.");
         return;
     }
     iowa_coap_message_add_option(messageP, optionP);
 
+    bufferP = NULL;
+    length = 0;
+
+    //Get the length of the registration update query.
     if (serverP->runtime.update & LWM2M_UPDATE_FLAG_LIFETIME)
     {
-        size_t length;
+        length += QUERY_LIFETIME_LEN + QUERY_LIFETIME_MAX_LEN;
+    }
 
-        IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Updating lifetime to %ds.", serverP->lifetime);
-
-        memcpy(lifetimeBuffer, QUERY_LIFETIME, QUERY_LIFETIME_LEN);
-        length = dataUtilsIntToBuffer(serverP->lifetime, lifetimeBuffer + QUERY_LIFETIME_LEN, QUERY_LIFETIME_MAX_LEN, false);
-        if (length == 0)
+    if (serverP->runtime.update & LWM2M_UPDATE_FLAG_BINDING)
+    {
+        if (length > 0)
         {
-            IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Exiting.");
-            return;
+           length += QUERY_DELIMITER_LEN;
         }
-        length += QUERY_LIFETIME_LEN;
+        length += QUERY_BINDING_LEN + QUERY_BINDING_MAX_LEN;
 
-        optionP = iowa_coap_option_new(IOWA_COAP_OPTION_URI_QUERY);
+    }
+
+    //Set the registration update query.
+    if (length > 0)
+    {
+        size_t index;
+
+        length++; // for end of line.
+        index = 0;
+
+        bufferP = (char *)iowa_system_malloc(length * sizeof(char));
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-        if (optionP == NULL)
+        if (bufferP == NULL)
         {
             iowa_coap_message_free(messageP);
-            IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to create new CoAP option.");
+            IOWA_LOG_ERROR_MALLOC(length * sizeof(char));
             return;
         }
 #endif
-        optionP->length = (uint16_t)length;
-        optionP->value.asBuffer = lifetimeBuffer;
+
+        if (serverP->runtime.update & LWM2M_UPDATE_FLAG_LIFETIME)
+        {
+            size_t res;
+
+            index += utilsStringCopy(bufferP, length, QUERY_LIFETIME);
+            res = dataUtilsIntToBuffer(serverP->lifetime, (uint8_t *)bufferP + index, length - index, false);
+            if (res == 0)
+            {
+                iowa_system_free(bufferP);
+                iowa_coap_message_free(messageP);
+                IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to parse lifetime");
+                return;
+            }
+            index += res;
+            IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Updating lifetime to %ds.", serverP->lifetime);
+        }
+
+        if (serverP->runtime.update & LWM2M_UPDATE_FLAG_BINDING)
+        {
+            uint8_t *strBinding;
+            size_t strBindingLen;
+
+            if (index > 0)
+            {
+                index += utilsStringCopy(bufferP + index, length - index, QUERY_DELIMITER);
+            }
+
+            index += utilsStringCopy(bufferP + index, length - index, QUERY_BINDING);
+
+            strBinding = NULL;
+            strBindingLen = 0;
+
+            switch(serverP->lwm2mVersion)
+            {
+            case IOWA_LWM2M_VERSION_1_0:
+                strBindingLen = utils_bindingToString(serverP->binding, (serverP->binding & BINDING_Q) != 0, &strBinding);
+                break;
+
+            default:
+                //Should not happen.
+                break;
+            }
+
+            memcpy(bufferP + index, strBinding, strBindingLen);
+            index += strBindingLen ;
+            iowa_system_free(strBinding);
+
+            IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Updating binding to %d.", serverP->binding);
+        }
+        bufferP[index] = '\0';
+
+        optionP = iowa_coap_path_to_option(IOWA_COAP_OPTION_URI_QUERY, bufferP, QUERY_SEPARATOR);
+        if (optionP == NULL)
+        {
+            iowa_system_free(bufferP);
+            iowa_coap_message_free(messageP);
+            IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to create new COAP option.");
+            return;
+        }
         iowa_coap_message_add_option(messageP, optionP);
     }
 
@@ -534,6 +637,8 @@ void prv_updateRegistration(iowa_context_t contextP,
         result = prv_getRegistrationPayload(contextP, &payload, &payloadLength);
         if (result != IOWA_COAP_NO_ERROR)
         {
+            IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to get the registration payload.");
+            iowa_coap_message_free(messageP);
             return;
         }
 
@@ -550,11 +655,10 @@ void prv_updateRegistration(iowa_context_t contextP,
         optionP->value.asInteger = IOWA_COAP_FORMAT_LINK_FORMAT;
         iowa_coap_message_add_option(messageP, optionP);
 
-        messageP->payload.length = payloadLength;
-        messageP->payload.data = payload;
+        coreBufferSet(&(messageP->payload), payload, payloadLength);
     }
 
-
+    // Keep the value of the registration update flags
     if (serverP->runtime.update != LWM2M_UPDATE_FLAG_NONE)
     {
         updateFlagsP = (uint8_t *)iowa_system_malloc(sizeof(uint8_t));
@@ -578,20 +682,21 @@ void prv_updateRegistration(iowa_context_t contextP,
     if (result == IOWA_COAP_NO_ERROR)
     {
         serverP->runtime.status = STATE_REG_UPDATE_PENDING;
-        serverP->runtime.update = LWM2M_UPDATE_FLAG_NONE;
+        serverP->runtime.update = LWM2M_UPDATE_FLAG_NONE; // Reset the registration update flags since the message has been sent
 
-
-        coreServerEventCallback(contextP, serverP, IOWA_EVENT_REG_UPDATING);
+        // After the server event callback, don't try to access 'serverP' pointer since the application callback could have removed it
+        coreServerEventCallback(contextP, serverP, IOWA_EVENT_REG_UPDATING, false, IOWA_COAP_NO_ERROR);
     }
     else
     {
         iowa_system_free(updateFlagsP);
 
-
-        coreServerEventCallback(contextP, serverP, IOWA_EVENT_REG_UPDATE_FAILED);
+        // After the server event callback, don't try to access 'serverP' pointer since the application callback could have removed it
+        coreServerEventCallback(contextP, serverP, IOWA_EVENT_REG_UPDATE_FAILED, true, result);
     }
 
     iowa_system_free(payload);
+    iowa_system_free(bufferP);
     iowa_coap_message_free(messageP);
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Exiting with result %u.%02u.", (result & 0xFF) >> 5, (result & 0x1F));
@@ -600,7 +705,7 @@ void prv_updateRegistration(iowa_context_t contextP,
 void prv_handleClientUpdateTimer(iowa_context_t contextP,
                                  void *userData)
 {
-
+    // WARNING: This function is called in a critical section
     lwm2m_server_t *serverP;
 
     serverP = (lwm2m_server_t *)userData;
@@ -616,7 +721,7 @@ void prv_handleClientUpdateTimer(iowa_context_t contextP,
         break;
 
     default:
-
+        // Do nothing
         break;
     }
 }
@@ -635,31 +740,34 @@ void prv_handleClientLifetimeTimer(iowa_context_t contextP,
     switch (serverP->runtime.status)
     {
     case STATE_DISCONNECTED:
-#ifndef IOWA_SERVER_RSC_DISABLE_TIMEOUT_REMOVE
-
+#ifdef IOWA_SERVER_SUPPORT_RSC_DISABLE_TIMEOUT
+        // Handle Disable behaviour
         if (serverP->runtime.flags & LWM2M_SERVER_FLAG_DISABLE)
         {
-            serverP->runtime.flags &= ~LWM2M_SERVER_FLAG_DISABLE;
+            serverP->runtime.flags &= (uint16_t)(~LWM2M_SERVER_FLAG_DISABLE);
+            contextP->timeout = 0;
         }
-#endif
-#ifndef IOWA_SERVER_RSC_REGISTRATION_BEHAVIOUR_REMOVE
-        if (serverP->runtime.flags & LWM2M_SERVER_FLAG_INITIAL_TIMER_WAIT)
-        {
-            serverP->runtime.flags &= ~LWM2M_SERVER_FLAG_INITIAL_TIMER_WAIT;
-
-            serverP->runtime.status = STATE_WAITING_CONNECTION;
-            if (prv_initiateServerConnection(contextP, serverP) != IOWA_COAP_NO_ERROR)
-            {
-                serverP->runtime.status = STATE_REG_FAILED;
-                contextP->timeout = 0;
-            }
-        }
-#endif
+#endif // IOWA_SERVER_SUPPORT_RSC_DISABLE_TIMEOUT
         break;
 
     default:
-        prv_serverRegistrationFailing(contextP, serverP);
+        prv_serverRegistrationFailing(contextP, serverP, true, IOWA_COAP_503_SERVICE_UNAVAILABLE);
     }
+}
+
+void prv_handleRegistrationExchangeTimer(iowa_context_t contextP,
+                                         void *userData)
+{
+    // WARNING: This function is called in a critical section
+    lwm2m_server_t *serverP;
+
+    serverP = (lwm2m_server_t *)userData;
+
+    IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Entering with Server state: %s.", LWM2M_SERVER_STR_STATUS(serverP->runtime.status));
+
+    serverP->runtime.updateTimerP = NULL;
+
+    prv_serverRegistrationFailing(contextP, serverP, true, IOWA_COAP_503_SERVICE_UNAVAILABLE);
 }
 
 void prv_handleRegistrationReply(iowa_coap_peer_t *fromPeer,
@@ -668,16 +776,26 @@ void prv_handleRegistrationReply(iowa_coap_peer_t *fromPeer,
                                  void *userDataP,
                                  iowa_context_t contextP)
 {
-
+    // WARNING: This function is called in a critical section
     lwm2m_server_t *serverP;
 
-    (void)fromPeer;
-
-    serverP = (lwm2m_server_t *)userDataP;
+    serverP = (lwm2m_server_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->serverList, prv_getServerByPeer, fromPeer);
+    if (serverP == NULL)
+    {
+        IOWA_LOG_TRACE(IOWA_PART_LWM2M, "Server has not been found.");
+        goto exit;
+    }
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Entering with Server state: %s.", LWM2M_SERVER_STR_STATUS(serverP->runtime.status));
 
+    // Stop the Exchange timer
+    if (serverP->runtime.updateTimerP != NULL)
+    {
+        coreTimerDelete(contextP, serverP->runtime.updateTimerP);
+        serverP->runtime.updateTimerP = NULL;
+    }
 
+    // Handle the Registration reply
     switch (serverP->runtime.status)
     {
     case STATE_REG_REGISTERING:
@@ -695,23 +813,24 @@ void prv_handleRegistrationReply(iowa_coap_peer_t *fromPeer,
                 if (optionP == NULL)
                 {
                     IOWA_LOG_WARNING(IOWA_PART_LWM2M, "No Location-Path option found.");
-                    return;
+                    prv_serverRegistrationFailing(contextP, serverP, true, IOWA_COAP_406_NOT_ACCEPTABLE);
+                    goto exit;
                 }
 
                 serverP->runtime.lifetimeTimerP = coreTimerNew(contextP, serverP->lifetime, prv_handleClientLifetimeTimer, serverP);
                 if (serverP->runtime.lifetimeTimerP == NULL)
                 {
                     IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to create the timer.");
-                    prv_serverRegistrationFailing(contextP, serverP);
-                    return;
+                    prv_serverRegistrationFailing(contextP, serverP, true, IOWA_COAP_500_INTERNAL_SERVER_ERROR);
+                    goto exit;
                 }
 
                 serverP->runtime.updateTimerP = coreTimerNew(contextP, prv_getUpdateDelay(serverP), prv_handleClientUpdateTimer, serverP);
                 if (serverP->runtime.updateTimerP == NULL)
                 {
                     IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to create the timer.");
-                    prv_serverRegistrationFailing(contextP, serverP);
-                    return;
+                    prv_serverRegistrationFailing(contextP, serverP, true, IOWA_COAP_500_INTERNAL_SERVER_ERROR);
+                    goto exit;
                 }
 
                 startP = optionP;
@@ -729,7 +848,8 @@ void prv_handleRegistrationReply(iowa_coap_peer_t *fromPeer,
                 if (serverP->runtime.location == NULL)
                 {
                     IOWA_LOG_ERROR_MALLOC(length + 1);
-                    return;
+                    prv_serverRegistrationFailing(contextP, serverP, true, IOWA_COAP_500_INTERNAL_SERVER_ERROR);
+                    goto exit;
                 }
 #endif
 
@@ -748,53 +868,63 @@ void prv_handleRegistrationReply(iowa_coap_peer_t *fromPeer,
 
                 serverP->runtime.status = STATE_REG_REGISTERED;
 
-#ifndef IOWA_SERVER_RSC_COMMUNICATION_ATTEMPTS_REMOVE
-                serverP->runtime.retryCount = 0;
-                serverP->runtime.sequenceRetryCount = 0;
-#endif
-
                 IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Registration successful at \"%s\".", serverP->runtime.location);
 
-
-                coreServerEventCallback(contextP, serverP, IOWA_EVENT_REG_REGISTERED);
+                // After the server event callback, don't try to access 'serverP' pointer since the application callback could have removed it
+                coreServerEventCallback(contextP, serverP, IOWA_EVENT_REG_REGISTERED, false, IOWA_COAP_NO_ERROR);
                 break;
             }
 
             default:
                 IOWA_LOG_ARG_WARNING(IOWA_PART_LWM2M, "Received from the Server: %u.%02u.", (responseP->code & 0xFF) >> 5, (responseP->code & 0x1F));
-                prv_serverRegistrationFailing(contextP, serverP);
+                prv_serverRegistrationFailing(contextP, serverP, false, responseP->code);
             }
         }
         else
         {
-            prv_serverRegistrationFailing(contextP, serverP);
+            prv_serverRegistrationFailing(contextP, serverP, true, IOWA_COAP_503_SERVICE_UNAVAILABLE);
         }
         break;
 
     default:
-
+        // Do nothing
         break;
     }
+exit:
+    iowa_system_free(userDataP);
 }
 
-
+// send the registration for a single server
 iowa_status_t prv_register(iowa_context_t contextP,
                            lwm2m_server_t *serverP)
 {
-
+    // WARNING: This function is called in a critical section
+    char *uriPath;
+    char *uriQuery;
     char *query;
     size_t queryLength;
     uint8_t *payload;
     iowa_coap_message_t *messageP;
     iowa_coap_option_t *optionP;
     iowa_status_t result;
-    uint8_t token;
+    uint8_t token[3] = PRV_REG_INITAL_TOKEN;
+    uint8_t tokenLength;
+    int32_t delay;
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Entering: Server ID: %u, state: %s.", serverP->shortId, LWM2M_SERVER_STR_STATUS(serverP->runtime.status));
 
+    uriPath = NULL;
+    uriQuery = NULL;
     query = NULL;
     payload = NULL;
     messageP = NULL;
+
+    if (iowa_coap_uri_parse(serverP->uri, NULL, NULL, NULL, &uriPath, &uriQuery, NULL) != IOWA_COAP_NO_ERROR)
+    {
+        IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to parse the LwM2M Server URI.");
+        result = IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+        goto premature_exit;
+    }
 
     if (prv_getRegistrationQuery(contextP, serverP, &queryLength, &query) != IOWA_COAP_NO_ERROR)
     {
@@ -802,8 +932,14 @@ iowa_status_t prv_register(iowa_context_t contextP,
         goto premature_exit;
     }
 
-    coapPeerGenerateToken(serverP->runtime.peerP, 1, &token);
-    messageP = iowa_coap_message_new(IOWA_COAP_TYPE_CONFIRMABLE, IOWA_COAP_CODE_POST, 1, &token);
+    result = coapPeerGenerateToken(serverP->runtime.peerP, &tokenLength, token);
+    if (result != IOWA_COAP_NO_ERROR)
+    {
+        IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failure to generate a new token.");
+        goto premature_exit;
+    }
+
+    messageP = iowa_coap_message_new(IOWA_COAP_TYPE_CONFIRMABLE, IOWA_COAP_CODE_POST, 3, token);
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
     if (messageP == NULL)
     {
@@ -813,6 +949,17 @@ iowa_status_t prv_register(iowa_context_t contextP,
     }
 #endif
 
+    if (uriPath != NULL)
+    {
+        optionP = iowa_coap_path_to_option(IOWA_COAP_OPTION_URI_PATH, uriPath, REG_PATH_DELIMITER);
+        if (optionP == NULL)
+        {
+            result = IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+            goto premature_exit;
+        }
+        iowa_coap_message_add_option(messageP, optionP);
+    }
+
     optionP = iowa_coap_path_to_option(IOWA_COAP_OPTION_URI_PATH, URI_REGISTRATION_SEGMENT, REG_PATH_DELIMITER);
     if (optionP == NULL)
     {
@@ -820,6 +967,17 @@ iowa_status_t prv_register(iowa_context_t contextP,
         goto premature_exit;
     }
     iowa_coap_message_add_option(messageP, optionP);
+
+    if (uriQuery != NULL)
+    {
+        optionP = iowa_coap_path_to_option(IOWA_COAP_OPTION_URI_QUERY, uriQuery, QUERY_SEPARATOR);
+        if (optionP == NULL)
+        {
+            result = IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+            goto premature_exit;
+        }
+        iowa_coap_message_add_option(messageP, optionP);
+    }
 
     if (query != NULL)
     {
@@ -857,20 +1015,41 @@ iowa_status_t prv_register(iowa_context_t contextP,
         optionP->value.asInteger = IOWA_COAP_FORMAT_LINK_FORMAT;
         iowa_coap_message_add_option(messageP, optionP);
 
-        messageP->payload.length = payloadLength;
-        messageP->payload.data = payload;
+        coreBufferSet(&(messageP->payload), payload, payloadLength);
     }
     }
 
-    result = coapSend(contextP, serverP->runtime.peerP, messageP, prv_handleRegistrationReply, (void *)serverP);
+    delay = coapPeerGetExchangeLifetime(serverP->runtime.peerP);
+    if ((0 == delay)
+        || (INT32_MAX == delay))
+    {
+        delay = PRV_DEFAULT_MAX_REGISTRATION_DELAY;
+    }
+
+    if (serverP->runtime.updateTimerP != NULL)
+    {
+        coreTimerDelete(contextP, serverP->runtime.updateTimerP);
+        serverP->runtime.updateTimerP = NULL;
+    }
+    serverP->runtime.updateTimerP = coreTimerNew(contextP, delay, prv_handleRegistrationExchangeTimer, serverP);
+    if (serverP->runtime.updateTimerP == NULL)
+    {
+        IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to create the timer.");
+        result = IOWA_COAP_500_INTERNAL_SERVER_ERROR;
+        goto premature_exit;
+    }
+
+    result = coapSend(contextP, serverP->runtime.peerP, messageP, prv_handleRegistrationReply, (void *)payload);
 
 premature_exit:
     iowa_coap_message_free(messageP);
-    iowa_system_free(payload);
+    iowa_system_free(uriPath);
+    iowa_system_free(uriQuery);
     iowa_system_free(query);
 
     if (result != IOWA_COAP_NO_ERROR)
     {
+        iowa_system_free(payload);
         coapPeerDelete(contextP, serverP->runtime.peerP);
         serverP->runtime.peerP = NULL;
     }
@@ -885,7 +1064,7 @@ static void prv_handleCoapRegistrationEvent(iowa_coap_peer_t *fromPeer,
                                             void *userData,
                                             iowa_context_t contextP)
 {
-
+    // WARNING: This function is called in a critical section
     lwm2m_server_t *serverP;
 
     (void)fromPeer;
@@ -900,13 +1079,10 @@ static void prv_handleCoapRegistrationEvent(iowa_coap_peer_t *fromPeer,
         switch (serverP->runtime.status)
         {
         case STATE_WAITING_CONNECTION:
-
+            // The Client is not yet registered to the Server
             if (prv_register(contextP, serverP) == IOWA_COAP_NO_ERROR)
             {
                 serverP->runtime.status = STATE_REG_REGISTERING;
-
-
-                coreServerEventCallback(contextP, serverP, IOWA_EVENT_REG_REGISTERING);
             }
             else
             {
@@ -920,7 +1096,7 @@ static void prv_handleCoapRegistrationEvent(iowa_coap_peer_t *fromPeer,
             break;
 
         default:
-
+            // Do nothing
             break;
         }
         break;
@@ -929,25 +1105,12 @@ static void prv_handleCoapRegistrationEvent(iowa_coap_peer_t *fromPeer,
         switch (serverP->runtime.status)
         {
         case STATE_WAITING_CONNECTION:
-
-            serverP->runtime.status = STATE_REG_FAILED;
-            contextP->timeout = 0;
-
-            coapPeerDelete(contextP, serverP->runtime.peerP);
-            serverP->runtime.peerP = NULL;
-            break;
-
-        case STATE_REG_REGISTERING:
-            prv_serverRegistrationFailing(contextP, serverP);
-            break;
-
-        case STATE_REG_UPDATE_PENDING:
-
-            serverP->runtime.status = STATE_REG_REGISTERED;
+            // The Client is not yet registered to the Server
+            prv_serverRegistrationFailing(contextP, serverP, true, IOWA_COAP_503_SERVICE_UNAVAILABLE);
             break;
 
         default:
-
+            // Do nothing
             break;
         }
         break;
@@ -957,55 +1120,9 @@ static void prv_handleCoapRegistrationEvent(iowa_coap_peer_t *fromPeer,
     }
 }
 
-#ifndef IOWA_SERVER_RSC_REGISTRATION_BEHAVIOUR_REMOVE
-bool prv_checkStartServerRegistration(iowa_context_t contextP,
-                                      lwm2m_server_t *serverP)
-{
-    uint16_t currentLevelPriority;
-    lwm2m_server_t *serverListP;
-
-    IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Entering with Short Server ID: %d and Server priority order: %u.", serverP->shortId, serverP->registrationProcedure.priorityOrder);
-
-    currentLevelPriority = UINT16_MAX;
-
-    for (serverListP = contextP->lwm2mContextP->serverList; serverListP != NULL; serverListP = serverListP->next)
-    {
-
-        if (serverListP->registrationProcedure.priorityOrder < currentLevelPriority)
-        {
-            switch (serverListP->runtime.status)
-            {
-            case STATE_REG_FAILED:
-                if (serverListP->registrationProcedure.blockOnFailure == false
-#ifndef IOWA_SERVER_RSC_COMMUNICATION_ATTEMPTS_REMOVE
-                    && serverListP->runtime.sequenceRetryCount == serverListP->registrationProcedure.sequenceRetryCount
-                    && serverListP->runtime.retryCount == serverListP->registrationProcedure.retryCount
-#endif
-                    )
-                {
-                    break;
-                }
-
-            case STATE_DISCONNECTED:
-            case STATE_REG_REGISTERING:
-                currentLevelPriority = serverListP->registrationProcedure.priorityOrder;
-                break;
-
-            default:
-
-                break;
-            }
-        }
-    }
-
-    IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Current level priority order: %u.", currentLevelPriority);
-
-    return serverP->registrationProcedure.priorityOrder == currentLevelPriority;
-}
-#endif
-
 iowa_status_t prv_initiateServerConnection(iowa_context_t contextP,
-                                           lwm2m_server_t *serverP)
+                                           lwm2m_server_t *serverP,
+                                           bool registrationFailureOnError)
 {
     iowa_status_t result;
 
@@ -1013,12 +1130,22 @@ iowa_status_t prv_initiateServerConnection(iowa_context_t contextP,
 
     {
         result = utilsConnectServer(contextP, serverP, lwm2m_client_handle_request, prv_handleCoapRegistrationEvent);
-        if (result != IOWA_COAP_NO_ERROR)
+        if (result != IOWA_COAP_NO_ERROR
+            && true == registrationFailureOnError)
         {
             {
                 IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Failed to establish a connection with the server %d.", serverP->shortId);
                 serverP->runtime.status = STATE_REG_FAILED;
                 contextP->timeout = 0;
+            }
+        }
+        else
+        {
+            if (STATE_REG_REGISTERED != serverP->runtime.status
+                && STATE_REG_UPDATE_PENDING != serverP->runtime.status)
+            {
+                // After the server event callback, don't try to access 'serverP' pointer since the application callback could have removed it
+                coreServerEventCallback(contextP, serverP, IOWA_EVENT_REG_REGISTERING, false, IOWA_COAP_NO_ERROR);
             }
         }
     }
@@ -1027,7 +1154,7 @@ iowa_status_t prv_initiateServerConnection(iowa_context_t contextP,
 
     return result;
 }
-#endif
+#endif // LWM2M_CLIENT_MODE
 
 /*************************************************************************************
 ** Public functions
@@ -1038,15 +1165,15 @@ void lwm2mUpdateRegistration(iowa_context_t contextP,
                              lwm2m_server_t *serverP,
                              uint8_t update)
 {
-
+    // WARNING: This function is called in a critical section
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "State: %s, serverP: %p, update: 0x%02X.", LWM2M_STR_STATE(contextP->lwm2mContextP->state), serverP, update);
 
     if (serverP == NULL)
     {
-
+        // Do a registration update on all the Servers
         for (serverP = contextP->lwm2mContextP->serverList; serverP != NULL; serverP = serverP->next)
         {
-
+            // Only flag the LwM2M Server which the Client is already registered on
             switch (serverP->runtime.status)
             {
             case STATE_REG_REGISTERING:
@@ -1059,7 +1186,7 @@ void lwm2mUpdateRegistration(iowa_context_t contextP,
                 break;
 
             default:
-
+                // Do nothing
                 break;
             }
         }
@@ -1078,7 +1205,7 @@ void lwm2mUpdateRegistration(iowa_context_t contextP,
             break;
 
         default:
-
+            // Do nothing
             break;
         }
     }
@@ -1087,20 +1214,21 @@ void lwm2mUpdateRegistration(iowa_context_t contextP,
 void registration_deregister(iowa_context_t contextP,
                              lwm2m_server_t *serverP)
 {
-
+    // WARNING: This function is called in a critical section
     IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "State: %s, serverP->runtime.status: %s", LWM2M_STR_STATE(contextP->lwm2mContextP->state), LWM2M_SERVER_STR_STATUS(serverP->runtime.status));
 
     switch (serverP->runtime.status)
     {
     case STATE_DISCONNECTED:
+    case STATE_WAITING_CONNECTION:
     case STATE_REG_FAILED:
         return;
 
     case STATE_REG_REGISTERING:
         serverP->runtime.status = STATE_DISCONNECTED;
 
-
-        coreServerEventCallback(contextP, serverP, IOWA_EVENT_REG_UNREGISTERED);
+        // After the server event callback, don't try to access 'serverP' pointer since the application callback could have removed it
+        coreServerEventCallback(contextP, serverP, IOWA_EVENT_REG_UNREGISTERED, false, IOWA_COAP_NO_ERROR);
         break;
 
     default:
@@ -1109,9 +1237,17 @@ void registration_deregister(iowa_context_t contextP,
             iowa_coap_message_t *messageP;
             iowa_coap_option_t *optionP;
             uint8_t token;
+            uint8_t tokenLength;
+            iowa_status_t result;
 
-            coapPeerGenerateToken(serverP->runtime.peerP, 1, &token);
-            messageP = iowa_coap_message_new(IOWA_COAP_TYPE_NON_CONFIRMABLE, IOWA_COAP_CODE_DELETE, 1, &token);
+            result = coapPeerGenerateToken(serverP->runtime.peerP, &tokenLength, &token);
+            if (result != IOWA_COAP_NO_ERROR)
+            {
+                IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failure to generate a new token.");
+                return;
+            }
+
+            messageP = iowa_coap_message_new(IOWA_COAP_TYPE_NON_CONFIRMABLE, IOWA_COAP_CODE_DELETE, tokenLength, &token);
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
             if (messageP == NULL)
             {
@@ -1133,30 +1269,31 @@ void registration_deregister(iowa_context_t contextP,
 
         serverP->runtime.status = STATE_DISCONNECTED;
 
-
-        coreServerEventCallback(contextP, serverP, IOWA_EVENT_REG_UNREGISTERED);
+        // After the server event callback, don't try to access 'serverP' pointer since the application callback could have removed it
+        coreServerEventCallback(contextP, serverP, IOWA_EVENT_REG_UNREGISTERED, false, IOWA_COAP_NO_ERROR);
     }
 }
 
 void registration_resetServersStatus(iowa_context_t contextP)
 {
+    // WARNING: This function is called in a critical section
     lwm2m_server_t *serverP;
 
     for (serverP = contextP->lwm2mContextP->serverList; serverP != NULL; serverP = serverP->next)
     {
         serverP->runtime.status = STATE_DISCONNECTED;
-        serverP->runtime.flags &= LWM2M_SERVER_FLAG_SECURITY_DATA_ADDED;
+        serverP->runtime.flags &= LWM2M_SERVER_FLAG_SECURITY_DATA_ADDED; // Only keep Security Data added flag
         serverP->runtime.update = LWM2M_UPDATE_FLAG_NONE;
     }
 }
 
 iowa_status_t registration_step(iowa_context_t contextP)
 {
-
+    // WARNING: This function is called in a critical section
     iowa_status_t result;
     lwm2m_server_t *serverP;
 
-    IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Entering with timeout %ds and current time: %ds.", contextP->timeout, contextP->currentTime);
+    IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Entering with timeout %ds and current time: %ds.", contextP->timeout, contextP->currentTime);
 
     result = IOWA_COAP_503_SERVICE_UNAVAILABLE;
 
@@ -1169,88 +1306,56 @@ iowa_status_t registration_step(iowa_context_t contextP)
         switch (serverP->runtime.status)
         {
         case STATE_DISCONNECTED:
-
-#ifndef IOWA_SERVER_RSC_DISABLE_TIMEOUT_REMOVE
+            // Check if the server is not disabled
+#ifdef IOWA_SERVER_SUPPORT_RSC_DISABLE_TIMEOUT
             if (serverP->runtime.flags & LWM2M_SERVER_FLAG_DISABLE)
             {
                 IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Server %u is disabled.", serverP->shortId);
                 serverResult = IOWA_COAP_NO_ERROR;
             }
             else
-#endif
-#ifndef IOWA_SERVER_RSC_REGISTRATION_BEHAVIOUR_REMOVE
-            if (serverP->runtime.flags & LWM2M_SERVER_FLAG_INITIAL_TIMER_WAIT)
+#endif // IOWA_SERVER_SUPPORT_RSC_DISABLE_TIMEOUT
             {
-                IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Waiting before registering to Server %u.", serverP->shortId);
-                serverResult = IOWA_COAP_NO_ERROR;
-            }
-            else
-#endif
-            {
-#ifndef IOWA_SERVER_RSC_REGISTRATION_BEHAVIOUR_REMOVE
-
-                if (prv_checkStartServerRegistration(contextP, serverP) == false)
-                {
-                    IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "The registration to the Server %u can not start.", serverP->shortId);
-                    serverResult = IOWA_COAP_NO_ERROR;
-                    break;
-                }
-
-                if (serverP->registrationProcedure.initialDelayTimer != 0)
-                {
-                    IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Starting a timer to wait before starting the registration to Server %u.", serverP->shortId);
-
-                    serverResult = IOWA_COAP_NO_ERROR;
-
-
-                    serverP->runtime.lifetimeTimerP = coreTimerNew(contextP, serverP->registrationProcedure.initialDelayTimer, prv_handleClientLifetimeTimer, serverP);
-                    if (serverP->runtime.lifetimeTimerP == NULL)
-                    {
-                        IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to create the timer.");
-                        serverP->runtime.status = STATE_REG_FAILED;
-                        contextP->timeout = 0;
-                        break;
-                    }
-
-                    serverP->runtime.flags |= LWM2M_SERVER_FLAG_INITIAL_TIMER_WAIT;
-                    break;
-                }
-#endif
-
                 serverP->runtime.status = STATE_WAITING_CONNECTION;
-                serverResult = prv_initiateServerConnection(contextP, serverP);
+                serverResult = prv_initiateServerConnection(contextP, serverP, true);
             }
             break;
 
         case STATE_REG_REGISTERED:
-            if (serverP->runtime.flags & LWM2M_SERVER_FLAG_UPDATE)
+            if (serverP->runtime.flags & LWM2M_SERVER_FLAG_UPDATE
+                && (contextP->lwm2mContextP->internalFlag & CONTEXT_FLAG_INSIDE_CALLBACK) == 0)
             {
-                if (serverP->runtime.peerP == NULL)
+                if (serverP->runtime.peerP == NULL
+                    || coapPeerGetConnectionState(serverP->runtime.peerP) != SECURITY_STATE_CONNECTED)
                 {
-                    serverResult = prv_initiateServerConnection(contextP, serverP);
+                    // Do not check the result here, since we are already registered on the server
+                    (void)prv_initiateServerConnection(contextP, serverP, false);
                 }
                 else
                 {
-                    serverResult = IOWA_COAP_NO_ERROR;
                     prv_updateRegistration(contextP, serverP);
                 }
 
-                serverP->runtime.flags &= ~LWM2M_SERVER_FLAG_UPDATE;
+                serverResult = IOWA_COAP_NO_ERROR;
+                serverP->runtime.flags &= (uint16_t)(~LWM2M_SERVER_FLAG_UPDATE);
             }
             else
-#ifndef IOWA_SERVER_RSC_DISABLE_TIMEOUT_REMOVE
+#ifdef IOWA_SERVER_SUPPORT_RSC_DISABLE_TIMEOUT
             if (serverP->runtime.flags & LWM2M_SERVER_FLAG_DISABLE)
             {
                 serverResult = IOWA_COAP_NO_ERROR;
 
                 lwm2m_server_close(contextP, serverP, true);
 
-                serverP->runtime.lifetimeTimerP = coreTimerNew(contextP, serverP->disableTimeout, prv_handleClientLifetimeTimer, serverP);
-                if (serverP->runtime.lifetimeTimerP == NULL)
+                if (serverP->disableTimeout >= 0)
                 {
-                    IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to create the timer.");
-                    prv_serverRegistrationFailing(contextP, serverP);
-                    break;
+                    serverP->runtime.lifetimeTimerP = coreTimerNew(contextP, serverP->disableTimeout, prv_handleClientLifetimeTimer, serverP);
+                    if (serverP->runtime.lifetimeTimerP == NULL)
+                    {
+                        IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to create the timer.");
+                        prv_serverRegistrationFailing(contextP, serverP, true, IOWA_COAP_500_INTERNAL_SERVER_ERROR);
+                        break;
+                    }
                 }
 
                 IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Server %u disabled.", serverP->shortId);
@@ -1263,89 +1368,7 @@ iowa_status_t registration_step(iowa_context_t contextP)
             break;
 
         case STATE_REG_FAILED:
-#ifndef IOWA_SERVER_RSC_COMMUNICATION_ATTEMPTS_REMOVE
-            if (serverP->runtime.retryCount < serverP->registrationProcedure.retryCount)
             {
-                if (serverP->registrationProcedure.retryDelayTimer != 0)
-                {
-                    int32_t nextTimer;
-
-                    nextTimer = serverP->registrationProcedure.retryDelayTimer * (1 << serverP->runtime.retryCount);
-                    if ((nextTimer / serverP->registrationProcedure.retryDelayTimer) != (1 << serverP->runtime.retryCount))
-                    {
-                        IOWA_LOG_WARNING(IOWA_PART_LWM2M, "Integer overflow.");
-                        serverResult = IOWA_COAP_503_SERVICE_UNAVAILABLE;
-                        break;
-                    }
-
-
-                    serverP->runtime.lifetimeTimerP = coreTimerNew(contextP, nextTimer, prv_handleClientLifetimeTimer, serverP);
-                    if (serverP->runtime.lifetimeTimerP == NULL)
-                    {
-                        IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to create the timer.");
-                        serverResult = IOWA_COAP_503_SERVICE_UNAVAILABLE;
-                        break;
-                    }
-
-                    serverP->runtime.flags |= LWM2M_SERVER_FLAG_INITIAL_TIMER_WAIT;
-                }
-
-                serverP->runtime.retryCount++;
-                serverP->runtime.status = STATE_DISCONNECTED;
-                serverP->runtime.update = LWM2M_UPDATE_FLAG_NONE;
-
-                serverResult = IOWA_COAP_NO_ERROR;
-
-                IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Server retry count %u/%u.", serverP->runtime.retryCount, serverP->registrationProcedure.retryCount);
-            }
-            else if (serverP->runtime.sequenceRetryCount < serverP->registrationProcedure.sequenceRetryCount)
-            {
-                if (serverP->registrationProcedure.sequenceDelayTimer != 0)
-                {
-                    int32_t nextTimer;
-
-                    nextTimer = serverP->registrationProcedure.sequenceDelayTimer * (1 << serverP->runtime.sequenceRetryCount);
-                    if ((nextTimer / serverP->registrationProcedure.sequenceDelayTimer) != (1 << serverP->runtime.sequenceRetryCount))
-                    {
-                        IOWA_LOG_WARNING(IOWA_PART_LWM2M, "Integer overflow.");
-                        serverResult = IOWA_COAP_503_SERVICE_UNAVAILABLE;
-                        break;
-                    }
-
-
-                    serverP->runtime.lifetimeTimerP = coreTimerNew(contextP, nextTimer, prv_handleClientLifetimeTimer, serverP);
-                    if (serverP->runtime.lifetimeTimerP == NULL)
-                    {
-                        IOWA_LOG_ERROR(IOWA_PART_LWM2M, "Failed to create the timer.");
-                        serverResult = IOWA_COAP_503_SERVICE_UNAVAILABLE;
-                        break;
-                    }
-
-                    serverP->runtime.flags |= LWM2M_SERVER_FLAG_INITIAL_TIMER_WAIT;
-                }
-
-                serverP->runtime.retryCount = 0;
-                serverP->runtime.sequenceRetryCount++;
-                serverP->runtime.status = STATE_DISCONNECTED;
-                serverP->runtime.update = LWM2M_UPDATE_FLAG_NONE;
-
-                serverResult = IOWA_COAP_NO_ERROR;
-
-                IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Server sequence retry count %u/%u.", serverP->runtime.sequenceRetryCount, serverP->registrationProcedure.sequenceRetryCount);
-            }
-            else
-#endif
-            {
-#ifndef IOWA_SERVER_RSC_REGISTRATION_BEHAVIOUR_REMOVE
-
-                if (serverP->registrationProcedure.bootstrapOnFailure == true)
-                {
-
-                    IOWA_LOG_INFO(IOWA_PART_LWM2M, "Registration sequence ended.");
-                    return IOWA_COAP_503_SERVICE_UNAVAILABLE;
-                }
-#endif
-
                 IOWA_LOG_INFO(IOWA_PART_LWM2M, "Registration failed.");
                 serverResult = IOWA_COAP_503_SERVICE_UNAVAILABLE;
             }
@@ -1362,9 +1385,9 @@ iowa_status_t registration_step(iowa_context_t contextP)
         }
     }
 
-    IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "Exiting with result %u.%02u.", (result & 0xFF) >> 5, (result & 0x1F));
+    IOWA_LOG_ARG_INFO(IOWA_PART_LWM2M, "Exiting with result %u.%02u.", (result & 0xFF) >> 5, (result & 0x1F));
 
     return result;
 }
-#endif
+#endif // LWM2M_CLIENT_MODE
 

@@ -23,17 +23,6 @@
 #include "iowa_prv_data_internals.h"
 #include <float.h>
 
-typedef struct
-{
-    union
-    {
-        double asDouble;
-        int64_t asInteger;
-    } convert;
-} prv_double_convert_t;
-
-#define PRV_FLOAT_VALUE_INFINITY_OR_NAN_MASK 0x7F80000000000000
-
 #define PRV_OBJECT_LINK_TEXT_SEPARATOR  ':'
 #define PRV_DECIMAL_POINT               '.'
 #define PRV_EXPONENT_MIN                'e'
@@ -54,8 +43,12 @@ static int prv_parseUriNumber(const uint8_t *uriString,
 {
     int result;
 
+    assert(uriString != NULL);
+    assert(headP != NULL);
+
     if (uriString[*headP] == '/')
     {
+        // empty Object Instance ID with resource ID is not allowed
         return -1;
     }
 
@@ -78,29 +71,11 @@ static int prv_parseUriNumber(const uint8_t *uriString,
     return result;
 }
 
-static size_t prv_bufferCopy(uint8_t *buffer,
-                             size_t bufferLength,
-                             uint8_t **bufferCopyP)
-{
-    if (bufferLength == 0)
-    {
-        *bufferCopyP = NULL;
-        return 0;
-    }
-
-    *bufferCopyP = (uint8_t *)iowa_system_malloc(bufferLength);
-#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-    if (*bufferCopyP == NULL)
-    {
-        IOWA_LOG_ERROR_MALLOC(bufferLength);
-        return 0;
-    }
-#endif
-    memcpy(*bufferCopyP, buffer, bufferLength);
-
-    return bufferLength;
-}
-
+// Get buffer part into integer
+// Returned value: index to when the part stopped (when buffer contains a character not between '0' and '9')
+// Parameters:
+// - buffer, length: buffer to look
+// - dataP: OUT. integer got.
 static size_t prv_partBufferToInt(uint8_t *buffer,
                                   size_t length,
                                   int64_t *dataP)
@@ -143,6 +118,11 @@ static size_t prv_partBufferToInt(uint8_t *buffer,
     return i;
 }
 
+// Get buffer part into integer
+// Returned value: sign value (-1 or 1) or 0 if error
+// Parameters:
+// - buffer: buffer to look
+// - indexP: INOUT. buffer index to look.
 static int prv_getSignFromBufferToNumber(uint8_t *buffer,
                                          size_t *indexP)
 {
@@ -170,6 +150,8 @@ static int prv_getSignFromBufferToNumber(uint8_t *buffer,
     return 0;
 }
 
+// change value and indicate exponent if it is possible for integer value
+// return exponent if possible or 0
 static int prv_isExponentPossibleForIntPart(int64_t *valueP)
 {
     int cpt;
@@ -208,6 +190,9 @@ static int prv_isExponentPossibleForIntPart(int64_t *valueP)
     return 0;
 }
 
+
+// change value and indicate exponent if it is possible for decimal part of value
+// return exponent if possible or 0
 static int prv_isExponentPossibleForDecPart(double *valueP)
 {
     int cpt;
@@ -263,6 +248,8 @@ static int prv_isExponentPossibleForDecPart(double *valueP)
     return 0;
 }
 
+// get the length of the conversion of an integer into a buffer
+// return the length of the conversion
 static size_t prv_intToBufferLength(int64_t data)
 {
     size_t cpt;
@@ -288,6 +275,8 @@ static size_t prv_intToBufferLength(int64_t data)
     return cpt;
 }
 
+// Convert an integer value (data) into a buffer
+// return the length of the conversion
 static size_t prv_intToBuffer(int64_t data,
                               uint8_t *buffer,
                               size_t length)
@@ -297,6 +286,7 @@ static size_t prv_intToBuffer(int64_t data,
     size_t result;
 
     assert(buffer != NULL);
+    assert(length != 0);
 
     if (data < 0)
     {
@@ -318,12 +308,13 @@ static size_t prv_intToBuffer(int64_t data,
 
     if (data > 0)
     {
+        // Out of the buffer
         return 0;
     }
 
     if (minus == true)
     {
-        if (index == 0)
+        if (index < 0)
         {
             return 0;
         }
@@ -357,7 +348,7 @@ double dataUtilsPower(double number, int64_t power)
 
     if (power < 0)
     {
-        assert(number != 0.f);
+        assert(number != 0.);
 
         power *= (-1);
         number = 1/number;
@@ -371,21 +362,6 @@ double dataUtilsPower(double number, int64_t power)
     return result;
 }
 
-bool dataUtilsIsInt(double value)
-{
-    int64_t intVal;
-    double floatVal;
-
-    intVal = (int64_t)value;
-    floatVal = (double)intVal;
-    if (floatVal + (double)FLT_EPSILON < value
-        || floatVal - (double)FLT_EPSILON > value)
-    {
-        return false;
-    }
-    return true;
-}
-
 size_t dataUtilsBufferToInt(uint8_t *buffer,
                             size_t length,
                             int64_t *dataP)
@@ -394,8 +370,8 @@ size_t dataUtilsBufferToInt(uint8_t *buffer,
     int sign;
     size_t index;
 
-    assert(buffer != NULL);
     assert(dataP != NULL);
+    assert((buffer != NULL && length != 0) || length == 0);
 
     if (0 == length)
     {
@@ -457,7 +433,7 @@ size_t dataUtilsIntToBuffer(int64_t data,
     size_t result;
     int exponent;
 
-    assert(buffer != NULL);
+    assert(buffer != NULL && length != 0);
 
     if (withExponent == true)
     {
@@ -508,14 +484,14 @@ size_t dataUtilsBufferToFloat(uint8_t *buffer,
     int64_t intPart;
     size_t intResult;
 
+    assert(dataP != NULL);
+    assert((buffer != NULL && length != 0) || length == 0);
+
     if (0 == length)
     {
         IOWA_LOG_TRACE(IOWA_PART_DATA, "Not a number.");
         return 0;
     }
-
-    assert(buffer != NULL);
-    assert(dataP != NULL);
 
     index = 0;
     sign = prv_getSignFromBufferToNumber(buffer, &index);
@@ -605,22 +581,11 @@ size_t dataUtilsBufferToFloat(uint8_t *buffer,
 size_t dataUtilsFloatToBufferLength(double data,
                                     bool withExponent)
 {
-    if (data > INT64_MAX || data < INT64_MIN)
+    if (data > (double)INT64_MAX
+        || data < (double)INT64_MIN)
     {
-#ifdef IOWA_USE_SNPRINTF
-        uint8_t buffer[64];
-
-        if (withExponent == true)
-        {
-            return snprintf((char *)&buffer, 64, "%g", data);
-        }
-        else
-        {
-            return snprintf((char *)&buffer, 64, "%f", data);
-        }
-#else
+        IOWA_LOG_WARNING(IOWA_PART_DATA, "Number is too large, set IOWA_USE_SNPRINTF to serialize it without error.");
         return 0;
-#endif
     }
     else
     {
@@ -657,6 +622,7 @@ size_t dataUtilsFloatToBufferLength(double data,
 
         if (intPart == 0 && data < 0)
         {
+            // deal with numbers between -1 and 0
             intLength = 2;
         }
         else
@@ -672,6 +638,7 @@ size_t dataUtilsFloatToBufferLength(double data,
             {
                 setExponent = true;
             }
+            // Call the utils function to take exponent in account
             intLength = dataUtilsIntToBufferLength(intPart, setExponent);
         }
 
@@ -685,7 +652,7 @@ size_t dataUtilsFloatToBufferLength(double data,
             {
                 decPart *= 10;
                 noiseFloor *= 10;
-            } while (decPart - (double)((int64_t)decPart) > noiseFloor);
+            } while (decPart - (double)((int64_t)decPart) > noiseFloor);  // Compare the integer part of decPart with possible noise
 
             decLength = prv_intToBufferLength((int64_t)decPart);
         }
@@ -710,20 +677,12 @@ size_t dataUtilsFloatToBuffer(double data,
                               size_t length,
                               bool withExponent)
 {
-    if (data > INT64_MAX || data < INT64_MIN)
+    assert(buffer != NULL && length != 0);
+
+    if (data > (double)INT64_MAX
+        || data < (double)INT64_MIN)
     {
-#ifdef IOWA_USE_SNPRINTF
-        if (withExponent == true)
-        {
-            return snprintf((char *)buffer, 64, "%g", data);
-        }
-        else
-        {
-            return snprintf((char *)buffer, 64, "%f", data);
-        }
-#else
         return 0;
-#endif
     }
     else
     {
@@ -760,10 +719,11 @@ size_t dataUtilsFloatToBuffer(double data,
 
         if (intPart == 0 && data < 0)
         {
+            // deal with numbers between -1 and 0
             if (length < 4)
             {
                 IOWA_LOG_TRACE(IOWA_PART_DATA, "buffer length too short.");
-                return 0;
+                return 0;   // "-0.n"
             }
             buffer[0] = '-';
             buffer[1] = '0';
@@ -782,6 +742,7 @@ size_t dataUtilsFloatToBuffer(double data,
             {
                 setExponent = true;
             }
+            // Call the utils function to take exponent in account
             intLength = dataUtilsIntToBuffer(intPart, buffer, length, setExponent);
 
             if (intLength == 0)
@@ -806,7 +767,7 @@ size_t dataUtilsFloatToBuffer(double data,
             {
                 decPart *= 10;
                 noiseFloor *= 10;
-            } while (decPart - (double)((int64_t)decPart) > noiseFloor);
+            } while (decPart - (double)((int64_t)decPart) > noiseFloor); // Compare the integer part of decPart with possible noise
 
             decLength = prv_intToBuffer((int64_t)decPart, buffer + intLength, length - intLength);
             if (decLength <= 1)
@@ -815,6 +776,7 @@ size_t dataUtilsFloatToBuffer(double data,
                 return 0;
             }
 
+            // replace the leading 1 with a dot
             buffer[intLength] = '.';
         }
 
@@ -848,6 +810,9 @@ size_t dataUtilsBufferToObjectLink(uint8_t *buffer,
     size_t i;
     int64_t objectId;
     int64_t instanceId;
+
+    assert((buffer != NULL && bufferLength != 0) || bufferLength == 0);
+    assert(dataP != NULL);
 
     i = 0;
     while (i < bufferLength
@@ -899,17 +864,15 @@ size_t dataUtilsBufferToObjectLink(uint8_t *buffer,
     return 1;
 }
 
-size_t dataUtilsObjectLinkToBufferLength(iowa_lwm2m_data_t *dataP)
-{
-    return dataUtilsIntToBufferLength(dataP->value.asObjLink.objectId, false) + 1 + dataUtilsIntToBufferLength(dataP->value.asObjLink.instanceId, false);
-}
-
 size_t dataUtilsObjectLinkToBuffer(iowa_lwm2m_data_t *dataP,
                                    uint8_t *buffer,
                                    size_t bufferLength)
 {
     size_t nbLength;
     size_t resultBufferLength;
+
+    assert(dataP != NULL);
+    assert(buffer != NULL && bufferLength != 0);
 
     nbLength = prv_intToBuffer(dataP->value.asObjLink.objectId, buffer, bufferLength);
     if (nbLength == 0)
@@ -933,23 +896,35 @@ size_t dataUtilsObjectLinkToBuffer(iowa_lwm2m_data_t *dataP,
     return resultBufferLength;
 }
 
+#ifdef LWM2M_ALTPATH_SUPPORT
+size_t dataUtilsBufferToUri(const char *buffer,
+                            size_t bufferLength,
+                            iowa_lwm2m_uri_t *uriP,
+                            char **altPathP)
+#else
 size_t dataUtilsBufferToUri(const char *buffer,
                             size_t bufferLength,
                             iowa_lwm2m_uri_t *uriP)
+#endif
 {
     size_t head;
     int readNum;
 
+    assert((buffer != NULL && bufferLength != 0) || bufferLength == 0);
+    assert(uriP != NULL);
+
     IOWA_LOG_ARG_TRACE(IOWA_PART_DATA, "bufferLength: %u, buffer: \"%.*s\"", bufferLength, bufferLength, buffer);
 
-    if (buffer == NULL || bufferLength == 0 || uriP == NULL)
+    if (bufferLength == 0)
     {
         return 0;
     }
 
+    // Skip any white space
     head = 0;
     LWM2M_URI_RESET(uriP);
 
+    // Check the URI starts with a '/'
     if (buffer[head] != '/')
     {
         return 0;
@@ -960,7 +935,88 @@ size_t dataUtilsBufferToUri(const char *buffer,
         IOWA_LOG_ARG_TRACE(IOWA_PART_DATA, "Parsed characters: %u", head);
         return head;
     }
+#ifdef LWM2M_ALTPATH_SUPPORT
+    if (altPathP != NULL)
+    {
+        // Check alternate path
+        if (*altPathP == NULL)
+        {
+            // Check if there is an alternate path
+            size_t bufferIndex;
+            bool altPathFound;
 
+            altPathFound = false;
+
+            for (bufferIndex = head; bufferIndex < bufferLength; bufferIndex++)
+            {
+                if (buffer[bufferIndex] == '/')
+                {
+                    break;
+                }
+
+                if (altPathFound == false
+                    && (buffer[bufferIndex] < '0' || buffer[bufferIndex] > '9'))
+                {
+                    // This is not an integral number URI
+                    altPathFound = true;
+                }
+            }
+
+            if (altPathFound == true)
+            {
+                *altPathP = (char *)iowa_system_malloc(bufferIndex - head + 1);
+#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
+                if (*altPathP == NULL)
+                {
+                    IOWA_LOG_ERROR_MALLOC(bufferIndex - head + 1);
+                    return 0;
+                }
+#endif
+                memcpy(*altPathP, buffer + head, bufferIndex - head);
+                (*altPathP)[bufferIndex - head] = '\0';
+
+                head = bufferIndex + 1;
+                if (head >= bufferLength)
+                {
+                    IOWA_LOG_ARG_TRACE(IOWA_PART_DATA, "Parsed characters: %u", head);
+                    return head;
+                }
+            }
+        }
+        else
+        {
+            // Check if the alternate path is present
+            size_t altPathLength;
+
+            altPathLength = strlen(*altPathP);
+            if (head + altPathLength > bufferLength
+                || memcmp(buffer + head, *altPathP, altPathLength) != 0)
+            {
+                return 0;
+            }
+            head += altPathLength;
+            if (head == bufferLength)
+            {
+                IOWA_LOG_ARG_TRACE(IOWA_PART_DATA, "Parsed characters: %u", head);
+                return head;
+            }
+
+            // Check the URI begins with a '/'
+            if (buffer[head] != '/')
+            {
+                return 0;
+            }
+            head++;
+            if (head == bufferLength)
+            {
+                IOWA_LOG_ARG_TRACE(IOWA_PART_DATA, "Parsed characters: %u", head);
+                return head;
+            }
+        }
+    }
+#endif
+
+    // Read object ID
     readNum = prv_parseUriNumber((const uint8_t *)buffer, bufferLength, &head);
     if (readNum < 0 || readNum > IOWA_LWM2M_ID_ALL)
     {
@@ -983,6 +1039,7 @@ size_t dataUtilsBufferToUri(const char *buffer,
         }
     }
 
+    // Read instance ID
     readNum = prv_parseUriNumber((const uint8_t *)buffer, bufferLength, &head);
     if (readNum < 0 || readNum >= IOWA_LWM2M_ID_ALL)
     {
@@ -1005,6 +1062,7 @@ size_t dataUtilsBufferToUri(const char *buffer,
         }
     }
 
+    // Read resource ID
     readNum = prv_parseUriNumber((const uint8_t *)buffer, bufferLength, &head);
     if (readNum < 0 || readNum >= IOWA_LWM2M_ID_ALL)
     {
@@ -1027,6 +1085,7 @@ size_t dataUtilsBufferToUri(const char *buffer,
         }
     }
 
+    // Read resource instance ID
     readNum = prv_parseUriNumber((const uint8_t *)buffer, bufferLength, &head);
     if (readNum < 0
         || readNum >= IOWA_LWM2M_ID_ALL)
@@ -1046,22 +1105,72 @@ size_t dataUtilsBufferToUri(const char *buffer,
     return head;
 }
 
+#ifdef LWM2M_ALTPATH_SUPPORT
+size_t dataUtilsUriToBuffer(iowa_lwm2m_uri_t *uriP,
+                            const char *altPath,
+                            uint8_t *buffer,
+                            size_t bufferLength)
+#else
 size_t dataUtilsUriToBuffer(iowa_lwm2m_uri_t *uriP,
                             uint8_t *buffer,
                             size_t bufferLength)
+#endif
 {
     size_t head;
+
+    assert(uriP != NULL);
+    assert(buffer != NULL && bufferLength != 0);
 
     IOWA_LOG_ARG_TRACE(IOWA_PART_DATA, "bufferLength: %u.", bufferLength);
 
     buffer[0] = '/';
     head = 1;
 
+#ifdef LWM2M_ALTPATH_SUPPORT
+    if (altPath != NULL)
+    {
+        size_t altPathLength;
+
+        altPathLength = strlen(altPath);
+        if (altPath[altPathLength - 1] == '/')
+        {
+            altPathLength--;
+        }
+        if (altPath[0] == '/')
+        {
+            altPath += 1;
+            altPathLength--;
+        }
+        if (head + altPathLength >= bufferLength)
+        {
+            IOWA_LOG_ERROR(IOWA_PART_DATA, "No enough space.");
+            return 0;
+        }
+        memcpy(buffer + head, altPath, altPathLength);
+        head += altPathLength;
+    }
+#endif
+
     if (uriP != NULL
         && uriP->objectId != IOWA_LWM2M_ID_ALL)
     {
         size_t res;
 
+#ifdef LWM2M_ALTPATH_SUPPORT
+        if (altPath != NULL)
+        {
+            if (head + 1 >= bufferLength)
+            {
+                IOWA_LOG_ERROR(IOWA_PART_DATA, "No enough space.");
+                return 0;
+            }
+
+            buffer[head] = '/';
+            head++;
+        }
+#endif
+
+        // Add the Object ID
         res = prv_intToBuffer(uriP->objectId, buffer + head, bufferLength - head);
         if (res == 0)
         {
@@ -1077,6 +1186,7 @@ size_t dataUtilsUriToBuffer(iowa_lwm2m_uri_t *uriP,
 
         if (uriP->instanceId != IOWA_LWM2M_ID_ALL)
         {
+            // Add the Instance Object ID
             buffer[head] = '/';
             head++;
             res = prv_intToBuffer(uriP->instanceId, buffer + head, bufferLength - head);
@@ -1094,6 +1204,7 @@ size_t dataUtilsUriToBuffer(iowa_lwm2m_uri_t *uriP,
 
             if (uriP->resourceId != IOWA_LWM2M_ID_ALL)
             {
+                // Add the Resource ID
                 buffer[head] = '/';
                 head++;
                 res = prv_intToBuffer(uriP->resourceId, buffer + head, bufferLength - head);
@@ -1111,6 +1222,7 @@ size_t dataUtilsUriToBuffer(iowa_lwm2m_uri_t *uriP,
 
                 if (uriP->resInstanceId != IOWA_LWM2M_ID_ALL)
                 {
+                    // Add the Resource Instance ID
                     buffer[head] = '/';
                     head++;
                     res = prv_intToBuffer(uriP->resInstanceId, buffer + head, bufferLength - head);
@@ -1135,10 +1247,31 @@ size_t dataUtilsUriToBuffer(iowa_lwm2m_uri_t *uriP,
     return head;
 }
 
+#ifdef LWM2M_ALTPATH_SUPPORT
+size_t dataUtilsUriToBufferLength(iowa_lwm2m_uri_t *uriP,
+                                  const char *altPath)
+#else
 size_t dataUtilsUriToBufferLength(iowa_lwm2m_uri_t *uriP)
+#endif
 {
     size_t length;
+    assert(uriP != NULL);
 
+#ifdef LWM2M_ALTPATH_SUPPORT
+    if (altPath != NULL)
+    {
+        length = strlen(altPath);
+        if (length >= 2 && altPath[length - 1] == '/')
+        {
+            length--;
+        }
+        if (altPath[0] != '/')
+        {
+            length++;
+        }
+    }
+    else
+#endif
     {
        length = 0;
     }
@@ -1147,18 +1280,29 @@ size_t dataUtilsUriToBufferLength(iowa_lwm2m_uri_t *uriP)
     {
     case LWM2M_URI_DEPTH_RESOURCE_INSTANCE:
         length += dataUtilsIntToBufferLength(uriP->resInstanceId, false) + 1;
+        // Fall through
     case LWM2M_URI_DEPTH_RESOURCE:
         length += dataUtilsIntToBufferLength(uriP->resourceId, false) + 1;
+        // Fall through
     case LWM2M_URI_DEPTH_OBJECT_INSTANCE:
         length += dataUtilsIntToBufferLength(uriP->instanceId, false) + 1;
+        // Fall through
     case LWM2M_URI_DEPTH_OBJECT:
         length += dataUtilsIntToBufferLength(uriP->objectId, false) + 1;
         break;
     case LWM2M_URI_DEPTH_ROOT:
+#ifdef LWM2M_ALTPATH_SUPPORT
+        if (length == 0)
+        {
+            length = 1;
+        }
+#else
         length = 1;
+#endif
         break;
 
     default:
+        // Do nothing
         break;
     }
 
@@ -1194,6 +1338,7 @@ iowa_status_t dataUtilsSetBuffer(uint8_t *buffer,
                                  iowa_lwm2m_data_type_t type)
 {
     assert(dataP != NULL);
+    assert((buffer != NULL && bufferLength != 0) || bufferLength == 0);
 
     dataP->type = type;
     dataP->value.asBuffer.length = bufferLength;
@@ -1204,8 +1349,6 @@ iowa_status_t dataUtilsSetBuffer(uint8_t *buffer,
 
         return IOWA_COAP_NO_ERROR;
     }
-
-    assert(buffer != NULL);
 
     dataP->value.asBuffer.buffer = (uint8_t *)iowa_system_malloc(dataP->value.asBuffer.length);
 #ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
@@ -1231,7 +1374,7 @@ bool dataUtilsGetBaseUri(iowa_lwm2m_data_t *dataP,
     lwm2m_uri_depth_t uriDepthToCompare;
     iowa_lwm2m_uri_t currentUri;
 
-    assert(dataP != NULL);
+    assert(dataP != NULL && size != 0);
     assert(uriP != NULL);
     assert(uriDepthP != NULL);
 
@@ -1258,16 +1401,19 @@ bool dataUtilsGetBaseUri(iowa_lwm2m_data_t *dataP,
             {
                 uriP->resInstanceId = IOWA_LWM2M_ID_ALL;
             }
+            // Fall through
         case LWM2M_URI_DEPTH_RESOURCE:
             if (uriP->resourceId != dataP[index].resourceID)
             {
                 uriP->resourceId = IOWA_LWM2M_ID_ALL;
             }
+            // Fall through
         case LWM2M_URI_DEPTH_OBJECT_INSTANCE:
             if (uriP->instanceId != dataP[index].instanceID)
             {
                 uriP->instanceId = IOWA_LWM2M_ID_ALL;
             }
+            // Fall through
         case LWM2M_URI_DEPTH_OBJECT:
             if (uriP->objectId != dataP[index].objectID)
             {
@@ -1303,16 +1449,19 @@ bool dataUtilsIsInBaseUri(iowa_lwm2m_data_t *dataP,
         {
             return false;
         }
+        // Fall through
     case LWM2M_URI_DEPTH_RESOURCE:
         if (dataP->resourceID != baseUriP->resourceId)
         {
             return false;
         }
+        // Fall through
     case LWM2M_URI_DEPTH_OBJECT_INSTANCE:
         if (dataP->instanceID != baseUriP->instanceId)
         {
             return false;
         }
+        // Fall through
     case LWM2M_URI_DEPTH_OBJECT:
         if (dataP->objectID != baseUriP->objectId)
         {
@@ -1329,6 +1478,9 @@ bool dataUtilsIsInBaseUri(iowa_lwm2m_data_t *dataP,
 
 bool dataUtilsIsEqualUri(iowa_lwm2m_data_t *dataP, iowa_lwm2m_uri_t *uriP)
 {
+    assert(dataP != NULL);
+    assert(uriP != NULL);
+
     if (uriP->objectId == dataP->objectID
         && uriP->instanceId == dataP->instanceID
         && uriP->resourceId == dataP->resourceID
@@ -1341,420 +1493,29 @@ bool dataUtilsIsEqualUri(iowa_lwm2m_data_t *dataP, iowa_lwm2m_uri_t *uriP)
 
 void dataUtilsGetUri(iowa_lwm2m_data_t *dataP, iowa_lwm2m_uri_t *uriP)
 {
+    assert(dataP != NULL);
+    assert(uriP != NULL);
+
     uriP->objectId = dataP->objectID;
     uriP->instanceId = dataP->instanceID;
     uriP->resourceId = dataP->resourceID;
     uriP->resInstanceId = dataP->resInstanceID;
 }
 
-void dataUtilsSetUri(iowa_lwm2m_data_t *dataP, iowa_lwm2m_uri_t *uriP)
-{
-    dataP->objectID = uriP->objectId;
-    dataP->instanceID = uriP->instanceId;
-    dataP->resourceID = uriP->resourceId;
-    dataP->resInstanceID = uriP->resInstanceId;
-    dataP->type = IOWA_LWM2M_TYPE_URI_ONLY;
-}
-
-iowa_status_t dataUtilsConvertUndefinedValue(uint8_t *bufferP,
-                                             size_t bufferLength,
-                                             iowa_lwm2m_data_t *dataP,
-                                             iowa_content_format_t format,
-                                             data_resource_type_callback_t resTypeCb,
-                                             void *userDataP)
-{
-    IOWA_LOG_ARG_TRACE(IOWA_PART_DATA, "Entering: bufferP: %p, bufferLength: %zu, dataP: %p, format: %s.", bufferP, bufferLength, dataP, STR_MEDIA_TYPE(format));
-
-    assert(dataP != NULL);
-
-    if (resTypeCb != NULL)
-    {
-        IOWA_LOG_ARG_TRACE(IOWA_PART_DATA, "Calling resource type callback with object ID: %d and resource ID: %d.", dataP->objectID, dataP->resourceID);
-        dataP->type = resTypeCb(dataP->objectID, dataP->resourceID, userDataP);
-    }
-    else
-    {
-        dataP->type = IOWA_LWM2M_TYPE_UNDEFINED;
-    }
-
-    IOWA_LOG_ARG_TRACE(IOWA_PART_DATA, "Retrieved data type: %s.", STR_LWM2M_TYPE(dataP->type));
-
-    switch (format)
-    {
-    case IOWA_CONTENT_FORMAT_TEXT:
-        switch (dataP->type)
-        {
-        case IOWA_LWM2M_TYPE_UNSIGNED_INTEGER:
-            if (dataUtilsBufferToInt(bufferP, bufferLength, &dataP->value.asInteger) == 0)
-            {
-                IOWA_LOG_ERROR(IOWA_PART_DATA, "Failed to convert back the integer value.");
-                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-            }
-            if (dataP->value.asInteger < 0)
-            {
-                IOWA_LOG_ARG_ERROR(IOWA_PART_DATA, "Integer value is signed: %d.", dataP->value.asInteger);
-                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-            }
-            break;
-
-        case IOWA_LWM2M_TYPE_INTEGER:
-        case IOWA_LWM2M_TYPE_TIME:
-            if (dataUtilsBufferToInt(bufferP, bufferLength, &dataP->value.asInteger) == 0)
-            {
-                IOWA_LOG_ERROR(IOWA_PART_DATA, "Failed to convert back the integer value.");
-                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-            }
-            break;
-
-        case IOWA_LWM2M_TYPE_FLOAT:
-            if (dataUtilsBufferToFloat(bufferP, bufferLength, &dataP->value.asFloat) == 0)
-            {
-                IOWA_LOG_ERROR(IOWA_PART_DATA, "Failed to convert back the float value.");
-                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-            }
-            break;
-
-        case IOWA_LWM2M_TYPE_BOOLEAN:
-            switch (bufferLength)
-            {
-            case 1:
-                switch (bufferP[0])
-                {
-                case '0':
-                    dataP->value.asBoolean = false;
-                    break;
-
-                case '1':
-                    dataP->value.asBoolean = true;
-                    break;
-
-                default:
-                    IOWA_LOG_ERROR(IOWA_PART_DATA, "Failed to convert back the boolean value.");
-                    return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-                }
-                break;
-
-            default:
-                IOWA_LOG_ERROR(IOWA_PART_DATA, "Failed to convert back the boolean value.");
-                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-            }
-            break;
-
-        case IOWA_LWM2M_TYPE_OBJECT_LINK:
-        {
-            size_t result;
-            size_t colonPos;
-            int64_t intFromBuffer;
-
-            if (bufferLength < 3
-                || bufferLength > 11)
-            {
-                IOWA_LOG_ERROR(IOWA_PART_DATA, "Invalid string Object Link.");
-                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-            }
-
-            for (colonPos = 0; colonPos < bufferLength; colonPos++)
-            {
-                if (bufferP[colonPos] == ':')
-                {
-                    break;
-                }
-            }
-            if (colonPos == 0
-                || colonPos == bufferLength
-                || colonPos > 5 
-                || bufferLength - 1 - colonPos > 5)
-            {
-                IOWA_LOG_ERROR(IOWA_PART_DATA, "Invalid string Object Link.");
-                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-            }
-
-            result = dataUtilsBufferToInt(bufferP, colonPos, &intFromBuffer);
-            if (result == 0
-                || intFromBuffer < 0
-                || intFromBuffer > 65535)
-            {
-                IOWA_LOG_ERROR(IOWA_PART_DATA, "Invalid left integer part for the Object Link.");
-                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-            }
-            dataP->value.asObjLink.objectId = (uint16_t)intFromBuffer;
-
-            result = dataUtilsBufferToInt(bufferP + colonPos + 1, bufferLength - 1 - colonPos, &intFromBuffer);
-            if (result == 0
-                || intFromBuffer < 0
-                || intFromBuffer > 65535)
-            {
-                IOWA_LOG_ERROR(IOWA_PART_DATA, "Invalid right integer part for the Object Link.");
-                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-            }
-            dataP->value.asObjLink.instanceId = (uint16_t)intFromBuffer;
-
-            break;
-        }
-
-        case IOWA_LWM2M_TYPE_OPAQUE:
-            if (bufferLength > 0)
-            {
-                size_t decodedSize;
-
-                decodedSize = iowa_utils_base64_get_decoded_size(bufferP, bufferLength);
-                if (decodedSize == 0)
-                {
-                    IOWA_LOG_ERROR(IOWA_PART_DATA, "Failed to retrieved the Base64 decoded buffer length.");
-                    return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-                }
-
-                dataP->value.asBuffer.buffer = (uint8_t *)iowa_system_malloc(decodedSize);
-#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-                if (dataP->value.asBuffer.buffer == NULL)
-                {
-                    IOWA_LOG_ERROR_MALLOC(decodedSize);
-                    return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-                }
-#endif
-
-                dataP->value.asBuffer.length = iowa_utils_base64_decode(bufferP, bufferLength, dataP->value.asBuffer.buffer, decodedSize);
-                if (dataP->value.asBuffer.length != decodedSize)
-                {
-                    IOWA_LOG_ERROR(IOWA_PART_DATA, "Failed to decode the Base64 buffer.");
-                    iowa_system_free(dataP->value.asBuffer.buffer);
-                    return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-                }
-            }
-            break;
-
-        case IOWA_LWM2M_TYPE_STRING:
-        case IOWA_LWM2M_TYPE_CORE_LINK:
-        case IOWA_LWM2M_TYPE_UNDEFINED:
-            dataP->value.asBuffer.length = prv_bufferCopy(bufferP, bufferLength, &dataP->value.asBuffer.buffer);
-#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-            if (dataP->value.asBuffer.length == 0
-                && bufferLength != 0)
-            {
-                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-            }
-#endif
-            break;
-
-        default:
-            IOWA_LOG_ERROR(IOWA_PART_DATA, "Unrecognized or unsupported data type for the current format.");
-            return IOWA_COAP_402_BAD_OPTION;
-        }
-        break;
-
-    case IOWA_CONTENT_FORMAT_OPAQUE:
-        switch (dataP->type)
-        {
-        case IOWA_LWM2M_TYPE_OPAQUE:
-        case IOWA_LWM2M_TYPE_UNDEFINED:
-            dataP->value.asBuffer.length = prv_bufferCopy(bufferP, bufferLength, &dataP->value.asBuffer.buffer);
-#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-            if (dataP->value.asBuffer.length == 0
-                && bufferLength != 0)
-            {
-                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-            }
-#endif
-            break;
-
-        default:
-            IOWA_LOG_ERROR(IOWA_PART_DATA, "Unrecognized or unsupported data type for the current format.");
-            return IOWA_COAP_402_BAD_OPTION;
-        }
-        break;
-
-    case IOWA_CONTENT_FORMAT_TLV:
-        switch (dataP->type)
-        {
-        case IOWA_LWM2M_TYPE_INTEGER:
-        case IOWA_LWM2M_TYPE_TIME:
-        case IOWA_LWM2M_TYPE_UNSIGNED_INTEGER:
-            switch (bufferLength)
-            {
-            case 1:
-                dataP->value.asInteger = (int8_t)bufferP[0];
-                break;
-
-            case 2:
-            {
-                int16_t value;
-
-                utilsCopyValue(&value, bufferP, bufferLength);
-
-                dataP->value.asInteger = value;
-                break;
-            }
-
-            case 4:
-            {
-                int32_t value;
-
-                utilsCopyValue(&value, bufferP, bufferLength);
-
-                dataP->value.asInteger = value;
-                break;
-            }
-
-            case 8:
-                utilsCopyValue(&dataP->value.asInteger, bufferP, bufferLength);
-                break;
-
-            default:
-                IOWA_LOG_ERROR(IOWA_PART_DATA, "Failed to convert back the integer value.");
-                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-            }
-
-            if (dataP->type == IOWA_LWM2M_TYPE_UNSIGNED_INTEGER
-                && dataP->value.asInteger < 0)
-            {
-                IOWA_LOG_ARG_ERROR(IOWA_PART_DATA, "Integer value is signed: %d.", dataP->value.asInteger);
-                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-            }
-            break;
-
-        case IOWA_LWM2M_TYPE_FLOAT:
-            switch (bufferLength)
-            {
-            case 4:
-            {
-                float temp;
-
-                utilsCopyValue(&temp, bufferP, bufferLength);
-
-                dataP->value.asFloat = temp;
-            }
-            break;
-
-            case 8:
-                utilsCopyValue(&dataP->value.asFloat, bufferP, bufferLength);
-                break;
-
-            default:
-                IOWA_LOG_ERROR(IOWA_PART_DATA, "Failed to convert back the float value.");
-                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-            }
-            break;
-
-        case IOWA_LWM2M_TYPE_BOOLEAN:
-            switch (bufferLength)
-            {
-            case 1:
-                switch (bufferP[0])
-                {
-                case 0:
-                    dataP->value.asBoolean = false;
-                    break;
-
-                case 1:
-                    dataP->value.asBoolean = true;
-                    break;
-
-                default:
-                    IOWA_LOG_ERROR(IOWA_PART_DATA, "Failed to convert back the boolean value.");
-                    return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-                }
-                break;
-
-            default:
-                IOWA_LOG_ERROR(IOWA_PART_DATA, "Failed to convert back the boolean value.");
-                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-            }
-            break;
-
-        case IOWA_LWM2M_TYPE_OBJECT_LINK:
-            switch (bufferLength)
-            {
-            case 4:
-                dataP->value.asObjLink.objectId = (uint16_t)((bufferP[0] << 8) | bufferP[1]);
-                dataP->value.asObjLink.instanceId = (uint16_t)((bufferP[2] << 8) | bufferP[3]);
-                break;
-
-            default:
-                IOWA_LOG_ERROR(IOWA_PART_DATA, "Failed to convert back the Object Link value.");
-                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-            }
-            break;
-
-        case IOWA_LWM2M_TYPE_OPAQUE:
-        case IOWA_LWM2M_TYPE_STRING:
-        case IOWA_LWM2M_TYPE_CORE_LINK:
-        case IOWA_LWM2M_TYPE_UNDEFINED:
-            dataP->value.asBuffer.length = prv_bufferCopy(bufferP, bufferLength, &dataP->value.asBuffer.buffer);
-#ifndef IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
-            if (dataP->value.asBuffer.length == 0
-                && bufferLength != 0)
-            {
-                return IOWA_COAP_500_INTERNAL_SERVER_ERROR;
-            }
-#endif
-            break;
-
-        default:
-            IOWA_LOG_ERROR(IOWA_PART_DATA, "Unrecognized or unsupported data type for the current format.");
-            return IOWA_COAP_402_BAD_OPTION;
-        }
-        break;
-
-    default:
-        IOWA_LOG_ERROR(IOWA_PART_DATA, "Unrecognized format.");
-        return IOWA_COAP_402_BAD_OPTION;
-    }
-
-    return IOWA_COAP_NO_ERROR;
-}
-
-size_t dataSkipBufferSpace(const uint8_t *bufferP,
-                           size_t bufferLength)
-{
-    size_t i;
-
-    assert(bufferP != NULL || (bufferLength == 0 && bufferP == NULL));
-
-    i = 0;
-    while (i < bufferLength
-           && isspace(bufferP[i]) != 0)
-    {
-        i++;
-    }
-
-    return i;
-}
-
 bool dataUtilsCompareFloatingPointNumbers(double num1,
-                                          double num2,
-                                          double epsilon)
+                                          double num2)
 {
-    prv_double_convert_t ulp;
-    prv_double_convert_t ulp1;
-    prv_double_convert_t ulp2;
-
-    assert(epsilon >= 0.f);
-
+    // Check if the number are already equals
     if (num1 == num2)
     {
         return true;
     }
 
-    ulp1.convert.asDouble = num1;
-    ulp2.convert.asDouble = num2;
-
-    if (((ulp1.convert.asInteger & PRV_FLOAT_VALUE_INFINITY_OR_NAN_MASK) == PRV_FLOAT_VALUE_INFINITY_OR_NAN_MASK
-        || (ulp2.convert.asInteger & PRV_FLOAT_VALUE_INFINITY_OR_NAN_MASK) == PRV_FLOAT_VALUE_INFINITY_OR_NAN_MASK)
-        || ((ulp1.convert.asInteger < 0) != (ulp2.convert.asInteger < 0)))
-    {
-        return false;
-    }
-    else
-    {
-        if (ulp2.convert.asDouble < ulp1.convert.asDouble)
-        {
-            ulp.convert.asDouble = ulp1.convert.asDouble - ulp2.convert.asDouble;
-        }
-        else
-        {
-            ulp.convert.asDouble = ulp2.convert.asDouble - ulp1.convert.asDouble;
-        }
-    }
-
-    return ulp.convert.asDouble <= epsilon;
+    return (((num1 - num2) <= FLT_EPSILON)
+            && ((num1-num2) >= -FLT_EPSILON));
 }
+
+
+/**************************************************************
+ * Half float conversion
+ **************************************************************/

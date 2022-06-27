@@ -39,17 +39,16 @@ iowa_security_session_t iowa_security_get_server_session(iowa_context_t contextP
 
     IOWA_LOG_TRACE(IOWA_PART_SECURITY, "Entering.");
 
-    securityS = NULL;
-
     CRIT_SECTION_ENTER(contextP);
 
-    for (serverP = contextP->lwm2mContextP->serverList; serverP != NULL; serverP = serverP->next)
+    serverP = (lwm2m_server_t *)IOWA_UTILS_LIST_FIND(contextP->lwm2mContextP->serverList, listFindCallbackBy16bitsId, &shortServerId);
+    if (serverP == NULL)
     {
-        if (serverP->shortId == shortServerId)
-        {
-            securityS = coapPeerGetSecuritySession(serverP->runtime.peerP);
-            break;
-        }
+        securityS = NULL;
+    }
+    else
+    {
+        securityS = coapPeerGetSecuritySession(serverP->runtime.peerP);
     }
 
     CRIT_SECTION_LEAVE(contextP);
@@ -58,5 +57,101 @@ iowa_security_session_t iowa_security_get_server_session(iowa_context_t contextP
 
     return securityS;
 }
-#endif
 
+iowa_security_mode_t iowa_security_session_get_security_mode(iowa_security_session_t securityS)
+{
+    return securityS->securityMode;
+}
+
+#endif // LWM2M_CLIENT_MODE
+
+#if IOWA_SECURITY_LAYER == IOWA_SECURITY_LAYER_USER
+
+void *iowa_security_session_get_user_internals(iowa_security_session_t securityS)
+{
+    return securityS->userInternalsP;
+}
+
+void iowa_security_session_set_user_internals(iowa_security_session_t securityS,
+                                              void *internalsP)
+{
+    securityS->userInternalsP = internalsP;
+}
+
+void iowa_security_session_set_state(iowa_security_session_t securityS,
+                                     iowa_security_state_t state)
+{
+    securityS->state = state;
+}
+
+void iowa_security_session_generate_event(iowa_security_session_t securityS,
+                                          iowa_security_event_t event)
+{
+    SESSION_CALL_EVENT_CALLBACK(securityS, event);
+}
+
+iowa_connection_type_t iowa_security_session_get_connection_type(iowa_security_session_t securityS)
+{
+    return securityS->type;
+}
+
+void * iowa_security_session_get_connection(iowa_security_session_t securityS)
+{
+    if (securityS->channelP != NULL)
+    {
+        return securityS->channelP->connP;
+    }
+
+    return NULL;
+}
+
+const char *iowa_security_session_get_uri(iowa_security_session_t securityS)
+{
+    return securityS->uri;
+}
+
+void iowa_security_session_set_step_delay(iowa_security_session_t securityS,
+                                          int32_t delay)
+{
+    if (delay >= 0
+        && delay < securityS->contextP->timeout)
+    {
+        securityS->contextP->timeout = delay;
+    }
+}
+
+iowa_context_t iowa_security_session_get_context(iowa_security_session_t securityS)
+{
+    return securityS->contextP;
+}
+
+void *iowa_security_session_get_context_user_data(iowa_security_session_t securityS)
+{
+    return securityS->contextP->userData;
+}
+
+int iowa_security_connection_send(iowa_security_session_t securityS,
+                                  uint8_t *buffer,
+                                  size_t length)
+{
+    if (NULL == securityS->channelP)
+    {
+        return -1;
+    }
+
+    return commSend(securityS->contextP, securityS->channelP, buffer, length);
+}
+
+int iowa_security_connection_recv(iowa_security_session_t securityS,
+                                  uint8_t *buffer,
+                                  size_t length)
+{
+    if (NULL == securityS->channelP)
+    {
+        return -1;
+    }
+
+    return commRecv(securityS->contextP, securityS->channelP, buffer, length);
+}
+
+#endif // IOWA_SECURITY_LAYER == IOWA_SECURITY_LAYER_USER

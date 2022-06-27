@@ -23,7 +23,8 @@
 * Location
 *
 ** Description
-*** This LwM2M Objects provide a range of device related information which can be queried by the LwM2M Server, and a device reboot and factory reset function
+*** This LwM2M Object provides a range of location telemetry related information which
+*** can be queried by the LwM2M Server.
 *
 ** Object Definition
 *** Object Id: 6
@@ -103,6 +104,66 @@ iowa_status_t iowa_client_location_update_full(iowa_context_t contextP,
                                                size_t velocityLength,
                                                uint8_t * velocity,
                                                float speed);
+
+// Update the mandatory ressources of the location object.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - contextP: returned by iowa_init().
+// - id: ID of the instance of the location object.
+// - latitude: new latitude.
+// - longitude: new longitude.
+// - timestamp: timestamp of when the location measurement was performed.
+iowa_status_t iowa_client_location_update_with_time(iowa_context_t contextP,
+                                                    iowa_sensor_t id,
+                                                    float latitude,
+                                                    float longitude,
+                                                    int32_t timestamp);
+
+// Update all the ressources defined during the creation of the location object.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - contextP: returned by iowa_init().
+// - id: ID of the instance of the location object.
+// - latitude: new latitude.
+// - longitude: new longitude.
+// - altitude: new altitude.
+// - radius: new radius.
+// - velocityLength: length of the velocity opaque ressource.
+// - velocity: new velocity.
+// - speed: new speed.
+iowa_status_t iowa_client_location_update_full(iowa_context_t contextP,
+                                               iowa_sensor_t id,
+                                               float latitude,
+                                               float longitude,
+                                               float altitude,
+                                               float radius,
+                                               size_t velocityLength,
+                                               uint8_t * velocity,
+                                               float speed);
+
+// Update all the ressources defined during the creation of the location object.
+// Returned value: IOWA_COAP_NO_ERROR in case of success or an error status.
+// Parameters:
+// - contextP: returned by iowa_init().
+// - id: ID of the instance of the location object.
+// - latitude: new latitude.
+// - longitude: new longitude.
+// - altitude: new altitude.
+// - radius: new radius.
+// - velocityLength: length of the velocity opaque ressource.
+// - velocity: new velocity.
+// - speed: new speed.
+// - timestamp: timestamp of when the location measurement was performed.
+iowa_status_t iowa_client_location_update_full_with_time(iowa_context_t contextP,
+                                                         iowa_sensor_t id,
+                                                         float latitude,
+                                                         float longitude,
+                                                         float altitude,
+                                                         float radius,
+                                                         size_t velocityLength,
+                                                         uint8_t * velocity,
+                                                         float speed,
+                                                         int32_t timestamp);
 
 #ifdef __cplusplus
 }

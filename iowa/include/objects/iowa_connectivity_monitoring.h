@@ -80,21 +80,21 @@ extern "C" {
 // - smcc: Serving Mobile Country Code.
 typedef struct
 {
-    int         networkBearer;
-    int        *availableNetworkBearerList;
-    uint16_t    availableNetworkBearerNumber;
-    int         radioSignalStrength;
-    int         linkQuality;
+    uint8_t     networkBearer;
+    uint8_t    *availableNetworkBearerList;
+    uint8_t     availableNetworkBearerNumber;
+    int16_t     radioSignalStrength;
+    int16_t     linkQuality;
     char      **ipAddressList;
     uint16_t    ipAddressNumber;
     char      **routerIpAddressesList;
     uint16_t    routerIpAddressesNumber;
-    int         linkUtilization;
+    uint8_t     linkUtilization;
     char      **apnList;
     uint16_t    apnNumber;
-    int         cellId;
-    int         smnc;
-    int         smcc;
+    uint64_t    cellId;
+    uint16_t    smnc;
+    uint16_t    smcc;
 } iowa_connectivity_monitoring_info_t;
 
 /**************************************************************

@@ -9,7 +9,7 @@
 * |         |         |           |    |    |
 * |_________|_________|___________|____|____|
 *
-* Copyright (c) 2018-2019 IoTerop.
+* Copyright (c) 2018-2021 IoTerop.
 * All rights reserved.
 *
 * This program and the accompanying materials
@@ -27,9 +27,9 @@
  * and Eclipse Distribution License v1.0 which accompany this distribution.
  *
  * The Eclipse Public License is available at
- *    http:
+ *    http://www.eclipse.org/legal/epl-v10.html
  * The Eclipse Distribution License is available at
- *    http:
+ *    http://www.eclipse.org/org/documents/edl-v10.php.
  *
  * Contributors:
  *    Pascal Rieux - Please refer to git log
@@ -42,7 +42,7 @@
 
 #include "iowa_access_control_list.h"
 
-#define PRV_BS_REQUEST_PAYLOAD_DUMMY_DATA_LENGTH 4
+#define PRV_BS_REQUEST_PAYLOAD_DUMMY_DATA_LENGTH 4 // '</>;'
 
 /*************************************************************************************
 ** Private functions

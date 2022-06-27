@@ -21,3 +21,12 @@
 
 #include "iowa_prv_lwm2m_internals.h"
 
+void valueFree(lwm2m_value_t *valueP)
+{
+    if (valueP != NULL)
+    {
+        IOWA_LOG_ARG_TRACE(IOWA_PART_LWM2M, "counter: %u.", valueP->counter);
+        iowa_system_free(valueP->buffer);
+        iowa_system_free(valueP);
+    }
+}
