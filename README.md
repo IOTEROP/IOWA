@@ -84,6 +84,8 @@ Several samples are provided in this repository. Each comes with its own README 
 
 All the samples can be built/run on Windows and Linux. Other platforms and OS are available in [IoTerop's GitHub](https://github.com/IOTEROP).
 
+If you prefer, a Docker version is available in the *docker* folder.
+
 ### Tutorials
 
 You can find some interesting tutorials on [Hackster.io](https://www.hackster.io/):

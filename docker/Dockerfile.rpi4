@@ -1,0 +1,26 @@
+FROM raspbian/stretch
+
+# Identify the maintainer of an image
+LABEL maintainer="olivier.guiter@ioterop.com"
+
+RUN apt-get update  \
+	&& DEBIAN_FRONTEND=noninteractive apt-get install -yq git build-essential cmake
+
+#Need a recent version of cmake
+RUN wget https://cmake.org/files/v3.4/cmake-3.23.3.tar.gz && tar -xvzf cmake-3.23.3.tar.gz && cd cmake-3.23.3 && ./bootstrap && make -j$(nproc) && make install
+
+# Raspbian lib
+RUN sudo apt-get install -y libraspberrypi-dev
+
+# Clone the project and build.
+RUN git clone https://github.com/IOTEROP/IOWA.git /home/IOWA_SDK \
+	&& cd /home/IOWA_SDK && git submodule update --init --recursive
+
+WORKDIR /home/IOWA_SDK
+
+COPY ./samples ./samples
+
+# Build all the samples
+RUN mkdir -p build && cd build && ls -l && cmake .. && make -j$(nproc)
+
+# EOF
