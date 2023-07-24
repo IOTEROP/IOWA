@@ -13,7 +13,7 @@
     
     
       
-        <title>IOWA Reference</title>
+        <title>Network - IOWA Reference</title>
       
     
     
@@ -63,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#iowa-network-environment" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -91,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Network
             
           </span>
         </div>
@@ -151,12 +156,10 @@
         
   
   
-    
-  
 
 
   <li class="md-tabs__item">
-    <a href="index.html" class="md-tabs__link md-tabs__link--active">
+    <a href="index.html" class="md-tabs__link">
       Home
     </a>
   </li>
@@ -177,13 +180,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="LwM2MOverview.html" class="md-tabs__link">
+      <a href="LwM2MOverview.html" class="md-tabs__link md-tabs__link--active">
         User Manual
       </a>
     </li>
@@ -287,19 +292,11 @@
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="index.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
         Home
       </a>
-      
     </li>
   
 
@@ -325,12 +322,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
       
       
       
@@ -491,11 +490,126 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="Network.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Network
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="Network.html" class="md-nav__link md-nav__link--active">
         Network
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#network-reliability" class="md-nav__link">
+    Network reliability
+  </a>
+  
+    <nav class="md-nav" aria-label="Network reliability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#behind-the-transport" class="md-nav__link">
+    Behind the transport
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#client-registration-in-lwm2m-11" class="md-nav__link">
+    Client Registration in LwM2M 1.1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sms-specific-behaviors" class="md-nav__link">
+    SMS specific behaviors
+  </a>
+  
+    <nav class="md-nav" aria-label="SMS specific behaviors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#msisdn-fallback" class="md-nav__link">
+    MSISDN Fallback
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registration-update-trigger-message" class="md-nav__link">
+    Registration Update Trigger message
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-reachability" class="md-nav__link">
+    Network reachability
+  </a>
+  
+    <nav class="md-nav" aria-label="Network reachability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flow" class="md-nav__link">
+    Flow
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa-api" class="md-nav__link">
+    IOWA API
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1300,6 +1414,113 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#network-reliability" class="md-nav__link">
+    Network reliability
+  </a>
+  
+    <nav class="md-nav" aria-label="Network reliability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#behind-the-transport" class="md-nav__link">
+    Behind the transport
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#client-registration-in-lwm2m-11" class="md-nav__link">
+    Client Registration in LwM2M 1.1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sms-specific-behaviors" class="md-nav__link">
+    SMS specific behaviors
+  </a>
+  
+    <nav class="md-nav" aria-label="SMS specific behaviors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#msisdn-fallback" class="md-nav__link">
+    MSISDN Fallback
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registration-update-trigger-message" class="md-nav__link">
+    Registration Update Trigger message
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-reachability" class="md-nav__link">
+    Network reachability
+  </a>
+  
+    <nav class="md-nav" aria-label="Network reachability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flow" class="md-nav__link">
+    Flow
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa-api" class="md-nav__link">
+    IOWA API
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -1314,14 +1535,209 @@
 
                 
 
-  <h1>Home</h1>
+<h1 id="iowa-network-environment">IOWA Network environment</h1>
+<h2 id="network-reliability">Network reliability</h2>
+<h3 id="behind-the-transport">Behind the transport</h3>
+<p>Network reliability is a real issue when a system is deployed in an environment. Some networks can be reliable, when others do not guarantee the transmission of a message from one side to another.</p>
+<p>IOWA supports the following transports:</p>
+<ul>
+<li>User Datagram Protocol (aka UDP)</li>
+<li>Transmission Control Protocol (aka TCP)</li>
+<li>LoRaWAN</li>
+<li>Short Message Service (aka SMS)</li>
+</ul>
+<p>For each transport, a set of constants is defined to maximize the chances that message is received. These constants can be simplified into two parts: a retransmission counter and an initial timeout.
+The retransmission counter is the number of attempts to send until the communication is considered as failed. The initial timeout is the number of second to wait for a response before resending the message.</p>
+<p>The algorithm is as follows: when the initial timeout is triggered and the retransmission counter is less than the maximum retransmission number, the message is retransmitted, the retransmission counter is incremented, and the timeout is doubled. If the retransmission counter reaches the maximum retransmission number on a timeout, then the attempt to transmit the message is canceled and the application process is notified of the failure. On the other hand, if the endpoint receives a response in time, transmission is considered successful.</p>
+<p>In IOWA, it means:</p>
+<ul>
+<li>On server side: when an operation is performed, such as for a LwM2M Server a Read operation, if the message is not received by the client, the callback <a href="ServerAPI.html#iowa_result_callback_t"><code>iowa_result_callback_t</code></a> will be called with <em>status</em> sets to IOWA_COAP_503_SERVICE_UNAVAILABLE.</li>
+<li>On client side: if a Confirmable message is not acknowledged by the LwM2M Server such as the registration message, the registration update message, or a confirmable notification, the connection is considered lost. In case of registration or registration update, the callback <a href="ClientAPI.html#iowa_event_callback_t"><code>iowa_event_callback_t</code></a> will be called with <em>eventP-&gt;eventType</em> sets to IOWA_EVENT_REG_FAILED and the function <a href="CommonAPI.html#iowa_step"><code>iowa_step</code></a> will exit by returning IOWA_COAP_503_SERVICE_UNAVAILABLE. On the other hand, if a confirmable notification is not acknowledged, the LwM2M Client deactivates the Server Account until the connection is reestablished, that is, an Acknowledge is received on a Confirmable message.</li>
+<li>On both side: if the Platform layer returns a negative value on <a href="AbstractionLayer.html#iowa_system_connection_send"><code>iowa_system_connection_send</code></a>, <a href="AbstractionLayer.html#iowa_system_connection_recv"><code>iowa_system_connection_recv</code></a> or <a href="AbstractionLayer.html#iowa_system_connection_select"><code>iowa_system_connection_select</code></a>, the connection will be considered lost.</li>
+</ul>
+<h3 id="client-registration-in-lwm2m-11">Client Registration in LwM2M 1.1</h3>
+<p>In LwM2M 1.0 the registration procedure is very simple: either the registration is successful or it failed.</p>
+<p>In LwM2M 1.1 a new registration procedure was introduced with multiple registration attempts and a increasing delay between attempts. For more details, see the section 6.2.1.1. "Bootstrap and LwM2M Server Registration Mechanisms" of the <a href="https://www.openmobilealliance.org/release/LightweightM2M/V1_1_1-20190617-A/OMA-TS-LightweightM2M_Core-V1_1_1-20190617-A.pdf">LwM2M 1.1 Core TS</a>.</p>
+<p>The default number of attempts is set to 5. The default timer between attempts is set to 60 seconds and doubles after each failed registration.</p>
+<p>There are three different ways to configure it:</p>
+<ol>
+<li>at IOWA build time.</li>
+</ol>
+<p>You can completely remove this behavior by setting the compilation flags <a href="Configuration.html#server"><strong>IOWA_SERVER_RSC_REGISTRATION_BEHAVIOUR_REMOVE</strong></a> and <a href="Configuration.html#server"><strong>IOWA_SERVER_RSC_COMMUNICATION_ATTEMPTS_REMOVE</strong></a>.</p>
+<p>You can also change the default values <strong>IOWA_SERVER_ACCOUNT_DEFAULT_COMM_RETRY_COUNT_VALUE</strong>, <strong>IOWA_SERVER_ACCOUNT_DEFAULT_COMM_RETRY_TIMER_VALUE</strong>, <strong>IOWA_SERVER_ACCOUNT_DEFAULT_COMM_SEQUENCE_DELAY_VALUE</strong>, and <strong>IOWA_SERVER_ACCOUNT_DEFAULT_COMM_SEQUENCE_COUNT_VALUE</strong> defined in iowa_client.h</p>
+<ol>
+<li>from the application.</li>
+</ol>
+<p>The APIs <a href="ClientAPI.html#iowa_client_set_server_registration_behaviour"><code>iowa_client_set_server_registration_behaviour()</code></a> and <a href="ClientAPI.html#iowa_client_set_server_communication_attempts"><code>iowa_client_set_server_communication_attempts()</code></a> are controlling the registration settings.</p>
+<ol>
+<li>by the LwM2M Server (or the LwM2M Bootstrap Server).</li>
+</ol>
+<p>The LwM2M Server can write in the LwM2M Server Object (ID: 1) the resources 14 to 20 detailed below:</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Resource Name</th>
+<th>Access Type</th>
+<th>Mandatory</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>14</td>
+<td>Initial Registration Delay Timer</td>
+<td></td>
+<td>No</td>
+<td>Unsigned Integer</td>
+<td>The delay before registration is attempted for this LwM2M Server based upon the completion of registration of the previous LwM2M Server in the registration order.</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Registration Failure Block</td>
+<td></td>
+<td>No</td>
+<td>Boolean</td>
+<td>Prevent or not the registration on the next LwM2M Server when the registration fails to connect with this LwM2M server.</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Bootstrap on Registration Failure</td>
+<td></td>
+<td>No</td>
+<td>Boolean</td>
+<td>Initiate a Bootstrap Request or not when the registration fails to connect with this LwM2M server.</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Communication Retry Count</td>
+<td></td>
+<td>No</td>
+<td>Unsigned Integer</td>
+<td>The number of successive communication attempts before which a communication sequence is considered as failed.</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Communication Retry Timer</td>
+<td></td>
+<td>No</td>
+<td>Unsigned Integer</td>
+<td>The delay between successive communication attempts in a communication sequence.</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Communication Sequence Delay Timer</td>
+<td></td>
+<td>No</td>
+<td>Unsigned Integer</td>
+<td>The delay between successive communication sequences.</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Communication Sequence Retry Count</td>
+<td></td>
+<td>No</td>
+<td>Unsigned Integer</td>
+<td>The number of successive communication sequences before which a registration attempt is considered as failed.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sms-specific-behaviors">SMS specific behaviors</h3>
+<h4 id="msisdn-fallback">MSISDN Fallback</h4>
+<p>There is a MSISDN fallback for the Client when the connection can't be established on a Registration message or a Registration Update message is not acknowledged.</p>
+<p>This fallback can be activated with the define <a href="Configuration.html#transports"><code>IOWA_SMS_SUPPORT</code></a> and by providing the LwM2M Server MSISDN number with <a href="ClientAPI.html#iowa_client_set_server_msisdn"><code>iowa_client_set_server_msisdn</code></a>. In that case, if the LwM2M Client cannot reach a LwM2M Server, IOWA will close the current connection before opening a new SMS connection to try to register with this transport. On this second attempt, if the LwM2M Client has again no response from the LwM2M Server, <a href="CommonAPI.html#iowa_step"><code>iowa_step</code></a> will exit by returning IOWA_COAP_503_SERVICE_UNAVAILABLE.</p>
+<p><img alt="MSISDN Fallback" src="images/msisdn_fallback.png" /></p>
+<h4 id="registration-update-trigger-message">Registration Update Trigger message</h4>
+<p>On the LwM2M Server side when an operation is not acknowledged by the LwM2M Client, the Server can generate a Registration Update Trigger message with <a href="ServerAPI.html#iowa_server_create_registration_update_trigger_message"><code>iowa_server_create_registration_update_trigger_message</code></a>. This message has to be sent by SMS to the Client.</p>
+<p>For this purpose, the Client must at least on its Registration message give its MSISDN number. This MSISDN number can be provided to IOWA when calling <a href="ClientAPI.html#iowa_client_configure"><code>iowa_client_configure</code></a> and setting <em>infoP-&gt;msisdn</em>. Last but not least, the Client has to listen on incoming SMS messages. If a message is received out of bound, the Client has to call <a href="ClientAPI.html#iowa_client_new_incoming_connection"><code>iowa_client_new_incoming_connection</code></a>. If the message received is a Registration Update Trigger, IOWA will automatically sends a Registration Update using the Client preferred binding.</p>
+<p><img alt="Registration Update Trigger" src="images/registration_update_trigger.png" /></p>
+<h2 id="network-reachability">Network reachability</h2>
+<p>The LwM2M Server should always be present. But this is not the case for the LwM2M Client. There are multiple reasons for a LwM2M Client not to be available.</p>
+<ol>
+<li>
+<p>A LwM2M Server can deactivate the connection with a LwM2M Client for a certain period. This mechanism can be triggered by executing the resource Disable (ID: 4) of the <a href="LwM2MOverview.html#server-object"><code>Server Object</code></a>. The LwM2M Server Account will be disabled for a certain period defined in the Disabled Timeout Resource (ID: 5).
+After receiving the Execute operation, LwM2M Client must perform the deregistration process, and underlying network connection between the LwM2M Client and LwM2M Server must be disconnected to disable the LwM2M Server account. After the above process, the LwM2M Client must not send any message to the Server and ignore all the messages from the LwM2M Server for the period.
+Once the disabled timeout expires, the client restarts the registration process to reconnect to the LwM2M Server.</p>
+</li>
+<li>
+<p>In LwM2M, there is a mechanism called Queue Mode which offers functionality for a LwM2M Client to inform the LwM2M Server that it may be disconnected for an extended period and when it becomes reachable again.
+When the LwM2M Client is not reachable, the LwM2M Server does not immediately send downlink requests, but instead waits until the LwM2M Client becomes reachable again.</p>
+</li>
+</ol>
+<h3 id="flow">Flow</h3>
+<p><img alt="Device Management with Queue Mode" src="images/dm_se_interface_exchanges_queue_mode.png" /></p>
+<p>A typical Queue Mode sequence follows the steps listed below:</p>
+<ul>
+<li>The LwM2M Client registers to the LwM2M Server and requests the LwM2M Server to run in Queue mode.</li>
+<li>The LwM2M Client should use the CoAP constant MAX_TRANSMIT_WAIT (93 seconds) to set a timer for how long it shall stay awake after sending a message to the LwM2M Server. After the timeout expires without any messages from the LwM2M Server, the LwM2M Client enters sleep mode.</li>
+<li>At some point in time the LwM2M Client wakes up again and transmits a registration update message. Note: During the time the LwM2M Client has been sleeping the IP address assigned to it may have been released and/or existing NAT bindings may have been released. If this is the case, then the client needs to re-run the TLS/DTLS handshake with the LwM2M Server since an IP address and/or port number change will destroy the existing security context.</li>
+<li>When the LwM2M Server receives a message from the Client, it determines if any messages need to be sent to the LwM2M Client, as instructed by the Application Server.</li>
+</ul>
+<h3 id="iowa-api">IOWA API</h3>
+<p>IOWA introduces two APIs to handle the Queue Mode: <a href="CommonAPI.html#iowa_flush_before_pause"><code>iowa_flush_before_pause</code></a> and <a href="ClientAPI.html#iowa_client_send_heartbeat"><code>iowa_client_send_heartbeat</code></a>.</p>
+<p><a href="CommonAPI.html#iowa_flush_before_pause"><code>iowa_flush_before_pause</code></a> is used to inform the LwM2M stack that the device will pause. <code>iowa_flush_before_pause()</code> performs all the pending and required operations of the LwM2M stack engine before returning. It means that if the registration lifetime expires during the device sleep, IOWA will send a registration update before returning from this function. When waking up, the LwM2M Client is connected again to the LwM2M Server.
+This function also returns a parameter <em>delayP</em> to indicate when the next scheduled IOWA operation is.</p>
+<p><a href="ClientAPI.html#iowa_client_send_heartbeat"><code>iowa_client_send_heartbeat</code></a> is used to send an heartbeat message to a LwM2M Server. Depending of the transport, the heartbeat sent can be a CoAP Empty message on LoRaWAN, or a registration update message for others transports.</p>
+<p>Below an example in pseudo-code to use these APIs:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;iowa_client.h&quot;</span><span class="cp"></span>
 
-<p><img alt="IOWA" src="images/iowa_logo.png#center" /></p>
-<p style="text-align:center"><b>2022-05-Eval</b></p>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"></span>
+<span class="w">         </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">iowa_context_t</span><span class="w"> </span><span class="n">iowaH</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">iowa_status_t</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
 
-<p style="text-align:center">BY</p>
+<span class="w">    </span><span class="cm">/******************</span>
+<span class="cm">     * Initialization</span>
+<span class="cm">     */</span><span class="w"></span>
 
-<p><img alt="IoTerop" src="images/ioterop_logo.png#center" /></p>
+<span class="w">    </span><span class="n">iowaH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iowa_init</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">iowa_client_configure</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;IOWA_Sample_QM_Client&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">iowa_client_add_server</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span><span class="w"></span>
+<span class="w">                           </span><span class="mi">1234</span><span class="p">,</span><span class="w"></span>
+<span class="w">                           </span><span class="s">&quot;coap://localhost:5683&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                           </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">                           </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">                           </span><span class="n">IOWA_SEC_NONE</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="cm">/******************</span>
+<span class="cm">     * &quot;Main loop&quot;</span>
+<span class="cm">     */</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">do</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">iowaDelay</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">        </span><span class="c1">// Run for 93 seconds</span>
+<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iowa_step</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span><span class="w"> </span><span class="mi">93</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">        </span><span class="c1">// Prepare to stand by for 60 minutes</span>
+<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iowa_flush_before_pause</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span><span class="w"> </span><span class="mi">3600</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">iowaDelay</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">iowaDelay</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3600</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">STAND_BY</span><span class="p">(</span><span class="n">iowaDelay</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">else</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">STAND_BY</span><span class="p">(</span><span class="mi">3600</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="n">iowa_client_send_heartbeat</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span><span class="w"> </span><span class="mi">1234</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">IOWA_COAP_NO_ERROR</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">iowa_client_remove_server</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span><span class="w"> </span><span class="mi">1234</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">iowa_close</span><span class="p">(</span><span class="n">iowaH</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>In the above example, after calling <a href="CommonAPI.html#iowa_flush_before_pause"><code>iowa_flush_before_pause</code></a>, there are two possibilities:</p>
+<ul>
+<li><em>iowaDelay</em> is inferior to the requested stand by time. It means that on next <a href="CommonAPI.html#iowa_step"><code>iowa_step</code></a> call, IOWA will send to the Server a message such as notification, registration update, etc. So, the Server will notice the device wake up and send back any buffered requests.</li>
+<li>Or, <em>iowaDelay</em> is equal to the requested stand by time. In that case, IOWA has nothing to send on next iowa_step() turn. To inform the Server that the device is awake, <a href="ClientAPI.html#iowa_client_send_heartbeat"><code>iowa_client_send_heartbeat</code></a> needs to be called.</li>
+</ul>
 
               
 
@@ -1335,15 +1751,30 @@
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
+        
+        <a href="ApplicationStorage.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Application Storage" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Application Storage
+            </div>
+          </div>
+        </a>
+      
       
         
-        <a href="Changelog.html" class="md-footer__link md-footer__link--next" aria-label="Next: Changelog" rel="next">
+        <a href="Porting.html" class="md-footer__link md-footer__link--next" aria-label="Next: Porting" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Changelog
+              Porting
             </div>
           </div>
           <div class="md-footer__button md-icon">

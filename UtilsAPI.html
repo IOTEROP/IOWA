@@ -13,7 +13,7 @@
     
     
       
-        <title>IOWA Reference</title>
+        <title>Utils APIs - IOWA Reference</title>
       
     
     
@@ -63,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#utils-api-reference" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -91,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Utils APIs
             
           </span>
         </div>
@@ -151,12 +156,10 @@
         
   
   
-    
-  
 
 
   <li class="md-tabs__item">
-    <a href="index.html" class="md-tabs__link md-tabs__link--active">
+    <a href="index.html" class="md-tabs__link">
       Home
     </a>
   </li>
@@ -209,13 +212,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="AbstractionLayer.html" class="md-tabs__link">
+      <a href="AbstractionLayer.html" class="md-tabs__link md-tabs__link--active">
         API Reference
       </a>
     </li>
@@ -287,19 +292,11 @@
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="index.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
         Home
       </a>
-      
     </li>
   
 
@@ -1062,12 +1059,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
       
       
       
@@ -1186,11 +1185,189 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="UtilsAPI.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Utils APIs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="UtilsAPI.html" class="md-nav__link md-nav__link--active">
         Utils APIs
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data-types" class="md-nav__link">
+    Data types
+  </a>
+  
+    <nav class="md-nav" aria-label="Data types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_list_t" class="md-nav__link">
+    iowa_list_t
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#callbacks" class="md-nav__link">
+    Callbacks
+  </a>
+  
+    <nav class="md-nav" aria-label="Callbacks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_list_node_free_callback_t" class="md-nav__link">
+    iowa_list_node_free_callback_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_list_node_find_callback_t" class="md-nav__link">
+    iowa_list_node_find_callback_t
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    API
+  </a>
+  
+    <nav class="md-nav" aria-label="API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_base64_get_encoded_size" class="md-nav__link">
+    iowa_utils_base64_get_encoded_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_base64_get_decoded_size" class="md-nav__link">
+    iowa_utils_base64_get_decoded_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_base64_encode" class="md-nav__link">
+    iowa_utils_base64_encode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_base64_decode" class="md-nav__link">
+    iowa_utils_base64_decode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_uri_to_sensor" class="md-nav__link">
+    iowa_utils_uri_to_sensor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_sensor_to_uri" class="md-nav__link">
+    iowa_utils_sensor_to_uri
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_list_add" class="md-nav__link">
+    iowa_utils_list_add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_list_remove" class="md-nav__link">
+    iowa_utils_list_remove
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_list_free" class="md-nav__link">
+    iowa_utils_list_free
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_list_find" class="md-nav__link">
+    iowa_utils_list_find
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_list_find_and_remove" class="md-nav__link">
+    iowa_utils_list_find_and_remove
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-linked-list-usage" class="md-nav__link">
+    Example: Linked List usage
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1300,6 +1477,176 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data-types" class="md-nav__link">
+    Data types
+  </a>
+  
+    <nav class="md-nav" aria-label="Data types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_list_t" class="md-nav__link">
+    iowa_list_t
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#callbacks" class="md-nav__link">
+    Callbacks
+  </a>
+  
+    <nav class="md-nav" aria-label="Callbacks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_list_node_free_callback_t" class="md-nav__link">
+    iowa_list_node_free_callback_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_list_node_find_callback_t" class="md-nav__link">
+    iowa_list_node_find_callback_t
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    API
+  </a>
+  
+    <nav class="md-nav" aria-label="API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_base64_get_encoded_size" class="md-nav__link">
+    iowa_utils_base64_get_encoded_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_base64_get_decoded_size" class="md-nav__link">
+    iowa_utils_base64_get_decoded_size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_base64_encode" class="md-nav__link">
+    iowa_utils_base64_encode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_base64_decode" class="md-nav__link">
+    iowa_utils_base64_decode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_uri_to_sensor" class="md-nav__link">
+    iowa_utils_uri_to_sensor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_sensor_to_uri" class="md-nav__link">
+    iowa_utils_sensor_to_uri
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_list_add" class="md-nav__link">
+    iowa_utils_list_add
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_list_remove" class="md-nav__link">
+    iowa_utils_list_remove
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_list_free" class="md-nav__link">
+    iowa_utils_list_free
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_list_find" class="md-nav__link">
+    iowa_utils_list_find
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_utils_list_find_and_remove" class="md-nav__link">
+    iowa_utils_list_find_and_remove
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-linked-list-usage" class="md-nav__link">
+    Example: Linked List usage
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -1314,14 +1661,296 @@
 
                 
 
-  <h1>Home</h1>
-
-<p><img alt="IOWA" src="images/iowa_logo.png#center" /></p>
-<p style="text-align:center"><b>2022-05-Eval</b></p>
-
-<p style="text-align:center">BY</p>
-
-<p><img alt="IoTerop" src="images/ioterop_logo.png#center" /></p>
+<h1 id="utils-api-reference">Utils API Reference</h1>
+<p>The functions explained below are defined inside the file <em>include/iowa_utils.h</em>.</p>
+<h2 id="data-types">Data types</h2>
+<h3 id="iowa_list_t">iowa_list_t</h3>
+<p>List structure used by the List APIs.</p>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span> <span class="nc">_iowa_list_t</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">struct</span> <span class="nc">_iowa_list_t</span><span class="w"> </span><span class="o">*</span><span class="n">nextP</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">iowa_list_t</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<dl>
+<dt>nextP</dt>
+<dd>Pointer to the next element in the list.</dd>
+</dl>
+<hr />
+<h2 id="callbacks">Callbacks</h2>
+<h3 id="iowa_list_node_free_callback_t">iowa_list_node_free_callback_t</h3>
+<p>This is the list node free callback, called to free a node.</p>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="kt">void</span><span class="p">(</span><span class="o">*</span><span class="n">iowa_list_node_free_callback_t</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">nodeP</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<dl>
+<dt><em>nodeP</em></dt>
+<dd>The node to free.</dd>
+</dl>
+<hr />
+<h3 id="iowa_list_node_find_callback_t">iowa_list_node_find_callback_t</h3>
+<p>This is the list node find callback, called to find a node.</p>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="kt">bool</span><span class="p">(</span><span class="o">*</span><span class="n">iowa_list_node_find_callback_t</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">nodeP</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                               </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">criteria</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<dl>
+<dt><em>nodeP</em></dt>
+<dd>The current node in the list.</dd>
+<dt><em>criteria</em></dt>
+<dd>The criteria to match.</dd>
+</dl>
+<hr />
+<h2 id="api">API</h2>
+<h3 id="iowa_utils_base64_get_encoded_size">iowa_utils_base64_get_encoded_size</h3>
+<p><strong>Prototype</strong></p>
+<p><div class="highlight"><pre><span></span><code><span class="kt">size_t</span><span class="w"> </span><span class="nf">iowa_utils_base64_get_encoded_size</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">rawBufferLen</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<strong>Description</strong></p>
+<p><code>iowa_utils_base64_get_encoded_size()</code> calculates the length of a Base64 buffer based on a raw buffer represented by its length.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>rawBufferLen</em></dt>
+<dd>The length of the raw buffer.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The length of the Base64 buffer.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_utils.h</p>
+<hr />
+<h3 id="iowa_utils_base64_get_decoded_size">iowa_utils_base64_get_decoded_size</h3>
+<p><strong>Prototype</strong></p>
+<p><div class="highlight"><pre><span></span><code><span class="kt">size_t</span><span class="w"> </span><span class="nf">iowa_utils_base64_get_decoded_size</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">base64Buffer</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                          </span><span class="kt">size_t</span><span class="w"> </span><span class="n">base64BufferLen</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<strong>Description</strong></p>
+<p><code>iowa_utils_base64_get_decoded_size()</code> calculates the length of a raw buffer based on a Base64 buffer.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>base64Buffer</em></dt>
+<dd>The Base64 buffer.</dd>
+<dt><em>base64BufferLen</em></dt>
+<dd>The length of the Base64 buffer.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The length of the raw buffer. If any error the length will be 0.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_utils.h</p>
+<hr />
+<h3 id="iowa_utils_base64_encode">iowa_utils_base64_encode</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">size_t</span><span class="w"> </span><span class="nf">iowa_utils_base64_encode</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rawBuffer</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="kt">size_t</span><span class="w"> </span><span class="n">rawBufferLen</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">base64Buffer</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="kt">size_t</span><span class="w"> </span><span class="n">base64BufferLen</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_utils_base64_encode()</code> encodes a raw buffer using Base64.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>rawBuffer</em></dt>
+<dd>The raw buffer.</dd>
+<dt><em>rawBufferLen</em></dt>
+<dd>The length of the raw buffer.</dd>
+<dt><em>base64Buffer</em></dt>
+<dd>The preallocated Base64 buffer.</dd>
+<dt><em>base64BufferLen</em></dt>
+<dd>The length of the preallocated Base64 buffer.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The length of the encoded buffer. If any error the length will be 0.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_utils.h</p>
+<hr />
+<h3 id="iowa_utils_base64_decode">iowa_utils_base64_decode</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">size_t</span><span class="w"> </span><span class="nf">iowa_utils_base64_decode</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">base64Buffer</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="kt">size_t</span><span class="w"> </span><span class="n">base64BufferLen</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rawBuffer</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="kt">size_t</span><span class="w"> </span><span class="n">rawBufferLen</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_utils_base64_decode()</code> decodes a Base64 buffer into a raw buffer.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>base64Buffer</em></dt>
+<dd>The Base64 buffer.</dd>
+<dt><em>base64BufferLen</em></dt>
+<dd>The length of the Base64 buffer.</dd>
+<dt><em>rawBuffer</em></dt>
+<dd>The preallocated raw buffer.</dd>
+<dt><em>rawBufferLen</em></dt>
+<dd>The length of the preallocated raw buffer.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The length of the decoded buffer. If any error the length will be 0.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_utils.h</p>
+<hr />
+<hr />
+<h3 id="iowa_utils_uri_to_sensor">iowa_utils_uri_to_sensor</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_sensor_t</span><span class="w"> </span><span class="nf">iowa_utils_uri_to_sensor</span><span class="p">(</span><span class="n">iowa_lwm2m_uri_t</span><span class="w"> </span><span class="o">*</span><span class="n">uriP</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_utils_uri_to_sensor()</code> converts an iowa_lwm2m_uri_t into an iowa_sensor_t.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>uriP</em></dt>
+<dd>Uri to convert.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The corresponding iowa_sensor_t or IOWA_INVALID_SENSOR_ID in case of error.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_utils.h</p>
+<hr />
+<h3 id="iowa_utils_sensor_to_uri">iowa_utils_sensor_to_uri</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_lwm2m_uri_t</span><span class="w"> </span><span class="nf">iowa_utils_sensor_to_uri</span><span class="p">(</span><span class="n">iowa_sensor_t</span><span class="w"> </span><span class="n">id</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_utils_sensor_to_uri()</code> converts an iowa_sensor_t into an iowa_lwm2m_uri_t.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>id</em></dt>
+<dd>Id to convert.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>An iowa_lwm2m_uri_t.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_utils.h</p>
+<hr />
+<hr />
+<h3 id="iowa_utils_list_add">iowa_utils_list_add</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_list_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">iowa_utils_list_add</span><span class="p">(</span><span class="n">iowa_list_t</span><span class="w"> </span><span class="o">*</span><span class="n">headP</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                  </span><span class="n">iowa_list_t</span><span class="w"> </span><span class="o">*</span><span class="n">nodeP</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_utils_list_add()</code> adds a node to a list.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>headP</em></dt>
+<dd>Head of the current list.</dd>
+<dt><em>nodeP</em></dt>
+<dd>Node to add to the list.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The list with the new element.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_utils.h</p>
+<hr />
+<h3 id="iowa_utils_list_remove">iowa_utils_list_remove</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_list_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">iowa_utils_list_remove</span><span class="p">(</span><span class="n">iowa_list_t</span><span class="w"> </span><span class="o">*</span><span class="n">headP</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                     </span><span class="n">iowa_list_t</span><span class="w"> </span><span class="o">*</span><span class="n">nodeP</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_utils_list_remove()</code> removes a node from a list.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>headP</em></dt>
+<dd>Head of the current list.</dd>
+<dt><em>nodeP</em></dt>
+<dd>Node to remove from the list.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The updated list.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_utils.h</p>
+<hr />
+<h3 id="iowa_utils_list_free">iowa_utils_list_free</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">iowa_utils_list_free</span><span class="p">(</span><span class="n">iowa_list_t</span><span class="w"> </span><span class="o">*</span><span class="n">headP</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="n">iowa_list_node_free_callback_t</span><span class="w"> </span><span class="n">freeCb</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_utils_list_free()</code> adds a node to a list.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>headP</em></dt>
+<dd>List to free.</dd>
+<dt><em>freeCb</em></dt>
+<dd>Callback used to free the list.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>None.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_utils.h</p>
+<hr />
+<h3 id="iowa_utils_list_find">iowa_utils_list_find</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_list_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">iowa_utils_list_find</span><span class="p">(</span><span class="n">iowa_list_t</span><span class="w"> </span><span class="o">*</span><span class="n">headP</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                   </span><span class="n">iowa_list_node_find_callback_t</span><span class="w"> </span><span class="n">findCb</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                   </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">criteriaP</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_utils_list_find()</code> finds a node in a list.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>headP</em></dt>
+<dd>List to search on.</dd>
+<dt><em>findCb</em></dt>
+<dd>Callback used to find the node in the list.</dd>
+<dt><em>criteriaP</em></dt>
+<dd>Criteria used to find the node in the list.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The node if found else NULL.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_utils.h</p>
+<hr />
+<h3 id="iowa_utils_list_find_and_remove">iowa_utils_list_find_and_remove</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_list_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">iowa_utils_list_find_and_remove</span><span class="p">(</span><span class="n">iowa_list_t</span><span class="w"> </span><span class="o">*</span><span class="n">headP</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                              </span><span class="n">iowa_list_node_find_callback_t</span><span class="w"> </span><span class="n">findCb</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                              </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">criteriaP</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                              </span><span class="n">iowa_list_t</span><span class="w"> </span><span class="o">**</span><span class="n">nodeP</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_utils_list_find_and_remove()</code> finds a node in a list and removes it.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>headP</em></dt>
+<dd>List to search on.</dd>
+<dt><em>findCb</em></dt>
+<dd>Callback used to find the node in the list.</dd>
+<dt><em>criteriaP</em></dt>
+<dd>Criteria used to find the node in the list.</dd>
+<dt><em>nodeP</em></dt>
+<dd>OUT. Node removed from the list. Can be nil.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The updated list.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_utils.h</p>
+<hr />
+<h2 id="example-linked-list-usage">Example: Linked List usage</h2>
+<p>When declaring the linked list data structure, the first member <strong>must</strong> be a pointer. This pointer will contain the address of the next element of the list.</p>
+<p>Example:
+<div class="highlight"><pre><span></span><code><span class="k">struct</span> <span class="nc">myData</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">struct</span> <span class="nc">myData</span><span class="w"> </span><span class="o">*</span><span class="n">nextP</span><span class="p">;</span><span class="w">   </span><span class="c1">// Used by the linked list functions</span>
+<span class="w">    </span><span class="kt">char</span><span class="w">          </span><span class="o">*</span><span class="n">aString</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w">            </span><span class="n">anInt</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</code></pre></div></p>
+<p>The head of the list is a pointer to your data structure.</p>
+<p>Example:
+<div class="highlight"><pre><span></span><code><span class="k">struct</span> <span class="nc">myData</span><span class="w"> </span><span class="o">*</span><span class="n">listHead</span><span class="p">;</span><span class="w"></span>
+</code></pre></div></p>
+<p>You can now add or remove elements to the list by using the functions <a href="iowa_utils_list_add"><code>iowa_utils_list_add()</code></a> and <a href="iowa_utils_list_remove"><code>iowa_utils_list_remove()</code></a>.</p>
+<p>But to avoid compiler warnings or multiple cast making the code unreadable, the following macros can be used:</p>
+<ul>
+<li>IOWA_UTILS_LIST_ADD(H, N)</li>
+<li>IOWA_UTILS_LIST_REMOVE(H, N)</li>
+<li>IOWA_UTILS_LIST_FREE(H, F)</li>
+<li>IOWA_UTILS_LIST_FIND(H, F, C)</li>
+<li>IOWA_UTILS_LIST_FIND_AND_REMOVE(H, F, C, N)</li>
+</ul>
+<p>Instead of calling:</p>
+<div class="highlight"><pre><span></span><code><span class="n">listHead</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span> <span class="nc">myData</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">iowa_utils_list_add</span><span class="p">((</span><span class="n">iowa_list_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">listHead</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">iowa_list_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">newDataP</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>You can use:</p>
+<div class="highlight"><pre><span></span><code><span class="n">listHead</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span> <span class="nc">myData</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">IOWA_UTILS_LIST_ADD</span><span class="p">(</span><span class="n">listHead</span><span class="p">,</span><span class="w"> </span><span class="n">newDataP</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
 
               
 
@@ -1335,15 +1964,30 @@
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
+        
+        <a href="CoapAPI.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: CoAP APIs" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              CoAP APIs
+            </div>
+          </div>
+        </a>
+      
       
         
-        <a href="Changelog.html" class="md-footer__link md-footer__link--next" aria-label="Next: Changelog" rel="next">
+        <a href="SecurityAPI.html" class="md-footer__link md-footer__link--next" aria-label="Next: Security Implementation APIs" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Changelog
+              Security Implementation APIs
             </div>
           </div>
           <div class="md-footer__button md-icon">

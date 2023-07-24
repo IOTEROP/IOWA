@@ -1,0 +1,4389 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="images/iowa_logo.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.4">
+    
+    
+      
+        <title>LwM2M Overview - IOWA Reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.2a4617e2.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.9204c3b2.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="css/print-site.css">
+    
+      <link rel="stylesheet" href="css/print-site-material.css">
+    
+      <link rel="stylesheet" href="ioterop.css">
+    
+    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?".":"."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lwm2m-overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="IOWA Reference" class="md-header__button md-logo" aria-label="IOWA Reference" data-md-component="logo">
+      
+  <img src="images/iowa_logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            IOWA Reference
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              LwM2M Overview
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="index.html" class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="Changelog.html" class="md-tabs__link">
+      Changelog
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="LwM2MOverview.html" class="md-tabs__link md-tabs__link--active">
+        User Manual
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="baseline_client.html" class="md-tabs__link">
+        Samples
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="AbstractionLayer.html" class="md-tabs__link">
+        API Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="License.html" class="md-tabs__link">
+        Licenses
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="print_page.html" class="md-tabs__link">
+      Printable version
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="IOWA Reference" class="md-nav__button md-logo" aria-label="IOWA Reference" data-md-component="logo">
+      
+  <img src="images/iowa_logo.png" alt="logo">
+
+    </a>
+    IOWA Reference
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Changelog.html" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          User Manual
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User Manual" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          User Manual
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          LwM2M Overview
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="LwM2MOverview.html" class="md-nav__link md-nav__link--active">
+        LwM2M Overview
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lwm2m-concepts" class="md-nav__link">
+    LwM2M Concepts
+  </a>
+  
+    <nav class="md-nav" aria-label="LwM2M Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-clientdevice" class="md-nav__link">
+    LwM2M Client/Device
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-server" class="md-nav__link">
+    LwM2M Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-bootstrap-server" class="md-nav__link">
+    LwM2M Bootstrap Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-endpoint-name" class="md-nav__link">
+    LwM2M Endpoint Name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-resource" class="md-nav__link">
+    LwM2M Resource
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-objects" class="md-nav__link">
+    LwM2M Objects
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-object-instance" class="md-nav__link">
+    LwM2M Object Instance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-uri" class="md-nav__link">
+    LwM2M URI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-account" class="md-nav__link">
+    Server Account
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap" class="md-nav__link">
+    Bootstrap
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registration" class="md-nav__link">
+    Registration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#observation" class="md-nav__link">
+    Observation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifetime" class="md-nav__link">
+    Lifetime
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#queue-mode" class="md-nav__link">
+    Queue Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sms-trigger" class="md-nav__link">
+    SMS Trigger
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lwm2m-operations-overview" class="md-nav__link">
+    LwM2M Operations Overview
+  </a>
+  
+    <nav class="md-nav" aria-label="LwM2M Operations Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap_1" class="md-nav__link">
+    Bootstrap
+  </a>
+  
+    <nav class="md-nav" aria-label="Bootstrap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap-request" class="md-nav__link">
+    Bootstrap Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap-finish" class="md-nav__link">
+    Bootstrap Finish
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap-read" class="md-nav__link">
+    Bootstrap Read
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap-write" class="md-nav__link">
+    Bootstrap Write
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap-delete" class="md-nav__link">
+    Bootstrap Delete
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap-discover" class="md-nav__link">
+    Bootstrap Discover
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registration_1" class="md-nav__link">
+    Registration
+  </a>
+  
+    <nav class="md-nav" aria-label="Registration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initial-registration" class="md-nav__link">
+    Initial Registration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registration-update" class="md-nav__link">
+    Registration Update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#de-registration" class="md-nav__link">
+    De-registration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-management-and-service-enablement" class="md-nav__link">
+    Device Management and Service Enablement
+  </a>
+  
+    <nav class="md-nav" aria-label="Device Management and Service Enablement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#read" class="md-nav__link">
+    Read
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#write" class="md-nav__link">
+    Write
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execute" class="md-nav__link">
+    Execute
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#discover" class="md-nav__link">
+    Discover
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create" class="md-nav__link">
+    Create
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete" class="md-nav__link">
+    Delete
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read-composite" class="md-nav__link">
+    Read composite
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#write-composite" class="md-nav__link">
+    Write composite
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#information-reporting" class="md-nav__link">
+    Information Reporting
+  </a>
+  
+    <nav class="md-nav" aria-label="Information Reporting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#observation_1" class="md-nav__link">
+    Observation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#observe-composite" class="md-nav__link">
+    Observe composite
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notification" class="md-nav__link">
+    Notification
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cancel-observation" class="md-nav__link">
+    Cancel Observation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#write-attributes" class="md-nav__link">
+    Write attributes
+  </a>
+  
+    <nav class="md-nav" aria-label="Write attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send" class="md-nav__link">
+    Send
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#standardized-lwm2m-objects" class="md-nav__link">
+    Standardized LwM2M Objects
+  </a>
+  
+    <nav class="md-nav" aria-label="Standardized LwM2M Objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security-object" class="md-nav__link">
+    Security Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-object" class="md-nav__link">
+    Server Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#access-control-list-object" class="md-nav__link">
+    Access Control List Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-object" class="md-nav__link">
+    Device Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connectivity-monitoring-object" class="md-nav__link">
+    Connectivity Monitoring Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#firmware-update-object" class="md-nav__link">
+    Firmware Update Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#location-object" class="md-nav__link">
+    Location Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connectivity-statistics-object" class="md-nav__link">
+    Connectivity Statistics Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#software-management-object" class="md-nav__link">
+    Software Management Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellular-connectivity-object" class="md-nav__link">
+    Cellular Connectivity Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apn-connection-profile-object" class="md-nav__link">
+    APN Connection Profile Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bearer-selection-object" class="md-nav__link">
+    Bearer selection Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#software-component-object" class="md-nav__link">
+    Software Component Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-oscore" class="md-nav__link">
+    LwM2M OSCORE
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Building.html" class="md-nav__link">
+        Building Samples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Configuration.html" class="md-nav__link">
+        IOWA Configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Security.html" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Multithread.html" class="md-nav__link">
+        Multithread
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Bootstrap.html" class="md-nav__link">
+        Bootstrap
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DeviceUpdate.html" class="md-nav__link">
+        Device Update
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CustomObject.html" class="md-nav__link">
+        Custom Objects
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Streamable.html" class="md-nav__link">
+        Streamable Resources
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ApplicationStorage.html" class="md-nav__link">
+        Application Storage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Network.html" class="md-nav__link">
+        Network
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Porting.html" class="md-nav__link">
+        Porting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="LoRaWAN.html" class="md-nav__link">
+        LoRaWAN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_14" type="checkbox" id="__nav_3_14" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_14">
+          Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tools" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_14">
+          <span class="md-nav__icon md-icon"></span>
+          Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Object_Skeleton_Generator.html" class="md-nav__link">
+        Object Skeleton Generator
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Samples" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="baseline_client.html" class="md-nav__link">
+        LwM2M Client Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2">
+          LwM2M Objects Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="LwM2M Objects Samples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          LwM2M Objects Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="IPSO_client.html" class="md-nav__link">
+        IPSO Object Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bearer_selection_client.html" class="md-nav__link">
+        Bearer Selection Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mqtt_objects_client.html" class="md-nav__link">
+        MQTT Objects
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_3">
+          LwM2M Custom Objects Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="LwM2M Custom Objects Samples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          LwM2M Custom Objects Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_baseline.html" class="md-nav__link">
+        Custom Object Basseline
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_dynamic.html" class="md-nav__link">
+        Dynamic Custom Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_multiple_instances.html" class="md-nav__link">
+        Multiple Instance Custom Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_multiple_resource_instances.html" class="md-nav__link">
+        Multiple Resource Custom Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="streamable_resource_client.html" class="md-nav__link">
+        Streamable Resources Client
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" type="checkbox" id="__nav_4_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_4">
+          Firmware Update Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Firmware Update Samples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Firmware Update Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_update_push_client.html" class="md-nav__link">
+        Firmware Update Client "Push" Method
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_update_pull_client.html" class="md-nav__link">
+        Firmware Update Client "Pull" Method
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_coap_download_client.html" class="md-nav__link">
+        Firmware Update Client with CoAP Download
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_coap_block_client.html" class="md-nav__link">
+        Firmware Update Client with CoAP Block-Wise Transfer
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_5" type="checkbox" id="__nav_4_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_5">
+          LwM2M Advanced Client Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="LwM2M Advanced Client Samples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_5">
+          <span class="md-nav__icon md-icon"></span>
+          LwM2M Advanced Client Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="secure_client_mbedtls3.html" class="md-nav__link">
+        Secure Client with Mbed TLS 3.1.0
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="secure_client_mbedtls2.html" class="md-nav__link">
+        Secure Client with Mbed TLS 2.28.0
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="secure_client_tinydtls.html" class="md-nav__link">
+        Secure Client with tinydtls
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bootstrap_client.html" class="md-nav__link">
+        Bootstrap Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="multithread_IPSO_client.html" class="md-nav__link">
+        Multithreaded Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="device_info_client.html" class="md-nav__link">
+        Device Info Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="websockets_client.html" class="md-nav__link">
+        WebSocket Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="context_storage_client.html" class="md-nav__link">
+        Context Storage Client
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="baseline_server.html" class="md-nav__link">
+        LwM2M Server Basics
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="AbstractionLayer.html" class="md-nav__link">
+        System Abstraction Layer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CommonAPI.html" class="md-nav__link">
+        Common APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ClientAPI.html" class="md-nav__link">
+        Client APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Empty.html" class="md-nav__link">
+        Objects APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ServerAPI.html" class="md-nav__link">
+        Server APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="BootstrapServerAPI.html" class="md-nav__link">
+        Bootstrap Server APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CoapAPI.html" class="md-nav__link">
+        CoAP APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="UtilsAPI.html" class="md-nav__link">
+        Utils APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="SecurityAPI.html" class="md-nav__link">
+        Security Implementation APIs
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Licenses
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Licenses" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Licenses
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="License.html" class="md-nav__link">
+        IOWA License
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="OpenSourceLicenses.html" class="md-nav__link">
+        OpenSource Licenses
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="print_page.html" class="md-nav__link">
+        Printable version
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lwm2m-concepts" class="md-nav__link">
+    LwM2M Concepts
+  </a>
+  
+    <nav class="md-nav" aria-label="LwM2M Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-clientdevice" class="md-nav__link">
+    LwM2M Client/Device
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-server" class="md-nav__link">
+    LwM2M Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-bootstrap-server" class="md-nav__link">
+    LwM2M Bootstrap Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-endpoint-name" class="md-nav__link">
+    LwM2M Endpoint Name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-resource" class="md-nav__link">
+    LwM2M Resource
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-objects" class="md-nav__link">
+    LwM2M Objects
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-object-instance" class="md-nav__link">
+    LwM2M Object Instance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-uri" class="md-nav__link">
+    LwM2M URI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-account" class="md-nav__link">
+    Server Account
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap" class="md-nav__link">
+    Bootstrap
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registration" class="md-nav__link">
+    Registration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#observation" class="md-nav__link">
+    Observation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifetime" class="md-nav__link">
+    Lifetime
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#queue-mode" class="md-nav__link">
+    Queue Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sms-trigger" class="md-nav__link">
+    SMS Trigger
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lwm2m-operations-overview" class="md-nav__link">
+    LwM2M Operations Overview
+  </a>
+  
+    <nav class="md-nav" aria-label="LwM2M Operations Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap_1" class="md-nav__link">
+    Bootstrap
+  </a>
+  
+    <nav class="md-nav" aria-label="Bootstrap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap-request" class="md-nav__link">
+    Bootstrap Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap-finish" class="md-nav__link">
+    Bootstrap Finish
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap-read" class="md-nav__link">
+    Bootstrap Read
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap-write" class="md-nav__link">
+    Bootstrap Write
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap-delete" class="md-nav__link">
+    Bootstrap Delete
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap-discover" class="md-nav__link">
+    Bootstrap Discover
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registration_1" class="md-nav__link">
+    Registration
+  </a>
+  
+    <nav class="md-nav" aria-label="Registration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initial-registration" class="md-nav__link">
+    Initial Registration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registration-update" class="md-nav__link">
+    Registration Update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#de-registration" class="md-nav__link">
+    De-registration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-management-and-service-enablement" class="md-nav__link">
+    Device Management and Service Enablement
+  </a>
+  
+    <nav class="md-nav" aria-label="Device Management and Service Enablement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#read" class="md-nav__link">
+    Read
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#write" class="md-nav__link">
+    Write
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execute" class="md-nav__link">
+    Execute
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#discover" class="md-nav__link">
+    Discover
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create" class="md-nav__link">
+    Create
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete" class="md-nav__link">
+    Delete
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read-composite" class="md-nav__link">
+    Read composite
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#write-composite" class="md-nav__link">
+    Write composite
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#information-reporting" class="md-nav__link">
+    Information Reporting
+  </a>
+  
+    <nav class="md-nav" aria-label="Information Reporting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#observation_1" class="md-nav__link">
+    Observation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#observe-composite" class="md-nav__link">
+    Observe composite
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notification" class="md-nav__link">
+    Notification
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cancel-observation" class="md-nav__link">
+    Cancel Observation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#write-attributes" class="md-nav__link">
+    Write attributes
+  </a>
+  
+    <nav class="md-nav" aria-label="Write attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send" class="md-nav__link">
+    Send
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#standardized-lwm2m-objects" class="md-nav__link">
+    Standardized LwM2M Objects
+  </a>
+  
+    <nav class="md-nav" aria-label="Standardized LwM2M Objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security-object" class="md-nav__link">
+    Security Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-object" class="md-nav__link">
+    Server Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#access-control-list-object" class="md-nav__link">
+    Access Control List Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-object" class="md-nav__link">
+    Device Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connectivity-monitoring-object" class="md-nav__link">
+    Connectivity Monitoring Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#firmware-update-object" class="md-nav__link">
+    Firmware Update Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#location-object" class="md-nav__link">
+    Location Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connectivity-statistics-object" class="md-nav__link">
+    Connectivity Statistics Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#software-management-object" class="md-nav__link">
+    Software Management Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellular-connectivity-object" class="md-nav__link">
+    Cellular Connectivity Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apn-connection-profile-object" class="md-nav__link">
+    APN Connection Profile Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bearer-selection-object" class="md-nav__link">
+    Bearer selection Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#software-component-object" class="md-nav__link">
+    Software Component Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-oscore" class="md-nav__link">
+    LwM2M OSCORE
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+
+
+    <a href="print_page.html" title="Print Site" class="md-content__button md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 3H6v4h12m1 5a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1m-3 7H8v-5h8m3-6H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3z"/></svg>
+    </a>
+
+
+
+                
+
+<h1 id="lwm2m-overview">LwM2M Overview</h1>
+<p>The Lightweight Machine To Machine designed by the Open Mobile Alliance is a device management protocol for the Internet of Things (IoT).</p>
+<h2 id="lwm2m-concepts">LwM2M Concepts</h2>
+<h3 id="lwm2m-clientdevice">LwM2M Client/Device</h3>
+<p>The LwM2M Client/Device is the entity being managed by the LwM2M Server. The LwM2M Client presents resources for the LwM2M Server to manipulate.</p>
+<h3 id="lwm2m-server">LwM2M Server</h3>
+<p>The LwM2M Server is the entity managing the LwM2M Devices. It can Read, Write, Execute, Create or Delete the Devices resources.</p>
+<p>The LwM2M Server URI can have one of the following formats:</p>
+<ul>
+<li>"coap://{hostname}[:{port}]" for unsecure UDP transport</li>
+<li>"coaps://{hostname}[:{port}]" for secure UDP transport (using DTLS)</li>
+<li>"coap+tcp://{hostname}[:{port}]" for unsecure TCP transport</li>
+<li>"coaps+tcp://{hostname}[:{port}]" for secure TCP transport (using TLS)</li>
+<li>"sms://{msisdn number}" for SMS binding in binary mode</li>
+<li>"lorawan://{FPort}" for LoRaWAN binding with FPort between 1 and 255</li>
+</ul>
+<p>For UDP and TCP transports, if <em>{port}</em> is not present, the default port is used:</p>
+<ul>
+<li><em>5683</em> for communication without security</li>
+<li><em>5684</em> for secure communication</li>
+</ul>
+<h3 id="lwm2m-bootstrap-server">LwM2M Bootstrap Server</h3>
+<p>The LwM2M Bootstrap Server is a special <a href="#lwm2m-server">LwM2M Server</a>. It is the only Server allowed to provision or delete Server Accounts on the LwM2M Devices. It can Read (LwM2M 1.1), Write, Create and Delete the Devices resources.</p>
+<h3 id="lwm2m-endpoint-name">LwM2M Endpoint Name</h3>
+<p>The endpoint name is the name presented by the LwM2M Client to the LwM2M Servers. A LwM2M Server or a LwM2M Bootstrap Server must be able to uniquely identify the LwM2M Client using this endpoint name. One possibility is to use an standard URN like:</p>
+<ul>
+<li>3GPP Mobile Equipment Identity (<a href="https://tools.ietf.org/html/rfc8464">RFC 8464</a>):
+  <code>urn:3gpp2:meid:&lt;Manufacturer Code&gt;-&lt;Serial Number&gt;</code></li>
+<li>GSMA International Mobile station Equipment Identity (<a href="https://tools.ietf.org/html/rfc7274">RFC 7274</a>):
+  <code>urn:gsma:imei:&lt;Type Approval Code&gt;-&lt;Serial Number&gt;-&lt;Spare&gt;</code></li>
+<li>Universally Unique Identifier (<a href="https://tools.ietf.org/html/rfc4122">RFC 4122</a>):
+  <code>urn:uuid:&lt;UUID&gt;</code></li>
+<li>MAC address (<a href="https://tools.ietf.org/html/rfc9039">RFC 9039</a>):
+  <code>urn:dev:mac:&lt;EUI-64&gt;</code></li>
+<li>Organization specific identifier (<a href="https://tools.ietf.org/html/rfc9039">RFC 9039</a>):
+  <code>urn:dev:org:&lt;Enterprise Number&gt;-&lt;Anything&gt;</code></li>
+<li>Organization serial number (<a href="https://tools.ietf.org/html/rfc9039">RFC 9039</a>):
+  <code>urn:dev:os:&lt;Enterprise Number&gt;-&lt;Serial Number&gt;</code></li>
+<li>Organization product and serial number (<a href="https://tools.ietf.org/html/rfc9039">RFC 9039</a>):
+  <code>urn:dev:ops:&lt;Enterprise Number&gt;-&lt;Product Class&gt;-&lt;Serial Number&gt;</code></li>
+</ul>
+<h3 id="lwm2m-resource">LwM2M Resource</h3>
+<p>A LwM2M Resource is a data item presented by the LwM2M Device. A resource has a data type, a list of allowed operations and a unique URI.</p>
+<p>Data types are defined in Lightweight M2M as follows:</p>
+<ul>
+<li>signed integer,</li>
+<li>unsigned integer,</li>
+<li>float,</li>
+<li>boolean,</li>
+<li>UTF-8 string,</li>
+<li>core link string,</li>
+<li>opaque binary,</li>
+<li>Unix time,</li>
+<li>reference to a LwM2M Object.</li>
+</ul>
+<p>A resource can also be an array of the mentioned data types.</p>
+<p>Operations on resources are Read, Write and Execute.</p>
+<h3 id="lwm2m-objects">LwM2M Objects</h3>
+<p>The LwM2M Objects are a group of Device resources essential for some Device features such as firmware update, connectivity monitoring, physical sensor, etc. Standardized LwM2M Objects contain mandatory resources to support and optional resources to implement.</p>
+<p>A LwM2M Device can have several instances of the same LwM2M Object.</p>
+<p>All the Device resources are part of a LwM2M Object.</p>
+<h3 id="lwm2m-object-instance">LwM2M Object Instance</h3>
+<p>Some LwM2M Objects are defined as multi-instance objects, meaning that a LwM2M Device can have several instances of the same LwM2M Object. These instances are identified by a numerical instance ID.</p>
+<p>When a LwM2M Object is defined as a single-instance, the instance ID is always 0.</p>
+<h3 id="lwm2m-uri">LwM2M URI</h3>
+<p>Resources and Objects have well-known IDs. The URI to a LwM2M resource is in the form: Object_ID ["/" Object_Instance_ID ["/" Resource_ID ["/" Resource_Instance_ID]]]</p>
+<p>An URI can address an object, an object instance, a resource or a resource instance (i.e. an element when the resource is an array).</p>
+<h3 id="server-account">Server Account</h3>
+<p>A Server Account is a set of data enabling a LwM2M Device to connect to a LwM2M Server. It includes the Server URI and the Security Keys to use.</p>
+<h3 id="bootstrap">Bootstrap</h3>
+<p>A Bootstrap is the process by which the Device retrieves the Server Accounts. The information can come from factory settings, a SmartCard, or a LwM2M Bootstrap Server.</p>
+<h3 id="registration">Registration</h3>
+<p>A LwM2M Server can only manage Devices registered with it.</p>
+<p>When registering with the Bootstrap Server, the Device communicates only its unique <a href="LwM2MOverview.html#lwm2m-endpoint-name">endpoint name</a>.</p>
+<p>When registering with the LwM2M Server, the Device can communicate:</p>
+<ul>
+<li>its unique <a href="LwM2MOverview.html#lwm2m-endpoint-name">endpoint name</a>,</li>
+<li>its lifetime,</li>
+<li>the list of LwM2M Objects implemented on the Device,</li>
+<li>its MSISDN,</li>
+<li>whether the Device requires Queue Mode or not.</li>
+</ul>
+<h3 id="observation">Observation</h3>
+<p>The LwM2M Server can subscribe to one or several readable Device resources. When the value of the resource changes, the Device sends a Notification message to the Server containing the new value of the resource.</p>
+<h3 id="lifetime">Lifetime</h3>
+<p>The Lifetime is the validity period of a LwM2M Device registration to the LwM2M Server. When this lifetime expires, the Server should no longer try to manage the Device.</p>
+<p>The Device sends Registration Update messages to the Server to renew its registration validity period.</p>
+<h3 id="queue-mode">Queue Mode</h3>
+<p>Devices may go in stand-by mode and thus not be reachable by the LwM2M Servers at any time. To cope with this, the Device requests the Server to operate in Queue Mode. In this mode, the Device will initiate the communication with the Server (when sending a Notification or a Registration Update message). In the meantime, the Server is expected to queue its requests (hence the name).</p>
+<h3 id="sms-trigger">SMS Trigger</h3>
+<p>A SMS Trigger is a special SMS sent to the Device. Upon reception of this SMS, the Device will either register to the Server or send a Registration Update message.</p>
+<h2 id="lwm2m-operations-overview">LwM2M Operations Overview</h2>
+<h3 id="bootstrap_1">Bootstrap</h3>
+<p>When an endpoint is registered to a LwM2M Bootstrap Server, it can be managed by performing LwM2M operations on the endpoint's resources. The LwM2M operations are:</p>
+<ul>
+<li>Bootstrap Finish,</li>
+<li>Bootstrap Read,</li>
+<li>Bootstrap Write,</li>
+<li>Bootstrap Delete,</li>
+<li>Bootstrap Discover.</li>
+</ul>
+<h4 id="bootstrap-request">Bootstrap Request</h4>
+<p>The first action of LwM2M Client is to connect to the LwM2M Bootstrap Server and ask a Bootstrap Request. The Bootstrap Request message contains an endpoint’s unique ID.</p>
+<h4 id="bootstrap-finish">Bootstrap Finish</h4>
+<p>A <strong>Bootstrap Finish</strong> operation is sent by the LwM2M Bootstrap Server. Upon reception of this operation, the LwM2M Client will perform a Bootstrap Consistency check to verify the Bootstrap information received from the LwM2M Bootstrap Server is valid. This means at least one LwM2M server is configured on the LwM2M Client.</p>
+<h4 id="bootstrap-read">Bootstrap Read</h4>
+<p>In LwM2M 1.1 or later, a <strong>Bootstrap Read</strong> operation can target the LwM2M Objects Access Control List or Server, or their LwM2M Object Instances. The endpoint returns data encoded in either TLV, JSON, SenML CBOR, or SenML JSON.</p>
+<h4 id="bootstrap-write">Bootstrap Write</h4>
+<p>A <strong>Bootstrap Write</strong> operation targets a LwM2M Object Instance. It contains data encoded in either TLV or JSON. The payload does not need to contain values for all the Object's resources.</p>
+<p>In LwM2M 1.1 or in later version, it contains data encoded in either SenML CBOR or SenML JSON.</p>
+<h4 id="bootstrap-delete">Bootstrap Delete</h4>
+<p>A <strong>Bootstrap Delete</strong> operation can target the root path, a LwM2M Object or a LwM2M Instance Object.</p>
+<h4 id="bootstrap-discover">Bootstrap Discover</h4>
+<p>A <strong>Bootstrap Discover</strong> operation can target the root path or a LwM2M Object. The endpoint returns only the list of Objects and Object Instances with some attributes: LwM2M Enabler version ("lwm2m="), Short Server ID ("ssid="), and LwM2M Server URI ("uri=").</p>
+<h3 id="registration_1">Registration</h3>
+<h4 id="initial-registration">Initial Registration</h4>
+<p>The first action of LwM2M Client is to register to the LwM2M Server. The registration message contains an <a href="LwM2MOverview.html#lwm2m-endpoint-name">endpoint name</a> and information about its capabilities (in the form of LwM2M Objects). The registration message also contains a <em>lifetime</em> parameter. When this <em>lifetime</em> expires, the LwM2M Server cancels the LwM2M Client registration.</p>
+<p>The LwM2M Server replies with a "location". This location is a handle to the registration. The endpoint uses this handle to update or cancel its registration.</p>
+<h4 id="registration-update">Registration Update</h4>
+<p>To keep its registration active or in case the list of LwM2M Objects is modified, the endpoint sends a Registration Update message.</p>
+<p>Upon reception of this message, the LwM2M Server resets its internal <em>lifetime</em> timer.</p>
+<h4 id="de-registration">De-registration</h4>
+<p>To cancel its registration, the LwM2M Client sends a De-registration message. The LwM2M Server may also automatically cancel an endpoint's registration if the registration <em>lifetime</em> expires.</p>
+<h3 id="device-management-and-service-enablement">Device Management and Service Enablement</h3>
+<p>When an endpoint is registered to a LwM2M Server, it can be managed by performing LwM2M operations on the endpoint's resources. The LwM2M operations are:</p>
+<ul>
+<li>Read,</li>
+<li>Write,</li>
+<li>Execute,</li>
+<li>Discover,</li>
+<li>Create,</li>
+<li>Delete,</li>
+<li>Read composite,</li>
+<li>Write composite.</li>
+</ul>
+<h4 id="read">Read</h4>
+<p>A <strong>Read</strong> operation can target a LwM2M Object, a LwM2M Object Instance or a LwM2M Resource. The endpoint returns data encoded in either TLV or JSON. For a single resource, a text encoding is possible.</p>
+<p>In LwM2M 1.1 or later, the endpoint returns data encoded in either SenML CBOR or SenML JSON.</p>
+<h4 id="write">Write</h4>
+<p>A <strong>Write</strong> operation targets a LwM2M Object Instance. It contains data encoded in either TLV or JSON. The payload does not need to contain values for all the Object's resources.</p>
+<p>In LwM2M 1.1 or in later version, it contains data encoded in either SenML CBOR or SenML JSON.</p>
+<h4 id="execute">Execute</h4>
+<p>An <strong>Execute</strong> operation can only target a LwM2M Resource.</p>
+<h4 id="discover">Discover</h4>
+<p>A <strong>Discover</strong> operation can target a LwM2M Object, a LwM2M Object Instance or a LwM2M Resource.</p>
+<h4 id="create">Create</h4>
+<p>A <strong>Create</strong> operation can target a LwM2M Object. It creates a new Object Instance.</p>
+<h4 id="delete">Delete</h4>
+<p>A <strong>Delete</strong> operation can target a LwM2M Object Instance. It deletes an Object Instance.</p>
+<h4 id="read-composite">Read composite</h4>
+<p>In LwM2M 1.1 or in later version, a <strong>Read composite</strong> operation can selectively Read a number of Resources, and/or Resource Instances of different Objects in a single request. The endpoint returns data encoded in either SenML CBOR,  SenML JSON, or LwM2M CBOR.</p>
+<h4 id="write-composite">Write composite</h4>
+<p>In LwM2M 1.1 or in later version, a <strong>Write composite</strong> operation can update values of a number of different Resources across different Instances of one or more Objects in a single request. It contains data encoded in either SenML CBOR , SenML JSON, or LwM2M CBOR.</p>
+<h3 id="information-reporting">Information Reporting</h3>
+<p>When a LwM2M Client is registered to a LwM2M Server, its resources can be observed. Whenever the value of the resource changes, the LwM2M Client sends a notification to the LwM2M Server. Moreover in LwM2M 1.1, the Client can send data to the LwM2M Server without initial solicitation. The LwM2M operations are:</p>
+<ul>
+<li>Observation,</li>
+<li>Observation composite,</li>
+<li>Cancel Observation,</li>
+<li>Write attributes,</li>
+<li>Send.</li>
+</ul>
+<h4 id="observation_1">Observation</h4>
+<p>An observation can target a LwM2M Object, a LwM2M Object Instance or a LwM2M Resource.</p>
+<h4 id="observe-composite">Observe composite</h4>
+<p>In LwM2M 1.1 or in later version, a <strong>Observe composite</strong> operation can initiate observations or selectively read a group of Object, Object Instance, Resources, and/or Resource Instances of different Objects in a single request. The endpoint returns data encoded in either SenML CBOR or SenML JSON.</p>
+<h4 id="notification">Notification</h4>
+<p>When an observed resource's value changes, the endpoint sends a notification message to the LwM2M Server.</p>
+<h4 id="cancel-observation">Cancel Observation</h4>
+<p>The LwM2M Server can cancel an on-going observation.</p>
+<h4 id="write-attributes">Write attributes</h4>
+<p>The LwM2M Server can set the parameters of an observation. The possible attributes are:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Level</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pmin</td>
+<td>Object, Object Instance, Resource</td>
+<td>The minimum period in seconds to wait between notifications.</td>
+</tr>
+<tr>
+<td>pmax</td>
+<td>Object, Object Instance, Resource</td>
+<td>The maximum period in seconds to wait between notifications.</td>
+</tr>
+<tr>
+<td>gt</td>
+<td>Numerical Resource</td>
+<td>An upper threshold. A notification is sent when the resource value crosses this threshold.</td>
+</tr>
+<tr>
+<td>lt</td>
+<td>Numerical Resource</td>
+<td>A lower threshold. A notification is sent when the resource value crosses this threshold.</td>
+</tr>
+<tr>
+<td>st</td>
+<td>Numerical Resource</td>
+<td>A minimum difference in a resource value for a notification to be sent.</td>
+</tr>
+<tr>
+<td>epmin</td>
+<td>Object, Object Instance, Resource</td>
+<td>The minimum sample time in seconds for the observed sensor in LwM2M 1.1 or in later version.</td>
+</tr>
+<tr>
+<td>epmax</td>
+<td>Object, Object Instance, Resource</td>
+<td>The maximum sample time in seconds for the observed sensor in LwM2M 1.1 or in later version.</td>
+</tr>
+</tbody>
+</table>
+<p>Setting an attribute is in the form <code>Name "=" value</code> with some constraints:</p>
+<ul>
+<li><code>lt</code> value &lt; <code>gt</code> value</li>
+<li><code>lt</code> value + 2 * <code>st</code> value &lt; <code>gt</code> value</li>
+<li>If <code>pmax</code> &lt; <code>pmin</code>, <code>pmax</code> is ignored</li>
+<li><code>epmax</code> &gt; <code>epmin</code></li>
+</ul>
+<p>Clearing an attribute is in the form <code>Name</code>.</p>
+<h5 id="examples">Examples</h5>
+<ul>
+<li>
+<p>Receiving a notification every minute at most even if the observed URI did not change: <code>"pmax=60"</code>.</p>
+</li>
+<li>
+<p>Receiving only one notification per hour even if the observed URI changed several times per minute: <code>"pmin=3600"</code>.</p>
+</li>
+<li>
+<p>Receiving exactly one notification every sixty seconds: <code>"pmin=59&amp;pmax=60"</code>.</p>
+</li>
+<li>
+<p>Receiving a notification when the resource value exceeds 95 or falls below 10, and when the resource value returns below 95 or above 10: <code>"lt=10&amp;gt=95"</code>.</p>
+</li>
+<li>
+<p>Clearing the previously set minimum period and setting a maximum period of five minutes: <code>"pmin&amp;pmax=300"</code>.</p>
+</li>
+</ul>
+<h4 id="send">Send</h4>
+<p>In LwM2M 1.1 or in later version, a <strong>Send</strong> operation is used by the LwM2M Client to send data to the LwM2M Server without an explicit request from that Server. It contains data encoded in either SenML CBOR, SenML JSON, or LwM2M CBOR.</p>
+<p>Later in the documentation, the <strong>Send</strong> operation is called a Data Push.</p>
+<h2 id="standardized-lwm2m-objects">Standardized LwM2M Objects</h2>
+<p>The list of publics LwM2M Objects is available at the OMNA Registry:
+<a href="http://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html">http://www.openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html</a></p>
+<h3 id="security-object">Security Object</h3>
+<p><a href="https://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http://www.openmobilealliance.org/tech/profiles/LWM2M_Security-v1_1.xml">LwM2M Registry for Object 0</a></p>
+<p>This object provides the keying material of a LwM2M Client appropriate to access a specified LwM2M Server. One Object Instance should address a LwM2M Bootstrap-Server.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Resource Name</th>
+<th>Access Type</th>
+<th>Mandatory</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>LwM2M Server URI</td>
+<td></td>
+<td>Yes</td>
+<td>String</td>
+<td>Uniquely identifies the LwM2M Server or LwM2M Bootstrap-Server. The format of the CoAP URI is defined in Section 6 of RFC 7252.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Bootstrap-Server</td>
+<td></td>
+<td>Yes</td>
+<td>Boolean</td>
+<td>Determines if the current instance concerns a LwM2M Bootstrap-Server (true) or a standard LwM2M Server (false).</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Security Mode</td>
+<td></td>
+<td>Yes</td>
+<td>Integer</td>
+<td>Determines which UDP payload security mode is used.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Public Key or Identity</td>
+<td></td>
+<td>Yes</td>
+<td>Opaque</td>
+<td>Stores the LwM2M Client’s Certificate (Certificate mode), public key (RPK mode) or PSK Identity (PSK mode).</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Server Public Key</td>
+<td></td>
+<td>Yes</td>
+<td>Opaque</td>
+<td>Stores the LwM2M Server’s or LwM2M Bootstrap-Server’s Certificate (Certificate mode), public key (RPK mode).</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Secret Key</td>
+<td></td>
+<td>Yes</td>
+<td>Opaque</td>
+<td>Stores the secret key or private key of the security mode.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>SMS Security Mode</td>
+<td></td>
+<td>No</td>
+<td>Integer</td>
+<td>Determines which SMS security mode is used.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>SMS Binding Key Parameters</td>
+<td></td>
+<td>No</td>
+<td>Opaque</td>
+<td>Stores the KIc, KID, SPI and TAR.</td>
+</tr>
+<tr>
+<td>8</td>
+<td>SMS Binding Secret Key(s)</td>
+<td></td>
+<td>No</td>
+<td>Opaque</td>
+<td>Stores the values of the key(s) for the SMS binding.</td>
+</tr>
+<tr>
+<td>9</td>
+<td>LwM2M Server SMS Number</td>
+<td></td>
+<td>No</td>
+<td>String</td>
+<td>MSISDN used by the LwM2M Client to send messages to the LwM2M Server via the SMS binding.</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Short Server ID</td>
+<td></td>
+<td>No</td>
+<td>Integer</td>
+<td>This identifier uniquely identifies each LwM2M Server configured for the LwM2M Client.</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Client Hold Off Time</td>
+<td></td>
+<td>No</td>
+<td>Integer</td>
+<td>Relevant information for a Bootstrap-Server only.</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Bootstrap-Server Account Timeout</td>
+<td></td>
+<td>No</td>
+<td>Integer</td>
+<td>The LwM2M Client MUST purge the LwM2M Bootstrap-Server Account after the timeout value given by this resource. The lowest timeout value is 1.</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Matching Type</td>
+<td></td>
+<td>No</td>
+<td>Unsigned Integer</td>
+<td>The Matching Type Resource specifies how the certificate or raw public key in in the Server Public Key is presented.</td>
+</tr>
+<tr>
+<td>14</td>
+<td>SNI</td>
+<td></td>
+<td>No</td>
+<td>String</td>
+<td>This resource holds the value of the Server Name Indication (SNI) value to be used during the TLS handshake.</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Certificate Usage</td>
+<td></td>
+<td>No</td>
+<td>Unsigned Integer</td>
+<td>The Certificate Usage Resource specifies the semantic of the certificate.</td>
+</tr>
+<tr>
+<td>16</td>
+<td>DTLS/TLS Ciphersuite</td>
+<td></td>
+<td>No</td>
+<td>Unsigned Integer</td>
+<td>It instructs the TLS/DTLS client to propose the indicated ciphersuite(s) in the ClientHello of the handshake</td>
+</tr>
+<tr>
+<td>17</td>
+<td>OSCORE Security Mode</td>
+<td></td>
+<td>No</td>
+<td>Object link</td>
+<td>It provides a link to the OSCORE Object Instance.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="server-object">Server Object</h3>
+<p><a href="https://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http://www.openmobilealliance.org/tech/profiles/LWM2M_Server-v1_1.xml">LwM2M Registry for Object 1</a></p>
+<p>This object provides the data related to a LwM2M Server. A Bootstrap-Server has no such an Object Instance associated to it.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Resource Name</th>
+<th>Access Type</th>
+<th>Mandatory</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Short Server ID</td>
+<td>R</td>
+<td>Yes</td>
+<td>Integer</td>
+<td>Used as link to associate server Object Instance.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Lifetime</td>
+<td>RW</td>
+<td>Yes</td>
+<td>Integer</td>
+<td>Specify the lifetime of the registration in seconds.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Default Minimum Period</td>
+<td>RW</td>
+<td>No</td>
+<td>Integer</td>
+<td>The default value the LwM2M Client should use for the Minimum Period of an Observation in the absence of this parameter being included in an Observation.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Default Maximum Period</td>
+<td>RW</td>
+<td>No</td>
+<td>Integer</td>
+<td>The default value the LwM2M Client should use for the Maximum Period of an Observation in the absence of this parameter being included in an Observation.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Disable</td>
+<td>E</td>
+<td>No</td>
+<td></td>
+<td>If this Resource is executed, this LwM2M Server Object is disabled for a certain period defined in the Disabled Timeout Resource.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Disable Timeout</td>
+<td>RW</td>
+<td>No</td>
+<td>Integer</td>
+<td>A period to disable the Server.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Notification Storing When Disabled or Offline</td>
+<td>RW</td>
+<td>Yes</td>
+<td>Boolean</td>
+<td>If true, the LwM2M Client stores "Notify" operations to the LwM2M Server while the LwM2M Server account is disabled or the LwM2M Client is offline.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Binding</td>
+<td>RW</td>
+<td>Yes</td>
+<td>String</td>
+<td>This Resource defines the transport binding configured for the LwM2M Client.</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Registration Update Trigger</td>
+<td>E</td>
+<td>Yes</td>
+<td></td>
+<td>If this Resource is executed the LwM2M Client MUST perform an "Update" operation with this LwM2M Server using that transport for the Current Binding Mode.</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Bootstrap-Request Trigger</td>
+<td>E</td>
+<td>No</td>
+<td></td>
+<td>If this Resource is executed the LwM2M Client MUST initiate a "Client Initiated Bootstrap" procedure in using the LwM2M Bootstrap-Server Account.</td>
+</tr>
+<tr>
+<td>10</td>
+<td>APN Link</td>
+<td>RW</td>
+<td>No</td>
+<td>Object link</td>
+<td>It provides a link to the APN connection profile Object Instance (OMNA registered Object ID:11) to be used to communicate with this server.</td>
+</tr>
+<tr>
+<td>11</td>
+<td>TLS-DTLS Alert Code</td>
+<td>R</td>
+<td>No</td>
+<td>Unsigned Integer</td>
+<td>It contains the most recent TLS / DTLS alert message received from the LwM2M Server.</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Last Bootstrapped</td>
+<td>R</td>
+<td>No</td>
+<td>Time</td>
+<td>It represents the last time that the bootstrap server updated this LwM2M Server Account.</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Registration Priority Order</td>
+<td></td>
+<td>No</td>
+<td>Unsigned Integer</td>
+<td>The LwM2M Client sequences the LwM2M Server registrations in increasing order of this value.</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Initial Registration Delay Timer</td>
+<td></td>
+<td>No</td>
+<td>Unsigned Integer</td>
+<td>The delay before registration is attempted for this LwM2M Server based upon the completion of registration of the previous LwM2M Server in the registration order.</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Registration Failure Block</td>
+<td></td>
+<td>No</td>
+<td>Boolean</td>
+<td>Prevent or not the registration on the next LwM2M Server when the registration fails to connect with this LwM2M server.</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Bootstrap on Registration Failure</td>
+<td></td>
+<td>No</td>
+<td>Boolean</td>
+<td>Initiate a Bootstrap Request or not when the registration fails to connect with this LwM2M server.</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Communication Retry Count</td>
+<td></td>
+<td>No</td>
+<td>Unsigned Integer</td>
+<td>The number of successive communication attempts before which a communication sequence is considered as failed.</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Communication Retry Timer</td>
+<td></td>
+<td>No</td>
+<td>Unsigned Integer</td>
+<td>The delay between successive communication attempts in a communication sequence.</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Communication Sequence Delay Timer</td>
+<td></td>
+<td>No</td>
+<td>Unsigned Integer</td>
+<td>The delay between successive communication sequences.</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Communication Sequence Retry Count</td>
+<td></td>
+<td>No</td>
+<td>Unsigned Integer</td>
+<td>The number of successive communication sequences before which a registration attempt is considered as failed.</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Trigger</td>
+<td>RW</td>
+<td>No</td>
+<td>Boolean</td>
+<td>Using the Trigger Resource a LwM2M Client can indicate whether it is reachable over SMS (value set to 'true') or not (value set to 'false').</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Preferred Transport</td>
+<td>RW</td>
+<td>No</td>
+<td>String</td>
+<td>When the LwM2M client supports multiple transports, it MAY use this transport to initiate a connection.</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Mute Send</td>
+<td>RW</td>
+<td>No</td>
+<td>Boolean</td>
+<td>De-activated the LwM2M Client Send command capability.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="access-control-list-object">Access Control List Object</h3>
+<p><a href="http://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_Access_Control-v1_0_2.xml">LwM2M Registry for Object 2</a></p>
+<p>This object is used to check whether the LwM2M Server has access right for performing an operation.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Resource Name</th>
+<th>Access Type</th>
+<th>Mandatory</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Object ID</td>
+<td>R</td>
+<td>Yes</td>
+<td>Integer</td>
+<td>Used as link to associate Object which the access right is applicable.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Object Instance ID</td>
+<td>R</td>
+<td>Yes</td>
+<td>Integer</td>
+<td>Used as link to associate Object Instance which the access right is applicable.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>ACL</td>
+<td>RW</td>
+<td>No</td>
+<td>Integer</td>
+<td>Set the access right for the corresponding LwM2M Servers.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Access Control Owner</td>
+<td>RW</td>
+<td>Yes</td>
+<td>Integer</td>
+<td>Short Server ID of a LwM2M Server. Only this LwM2M Server can manage the Resources of this Object Instance.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="device-object">Device Object</h3>
+<p><a href="http://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_Device-v1_1.xml">LwM2M Registry for Object 3</a></p>
+<p>This object contains the device information: model, manufacturer, serial number, power source type, battery level, etc... It also contains a resource allowing the Server to reboot the Device.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Resource Name</th>
+<th>Access Type</th>
+<th>Mandatory</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Manufacturer</td>
+<td>R</td>
+<td>No</td>
+<td>String</td>
+<td>Human readable manufacturer name</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Model Number</td>
+<td>R</td>
+<td>No</td>
+<td>String</td>
+<td>A model identifier (manufacturer specified string)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Serial Number</td>
+<td>R</td>
+<td>No</td>
+<td>String</td>
+<td>Serial Number</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Firmware Version</td>
+<td>R</td>
+<td>No</td>
+<td>String</td>
+<td>Current firmware version of the Device.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Reboot</td>
+<td>E</td>
+<td>Yes</td>
+<td>none</td>
+<td>Reboot the LwM2M Device.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Factory Reset</td>
+<td>E</td>
+<td>No</td>
+<td>none</td>
+<td>Perform factory reset of the LwM2M Device to make the LwM2M Device to go through initial deployment sequence where provisioning and bootstrap sequence is performed.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Available Power Sources</td>
+<td>R</td>
+<td>No</td>
+<td>Integer array</td>
+<td>Available power sources of the Device.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Power Source Voltage</td>
+<td>R</td>
+<td>No</td>
+<td>Integer array</td>
+<td>Present voltage for each Available Power Sources.</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Power Source Current</td>
+<td>R</td>
+<td>No</td>
+<td>Integer array</td>
+<td>Present current for each Available Power Sources.</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Battery Level</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>Contains the current battery level as a percentage.</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Memory Free</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>Estimated current available amount of storage space in the Device (expressed in kilobytes).</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Error Code</td>
+<td>R</td>
+<td>Yes</td>
+<td>Integer array</td>
+<td>List of errors experienced by the Device.</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Reset Error Code</td>
+<td>E</td>
+<td>No</td>
+<td>none</td>
+<td>Delete all error codes in the previous resource.</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Current Time</td>
+<td>R/W</td>
+<td>No</td>
+<td>Time</td>
+<td>Current UNIX time of the LwM2M Client.</td>
+</tr>
+<tr>
+<td>14</td>
+<td>UTC Offset</td>
+<td>R/W</td>
+<td>No</td>
+<td>String</td>
+<td>Indicates the UTC offset currently in effect for this LwM2M Device.</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Timezone</td>
+<td>R/W</td>
+<td>No</td>
+<td>String</td>
+<td>Indicates in which time zone the LwM2M Device is located.</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Supported Bindings</td>
+<td>R</td>
+<td>Yes</td>
+<td>String</td>
+<td>Indicates which transports are supported by the Device.</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Device Type</td>
+<td>R</td>
+<td>No</td>
+<td>String</td>
+<td>Type of the device (manufacturer specified string).</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Hardware Version</td>
+<td>R</td>
+<td>No</td>
+<td>String</td>
+<td>Current hardware version of the device.</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Software Version</td>
+<td>R</td>
+<td>No</td>
+<td>String</td>
+<td>Current software version of the device.</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Battery Status</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>Status of the Device battery (normal, charging, etc...)</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Memory Total</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>Total amount of storage space in the Device (expressed in kilobytes).</td>
+</tr>
+<tr>
+<td>22</td>
+<td>ExtDevInfo</td>
+<td>R</td>
+<td>No</td>
+<td>Object link</td>
+<td>Reference to a vendor specific object containing device information.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="connectivity-monitoring-object">Connectivity Monitoring Object</h3>
+<p><a href="http://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_Connectivity_Monitoring-v1_2.xml">LwM2M Registry for Object 4</a></p>
+<p>This object provides high-level information on the current network type, signal strength, IP address, etc…</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Resource Name</th>
+<th>Access Type</th>
+<th>Mandatory</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Network Bearer</td>
+<td>R</td>
+<td>Yes</td>
+<td>Integer</td>
+<td>The network bearer used for the current LwM2M communication session.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Available Network Bearer</td>
+<td>R</td>
+<td>Yes</td>
+<td>Integer array</td>
+<td>List of current available network bearer.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Radio Signal Strength</td>
+<td>R</td>
+<td>Yes</td>
+<td>Integer</td>
+<td>The average value of the received signal strength.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Link Quality</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>The received link quality.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>IP Addresses</td>
+<td>R</td>
+<td>Yes</td>
+<td>String array</td>
+<td>The IP addresses assigned to the connectivity interface.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Router IP Addresses</td>
+<td>R</td>
+<td>No</td>
+<td>String array</td>
+<td>The IP addresses of the next-hop IP routers.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Link Utilization</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>The average utilization of the link in %.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>APN</td>
+<td>R</td>
+<td>No</td>
+<td>String array</td>
+<td>Access Point Names in case Network Bearer Resource is a Cellular Network.</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Cell ID</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>Serving Cell ID in case Network Bearer Resource is a Cellular Network.</td>
+</tr>
+<tr>
+<td>9</td>
+<td>SMNC</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>Serving Mobile Network Code.</td>
+</tr>
+<tr>
+<td>10</td>
+<td>SMCC</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>Serving Mobile Country Code.</td>
+</tr>
+<tr>
+<td>11</td>
+<td>SignalSNR</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>Signal to Interference plus Noise Ratio SINR is the ratio of the strength of the received signal to the strength of the received interference signal.</td>
+</tr>
+<tr>
+<td>12</td>
+<td>LAC</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>Location Area Code in case Network Bearer Resource is a Cellular Network.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="firmware-update-object">Firmware Update Object</h3>
+<p><a href="http://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_Firmware_Update-v1_0_1.xml">LwM2M Registry for Object 5</a></p>
+<p>This object allows to update the firmware of the device. The firmware package can either be pushed by the Server to the Device or the Device can download it using the provided URI.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Resource Name</th>
+<th>Access Type</th>
+<th>Mandatory</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Package</td>
+<td>W</td>
+<td>Yes</td>
+<td>Opaque</td>
+<td>The firmware package pushed by the Server.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Package URI</td>
+<td>R/W</td>
+<td>Yes</td>
+<td>String</td>
+<td>The URI from where the Device can download the firmware package.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Update</td>
+<td>E</td>
+<td>Yes</td>
+<td>none</td>
+<td>Updates the Device firmware by using the firmware package.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>State</td>
+<td>R</td>
+<td>Yes</td>
+<td>Integer</td>
+<td>Indicates current state with respect to this firmware update.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Update Result</td>
+<td>R</td>
+<td>Yes</td>
+<td>Integer</td>
+<td>Contains the result of downloading or updating the firmware.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>PkgName</td>
+<td>R</td>
+<td>No</td>
+<td>String</td>
+<td>The name of the Firmware Package.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>PkgVersion</td>
+<td>R</td>
+<td>No</td>
+<td>String</td>
+<td>The version of the Firmware package.</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Firmware Update Protocol Support</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>The download protocols the Device implements.</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Firmware Update Delivery Method</td>
+<td>R</td>
+<td>Yes</td>
+<td>Integer</td>
+<td>The delivery methods the Device supports.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="location-object">Location Object</h3>
+<p><a href="http://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_Location-v1_0.xml">LwM2M Registry for Object 6</a></p>
+<p>This object contains information on the device position and speed.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Resource Name</th>
+<th>Access Type</th>
+<th>Mandatory</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Latitude</td>
+<td>R</td>
+<td>Yes</td>
+<td>Float</td>
+<td>The decimal notation of latitude.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Longitude</td>
+<td>R</td>
+<td>Yes</td>
+<td>Float</td>
+<td>The decimal notation of longitude.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Altitude</td>
+<td>R</td>
+<td>No</td>
+<td>Float</td>
+<td>The decimal notation of altitude in meters above sea level.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Radius</td>
+<td>R</td>
+<td>No</td>
+<td>Float</td>
+<td>The size in meters of a circular area around a point of geometry.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Velocity</td>
+<td>R</td>
+<td>No</td>
+<td>Opaque</td>
+<td>The velocity in the Device.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Timestamp</td>
+<td>R</td>
+<td>No</td>
+<td>Time</td>
+<td>The timestamp of when the location measurement was performed.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Speed</td>
+<td>R</td>
+<td>No</td>
+<td>Float</td>
+<td>The speed of the Device in meters per second.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="connectivity-statistics-object">Connectivity Statistics Object</h3>
+<p><a href="http://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_Connectivity_Statistics-v1_0_1.xml">LwM2M Registry for Object 7</a></p>
+<p>This object collects statistics on the network usage.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Resource Name</th>
+<th>Access Type</th>
+<th>Mandatory</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>SMS Tx Counter</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>The total number of SMS successfully transmitted during the collection period.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>SMS Rx Counter</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>The total number of SMS successfully received during the collection period.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Tx Data</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>The total amount of IP data transmitted during the collection period.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Rx Data</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>The total amount of IP data received during the collection period.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Max Message Size</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>The maximum IP message size that is used during the collection period.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Average Message Size</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>The average IP message size that is used during the collection period.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Start</td>
+<td>E</td>
+<td>Yes</td>
+<td>none</td>
+<td>Start to collect information.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Stop</td>
+<td>E</td>
+<td>Yes</td>
+<td>none</td>
+<td>Stop collecting information.</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Collection Period</td>
+<td>R/W</td>
+<td>No</td>
+<td>Integer</td>
+<td>The default collection period in seconds.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="software-management-object">Software Management Object</h3>
+<p><a href="http://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_Software_Management-v1_0.xml">LwM2M Registry for Object 9</a></p>
+<p>This object allows to update the software of the device. The software package can either be pushed by the Server to the Device or the Device can download it using the provided URI.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Resource Name</th>
+<th>Access Type</th>
+<th>Mandatory</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>PkgName</td>
+<td>R</td>
+<td>Yes</td>
+<td>String</td>
+<td>Name of the software package.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>PkgVersion</td>
+<td>R</td>
+<td>Yes</td>
+<td>String</td>
+<td>Version of the software package.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Package</td>
+<td>W</td>
+<td>No</td>
+<td>Opaque</td>
+<td>The software package pushed by the Server.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Package URI</td>
+<td>W</td>
+<td>No</td>
+<td>String</td>
+<td>The URI from where the Device can download the software package.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Install</td>
+<td>E</td>
+<td>Yes</td>
+<td>none</td>
+<td>Install the software package.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Checkpoint</td>
+<td>R</td>
+<td>No</td>
+<td>Objlink</td>
+<td>Link to a Checkpoint object which allows to specify conditions/dependencies for a software update.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Uninstall</td>
+<td>E</td>
+<td>Yes</td>
+<td>none</td>
+<td>Uninstall the software package.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Update State</td>
+<td>R/W</td>
+<td>No</td>
+<td>Boolean</td>
+<td>Indicates current state with respect to this software update.</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Update Supported Object</td>
+<td>R</td>
+<td>Yes</td>
+<td>Integer</td>
+<td>Indicates if the LwM2M Client MUST inform the registered LwM2M Servers of Objects and Object Instances parameter by sending an Update or Registration message after the software update operation.</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Update Result</td>
+<td>R</td>
+<td>Yes</td>
+<td>Integer</td>
+<td>Contains the result of downloading or updating the software.</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Activate</td>
+<td>E</td>
+<td>Yes</td>
+<td>none</td>
+<td>Activate the previously installed software package.</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Deactivate</td>
+<td>E</td>
+<td>Yes</td>
+<td>none</td>
+<td>Deactivate the previously installed software package.</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Activation State</td>
+<td>R</td>
+<td>Yes</td>
+<td>Boolean</td>
+<td>Indicate the current activation state of the software.</td>
+</tr>
+<tr>
+<td>13</td>
+<td>User Name</td>
+<td>W</td>
+<td>No</td>
+<td>String</td>
+<td>User name for access to software Update Package in pull mode.</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Password</td>
+<td>W</td>
+<td>No</td>
+<td>String</td>
+<td>Password for access to software Update Package in pull mode.</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Software Component Link</td>
+<td>R</td>
+<td>No</td>
+<td>Objlink</td>
+<td>Reference to SW Components downloaded and installed in scope of the present SW Update Package.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cellular-connectivity-object">Cellular Connectivity Object</h3>
+<p><a href="http://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_Cellular_connectivity-v1_0.xml">LwM2M Registry for Object 10</a></p>
+<p>This object is used to configure the cellular connectivity of the Device.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Resource Name</th>
+<th>Access Type</th>
+<th>Mandatory</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>11</td>
+<td>Activated Profile Names</td>
+<td>R</td>
+<td>Yes</td>
+<td>String array</td>
+<td>Links to instances of the "APN connection profile" object.</td>
+</tr>
+<tr>
+<td>0</td>
+<td>SMSC address</td>
+<td>R/W</td>
+<td>No</td>
+<td>String</td>
+<td>E.164 address of SMSC.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Disable radio period</td>
+<td>R/W</td>
+<td>No</td>
+<td>Integer</td>
+<td>Time period for which the device shall disconnect from cellular radio.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Module activation code</td>
+<td>R/W</td>
+<td>No</td>
+<td>String</td>
+<td>AT command to activate the module.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Vendor specific extensions</td>
+<td>R</td>
+<td>No</td>
+<td>Object Link</td>
+<td>Link to a vendor specific object.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>PSM Timer</td>
+<td>R/W</td>
+<td>No</td>
+<td>Integer</td>
+<td>Power saving mode timer.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Active Timer</td>
+<td>R/W</td>
+<td>No</td>
+<td>Integer</td>
+<td>Active timer = T3324 as defined in [3GPP-TS_24.008].</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Serving PLMN Rate control</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>Maximum the number of allowed uplink PDU transmissions per 6 minute interval.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>eDRX parameters for Iu mode</td>
+<td>R/W</td>
+<td>No</td>
+<td>Opaque</td>
+<td>Extended DRX parameters (Paging Time Window and eDRX value) for Iu mode.</td>
+</tr>
+<tr>
+<td>8</td>
+<td>eDRX parameters for WB-S1 mode</td>
+<td>R/W</td>
+<td>No</td>
+<td>Opaque</td>
+<td>Extended DRX parameters (Paging Time Window and eDRX value) for WB-S1 mode.</td>
+</tr>
+<tr>
+<td>9</td>
+<td>eDRX parameters for NB-S1 mode</td>
+<td>R/W</td>
+<td>No</td>
+<td>Opaque</td>
+<td>Extended DRX parameters (Paging Time Window and eDRX value) for NB-S1 mode.</td>
+</tr>
+<tr>
+<td>10</td>
+<td>eDRX parameters for A/Gb mode</td>
+<td>R/W</td>
+<td>No</td>
+<td>Opaque</td>
+<td>Extended DRX parameters (Paging Time Window and eDRX value) for A/Gb mode.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="apn-connection-profile-object">APN Connection Profile Object</h3>
+<p><a href="http://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_APN_connection_profile-v1_0.xml">LwM2M Registry for Object 11</a></p>
+<p>This object specifies resources to enable a device to connect to an APN.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Resource Name</th>
+<th>Access Type</th>
+<th>Mandatory</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Profile name</td>
+<td>R/W</td>
+<td>Yes</td>
+<td>String</td>
+<td>Human-readable identifier.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>APN</td>
+<td>R/W</td>
+<td>No</td>
+<td>String</td>
+<td>Presented to network during connection to PDN.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Auto select APN by device</td>
+<td>R/W</td>
+<td>No</td>
+<td>Boolean</td>
+<td>Enables the device to choose an APN according to a device specific algorithm.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Enable status</td>
+<td>R/W</td>
+<td>No</td>
+<td>Boolean</td>
+<td>Connection is activated or not.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Authentication Type</td>
+<td>R/W</td>
+<td>Yes</td>
+<td>Integer</td>
+<td>.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>User Name</td>
+<td>R/W</td>
+<td>No</td>
+<td>String</td>
+<td>.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Secret</td>
+<td>R/W</td>
+<td>No</td>
+<td>String</td>
+<td>.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Reconnect Schedule</td>
+<td>R/W</td>
+<td>No</td>
+<td>String</td>
+<td>Comma separated list of retry delay values in seconds.</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Validity (MCC, MNC)</td>
+<td>R/W</td>
+<td>No</td>
+<td>String array</td>
+<td>Coma separated mobile country code, then mobile network code.</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Connection establishment time</td>
+<td>R</td>
+<td>No</td>
+<td>Time array</td>
+<td>UTC time of connection request.</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Connection establishment result</td>
+<td>R</td>
+<td>No</td>
+<td>Integer array</td>
+<td>.</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Connection establishment reject cause</td>
+<td>R</td>
+<td>No</td>
+<td>Integer array</td>
+<td>Reject cause, see [3GPP-TS_24.008, 3GPP-TS_24.301].</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Connection end time</td>
+<td>R</td>
+<td>No</td>
+<td>Time array</td>
+<td>UTC time of connection end.</td>
+</tr>
+<tr>
+<td>13</td>
+<td>TotalBytesSent</td>
+<td>R</td>
+<td>No</td>
+<td>Integer array</td>
+<td>Rolling counter for total number of bytes sent via this interface since last device reset.</td>
+</tr>
+<tr>
+<td>14</td>
+<td>TotalBytesReceived</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>Rolling counter for total number of bytes received via this interface since last device reset.</td>
+</tr>
+<tr>
+<td>15</td>
+<td>IP address</td>
+<td>R/W</td>
+<td>No</td>
+<td>String array</td>
+<td>IP addresses.</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Prefix length</td>
+<td>R/W</td>
+<td>No</td>
+<td>String array</td>
+<td>Associated with IPv6 addresses.</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Subnet mask</td>
+<td>R/W</td>
+<td>No</td>
+<td>String array</td>
+<td>Subnet masks.</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Gateway</td>
+<td>R/W</td>
+<td>No</td>
+<td>String array</td>
+<td>Gateways.</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Primary DNS address</td>
+<td>R/W</td>
+<td>No</td>
+<td>String array</td>
+<td>Primary DNS addresses.</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Secondary DNS address</td>
+<td>R/W</td>
+<td>No</td>
+<td>String array</td>
+<td>Secondary DNS addresses.</td>
+</tr>
+<tr>
+<td>21</td>
+<td>QCI</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>Quality of service Class Identifier.</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Vendor specific extensions</td>
+<td>R</td>
+<td>No</td>
+<td>Objlnk</td>
+<td>Links to a vendor specific object.</td>
+</tr>
+<tr>
+<td>23</td>
+<td>TotalPacketsSent</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>Rolling counter for total number of packets sent via this interface since last device reset.</td>
+</tr>
+<tr>
+<td>24</td>
+<td>PDN Type</td>
+<td>R/W</td>
+<td>No</td>
+<td>Integer</td>
+<td>.</td>
+</tr>
+<tr>
+<td>25</td>
+<td>APN Rate Control</td>
+<td>R</td>
+<td>No</td>
+<td>Integer</td>
+<td>Determines the number of allowed uplink PDU transmissions per time interval per APN.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bearer-selection-object">Bearer selection Object</h3>
+<p><a href="http://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_Bearer_selection-v1_0.xml">LwM2M Registry for Object 13</a></p>
+<p>This object specifies resources to enable a device to choose a PLMN/network on which to attach/register and what type of bearer to then connect.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Resource Name</th>
+<th>Access Type</th>
+<th>Mandatory</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Preferred Communications Bearer</td>
+<td>R/W</td>
+<td>No</td>
+<td>Integer array</td>
+<td>Used in network selection and, if applicable, in subsequent mobility management procedures.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Acceptable RSSI (GSM)</td>
+<td>R/W</td>
+<td>No</td>
+<td>Integer</td>
+<td>Provides guide to the application when performing manual network selection.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Acceptable RSCP (UMTS)</td>
+<td>R/W</td>
+<td>No</td>
+<td>Integer</td>
+<td>Provides guide to the application when performing manual network selection.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Acceptable RSRP (LTE)</td>
+<td>R/W</td>
+<td>No</td>
+<td>Integer</td>
+<td>Provides guide to the application when performing manual network selection.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Acceptable RSSI (1xEV-DO)</td>
+<td>R/W</td>
+<td>No</td>
+<td>Integer</td>
+<td>Provides guide to the application when performing manual network selection.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Cell lock list</td>
+<td>R/W</td>
+<td>No</td>
+<td>String</td>
+<td>Comma separated list of allowed Global Cell Identities.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Operator list</td>
+<td>R/W</td>
+<td>No</td>
+<td>String</td>
+<td>Comma separated list of MCC+MNC of operators, in priority order.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Operator list mode</td>
+<td>R/W</td>
+<td>No</td>
+<td>Boolean</td>
+<td>Indicates whether resource "operator list" represents the allowed operator list (white list), or, the preferred operator list.</td>
+</tr>
+<tr>
+<td>8</td>
+<td>List of available PLMNs</td>
+<td>R</td>
+<td>No</td>
+<td>String</td>
+<td>Allows server to see results of network scan.</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Vendor specific extensions</td>
+<td>R</td>
+<td>No</td>
+<td>Object link</td>
+<td>Links to a vendor specific object.</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Acceptable RSRP (NB-IoT)</td>
+<td>R/W</td>
+<td>No</td>
+<td>Integer</td>
+<td>Provides guide to the application when performing manual network selection.</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Higher Priority PLMN Search Timer</td>
+<td>R/W</td>
+<td>No</td>
+<td>Integer</td>
+<td>Interval between periodic searches for higher priority PLMN.</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Attach without PDN connection</td>
+<td>R/W</td>
+<td>No</td>
+<td>Boolean</td>
+<td>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="software-component-object">Software Component Object</h3>
+<p><a href="https://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=https%3a%2f%2fwww.openmobilealliance.org%2ftech%2fprofiles%2fLWM2M_Software_Component-v1_0.xml">LwM2M Registry for Object 14</a></p>
+<p>This object provides the resources needed to activate/deactivate software components on the device.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Resource Name</th>
+<th>Access Type</th>
+<th>Mandatory</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Component Identity</td>
+<td>R</td>
+<td>No</td>
+<td>String</td>
+<td>Name or identifier of the software component.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Component Pack</td>
+<td>R</td>
+<td>No</td>
+<td>Opaque</td>
+<td>Software components is stored in this resource.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Component Version</td>
+<td>R</td>
+<td>No</td>
+<td>String</td>
+<td>Version of the software component.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Activate</td>
+<td>E</td>
+<td>No</td>
+<td>none</td>
+<td>Activate the installed software component.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Deactivate</td>
+<td>E</td>
+<td>No</td>
+<td>none</td>
+<td>Deactivate the installed software component.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Activation State</td>
+<td>R</td>
+<td>No</td>
+<td>Boolean</td>
+<td>Indicate the current activation state of the software.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lwm2m-oscore">LwM2M OSCORE</h3>
+<p><a href="https://devtoolkit.openmobilealliance.org/OEditor/LWMOView?url=http%3A%2F%2Fwww.openmobilealliance.org%2Ftech%2Fprofiles%2FLWM2M_OSCORE-v1_0_1.xml">LwM2M Registry for Object 21</a></p>
+<p>This object provides the resources needed to activate/deactivate software components on the device.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Resource Name</th>
+<th>Access Type</th>
+<th>Mandatory</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>OSCORE Master Secret</td>
+<td></td>
+<td>Yes</td>
+<td>String</td>
+<td>Store the pre-shared key used in LwM2M Client and LwM2M Server/Bootstrap-Server, called the Master Secret.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>OSCORE Sender ID</td>
+<td></td>
+<td>Yes</td>
+<td>String</td>
+<td>Store an OSCORE identifier for the LwM2M Client called the Sender ID.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>OSCORE Recipient ID</td>
+<td></td>
+<td>Yes</td>
+<td>String</td>
+<td>Store an OSCORE identifier for the LwM2M Client called the Recipient ID.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>OSCORE AEAD Algorithm</td>
+<td></td>
+<td>No</td>
+<td>Integer</td>
+<td>Store the encoding of the AEAD Algorithm as defined in Table 10 of RFC 8152. The AEAD is used by OSCORE for encryption and integrity protection of CoAP message fields.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>OSCORE HMAC Algorithm</td>
+<td></td>
+<td>No</td>
+<td>Integer</td>
+<td>Store the encoding of the HMAC Algorithm used in the HKDF. The encoding of HMAC algorithms are defined in Table 7 of RFC 8152. The HKDF is used to derive the security context used by OSCORE.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>OSCORE Master Salt</td>
+<td></td>
+<td>No</td>
+<td>String</td>
+<td>Store a non-secret random value called the Master Salt. The Master Salt is used to derive the security context used by OSCORE.</td>
+</tr>
+</tbody>
+</table>
+
+              
+
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="Changelog.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Changelog" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Changelog
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="Building.html" class="md-footer__link md-footer__link--next" aria-label="Next: Building Samples" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Building Samples
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2020-2022 IoTerop
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    <a href="https://ioterop.com/" target="_blank" rel="noopener" title="Website" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M248 8C111.03 8 0 119.03 0 256s111.03 248 248 248 248-111.03 248-248S384.97 8 248 8zm82.29 357.6c-3.9 3.88-7.99 7.95-11.31 11.28-2.99 3-5.1 6.7-6.17 10.71-1.51 5.66-2.73 11.38-4.77 16.87l-17.39 46.85c-13.76 3-28 4.69-42.65 4.69v-27.38c1.69-12.62-7.64-36.26-22.63-51.25-6-6-9.37-14.14-9.37-22.63v-32.01c0-11.64-6.27-22.34-16.46-27.97-14.37-7.95-34.81-19.06-48.81-26.11-11.48-5.78-22.1-13.14-31.65-21.75l-.8-.72a114.792 114.792 0 0 1-18.06-20.74c-9.38-13.77-24.66-36.42-34.59-51.14 20.47-45.5 57.36-82.04 103.2-101.89l24.01 12.01C203.48 89.74 216 82.01 216 70.11v-11.3c7.99-1.29 16.12-2.11 24.39-2.42l28.3 28.3c6.25 6.25 6.25 16.38 0 22.63L264 112l-10.34 10.34c-3.12 3.12-3.12 8.19 0 11.31l4.69 4.69c3.12 3.12 3.12 8.19 0 11.31l-8 8a8.008 8.008 0 0 1-5.66 2.34h-8.99c-2.08 0-4.08.81-5.58 2.27l-9.92 9.65a8.008 8.008 0 0 0-1.58 9.31l15.59 31.19c2.66 5.32-1.21 11.58-7.15 11.58h-5.64c-1.93 0-3.79-.7-5.24-1.96l-9.28-8.06a16.017 16.017 0 0 0-15.55-3.1l-31.17 10.39a11.95 11.95 0 0 0-8.17 11.34c0 4.53 2.56 8.66 6.61 10.69l11.08 5.54c9.41 4.71 19.79 7.16 30.31 7.16s22.59 27.29 32 32h66.75c8.49 0 16.62 3.37 22.63 9.37l13.69 13.69a30.503 30.503 0 0 1 8.93 21.57 46.536 46.536 0 0 1-13.72 32.98zM417 274.25c-5.79-1.45-10.84-5-14.15-9.97l-17.98-26.97a23.97 23.97 0 0 1 0-26.62l19.59-29.38c2.32-3.47 5.5-6.29 9.24-8.15l12.98-6.49C440.2 193.59 448 223.87 448 256c0 8.67-.74 17.16-1.82 25.54L417 274.25z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://github.com/IOTEROP" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://twitter.com/ioteropcompany" target="_blank" rel="noopener" title="Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.ca141e46.min.js"}</script>
+    
+    
+      <script src="assets/javascripts/bundle.6baa0517.min.js"></script>
+      
+        <script src="js/print-site.js"></script>
+      
+    
+  </body>
+</html>

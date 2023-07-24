@@ -13,7 +13,7 @@
     
     
       
-        <title>IOWA Reference</title>
+        <title>Changelog - IOWA Reference</title>
       
     
     
@@ -63,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#changelog" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -91,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Changelog
             
           </span>
         </div>
@@ -151,12 +156,10 @@
         
   
   
-    
-  
 
 
   <li class="md-tabs__item">
-    <a href="index.html" class="md-tabs__link md-tabs__link--active">
+    <a href="index.html" class="md-tabs__link">
       Home
     </a>
   </li>
@@ -165,10 +168,12 @@
         
   
   
+    
+  
 
 
   <li class="md-tabs__item">
-    <a href="Changelog.html" class="md-tabs__link">
+    <a href="Changelog.html" class="md-tabs__link md-tabs__link--active">
       Changelog
     </a>
   </li>
@@ -287,19 +292,11 @@
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="index.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
         Home
       </a>
-      
     </li>
   
 
@@ -310,11 +307,52 @@
 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="Changelog.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Changelog
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="Changelog.html" class="md-nav__link md-nav__link--active">
         Changelog
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2022-05" class="md-nav__link">
+    2022-05
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1300,6 +1338,39 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2022-05" class="md-nav__link">
+    2022-05
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -1314,14 +1385,47 @@
 
                 
 
-  <h1>Home</h1>
-
-<p><img alt="IOWA" src="images/iowa_logo.png#center" /></p>
-<p style="text-align:center"><b>2022-05-Eval</b></p>
-
-<p style="text-align:center">BY</p>
-
-<p><img alt="IoTerop" src="images/ioterop_logo.png#center" /></p>
+<h1 id="changelog">Changelog</h1>
+<h2 id="2022-05">2022-05</h2>
+<blockquote>
+<p>This is a Long-Term Support release.</p>
+<p><strong>Upcoming Breaking Change</strong></p>
+<p>With the next release of IOWA, the configuration flags <a href="Configuration.html#IOWA_SECURITY_LAYER"><strong>IOWA_SECURITY_LAYER_TINYDTLS</strong></a>, <a href="Configuration.html#IOWA_SECURITY_LAYER"><strong>IOWA_SECURITY_LAYER_MBEDTLS</strong></a>, <a href="Configuration.html#IOWA_SECURITY_LAYER"><strong>IOWA_SECURITY_LAYER_MBEDTLS_PSK_ONLY</strong></a>, <a href="Configuration.html#IOWA_SECURITY_LAYER"><strong>IOWA_SECURITY_LAYER_MBEDTLS_OSCORE_ONLY</strong></a> will be deprecated. The configuration flag <a href="Configuration.html#IOWA_SECURITY_LAYER"><strong>IOWA_SECURITY_LAYER_USER</strong></a> will be the default.</p>
+<p>The samples <a href="secure_client_mbedtls3.html">secure_client_mbedtls3</a>, <a href="secure_client_mbedtls2.html">secure_client_mbedtls2</a>, and <a href="secure_client_tinydtls.html">secure_client_tinydtls</a> provides a feature equivalent integration with Mbed TLS and tinydtls. They also serve as a basis for integration with other TLS/DTLS libraries.</p>
+</blockquote>
+<p><strong>New Features</strong></p>
+<ul>
+<li>It is now possible to set the access rights of a LwM2M Server to all known Objects at once by calling <a href="ClientAPI.html#iowa_client_acl_rights_server_set"><code>iowa_client_acl_rights_server_set()</code></a> with <strong>IOWA_LWM2M_ID_ALL</strong> as the Object ID.</li>
+<li>Add a new API <a href="ClientAPI.html#iowa_client_get_server_configuration"><code>iowa_client_get_server_configuration()</code></a> to retrieve a LwM2M Server setting.</li>
+<li>More LwM2M Server settings are accessible, including the CoAP retransmission parameters. See <a href="ClientAPI.html#iowa_server_setting_id_t"><code>iowa_server_setting_id_t</code></a>.</li>
+<li>IOWA generates new events of type <strong>IOWA_EVENT_SERVER_SETTING_CHANGED</strong> when a LwM2M Server setting is modified by a LwM2M operation on the LwM2M Server Object. See <a href="ClientAPI.html#iowa_event_t"><code>iowa_event_t</code></a>.</li>
+<li>The provided implementations of the Location Object (ID: 6) and the IPSO Location Object (ID: 3336) have new APIs <a href="ObjectLocation.md#iowa_client_location_update_with_time"><code>iowa_client_location_update_with_time()</code></a>, <a href="ObjectLocation.md#iowa_client_location_update_full_with_time"><code>iowa_client_location_update_full_with_time()</code></a>, <a href="ObjectGPS.md#iowa_client_gps_update_location_with_time"><code>iowa_client_gps_update_location_with_time()</code></a>, and <a href="ObjectGPS.md#iowa_client_gps_update_location_full_with_time"><code>iowa_client_gps_update_location_full_with_time()</code></a> allowing the caller to specify the measurement timestamp.</li>
+<li>Add a new API <a href="CoapAPI.html#iowa_coap_peer_proxied_get">`iowa_coap_peer_proxied_get()</a> to perform a GET through a forward-proxy.</li>
+</ul>
+<p><strong>Breaking Change</strong></p>
+<ul>
+<li>The value <strong>IOWA_IPSO_LEVEL_CONTROL</strong> is no longer part of the enumeration <a href="ClientAPI.html#iowa_ipso_id_t"><code>iowa_IPSO_ID_t</code></a>. To manipulate an IPSO level sensor, please use the <a href="ObjectDimmer.md">IPSO Dimmer Object APIs</a>. Note that the IPSO Level Control Object was renamed "Dimmer" in the <a href="https://technical.openmobilealliance.org/OMNA/LwM2M/LwM2MRegistry.html">LwM2M Registry</a>.</li>
+</ul>
+<p><strong>Behavior Changes</strong></p>
+<ul>
+<li>When a Response is bigger than the connection MTU, and <a href="Configuration.html#additional-flags"><strong>IOWA_COAP_BLOCK_SUPPORT</strong></a> is defined, IOWA will now return the first block of the response instead of returning a 4.13 (Request Entity Too Large) code.</li>
+<li>The <a href="ClientAPI.html#iowa_server_info_t"><code>iowa_server_info_t</code></a> structure now contains the LwM2M protocol version used by the LwM2M Server.</li>
+</ul>
+<p><strong>SDK Changes</strong></p>
+<ul>
+<li>Some internal functions were renamed to avoid conflicts.</li>
+<li>Add three new samples illustrating how to integrate with a DTLS/TLS security library, one using <a href="secure_client_mbedtls3.html">Mbed TLS 3.1</a>, one using <a href="secure_client_mbedtls2.html">Mbed TLS 2.28</a>, and one using <a href="secure_client_tinydtls.html">tinydtls</a>.</li>
+<li>The sample <a href="custom_object_multiple_instances.html">custom_object_multiple_instances</a>, illustrating how to manage multiple instances of a custom LwM2M Object, was simplified and documented. </li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix a bug where corrupted data retrieved from the notification storage queues may lead to out-of-range memory accesses or value underflows.</li>
+<li>Fix a bug where a Notification bigger than the connection MTU was not correctly sent as the first block of a CoAP Block-Transfer.</li>
+<li>Fix a potential crash when handling a Observation on a multiple resource with no instance in Clients with no support of the Observe-Composite operation.</li>
+<li>Fix a bug where IOWA was returning an error to the LwM2M Server cancelling the Firmware Update process. The Firmware Update process was however cancelled correctly.</li>
+<li>Fix a bug where a Server lifetime or binding modified by calling <a href="ClientAPI.html#iowa_client_set_server_configuration"><code>iowa_client_set_server_configuration()</code></a> was not automatically saved when <a href="Configuration.html#iowa_storage_context_automatic_backup"><strong>IOWA_STORAGE_CONTEXT_AUTOMATIC_BACKUP</strong></a> is defined.</li>
+<li>Fix a bug where the Access Control List Object Instances where not correctly restored when loading a context. The saved access control rights were however still enforced.</li>
+</ul>
 
               
 
@@ -1335,15 +1439,30 @@
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
+        
+        <a href="index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Home
+            </div>
+          </div>
+        </a>
+      
       
         
-        <a href="Changelog.html" class="md-footer__link md-footer__link--next" aria-label="Next: Changelog" rel="next">
+        <a href="LwM2MOverview.html" class="md-footer__link md-footer__link--next" aria-label="Next: LwM2M Overview" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Changelog
+              LwM2M Overview
             </div>
           </div>
           <div class="md-footer__button md-icon">

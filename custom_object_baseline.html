@@ -1,0 +1,2043 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="images/iowa_logo.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.4">
+    
+    
+      
+        <title>Custom Object Basseline - IOWA Reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.2a4617e2.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.9204c3b2.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="css/print-site.css">
+    
+      <link rel="stylesheet" href="css/print-site-material.css">
+    
+      <link rel="stylesheet" href="ioterop.css">
+    
+    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?".":"."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#custom-object-baseline" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="IOWA Reference" class="md-header__button md-logo" aria-label="IOWA Reference" data-md-component="logo">
+      
+  <img src="images/iowa_logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            IOWA Reference
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Custom Object Basseline
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="index.html" class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="Changelog.html" class="md-tabs__link">
+      Changelog
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="LwM2MOverview.html" class="md-tabs__link">
+        User Manual
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="baseline_client.html" class="md-tabs__link md-tabs__link--active">
+        Samples
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="AbstractionLayer.html" class="md-tabs__link">
+        API Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="License.html" class="md-tabs__link">
+        Licenses
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="print_page.html" class="md-tabs__link">
+      Printable version
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="IOWA Reference" class="md-nav__button md-logo" aria-label="IOWA Reference" data-md-component="logo">
+      
+  <img src="images/iowa_logo.png" alt="logo">
+
+    </a>
+    IOWA Reference
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Changelog.html" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          User Manual
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User Manual" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          User Manual
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="LwM2MOverview.html" class="md-nav__link">
+        LwM2M Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Building.html" class="md-nav__link">
+        Building Samples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Configuration.html" class="md-nav__link">
+        IOWA Configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Security.html" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Multithread.html" class="md-nav__link">
+        Multithread
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Bootstrap.html" class="md-nav__link">
+        Bootstrap
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DeviceUpdate.html" class="md-nav__link">
+        Device Update
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CustomObject.html" class="md-nav__link">
+        Custom Objects
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Streamable.html" class="md-nav__link">
+        Streamable Resources
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ApplicationStorage.html" class="md-nav__link">
+        Application Storage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Network.html" class="md-nav__link">
+        Network
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Porting.html" class="md-nav__link">
+        Porting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="LoRaWAN.html" class="md-nav__link">
+        LoRaWAN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_14" type="checkbox" id="__nav_3_14" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_14">
+          Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tools" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_14">
+          <span class="md-nav__icon md-icon"></span>
+          Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Object_Skeleton_Generator.html" class="md-nav__link">
+        Object Skeleton Generator
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Samples" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="baseline_client.html" class="md-nav__link">
+        LwM2M Client Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2">
+          LwM2M Objects Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="LwM2M Objects Samples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          LwM2M Objects Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="IPSO_client.html" class="md-nav__link">
+        IPSO Object Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bearer_selection_client.html" class="md-nav__link">
+        Bearer Selection Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mqtt_objects_client.html" class="md-nav__link">
+        MQTT Objects
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_3">
+          LwM2M Custom Objects Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="LwM2M Custom Objects Samples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          LwM2M Custom Objects Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Custom Object Basseline
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="custom_object_baseline.html" class="md-nav__link md-nav__link--active">
+        Custom Object Basseline
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#breakdown" class="md-nav__link">
+    Breakdown
+  </a>
+  
+    <nav class="md-nav" aria-label="Breakdown">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-pseudo-code" class="md-nav__link">
+    Client Pseudo Code
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-structures" class="md-nav__link">
+    Data Structures
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Structures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_lwm2m_resource_desc_t" class="md-nav__link">
+    iowa_lwm2m_resource_desc_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_lwm2m_data_t" class="md-nav__link">
+    iowa_lwm2m_data_t
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-function" class="md-nav__link">
+    Main Function
+  </a>
+  
+    <nav class="md-nav" aria-label="Main Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialization" class="md-nav__link">
+    Initialization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-client-configuration" class="md-nav__link">
+    LwM2M Client Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-object-addition" class="md-nav__link">
+    Custom Object Addition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-server-declaration" class="md-nav__link">
+    LwM2M Server Declaration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-loop" class="md-nav__link">
+    "Main Loop"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleanup" class="md-nav__link">
+    Cleanup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-data-callback" class="md-nav__link">
+    Object Data Callback
+  </a>
+  
+    <nav class="md-nav" aria-label="Object Data Callback">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-iowa_dm_free-operation" class="md-nav__link">
+    The IOWA_DM_FREE Operation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    Next Steps
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_dynamic.html" class="md-nav__link">
+        Dynamic Custom Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_multiple_instances.html" class="md-nav__link">
+        Multiple Instance Custom Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_multiple_resource_instances.html" class="md-nav__link">
+        Multiple Resource Custom Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="streamable_resource_client.html" class="md-nav__link">
+        Streamable Resources Client
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" type="checkbox" id="__nav_4_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_4">
+          Firmware Update Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Firmware Update Samples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Firmware Update Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_update_push_client.html" class="md-nav__link">
+        Firmware Update Client "Push" Method
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_update_pull_client.html" class="md-nav__link">
+        Firmware Update Client "Pull" Method
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_coap_download_client.html" class="md-nav__link">
+        Firmware Update Client with CoAP Download
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_coap_block_client.html" class="md-nav__link">
+        Firmware Update Client with CoAP Block-Wise Transfer
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_5" type="checkbox" id="__nav_4_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_5">
+          LwM2M Advanced Client Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="LwM2M Advanced Client Samples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_5">
+          <span class="md-nav__icon md-icon"></span>
+          LwM2M Advanced Client Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="secure_client_mbedtls3.html" class="md-nav__link">
+        Secure Client with Mbed TLS 3.1.0
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="secure_client_mbedtls2.html" class="md-nav__link">
+        Secure Client with Mbed TLS 2.28.0
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="secure_client_tinydtls.html" class="md-nav__link">
+        Secure Client with tinydtls
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bootstrap_client.html" class="md-nav__link">
+        Bootstrap Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="multithread_IPSO_client.html" class="md-nav__link">
+        Multithreaded Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="device_info_client.html" class="md-nav__link">
+        Device Info Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="websockets_client.html" class="md-nav__link">
+        WebSocket Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="context_storage_client.html" class="md-nav__link">
+        Context Storage Client
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="baseline_server.html" class="md-nav__link">
+        LwM2M Server Basics
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="AbstractionLayer.html" class="md-nav__link">
+        System Abstraction Layer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CommonAPI.html" class="md-nav__link">
+        Common APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ClientAPI.html" class="md-nav__link">
+        Client APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Empty.html" class="md-nav__link">
+        Objects APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ServerAPI.html" class="md-nav__link">
+        Server APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="BootstrapServerAPI.html" class="md-nav__link">
+        Bootstrap Server APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CoapAPI.html" class="md-nav__link">
+        CoAP APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="UtilsAPI.html" class="md-nav__link">
+        Utils APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="SecurityAPI.html" class="md-nav__link">
+        Security Implementation APIs
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Licenses
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Licenses" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Licenses
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="License.html" class="md-nav__link">
+        IOWA License
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="OpenSourceLicenses.html" class="md-nav__link">
+        OpenSource Licenses
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="print_page.html" class="md-nav__link">
+        Printable version
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#breakdown" class="md-nav__link">
+    Breakdown
+  </a>
+  
+    <nav class="md-nav" aria-label="Breakdown">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-pseudo-code" class="md-nav__link">
+    Client Pseudo Code
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-structures" class="md-nav__link">
+    Data Structures
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Structures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_lwm2m_resource_desc_t" class="md-nav__link">
+    iowa_lwm2m_resource_desc_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_lwm2m_data_t" class="md-nav__link">
+    iowa_lwm2m_data_t
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-function" class="md-nav__link">
+    Main Function
+  </a>
+  
+    <nav class="md-nav" aria-label="Main Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialization" class="md-nav__link">
+    Initialization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-client-configuration" class="md-nav__link">
+    LwM2M Client Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-object-addition" class="md-nav__link">
+    Custom Object Addition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-server-declaration" class="md-nav__link">
+    LwM2M Server Declaration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-loop" class="md-nav__link">
+    "Main Loop"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleanup" class="md-nav__link">
+    Cleanup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-data-callback" class="md-nav__link">
+    Object Data Callback
+  </a>
+  
+    <nav class="md-nav" aria-label="Object Data Callback">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-iowa_dm_free-operation" class="md-nav__link">
+    The IOWA_DM_FREE Operation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    Next Steps
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+
+
+    <a href="print_page.html" title="Print Site" class="md-content__button md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 3H6v4h12m1 5a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1m-3 7H8v-5h8m3-6H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3z"/></svg>
+    </a>
+
+
+
+                
+
+<h1 id="custom-object-baseline">Custom Object Baseline</h1>
+<p>This is the <a href="baseline_client.html">baseline_client</a> featuring an additional LwM2M Object with the following definition:</p>
+<p><em>ID:</em> <em>3200</em></p>
+<p><em>Single instance</em></p>
+<p><em>Resources:</em></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Type</th>
+<th>Operations</th>
+<th>Multiple</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5500</td>
+<td>Boolean</td>
+<td>R</td>
+<td>Single</td>
+<td>A read-only boolean value</td>
+</tr>
+<tr>
+<td>5750</td>
+<td>String</td>
+<td>R/W</td>
+<td>Single</td>
+<td>A writable string</td>
+</tr>
+<tr>
+<td>5503</td>
+<td>Integer</td>
+<td>R/W</td>
+<td>Single</td>
+<td>A writable integer value</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>In the LightweigthM2M protocol, the Objects and the Resources are only characterized by their ID and there is no metadata exchanges between the LwM2M Clients and the LwM2M Server. This means that the LwM2M Server must know the layout of the Object and the characteristics of their Resources. (Note that the LwM2M Server can perform a Discovery operation on the Object that will return the list of <strong>instantiated</strong> Resources in each Object Instance.)</p>
+<p>When designing a custom Object for your application, you must communicate your Object definition to the LwM2M Server out-of-band. One way to achieve this is by registering your Object to the <a href="https://openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html">OMNA LwM2M Repository</a>.</p>
+<p>In this sample we reuse a registered Object: Digital Input (ID: 3200) to make sure it is known by the LwM2M Server we are testing with. In a real-world application needing this specific IPSO Object, you can use the <code>iowa_client_IPSO_add_sensor()</code> API.</p>
+</blockquote>
+<p>The following API will be explained:</p>
+<ul>
+<li><code>iowa_client_add_custom_object()</code></li>
+<li><code>iowa_client_remove_custom_object()</code></li>
+</ul>
+<h2 id="usage">Usage</h2>
+<p>The usage is the same as the Baseline Client sample.</p>
+<p>When registered to the LwM2M Server, you will notice that the <em>custom_object_baseline_client</em> features the additional LwM2M Object described above:</p>
+<p><img alt="Custom Object Baseline Client" src="images/custom_object_baseline_client.jpg" /></p>
+<p>The Resource names displayed by the LwM2M Server are the names registered for the Object with this specific ID at the <a href="https://openmobilealliance.org/wp/OMNA/LwM2M/LwM2MRegistry.html">OMNA LwM2M Repository</a>. As explained, we are using this Object ID to make sure it is known by the LwM2M Server. Of course, the Resources do not reflect any real process.</p>
+<p>From here, you can test the LwM2M operations on the Resources. You will notice that you can not write the "Digital Input State" Resource (URI: /3200/0/5500).</p>
+<p>If you set an Observation on the Object or the Object Instance, when you write a new value for the "Digital Input Debounce" Resource (URI: /3200/0/5503) or the "Application Type" Resource (URI: /3200/0/5750), you will receive a notification.</p>
+<p>After two minutes, <em>custom_object_baseline_client</em> unregisters from the LwM2M Server.</p>
+<h2 id="breakdown">Breakdown</h2>
+<h3 id="client-pseudo-code">Client Pseudo Code</h3>
+<p>This is the pseudo code of Client main function:</p>
+<div class="highlight"><pre><span></span><code><span class="n">main</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Initialization</span>
+<span class="w">    </span><span class="n">iowa_init</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// LwM2M Client configuration</span>
+<span class="w">    </span><span class="n">iowa_client_configure</span><span class="p">(</span><span class="n">CLIENT_NAME</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Custom Object addition</span>
+<span class="w">    </span><span class="n">iowa_client_add_custom_object</span><span class="p">(</span><span class="n">OBJECT_ID</span><span class="p">,</span><span class="w"> </span><span class="n">resourceDescription</span><span class="p">,</span><span class="w"> </span><span class="n">dataCallback</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// LwM2M Server declaration</span>
+<span class="w">    </span><span class="n">iowa_client_add_server</span><span class="p">(</span><span class="n">SERVER_SHORT_ID</span><span class="p">,</span><span class="w"> </span><span class="n">SERVER_URI</span><span class="p">,</span><span class="w"> </span><span class="n">SERVER_LIFETIME</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// &quot;Main loop&quot;</span>
+<span class="w">    </span><span class="n">iowa_step</span><span class="p">(</span><span class="mi">120</span><span class="n">s</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Cleanup</span>
+<span class="w">    </span><span class="n">iowa_client_remove_custom_object</span><span class="p">(</span><span class="n">OBJECT_ID</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">iowa_client_IPSO_remove_sensor</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="n">iowa_close</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>and the pseudo code of the Object data callback:</p>
+<div class="highlight"><pre><span></span><code><span class="n">dataCallback</span><span class="p">(</span><span class="n">operation</span><span class="p">,</span><span class="w"> </span><span class="n">targetedResources</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">each</span><span class="w"> </span><span class="n">targetedResources</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">operation</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">READ</span><span class="w"></span>
+<span class="w">            </span><span class="n">then</span><span class="w"> </span><span class="n">targetedResources</span><span class="p">.</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resource</span><span class="w"> </span><span class="n">value</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">operation</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">WRITE</span><span class="w"></span>
+<span class="w">            </span><span class="n">then</span><span class="w"> </span><span class="n">resource</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">targetedResources</span><span class="p">.</span><span class="n">value</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h3 id="data-structures">Data Structures</h3>
+<p>This sample introduces two important data structures of IOWA.</p>
+<h4 id="iowa_lwm2m_resource_desc_t">iowa_lwm2m_resource_desc_t</h4>
+<p>This data structure is used to describe an LwM2M Object Resource.</p>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w">               </span><span class="n">id</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">iowa_lwm2m_data_type_t</span><span class="w"> </span><span class="n">type</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w">                </span><span class="n">operations</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w">                </span><span class="n">flags</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">iowa_lwm2m_resource_desc_t</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p><code>id</code> is the numerical ID of the Resource. This ID must be unique among the Object Resource IDs.</p>
+<p><code>type</code> is the data type of the Resource value.</p>
+<p><code>operations</code> is the list of LwM2M operations allowed on the resources. The only allowed combinations are: "IOWA_DM_READ", "IOWA_DM_WRITE", "IOWA_DM_READ | IOWA_DM_WRITE", and "IOWA_DM_EXECUTE".</p>
+<p><code>flags</code> will be explained in other samples.</p>
+<h4 id="iowa_lwm2m_data_t">iowa_lwm2m_data_t</h4>
+<p>This data structure is used to convey the Resource values between IOWA and the Object implementation.</p>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">objectID</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">instanceID</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">resourceID</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">resInstanceID</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">iowa_lwm2m_data_type_t</span><span class="w"> </span><span class="n">type</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">union</span>
+    <span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kt">bool</span><span class="w">    </span><span class="n">asBoolean</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">asInteger</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="kt">double</span><span class="w">  </span><span class="n">asFloat</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">struct</span>
+        <span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="kt">size_t</span><span class="w">   </span><span class="n">length</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="n">asBuffer</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">struct</span>
+        <span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="kt">size_t</span><span class="w">   </span><span class="n">totalSize</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">details</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="n">asBlock</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">iowa_lwm2m_object_link_t</span><span class="w"> </span><span class="n">asObjLink</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">timestamp</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">iowa_lwm2m_data_t</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p><code>objectID</code>, <code>instanceID</code>, and <code>resourceID</code> contain the URI of the Resource. Some Resources may have multiple instances. In this case <code>resInstanceID</code> is used, otherwise (like in this sample), it is set to <strong>IOWA_LWM2M_ID_ALL</strong>.</p>
+<p><code>type</code> contains the data type of the Resource value.</p>
+<p><code>value</code> contains the value of the Resource. It is an union depending on <code>type</code>:</p>
+<ul>
+<li>
+<p><code>value.asBoolean</code> when <code>type</code> is <strong>IOWA_LWM2M_TYPE_BOOLEAN</strong>.</p>
+</li>
+<li>
+<p><code>value.asInteger</code> when <code>type</code> is <strong>IOWA_LWM2M_TYPE_INTEGER</strong>, <strong>IOWA_LWM2M_TYPE_TIME</strong> or <strong>IOWA_LWM2M_TYPE_UNSIGNED_INTEGER</strong>.</p>
+</li>
+<li>
+<p><code>value.asFloat</code> when <code>type</code> is <strong>IOWA_LWM2M_TYPE_FLOAT</strong>.</p>
+</li>
+<li>
+<p><code>value.asBuffer</code> when <code>type</code> is <strong>IOWA_LWM2M_TYPE_CORE_LINK</strong>, <strong>IOWA_LWM2M_TYPE_STRING</strong>, <strong>IOWA_LWM2M_TYPE_OPAQUE</strong> or <strong>IOWA_LWM2M_TYPE_UNDEFINED</strong>.</p>
+</li>
+<li>
+<p><code>value.asObjLink</code> when <code>type</code> is <strong>IOWA_LWM2M_TYPE_OBJECT_LINK</strong>.</p>
+</li>
+<li>
+<p><code>value.asBlock</code> is explained in another sample.</p>
+</li>
+</ul>
+<p><code>timestamp</code> is explained in another sample.</p>
+<h3 id="main-function">Main Function</h3>
+<h4 id="initialization">Initialization</h4>
+<p>This step is the same as in the Baseline Client sample.</p>
+<h4 id="lwm2m-client-configuration">LwM2M Client Configuration</h4>
+<p>This step is the same as in the Baseline Client sample.</p>
+<h4 id="custom-object-addition">Custom Object Addition</h4>
+<p>Here we add a custom Object to the LwM2M Client.</p>
+<div class="highlight"><pre><span></span><code><span class="n">sample_object_values_t</span><span class="w"> </span><span class="n">objectValues</span><span class="p">;</span><span class="w"></span>
+<span class="n">iowa_lwm2m_resource_desc_t</span><span class="w"> </span><span class="n">sample_object_resources</span><span class="p">[</span><span class="n">SAMPLE_RES_COUNT</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="mi">5500</span><span class="p">,</span><span class="w"> </span><span class="n">IOWA_LWM2M_TYPE_BOOLEAN</span><span class="p">,</span><span class="w"> </span><span class="n">IOWA_OPERATION_READ</span><span class="p">,</span><span class="w">                        </span><span class="n">IOWA_RESOURCE_FLAG_NONE</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="mi">5750</span><span class="p">,</span><span class="w"> </span><span class="n">IOWA_LWM2M_TYPE_STRING</span><span class="p">,</span><span class="w">  </span><span class="n">IOWA_OPERATION_READ</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">IOWA_OPERATION_WRITE</span><span class="p">,</span><span class="w"> </span><span class="n">IOWA_RESOURCE_FLAG_NONE</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="mi">5503</span><span class="p">,</span><span class="w"> </span><span class="n">IOWA_LWM2M_TYPE_INTEGER</span><span class="p">,</span><span class="w"> </span><span class="n">IOWA_OPERATION_READ</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">IOWA_OPERATION_WRITE</span><span class="p">,</span><span class="w"> </span><span class="n">IOWA_RESOURCE_FLAG_NONE</span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="n">objectValues</span><span class="p">.</span><span class="n">booleanValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<span class="n">objectValues</span><span class="p">.</span><span class="n">integerValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"></span>
+<span class="n">objectValues</span><span class="p">.</span><span class="n">stringValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iowa_client_add_custom_object</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                       </span><span class="n">SAMPLE_OBJECT_ID</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                       </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                       </span><span class="n">SAMPLE_RES_COUNT</span><span class="p">,</span><span class="w"> </span><span class="n">sample_object_resources</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                       </span><span class="n">sample_object_dataCallback</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                       </span><span class="nb">NULL</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                       </span><span class="nb">NULL</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                       </span><span class="o">&amp;</span><span class="n">objectValues</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>As always, the first argument is the IOWA context created in the Initialization step.</p>
+<p>The second argument is the Object numerical ID. This ID must be unique.</p>
+<p>The third argument is the number of Instances this Object has, the fourth argument is the list of the IDs of these Instances. This parameter is useful only for multiple-instance Objects. As we do not provide a list of Instances and the instance callback (the eighth parameter) is nil, IOWA consider this Object to be a single-instance one. See the sample custom_object_multiple_instances for more details.</p>
+<p>The fifth and sixth arguments are the Object's Resources definition. This is an array of <code>iowa_lwm2m_resource_desc_t</code>.</p>
+<p>The seventh argument is the callback IOWA will call when an operation is to be performed on the Object's Resources. It is explained in more details below.</p>
+<p>The eighth and ninth arguments are callbacks called by IOWA to manipulate the Object. There are explained in other samples.</p>
+<p>The last argument is an user defined pointer passed as argument to the Object callbacks. In this example, it is a structure holding the Object values.</p>
+<h4 id="lwm2m-server-declaration">LwM2M Server Declaration</h4>
+<p>This step is the same as in the Baseline Client sample.</p>
+<h4 id="main-loop">"Main Loop"</h4>
+<p>This step is the same as in the Baseline Client sample.</p>
+<h4 id="cleanup">Cleanup</h4>
+<p>This step is the same as in the Baseline Client sample with one additional function call:</p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_client_remove_custom_object</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span><span class="w"> </span><span class="n">SAMPLE_OBJECT_ID</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>As always, the first argument is the IOWA context created in the Initialization step.</p>
+<p>The second argument is the same ID of the Object as in the call to <code>iowa_client_add_custom_object()</code>.</p>
+<h3 id="object-data-callback">Object Data Callback</h3>
+<p>when a LwM2M Server perform an operation on our Object, IOWA takes care of all the necessary checks (Resource existence, operation rights, correct datatypes, etc...). The Data Callback deals only with the actual Resource values.</p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span><span class="w"> </span><span class="nf">sample_object_dataCallback</span><span class="p">(</span><span class="n">iowa_dm_operation_t</span><span class="w"> </span><span class="n">operation</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                         </span><span class="n">iowa_lwm2m_data_t</span><span class="w"> </span><span class="o">*</span><span class="n">dataP</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                         </span><span class="kt">size_t</span><span class="w"> </span><span class="n">numData</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                         </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">userData</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                         </span><span class="n">iowa_context_t</span><span class="w"> </span><span class="n">iowaH</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+</code></pre></div>
+<p>The parameters to the callback are the operation (<strong>IOWA_DM_READ</strong>, <strong>IOWA_DM_WRITE</strong>, <strong>IOWA_DM_EXECUTE</strong>, or <strong>IOWA_DM_FREE</strong>), an array of <code>iowa_lwm2m_data_t</code>, the user data passed as parameter to <code>iowa_client_add_custom_object()</code>, and the IOWA context.</p>
+<p>The first thing we do is retrieving the actual values we stored in the user data:</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">sample_object_values_t</span><span class="w"> </span><span class="o">*</span><span class="n">objectValuesP</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Retrieve our Object values</span>
+<span class="w">    </span><span class="n">objectValuesP</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">sample_object_values_t</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">userData</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>Then we iterate over all the targeted Resources:</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numData</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">dataP</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">resourceID</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+</code></pre></div>
+<p>We do not check <code>dataP[i].objectID</code> and <code>dataP[i].instanceID</code> as the callback is used only by our Object. These need to be considered only when the Object has several instances or if the callback is shared among several custom Objects.</p>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="mi">5503</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">operation</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">IOWA_DM_READ</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">dataP</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="p">.</span><span class="n">asInteger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">objectValuesP</span><span class="o">-&gt;</span><span class="n">integerValue</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">operation</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">IOWA_DM_WRITE</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">objectValuesP</span><span class="o">-&gt;</span><span class="n">integerValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dataP</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="p">.</span><span class="n">asInteger</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>For each Resource, if the operation is <strong>IOWA_DM_READ</strong>, we store the Resource value in the <code>iowa_lwm2m_data_t</code>. If the operation is <strong>IOWA_DM_WRITE</strong>, we update the Resource value with the value from the <code>iowa_lwm2m_data_t</code>.</p>
+<h4 id="the-iowa_dm_free-operation">The IOWA_DM_FREE Operation</h4>
+<p>To handle the <strong>IOWA_DM_READ</strong> case, the callback may allocate memory. For instance the Resource could be the content of a log file. When IOWA has no longer the use of a resource value, it calls the callback with the operation <strong>IOWA_DM_FREE</strong>.</p>
+<p>This is illustrated in the sample by the Resource holding a string value (ID: 5750):</p>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="mi">5750</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">operation</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">IOWA_DM_READ</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">objectValuesP</span><span class="o">-&gt;</span><span class="n">stringValue</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="c1">// For the sake of the example, we return a copy of our string value.</span>
+<span class="w">            </span><span class="n">dataP</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="p">.</span><span class="n">asBuffer</span><span class="p">.</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">objectValuesP</span><span class="o">-&gt;</span><span class="n">stringValue</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="n">dataP</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="p">.</span><span class="n">asBuffer</span><span class="p">.</span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strdup</span><span class="p">(</span><span class="n">objectValuesP</span><span class="o">-&gt;</span><span class="n">stringValue</span><span class="p">);</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dataP</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="p">.</span><span class="n">asBuffer</span><span class="p">.</span><span class="n">buffer</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">IOWA_COAP_500_INTERNAL_SERVER_ERROR</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">else</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">dataP</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="p">.</span><span class="n">asBuffer</span><span class="p">.</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="n">dataP</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="p">.</span><span class="n">asBuffer</span><span class="p">.</span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">operation</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">IOWA_DM_WRITE</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">free</span><span class="p">(</span><span class="n">objectValuesP</span><span class="o">-&gt;</span><span class="n">stringValue</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">objectValuesP</span><span class="o">-&gt;</span><span class="n">stringValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">dataP</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="p">.</span><span class="n">asBuffer</span><span class="p">.</span><span class="n">length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">objectValuesP</span><span class="o">-&gt;</span><span class="n">stringValue</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">IOWA_COAP_500_INTERNAL_SERVER_ERROR</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="n">memcpy</span><span class="p">(</span><span class="n">objectValuesP</span><span class="o">-&gt;</span><span class="n">stringValue</span><span class="p">,</span><span class="w"> </span><span class="n">dataP</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="p">.</span><span class="n">asBuffer</span><span class="p">.</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">dataP</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="p">.</span><span class="n">asBuffer</span><span class="p">.</span><span class="n">length</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">objectValuesP</span><span class="o">-&gt;</span><span class="n">stringValue</span><span class="p">[</span><span class="n">dataP</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="p">.</span><span class="n">asBuffer</span><span class="p">.</span><span class="n">length</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">operation</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">IOWA_DM_FREE</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// IOWA has no longer use of the string value. We can free it.</span>
+<span class="w">        </span><span class="n">free</span><span class="p">(</span><span class="n">dataP</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">value</span><span class="p">.</span><span class="n">asBuffer</span><span class="p">.</span><span class="n">buffer</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>When the operation is <strong>IOWA_DM_READ</strong> (and there is a value to return), we allocate a new string and duplicate the value. We pass the pointer to this new string in the <code>iowa_lwm2m_data_t</code>.</p>
+<p>Then when the callback is called with <strong>IOWA_DM_FREE</strong>, we can free the duplicate string as the <code>iowa_lwm2m_data_t</code> still holds the pointer to it.</p>
+<blockquote>
+<p>When handling the <strong>IOWA_DM_READ</strong> case, it is also possible for the callback to just return the pointer to our string value. IOWA will not modify it. In this case, there is nothing to do when the operation is <strong>IOWA_DM_FREE</strong>.</p>
+</blockquote>
+<h2 id="next-steps">Next Steps</h2>
+<p>The sample illustrates only the baseline of the creation of a custom LwM2M Object. The other custom object samples dive into more useful concepts.</p>
+
+              
+
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="mqtt_objects_client.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: MQTT Objects" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              MQTT Objects
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="custom_object_dynamic.html" class="md-footer__link md-footer__link--next" aria-label="Next: Dynamic Custom Object" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Dynamic Custom Object
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2020-2022 IoTerop
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    <a href="https://ioterop.com/" target="_blank" rel="noopener" title="Website" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M248 8C111.03 8 0 119.03 0 256s111.03 248 248 248 248-111.03 248-248S384.97 8 248 8zm82.29 357.6c-3.9 3.88-7.99 7.95-11.31 11.28-2.99 3-5.1 6.7-6.17 10.71-1.51 5.66-2.73 11.38-4.77 16.87l-17.39 46.85c-13.76 3-28 4.69-42.65 4.69v-27.38c1.69-12.62-7.64-36.26-22.63-51.25-6-6-9.37-14.14-9.37-22.63v-32.01c0-11.64-6.27-22.34-16.46-27.97-14.37-7.95-34.81-19.06-48.81-26.11-11.48-5.78-22.1-13.14-31.65-21.75l-.8-.72a114.792 114.792 0 0 1-18.06-20.74c-9.38-13.77-24.66-36.42-34.59-51.14 20.47-45.5 57.36-82.04 103.2-101.89l24.01 12.01C203.48 89.74 216 82.01 216 70.11v-11.3c7.99-1.29 16.12-2.11 24.39-2.42l28.3 28.3c6.25 6.25 6.25 16.38 0 22.63L264 112l-10.34 10.34c-3.12 3.12-3.12 8.19 0 11.31l4.69 4.69c3.12 3.12 3.12 8.19 0 11.31l-8 8a8.008 8.008 0 0 1-5.66 2.34h-8.99c-2.08 0-4.08.81-5.58 2.27l-9.92 9.65a8.008 8.008 0 0 0-1.58 9.31l15.59 31.19c2.66 5.32-1.21 11.58-7.15 11.58h-5.64c-1.93 0-3.79-.7-5.24-1.96l-9.28-8.06a16.017 16.017 0 0 0-15.55-3.1l-31.17 10.39a11.95 11.95 0 0 0-8.17 11.34c0 4.53 2.56 8.66 6.61 10.69l11.08 5.54c9.41 4.71 19.79 7.16 30.31 7.16s22.59 27.29 32 32h66.75c8.49 0 16.62 3.37 22.63 9.37l13.69 13.69a30.503 30.503 0 0 1 8.93 21.57 46.536 46.536 0 0 1-13.72 32.98zM417 274.25c-5.79-1.45-10.84-5-14.15-9.97l-17.98-26.97a23.97 23.97 0 0 1 0-26.62l19.59-29.38c2.32-3.47 5.5-6.29 9.24-8.15l12.98-6.49C440.2 193.59 448 223.87 448 256c0 8.67-.74 17.16-1.82 25.54L417 274.25z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://github.com/IOTEROP" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://twitter.com/ioteropcompany" target="_blank" rel="noopener" title="Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.ca141e46.min.js"}</script>
+    
+    
+      <script src="assets/javascripts/bundle.6baa0517.min.js"></script>
+      
+        <script src="js/print-site.js"></script>
+      
+    
+  </body>
+</html>

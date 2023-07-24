@@ -13,7 +13,7 @@
     
     
       
-        <title>IOWA Reference</title>
+        <title>LwM2M Client Basics - IOWA Reference</title>
       
     
     
@@ -63,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#baseline-client" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -91,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              LwM2M Client Basics
             
           </span>
         </div>
@@ -151,12 +156,10 @@
         
   
   
-    
-  
 
 
   <li class="md-tabs__item">
-    <a href="index.html" class="md-tabs__link md-tabs__link--active">
+    <a href="index.html" class="md-tabs__link">
       Home
     </a>
   </li>
@@ -193,13 +196,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="baseline_client.html" class="md-tabs__link">
+      <a href="baseline_client.html" class="md-tabs__link md-tabs__link--active">
         Samples
       </a>
     </li>
@@ -287,19 +292,11 @@
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="index.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
         Home
       </a>
-      
     </li>
   
 
@@ -588,12 +585,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
       
       
       
@@ -614,11 +613,114 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="baseline_client.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          LwM2M Client Basics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="baseline_client.html" class="md-nav__link md-nav__link--active">
         LwM2M Client Basics
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#breakdown" class="md-nav__link">
+    Breakdown
+  </a>
+  
+    <nav class="md-nav" aria-label="Breakdown">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-pseudo-code" class="md-nav__link">
+    Client Pseudo Code
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initialization" class="md-nav__link">
+    Initialization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-client-configuration" class="md-nav__link">
+    LwM2M Client Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-server-declaration" class="md-nav__link">
+    LwM2M Server Declaration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-loop" class="md-nav__link">
+    "Main Loop"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleanup" class="md-nav__link">
+    Cleanup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    Next Steps
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1300,6 +1402,101 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#breakdown" class="md-nav__link">
+    Breakdown
+  </a>
+  
+    <nav class="md-nav" aria-label="Breakdown">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-pseudo-code" class="md-nav__link">
+    Client Pseudo Code
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initialization" class="md-nav__link">
+    Initialization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-client-configuration" class="md-nav__link">
+    LwM2M Client Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-server-declaration" class="md-nav__link">
+    LwM2M Server Declaration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-loop" class="md-nav__link">
+    "Main Loop"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleanup" class="md-nav__link">
+    Cleanup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    Next Steps
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -1314,14 +1511,119 @@
 
                 
 
-  <h1>Home</h1>
+<h1 id="baseline-client">Baseline Client</h1>
+<p>This is a minimal LwM2M Client connecting to one LwM2M Server and featuring only the mandatory LwM2M Objects.</p>
+<p>The following API will be explained:</p>
+<ul>
+<li><code>iowa_init()</code></li>
+<li><code>iowa_close()</code></li>
+<li><code>iowa_client_configure()</code></li>
+<li><code>iowa_client_add_server()</code></li>
+<li><code>iowa_client_remove_server()</code></li>
+<li><code>iowa_step()</code></li>
+</ul>
+<h2 id="usage">Usage</h2>
+<p>To compile this sample, follow the instructions in the top-level README.</p>
+<blockquote>
+<p><em>baseline_client</em> outputs traces in <code>stderr</code>.</p>
+</blockquote>
+<p>At launch, <em>baseline_client</em> displays the URI of the LwM2M Server it connects to, and the Endpoint Name it uses.</p>
+<div class="highlight"><pre><span></span><code>$ ./Evaluation_SDK_Samples/01-baseline_client/baseline_client
+This a simple LwM2M Client.
 
-<p><img alt="IOWA" src="images/iowa_logo.png#center" /></p>
-<p style="text-align:center"><b>2022-05-Eval</b></p>
+Registering to the LwM2M server at &quot;coap://iowa-server.ioterop.com&quot; under the Endpoint name &quot;IOWA_sample_client_8323329&quot;.
+Use Ctrl-C to stop.
+</code></pre></div>
+<p>It then registers to the LwM2M Server. You should see it in the "Clients List" of the Server:</p>
+<p><img alt="Client registered" src="images/baseline_client.jpg" /></p>
+<blockquote>
+<p>We are using IoTerop's <a href="https://iowa-server.ioterop.com/">CONNECTicut</a> testing server. The procedures are similar using other servers.</p>
+</blockquote>
+<p>Two LwM2M Objects are visible to the LwM2M Server: the Server Object (ID: 1) configuring parameters associated to the LwM2M Server, and the Device Object (ID: 3) describing the device.</p>
+<p>From here, you can perform Discover, Read, and Write-Attributes operations, or set Observations on the Objects, Object Instances, and Resources. You can perform Write operations on some of the Server Object's Resources.</p>
+<p>You can also perform an Execute operation on the Reboot Resource of the Device Object (URI: /3/0/4). Note that will make <em>baseline_client</em> exit.</p>
+<p>After two minutes, <em>baseline_client</em> unregisters from the LwM2M Server.</p>
+<h2 id="breakdown">Breakdown</h2>
+<h3 id="client-pseudo-code">Client Pseudo Code</h3>
+<p>This is the pseudo code of Client main function:</p>
+<div class="highlight"><pre><span></span><code><span class="n">main</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Initialization</span>
+<span class="w">    </span><span class="n">iowa_init</span><span class="p">();</span><span class="w"></span>
 
-<p style="text-align:center">BY</p>
+<span class="w">    </span><span class="c1">// LwM2M Client configuration</span>
+<span class="w">    </span><span class="n">iowa_client_configure</span><span class="p">(</span><span class="n">CLIENT_NAME</span><span class="p">);</span><span class="w"></span>
 
-<p><img alt="IoTerop" src="images/ioterop_logo.png#center" /></p>
+<span class="w">    </span><span class="c1">// LwM2M Server declaration</span>
+<span class="w">    </span><span class="n">iowa_client_add_server</span><span class="p">(</span><span class="n">SERVER_SHORT_ID</span><span class="p">,</span><span class="w"> </span><span class="n">SERVER_URI</span><span class="p">,</span><span class="w"> </span><span class="n">SERVER_LIFETIME</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// &quot;Main loop&quot;</span>
+<span class="w">    </span><span class="n">iowa_step</span><span class="p">(</span><span class="mi">120</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Cleanup</span>
+<span class="w">    </span><span class="n">iowa_client_remove_server</span><span class="p">(</span><span class="n">SERVER_SHORT_ID</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">iowa_close</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h3 id="initialization">Initialization</h3>
+<p>IOWA does not use any global variables. All its internal data are stored in an context. Thus the first step of  the LwM2M Client application is to create a new IOWA context by calling the API <code>iowa_init()</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_context_t</span><span class="w"> </span><span class="n">iowaH</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">iowaH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iowa_init</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<blockquote>
+<p>The argument to <code>iowa_init()</code> is an user defined pointer passed to the system abstraction function. For more information, look at the <em>abstraction_layer</em> folder.</p>
+</blockquote>
+<h3 id="lwm2m-client-configuration">LwM2M Client Configuration</h3>
+<p>The second step is to configure our LwM2M Client with <code>iowa_client_configure()</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">char</span><span class="w"> </span><span class="n">endpoint_name</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span><span class="w"></span>
+<span class="n">iowa_device_info_t</span><span class="w"> </span><span class="n">devInfo</span><span class="p">;</span><span class="w"></span>
+<span class="n">iowa_status_t</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">prv_generate_unique_name</span><span class="p">(</span><span class="n">endpoint_name</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">devInfo</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">iowa_device_info_t</span><span class="p">));</span><span class="w"></span>
+<span class="n">devInfo</span><span class="p">.</span><span class="n">manufacturer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;https://ioterop.com&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="n">devInfo</span><span class="p">.</span><span class="n">deviceType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;IOWA sample from https://github.com/IOTEROP/IOWA&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="n">devInfo</span><span class="p">.</span><span class="n">modelNumber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;1-simple_client&quot;</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iowa_client_configure</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span><span class="w"> </span><span class="n">endpoint_name</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">devInfo</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>The first argument is the IOWA context created in the previous step.</p>
+<p>The second argument is the LwM2M Client endpoint name. As this sample does not use security, the LwM2M Server relies only on this endpoint name to identify the LwM2M Client. In this sample, the function <code>prv_generate_unique_name()</code> generates such an unique name from the computer ID on Linux or from the "C:" volume serial number on Windows.</p>
+<p>The third argument may contain the values of the resources exposed by the Client in its LwM2M Device Object (ID: 3). This argument is optional. If this argument is not present or if some of its members are not set, the matching Resources will not be presented by the Client to the LwM2M Server.</p>
+<p>The last argument is an optional event callback explained in another sample.</p>
+<h3 id="lwm2m-server-declaration">LwM2M Server Declaration</h3>
+<p>Finally, to configure a LwM2M Server on the Client, the API <code>iowa_client_add_server()</code> has to be called.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#define SERVER_SHORT_ID 1234</span>
+<span class="cp">#define SERVER_LIFETIME   50</span>
+<span class="cp">#define SERVER_URI      &quot;coap:</span><span class="c1">//iowa-server.ioterop.com&quot;</span>
+
+<span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iowa_client_add_server</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span><span class="w"> </span><span class="n">SERVER_SHORT_ID</span><span class="p">,</span><span class="w"> </span><span class="n">SERVER_URI</span><span class="p">,</span><span class="w"> </span><span class="n">SERVER_LIFETIME</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">IOWA_SEC_NONE</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>The first argument is the IOWA context created in the first step.</p>
+<p>The second argument is an numeric identifier of the LwM2M Server. This identifier is named "Short Server ID" in the LwM2M protocol. Other IOWA APIs use this identifier to reference the LwM2M Server.</p>
+<p>The third argument is the LwM2M Server URI. By default the baseline Client has been configured to use IoTerop's <a href="https://iowa-server.ioterop.com/">CONNECTicut</a> testing server. You can change the URI to point to other LwM2M Servers like the Eclipse's <a href="https://leshan.eclipseprojects.io/#/clients">Leshan test server sandbox</a>, or a locally deployed LwM2M Server.</p>
+<p>The fourth argument is the registration lifetime in seconds. The LwM2M lifetime is the validity period of a LwM2M Client registration to the LwM2M Server. When this lifetime expires, the Server considers the Client as unreachable. Regularly, the Client sends Registration Update messages to the Server to renew its registration validity period.</p>
+<p>The fifth argument is composed of flags enabling advanced features which are explained in other samples.</p>
+<p>The last argument is the security mode used to communicate with the LwM2M Server. See the security sample for more details.</p>
+<h3 id="main-loop">"Main Loop"</h3>
+<p>IOWA operates only when the function <code>iowa_step()</code> is called.</p>
+<p><code>iowa_step()</code> manages the Finite State Machine of the LwM2M and CoAP stacks.</p>
+<p>On first loop, IOWA will create a new socket and use it to transmit the registration message.</p>
+<div class="highlight"><pre><span></span><code><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iowa_step</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span><span class="w"> </span><span class="mi">120</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>As always, the first argument is the IOWA context created in the first step.</p>
+<p>The second argument is the time allowed to IOWA to run. Until this time expires, or an error occurs, the <code>iowa_step()</code> function does not return. Here we let IOWA run for two minutes before stopping the Client. The other samples have more realistic usage of this argument.</p>
+<h3 id="cleanup">Cleanup</h3>
+<p>When the Client has to be closed, the IOWA context must be freed to prevent memory leaks.</p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_client_remove_server</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span><span class="w"> </span><span class="n">SERVER_SHORT_ID</span><span class="p">);</span><span class="w"></span>
+<span class="n">iowa_close</span><span class="p">(</span><span class="n">iowaH</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>First, the Server can be removed with <code>iowa_client_remove_server()</code>. Calling this API will automatically send a deregistration message to the Server even if the IOWA step is not running. Here we use the LwM2M Server identifier passed in <code>iowa_client_add_server()</code>.</p>
+<p>Finally, the IOWA context can be closed with <code>iowa_close()</code>.</p>
+<h2 id="next-steps">Next Steps</h2>
+<p>To fulfill real-world needs, a LwM2M Client needs application LwM2M Objects. You can look at the <a href="IPSO_client.html">IPSO_client</a> sample to learn how to add IPSO sensors, or at the <a href="custom_object_baseline.html">custom_object_baseline</a> sample to learn how to add a custom LwM2M Object to your Client.</p>
 
               
 
@@ -1335,15 +1637,30 @@
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
+        
+        <a href="Object_Skeleton_Generator.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Object Skeleton Generator" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Object Skeleton Generator
+            </div>
+          </div>
+        </a>
+      
       
         
-        <a href="Changelog.html" class="md-footer__link md-footer__link--next" aria-label="Next: Changelog" rel="next">
+        <a href="IPSO_client.html" class="md-footer__link md-footer__link--next" aria-label="Next: IPSO Object Client" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Changelog
+              IPSO Object Client
             </div>
           </div>
           <div class="md-footer__button md-icon">

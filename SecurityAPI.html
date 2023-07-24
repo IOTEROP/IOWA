@@ -1,0 +1,2693 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="images/iowa_logo.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.4">
+    
+    
+      
+        <title>Security Implementation APIs - IOWA Reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.2a4617e2.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.9204c3b2.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="css/print-site.css">
+    
+      <link rel="stylesheet" href="css/print-site-material.css">
+    
+      <link rel="stylesheet" href="ioterop.css">
+    
+    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?".":"."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#security-implementation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="IOWA Reference" class="md-header__button md-logo" aria-label="IOWA Reference" data-md-component="logo">
+      
+  <img src="images/iowa_logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            IOWA Reference
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Security Implementation APIs
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="index.html" class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="Changelog.html" class="md-tabs__link">
+      Changelog
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="LwM2MOverview.html" class="md-tabs__link">
+        User Manual
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="baseline_client.html" class="md-tabs__link">
+        Samples
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="AbstractionLayer.html" class="md-tabs__link md-tabs__link--active">
+        API Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="License.html" class="md-tabs__link">
+        Licenses
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="print_page.html" class="md-tabs__link">
+      Printable version
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="IOWA Reference" class="md-nav__button md-logo" aria-label="IOWA Reference" data-md-component="logo">
+      
+  <img src="images/iowa_logo.png" alt="logo">
+
+    </a>
+    IOWA Reference
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Changelog.html" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          User Manual
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User Manual" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          User Manual
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="LwM2MOverview.html" class="md-nav__link">
+        LwM2M Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Building.html" class="md-nav__link">
+        Building Samples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Configuration.html" class="md-nav__link">
+        IOWA Configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Security.html" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Multithread.html" class="md-nav__link">
+        Multithread
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Bootstrap.html" class="md-nav__link">
+        Bootstrap
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DeviceUpdate.html" class="md-nav__link">
+        Device Update
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CustomObject.html" class="md-nav__link">
+        Custom Objects
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Streamable.html" class="md-nav__link">
+        Streamable Resources
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ApplicationStorage.html" class="md-nav__link">
+        Application Storage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Network.html" class="md-nav__link">
+        Network
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Porting.html" class="md-nav__link">
+        Porting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="LoRaWAN.html" class="md-nav__link">
+        LoRaWAN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_14" type="checkbox" id="__nav_3_14" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_14">
+          Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tools" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_14">
+          <span class="md-nav__icon md-icon"></span>
+          Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Object_Skeleton_Generator.html" class="md-nav__link">
+        Object Skeleton Generator
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Samples" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="baseline_client.html" class="md-nav__link">
+        LwM2M Client Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2">
+          LwM2M Objects Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="LwM2M Objects Samples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          LwM2M Objects Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="IPSO_client.html" class="md-nav__link">
+        IPSO Object Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bearer_selection_client.html" class="md-nav__link">
+        Bearer Selection Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mqtt_objects_client.html" class="md-nav__link">
+        MQTT Objects
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_3">
+          LwM2M Custom Objects Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="LwM2M Custom Objects Samples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          LwM2M Custom Objects Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_baseline.html" class="md-nav__link">
+        Custom Object Basseline
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_dynamic.html" class="md-nav__link">
+        Dynamic Custom Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_multiple_instances.html" class="md-nav__link">
+        Multiple Instance Custom Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_multiple_resource_instances.html" class="md-nav__link">
+        Multiple Resource Custom Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="streamable_resource_client.html" class="md-nav__link">
+        Streamable Resources Client
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" type="checkbox" id="__nav_4_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_4">
+          Firmware Update Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Firmware Update Samples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Firmware Update Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_update_push_client.html" class="md-nav__link">
+        Firmware Update Client "Push" Method
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_update_pull_client.html" class="md-nav__link">
+        Firmware Update Client "Pull" Method
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_coap_download_client.html" class="md-nav__link">
+        Firmware Update Client with CoAP Download
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_coap_block_client.html" class="md-nav__link">
+        Firmware Update Client with CoAP Block-Wise Transfer
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_5" type="checkbox" id="__nav_4_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_5">
+          LwM2M Advanced Client Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="LwM2M Advanced Client Samples" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_5">
+          <span class="md-nav__icon md-icon"></span>
+          LwM2M Advanced Client Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="secure_client_mbedtls3.html" class="md-nav__link">
+        Secure Client with Mbed TLS 3.1.0
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="secure_client_mbedtls2.html" class="md-nav__link">
+        Secure Client with Mbed TLS 2.28.0
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="secure_client_tinydtls.html" class="md-nav__link">
+        Secure Client with tinydtls
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bootstrap_client.html" class="md-nav__link">
+        Bootstrap Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="multithread_IPSO_client.html" class="md-nav__link">
+        Multithreaded Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="device_info_client.html" class="md-nav__link">
+        Device Info Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="websockets_client.html" class="md-nav__link">
+        WebSocket Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="context_storage_client.html" class="md-nav__link">
+        Context Storage Client
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="baseline_server.html" class="md-nav__link">
+        LwM2M Server Basics
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="AbstractionLayer.html" class="md-nav__link">
+        System Abstraction Layer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CommonAPI.html" class="md-nav__link">
+        Common APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ClientAPI.html" class="md-nav__link">
+        Client APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Empty.html" class="md-nav__link">
+        Objects APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ServerAPI.html" class="md-nav__link">
+        Server APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="BootstrapServerAPI.html" class="md-nav__link">
+        Bootstrap Server APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CoapAPI.html" class="md-nav__link">
+        CoAP APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="UtilsAPI.html" class="md-nav__link">
+        Utils APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Security Implementation APIs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="SecurityAPI.html" class="md-nav__link md-nav__link--active">
+        Security Implementation APIs
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstraction-functions" class="md-nav__link">
+    Abstraction Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Abstraction Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_create_client_session" class="md-nav__link">
+    iowa_user_security_create_client_session
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_create_server_session" class="md-nav__link">
+    iowa_user_security_create_server_session
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_delete_session" class="md-nav__link">
+    iowa_user_security_delete_session
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_handle_handshake_packet" class="md-nav__link">
+    iowa_user_security_handle_handshake_packet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_step" class="md-nav__link">
+    iowa_user_security_step
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_send" class="md-nav__link">
+    iowa_user_security_send
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_recv" class="md-nav__link">
+    iowa_user_security_recv
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_disconnect" class="md-nav__link">
+    iowa_user_security_disconnect
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_hkdf" class="md-nav__link">
+    iowa_user_security_HKDF
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_aead_encrypt" class="md-nav__link">
+    iowa_user_security_AEAD_encrypt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_aead_decrypt" class="md-nav__link">
+    iowa_user_security_AEAD_decrypt
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-types" class="md-nav__link">
+    Data types
+  </a>
+  
+    <nav class="md-nav" aria-label="Data types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_t" class="md-nav__link">
+    iowa_security_session_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_mode_t" class="md-nav__link">
+    iowa_security_mode_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_cert_usage_mode_t" class="md-nav__link">
+    iowa_cert_usage_mode_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_state_t" class="md-nav__link">
+    iowa_security_state_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_event_t" class="md-nav__link">
+    iowa_security_event_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_hash_t" class="md-nav__link">
+    iowa_security_hash_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_aead_t" class="md-nav__link">
+    iowa_security_aead_t
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helper-functions" class="md-nav__link">
+    Helper Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Helper Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_set_user_internals" class="md-nav__link">
+    iowa_security_session_set_user_internals
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_get_user_internals" class="md-nav__link">
+    iowa_security_session_get_user_internals
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_get_state" class="md-nav__link">
+    iowa_security_session_get_state
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_set_state" class="md-nav__link">
+    iowa_security_session_set_state
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_get_server_session" class="md-nav__link">
+    iowa_security_get_server_session
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_get_client_session" class="md-nav__link">
+    iowa_security_get_client_session
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_generate_event" class="md-nav__link">
+    iowa_security_session_generate_event
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_get_connection_type" class="md-nav__link">
+    iowa_security_session_get_connection_type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_get_connection" class="md-nav__link">
+    iowa_security_session_get_connection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_get_security_mode" class="md-nav__link">
+    iowa_security_session_get_security_mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_get_uri" class="md-nav__link">
+    iowa_security_session_get_uri
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_set_step_delay" class="md-nav__link">
+    iowa_security_session_set_step_delay
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_get_context" class="md-nav__link">
+    iowa_security_session_get_context
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_get_context_user_data" class="md-nav__link">
+    iowa_security_session_get_context_user_data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_connection_send" class="md-nav__link">
+    iowa_security_connection_send
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_connection_recv" class="md-nav__link">
+    iowa_security_connection_recv
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Licenses
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Licenses" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Licenses
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="License.html" class="md-nav__link">
+        IOWA License
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="OpenSourceLicenses.html" class="md-nav__link">
+        OpenSource Licenses
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="print_page.html" class="md-nav__link">
+        Printable version
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstraction-functions" class="md-nav__link">
+    Abstraction Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Abstraction Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_create_client_session" class="md-nav__link">
+    iowa_user_security_create_client_session
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_create_server_session" class="md-nav__link">
+    iowa_user_security_create_server_session
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_delete_session" class="md-nav__link">
+    iowa_user_security_delete_session
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_handle_handshake_packet" class="md-nav__link">
+    iowa_user_security_handle_handshake_packet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_step" class="md-nav__link">
+    iowa_user_security_step
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_send" class="md-nav__link">
+    iowa_user_security_send
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_recv" class="md-nav__link">
+    iowa_user_security_recv
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_disconnect" class="md-nav__link">
+    iowa_user_security_disconnect
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_hkdf" class="md-nav__link">
+    iowa_user_security_HKDF
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_aead_encrypt" class="md-nav__link">
+    iowa_user_security_AEAD_encrypt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_user_security_aead_decrypt" class="md-nav__link">
+    iowa_user_security_AEAD_decrypt
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-types" class="md-nav__link">
+    Data types
+  </a>
+  
+    <nav class="md-nav" aria-label="Data types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_t" class="md-nav__link">
+    iowa_security_session_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_mode_t" class="md-nav__link">
+    iowa_security_mode_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_cert_usage_mode_t" class="md-nav__link">
+    iowa_cert_usage_mode_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_state_t" class="md-nav__link">
+    iowa_security_state_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_event_t" class="md-nav__link">
+    iowa_security_event_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_hash_t" class="md-nav__link">
+    iowa_security_hash_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_aead_t" class="md-nav__link">
+    iowa_security_aead_t
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helper-functions" class="md-nav__link">
+    Helper Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Helper Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_set_user_internals" class="md-nav__link">
+    iowa_security_session_set_user_internals
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_get_user_internals" class="md-nav__link">
+    iowa_security_session_get_user_internals
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_get_state" class="md-nav__link">
+    iowa_security_session_get_state
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_set_state" class="md-nav__link">
+    iowa_security_session_set_state
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_get_server_session" class="md-nav__link">
+    iowa_security_get_server_session
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_get_client_session" class="md-nav__link">
+    iowa_security_get_client_session
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_generate_event" class="md-nav__link">
+    iowa_security_session_generate_event
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_get_connection_type" class="md-nav__link">
+    iowa_security_session_get_connection_type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_get_connection" class="md-nav__link">
+    iowa_security_session_get_connection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_get_security_mode" class="md-nav__link">
+    iowa_security_session_get_security_mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_get_uri" class="md-nav__link">
+    iowa_security_session_get_uri
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_set_step_delay" class="md-nav__link">
+    iowa_security_session_set_step_delay
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_get_context" class="md-nav__link">
+    iowa_security_session_get_context
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_session_get_context_user_data" class="md-nav__link">
+    iowa_security_session_get_context_user_data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_connection_send" class="md-nav__link">
+    iowa_security_connection_send
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_connection_recv" class="md-nav__link">
+    iowa_security_connection_recv
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+
+
+    <a href="print_page.html" title="Print Site" class="md-content__button md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 3H6v4h12m1 5a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1m-3 7H8v-5h8m3-6H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3z"/></svg>
+    </a>
+
+
+
+                
+
+<h1 id="security-implementation">Security Implementation</h1>
+<h2 id="abstraction-functions">Abstraction Functions</h2>
+<h3 id="iowa_user_security_create_client_session">iowa_user_security_create_client_session</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span><span class="w"> </span><span class="nf">iowa_user_security_create_client_session</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_user_security_create_client_session()</code> initializes implementation internals data of a new client-side security session.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to the security session to initialize.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p><strong>IOWA_COAP_NO_ERROR</strong> in case of success or an error status.</p>
+<hr />
+<h3 id="iowa_user_security_create_server_session">iowa_user_security_create_server_session</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span><span class="w"> </span><span class="nf">iowa_user_security_create_server_session</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_user_security_create_server_session()</code> initializes implementation internals data of a new server-side security session.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to the security session to initialize.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p><strong>IOWA_COAP_NO_ERROR</strong> in case of success or an error status.</p>
+<hr />
+<h3 id="iowa_user_security_delete_session">iowa_user_security_delete_session</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">iowa_user_security_delete_session</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_user_security_delete_session()</code> deletes the implementation internals data of a security session.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to the security session to delete data from.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>None.</p>
+<hr />
+<h3 id="iowa_user_security_handle_handshake_packet">iowa_user_security_handle_handshake_packet</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span><span class="w"> </span><span class="nf">iowa_user_security_handle_handshake_packet</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_user_security_handle_handshake_packet()</code> is called by IOWA when there is incoming data to read while the security session is in the <strong>SECURITY_STATE_HANDSHAKING</strong> state.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to the security session receiving data.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p><strong>IOWA_COAP_NO_ERROR</strong> in case of success or an error status.</p>
+<hr />
+<h3 id="iowa_user_security_step">iowa_user_security_step</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span><span class="w"> </span><span class="nf">iowa_user_security_step</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_user_security_step()</code> performs the required operations on the security session: updating state, handling timeouts, etc...</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to the security session to update.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p><strong>IOWA_COAP_NO_ERROR</strong> in case of success or an error status.</p>
+<p><strong>Notes</strong></p>
+<p>This function should update the IOWA context global timeout. See <a href="SecurityAPI.html#iowa_security_session_set_step_delay"><code>iowa_security_session_set_step_delay()</code></a>.</p>
+<hr />
+<h3 id="iowa_user_security_send">iowa_user_security_send</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">iowa_user_security_send</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">,</span><span class="w"></span>
+<span class="w">                            </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"></span>
+<span class="w">                            </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_user_security_send()</code> encrypts and sends data on a connected security session.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to the security session to send data on.</dd>
+<dt><em>buffer</em></dt>
+<dd>The data to send.</dd>
+<dt><em>length</em></dt>
+<dd>The length of the data in bytes.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The number of bytes sent or a negative number in case of error.</p>
+<hr />
+<h3 id="iowa_user_security_recv">iowa_user_security_recv</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">iowa_user_security_recv</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">,</span><span class="w"></span>
+<span class="w">                            </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"></span>
+<span class="w">                            </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_user_security_recv()</code> reads and decrypts data received on a security session.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to the security session to receives data from.</dd>
+<dt><em>buffer</em></dt>
+<dd>A buffer to store the decrypted data.</dd>
+<dt><em>length</em></dt>
+<dd>The length of the buffer in bytes.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The number of received bytes or a negative number in case of error.</p>
+<hr />
+<h3 id="iowa_user_security_disconnect">iowa_user_security_disconnect</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">iowa_user_security_disconnect</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_user_security_disconnect()</code> disconnects a security session.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to the security session to disconnect.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>None.</p>
+<hr />
+<h3 id="iowa_user_security_hkdf">iowa_user_security_HKDF</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span><span class="w"> </span><span class="nf">iowa_user_security_HKDF</span><span class="p">(</span><span class="n">iowa_security_hash_t</span><span class="w"> </span><span class="n">hash</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                      </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">IKM</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">IKMLength</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                      </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">salt</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">saltLength</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                      </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">info</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">infoLength</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                      </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">OKM</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">OKMLength</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_user_security_HKDF()</code> derives a new security key using HMAC-based Extract-and-Expand Key Derivation Function from <a href="https://tools.ietf.org/html/rfc5869">RFC 5869</a>.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>hash</em></dt>
+<dd>The hash algorithm to use.</dd>
+<dt><em>IKM</em></dt>
+<dd>The input keying material.</dd>
+<dt><em>IKMLength</em></dt>
+<dd>The length in bytes of <em>IKM</em>.</dd>
+<dt><em>salt</em></dt>
+<dd>The salt value. This may be nil.</dd>
+<dt><em>saltLength</em></dt>
+<dd>The length in bytes of <em>salt</em>. This may be 0.</dd>
+<dt><em>info</em></dt>
+<dd>The context and application specific information. This may be nil.</dd>
+<dt><em>infoLength</em></dt>
+<dd>The length in bytes of <em>info</em>. This may be 0.</dd>
+<dt><em>OKM</em></dt>
+<dd>The buffer to store the compted output keying material.</dd>
+<dt><em>OKMLength</em></dt>
+<dd>The length in bytes of <em>OKM</em>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p><strong>IOWA_COAP_NO_ERROR</strong> in case of success or an error status.</p>
+<hr />
+<h3 id="iowa_user_security_aead_encrypt">iowa_user_security_AEAD_encrypt</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span><span class="w"></span>
+<span class="w">    </span><span class="nf">iowa_user_security_AEAD_encrypt</span><span class="p">(</span><span class="n">iowa_security_aead_t</span><span class="w"> </span><span class="n">aead</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">keyLength</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">nonce</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">nonceLength</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">aad</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">aadLength</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">plainData</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">plainDataLength</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">encryptedData</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                    </span><span class="kt">size_t</span><span class="w"> </span><span class="o">*</span><span class="n">encryptedDataLengthP</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">tag</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">tagLength</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_user_security_AEAD_encrypt()</code> encrypts data.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>aead</em></dt>
+<dd>The AEAD algorithm to use.</dd>
+<dt><em>key</em></dt>
+<dd>The key to use to encrypt.</dd>
+<dt><em>keyLength</em></dt>
+<dd>The length in bytes of <em>key</em>.</dd>
+<dt><em>nonce</em></dt>
+<dd>The nonce to use. This may be nil.</dd>
+<dt><em>nonceLength</em></dt>
+<dd>The length in bytes of <em>nonce</em>. This may be 0.</dd>
+<dt><em>aad</em></dt>
+<dd>The additional data to authenticate. This may be nil.</dd>
+<dt><em>aadLength</em></dt>
+<dd>The length in bytes of <em>aad</em>. This may be 0.</dd>
+<dt><em>plainData</em></dt>
+<dd>The data to encrypt.</dd>
+<dt><em>plainDataLength</em></dt>
+<dd>The length in bytes of <em>plainData</em>.</dd>
+<dt><em>encryptedData</em></dt>
+<dd>The buffer to store the encrypted data.</dd>
+<dt><em>encryptedDataLengthP</em></dt>
+<dd>IN/OUT. The length in bytes of <em>encryptedData</em>. This may be modified by <code>iowa_user_security_AEAD_encrypt()</code>.</dd>
+<dt><em>tag</em></dt>
+<dd>A buffer to store the authentication tag. This may be nil.</dd>
+<dt><em>tagLength</em></dt>
+<dd>The length in bytes of <em>tag</em>. This may be 0.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p><strong>IOWA_COAP_NO_ERROR</strong> in case of success or an error status.</p>
+<hr />
+<h3 id="iowa_user_security_aead_decrypt">iowa_user_security_AEAD_decrypt</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span><span class="w"></span>
+<span class="w">    </span><span class="nf">iowa_user_security_AEAD_decrypt</span><span class="p">(</span><span class="n">iowa_security_aead_t</span><span class="w"> </span><span class="n">aead</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">keyLength</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">nonce</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">nonceLength</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">aad</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">aadLength</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">tagLength</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">encryptedData</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">encryptedDataLength</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">plainData</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                    </span><span class="kt">size_t</span><span class="w"> </span><span class="o">*</span><span class="n">plainDataLengthP</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_user_security_AEAD_decrypt()</code> decrypts data.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>aead</em></dt>
+<dd>The AEAD algorithm to use.</dd>
+<dt><em>key</em></dt>
+<dd>The key to use to encrypt.</dd>
+<dt><em>keyLength</em></dt>
+<dd>The length in bytes of <em>key</em>.</dd>
+<dt><em>nonce</em></dt>
+<dd>The nonce to use. This may be nil.</dd>
+<dt><em>nonceLength</em></dt>
+<dd>The length in bytes of <em>nonce</em>. This may be 0.</dd>
+<dt><em>aad</em></dt>
+<dd>The additional data to authenticate. This may be nil.</dd>
+<dt><em>aadLength</em></dt>
+<dd>The length in bytes of <em>aad</em>. This may be 0.</dd>
+<dt><em>tag</em></dt>
+<dd>The authentication tag. This may be nil.</dd>
+<dt><em>tagLength</em></dt>
+<dd>The length in bytes of <em>tag</em>. This may be 0.</dd>
+<dt><em>encryptedData</em></dt>
+<dd>The data to decrypt.</dd>
+<dt><em>encryptedDataLength</em></dt>
+<dd>The length in bytes of <em>encryptedData</em>.</dd>
+<dt><em>plainData</em></dt>
+<dd>The buffer to store the decrypted data.</dd>
+<dt><em>plainDataLengthP</em></dt>
+<dd>IN/OUT. The length in bytes of <em>plainData</em>. This may be modified by <code>iowa_user_security_AEAD_decrypt()</code>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p><strong>IOWA_COAP_NO_ERROR</strong> in case of success or an error status.</p>
+<h2 id="data-types">Data types</h2>
+<h3 id="iowa_security_session_t">iowa_security_session_t</h3>
+<p>This type is used to store the session of the IOWA security stack engine. Multiple sessions can exist at the same time. This can be treated as an opaque type and be used through the helper functions below.</p>
+<h3 id="iowa_security_mode_t">iowa_security_mode_t</h3>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">iowa_security_mode_t</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>This contains the possible security mode for the Security layer. The following values are defined:</p>
+<dl>
+<dt>IOWA_SEC_PRE_SHARED_KEY</dt>
+<dd>Use the Pre-Shared Key mode of the security layer.</dd>
+<dt>IOWA_SEC_RAW_PUBLIC_KEY</dt>
+<dd>Use the Private/Public Key mode of the security layer.</dd>
+<dt>IOWA_SEC_CERTIFICATE</dt>
+<dd>Use the X.509 Certificate mode of the security layer.</dd>
+<dt>IOWA_SEC_NONE</dt>
+<dd>The security layer is not involved in the communication with this peer.</dd>
+<dt>IOWA_SEC_CERTIFICATE_WITH_EST</dt>
+<dd>Use the X.509 Certificate with EST mode of the security layer.</dd>
+<dt>IOWA_SEC_OSCORE</dt>
+<dd>Use the OSCORE security of the CoAP layer. This value can be used as a flag to be combined with the other values, e.g. <code>IOWA_SEC_PRE_SHARED_KEY | IOWA_SEC_OSCORE</code>.</dd>
+</dl>
+<h3 id="iowa_cert_usage_mode_t">iowa_cert_usage_mode_t</h3>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">iowa_cert_usage_mode_t</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>This contains the possible semantic of the certificate or raw public key, which is used to match the certificate presented in the TLS/DTLS handshake. It is used by the Security layer when the security is <strong>IOWA_SEC_RAW_PUBLIC_KEY</strong>, <strong>IOWA_SEC_CERTIFICATE</strong>, or <strong>IOWA_SEC_CERTIFICATE_WITH_EST</strong>. The following values are defined:</p>
+<dl>
+<dt>IOWA_CERTIFICATE_USAGE_CA_CONSTRAINT</dt>
+<dd>CA constraint.</dd>
+<dt>IOWA_CERTIFICATE_USAGE_SERVICE_CERTIFICATE_CONSTRAINT</dt>
+<dd>Service certificate constraint.</dd>
+<dt>IOWA_CERTIFICATE_USAGE_TRUST_ANCHOR_ASSERTION</dt>
+<dd>Trust anchor assertion.</dd>
+<dt>IOWA_CERTIFICATE_USAGE_DOMAIN_ISSUED_CERTIFICATE</dt>
+<dd>Domain-issued certificate.</dd>
+</dl>
+<h3 id="iowa_security_state_t">iowa_security_state_t</h3>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_STATE_DISCONNECTED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_STATE_DISCONNECTING</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_STATE_INIT_HANDSHAKE</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_STATE_HANDSHAKING</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_STATE_HANDSHAKE_DONE</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_STATE_CONNECTED</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_STATE_CONNECTION_FAILING</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_STATE_CONNECTION_FAILED</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">iowa_security_state_t</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>This reflects the state of the security session. It is an enumeration of the following values:</p>
+<dl>
+<dt>SECURITY_STATE_DISCONNECTED</dt>
+<dd>The security session is disconnected.</dd>
+<dt>SECURITY_STATE_DISCONNECTING</dt>
+<dd>The security session is currently disconnecting.</dd>
+<dt>SECURITY_STATE_INIT_HANDSHAKE</dt>
+<dd>The security session is starting the handshake with the peer.</dd>
+<dt>SECURITY_STATE_HANDSHAKING</dt>
+<dd>The security session is in the middle of the handshake with the peer.</dd>
+<dt>SECURITY_STATE_HANDSHAKE_DONE</dt>
+<dd>The handshake with the peer is done.</dd>
+<dt>SECURITY_STATE_CONNECTED</dt>
+<dd>The security session is connected to the peer.</dd>
+<dt>SECURITY_STATE_CONNECTION_FAILING</dt>
+<dd>An error occurred during the security session connection to the peer.</dd>
+<dt>SECURITY_STATE_CONNECTION_FAILED</dt>
+<dd>The security session failed to connect to the peer.</dd>
+</dl>
+<h3 id="iowa_security_event_t">iowa_security_event_t</h3>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_EVENT_UNDEFINED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_EVENT_DISCONNECTED</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_EVENT_CONNECTED</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_EVENT_DATA_AVAILABLE</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">iowa_security_event_t</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>This contains the possible events to report to the upper layers. It is an enumeration of the following values:</p>
+<dl>
+<dt>SECURITY_EVENT_UNDEFINED</dt>
+<dd>No specific event. This should never be used and only serves as a non default event.</dd>
+<dt>SECURITY_EVENT_DISCONNECTED</dt>
+<dd>The security session disconnected.</dd>
+<dt>SECURITY_EVENT_CONNECTED</dt>
+<dd>The security session is now connected.</dd>
+<dt>SECURITY_EVENT_DATA_AVAILABLE</dt>
+<dd>Decrypted data are available to read on the security session.</dd>
+</dl>
+<h3 id="iowa_security_hash_t">iowa_security_hash_t</h3>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_HMAC_UNDEFINED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_HMAC_SHA256_64</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_HMAC_SHA256</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_HMAC_SHA384</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_HMAC_SHA512</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">iowa_security_hash_t</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>This contains the possible HMAC algorithms used by OSCORE. See table 7 of <a href="https://tools.ietf.org/html/rfc8152">RFC 8152</a>.</p>
+<dl>
+<dt>SECURITY_HMAC_UNDEFINED</dt>
+<dd>No specific algorithm. This should never be used and only serves as a non default value.</dd>
+<dt>SECURITY_HMAC_SHA256_64</dt>
+<dd>HMAC with SHA-256 truncated to 64 bits.</dd>
+<dt>SECURITY_HMAC_SHA256</dt>
+<dd>HMAC with SHA-256.</dd>
+<dt>SECURITY_HMAC_SHA384</dt>
+<dd>HMAC with SHA-384.</dd>
+<dt>SECURITY_HMAC_SHA512</dt>
+<dd>HMAC with SHA-512.</dd>
+</dl>
+<h3 id="iowa_security_aead_t">iowa_security_aead_t</h3>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_AEAD_UNDEFINED</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_AEAD_AES_CCM_16_64_128</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_AEAD_AES_CCM_16_64_256</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_AEAD_AES_CCM_64_64_128</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_AEAD_AES_CCM_64_64_256</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_AEAD_AES_CCM_16_128_128</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_AEAD_AES_CCM_16_128_256</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">31</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_AEAD_AES_CCM_64_128_128</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">SECURITY_AEAD_AES_CCM_64_128_256</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">33</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">iowa_security_aead_t</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>This contains the possible AEAD algorithms used by OSCORE. See table 10 of <a href="https://tools.ietf.org/html/rfc8152">RFC 8152</a>.</p>
+<dl>
+<dt>SECURITY_AEAD_UNDEFINED</dt>
+<dd>No specific algorithm. This should never be used and only serves as a non default value.</dd>
+<dt>SECURITY_AEAD_AES_CCM_16_64_128</dt>
+<dd>AES-CCM mode 128-bit key, 64-bit tag, 13-byte nonce.</dd>
+<dt>SECURITY_AEAD_AES_CCM_16_64_256</dt>
+<dd>AES-CCM mode 256-bit key, 64-bit tag, 13-byte nonce.</dd>
+<dt>SECURITY_AEAD_AES_CCM_64_64_128</dt>
+<dd>AES-CCM mode 128-bit key, 64-bit tag, 7-byte nonce.</dd>
+<dt>SECURITY_AEAD_AES_CCM_64_64_256</dt>
+<dd>AES-CCM mode 256-bit key, 64-bit tag, 7-byte nonce.</dd>
+<dt>SECURITY_AEAD_AES_CCM_16_128_128</dt>
+<dd>AES-CCM mode 128-bit key, 128-bit tag, 13-byte nonce.</dd>
+<dt>SECURITY_AEAD_AES_CCM_16_128_256</dt>
+<dd>AES-CCM mode 256-bit key, 128-bit tag, 13-byte nonce.</dd>
+<dt>SECURITY_AEAD_AES_CCM_64_128_128</dt>
+<dd>AES-CCM mode 128-bit key, 128-bit tag, 7-byte nonce.</dd>
+<dt>SECURITY_AEAD_AES_CCM_64_128_256</dt>
+<dd>AES-CCM mode 256-bit key, 128-bit tag, 7-byte nonce.</dd>
+</dl>
+<hr />
+<h2 id="helper-functions">Helper Functions</h2>
+<h3 id="iowa_security_session_set_user_internals">iowa_security_session_set_user_internals</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">iowa_security_session_set_user_internals</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                              </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">internalsP</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_security_session_set_user_internals()</code> stores opaque data in a security session.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to the security session where to store the opaque data.</dd>
+<dt><em>internalsP</em></dt>
+<dd>A pointer to the opaque data to store.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>None.</p>
+<hr />
+<h3 id="iowa_security_session_get_user_internals">iowa_security_session_get_user_internals</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">iowa_security_session_get_user_internals</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_security_session_get_user_internals()</code> retrieves the opaque data stored in a security session with <a href="SecurityAPI.html#iowa_security_session_set_user_internals"><code>iowa_security_session_set_user_internals()</code></a>.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to the security session where to store the opaque data.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>A pointer to the stored opaque data.</p>
+<hr />
+<h3 id="iowa_security_session_get_state">iowa_security_session_get_state</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_security_state_t</span><span class="w"></span>
+<span class="nf">iowa_security_session_get_state</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_security_session_get_state()</code> retrieves the state of a security session.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to a security session.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The state of the security session.</p>
+<hr />
+<h3 id="iowa_security_session_set_state">iowa_security_session_set_state</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">iowa_security_session_set_state</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                     </span><span class="n">iowa_security_state_t</span><span class="w"> </span><span class="n">state</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_security_session_set_state()</code> sets the state of a security session.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to a security session.</dd>
+<dt><em>state</em></dt>
+<dd>The new state of the security session.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>None.</p>
+<hr />
+<h3 id="iowa_security_get_server_session">iowa_security_get_server_session</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="nf">iowa_security_get_server_session</span><span class="p">(</span><span class="n">iowa_context_t</span><span class="w"> </span><span class="n">contextP</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                         </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">shortServerId</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_security_get_server_session()</code> retrieves the security session associated to a Server.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>contextP</em></dt>
+<dd>An <a href="CommonAPI.html#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</dd>
+<dt><em>shortServerId</em></dt>
+<dd>The Short ID assigned to the server.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The security session if found, otherwise NULL.</p>
+<hr />
+<h3 id="iowa_security_get_client_session">iowa_security_get_client_session</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="nf">iowa_security_get_client_session</span><span class="p">(</span><span class="n">iowa_context_t</span><span class="w"> </span><span class="n">contextP</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                                         </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">clientId</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_security_get_client_session()</code> retrieves the security session associated to a Client.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>contextP</em></dt>
+<dd>An <a href="CommonAPI.html#iowa_context_t"><code>iowa_context_t</code></a> as returned by <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>. Not checked at runtime.</dd>
+<dt><em>clientId</em></dt>
+<dd>The ID assigned to the Client.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The security session if found, otherwise NULL.</p>
+<hr />
+<h3 id="iowa_security_session_generate_event">iowa_security_session_generate_event</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">iowa_security_session_generate_event</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                          </span><span class="n">iowa_security_event_t</span><span class="w"> </span><span class="n">event</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_security_session_generate_event()</code> calls the event callback of a security session.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to a security session.</dd>
+<dt><em>event</em></dt>
+<dd>The event to be passed as parameter to the event callback.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>None.</p>
+<hr />
+<h3 id="iowa_security_session_get_connection_type">iowa_security_session_get_connection_type</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_connection_type_t</span><span class="w"></span>
+<span class="nf">iowa_security_session_get_connection_type</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_security_session_get_connection_type()</code> retrieves the type of the underlying connection of a security session.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to a security session.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The type of the underlying connection as an <a href="AbstractionLayer.html#iowa_connection_type_t"><code>iowa_connection_type_t</code></a>.</p>
+<hr />
+<h3 id="iowa_security_session_get_connection">iowa_security_session_get_connection</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">iowa_security_session_get_connection</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_security_session_get_connection()</code> retrieves the underlying connection of a security session.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to a security session.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The underlying connection as returned by <a href="AbstractionLayer.html#iowa_system_connection_open"><code>iowa_system_connection_open()</code></a>.</p>
+<hr />
+<h3 id="iowa_security_session_get_security_mode">iowa_security_session_get_security_mode</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_security_mode_t</span><span class="w"></span>
+<span class="nf">iowa_security_session_get_security_mode</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_security_session_get_security_mode()</code> retrieves the security mode of a security session.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to a security session.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The security mode as an <a href="SecurityAPI.html#iowa_security_mode_t"><code>iowa_security_mode_t</code></a>.</p>
+<hr />
+<h3 id="iowa_security_session_get_uri">iowa_security_session_get_uri</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">iowa_security_session_get_uri</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_security_session_get_uri()</code> retrieves the URI of the peer of a security session.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to a security session.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The URI of the peer.</p>
+<hr />
+<h3 id="iowa_security_session_set_step_delay">iowa_security_session_set_step_delay</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">iowa_security_session_set_step_delay</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                          </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">delay</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_security_session_set_step_delay()</code> sets the delay before the next scheduled operation on a security session.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to a security session.</dd>
+<dt><em>securityS</em></dt>
+<dd>the time in seconds before <a href="SecurityAPI.html#iowa_user_security_step"><code>iowa_user_security_step()</code></a> needs to be call again for this security session.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>None.</p>
+<p><strong>Notes</strong></p>
+<p>If <em>delay</em> is a negative number, it is ignored.</p>
+<p>As IOWA maintains only one global delay, <a href="SecurityAPI.html#iowa_user_security_step"><code>iowa_user_security_step()</code></a> may be called before the delay expires. The delay must be updated at each call.</p>
+<hr />
+<h3 id="iowa_security_session_get_context">iowa_security_session_get_context</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_context_t</span><span class="w"> </span><span class="nf">iowa_security_session_get_context</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_security_session_get_context()</code> retrieves the IOWA context in which a security session exists.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to a security session.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The IOWA context.</p>
+<hr />
+<h3 id="iowa_security_session_get_context_user_data">iowa_security_session_get_context_user_data</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">iowa_security_session_get_context_user_data</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_security_session_get_context_user_data()</code> retrieves the pointer to application-specific data of the IOWA context in which a security session exists.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to a security session.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The pointer to application-specific data as passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</p>
+<hr />
+<h3 id="iowa_security_connection_send">iowa_security_connection_send</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">iowa_security_connection_send</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                  </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_security_connection_send()</code> sends data on the underlying connection of a security session.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to a security session.</dd>
+<dt><em>buffer</em></dt>
+<dd>The data to send.</dd>
+<dt><em>length</em></dt>
+<dd>The length of the data in bytes.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The number of bytes sent or a negative number in case of error.</p>
+<hr />
+<h3 id="iowa_security_connection_recv">iowa_security_connection_recv</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">iowa_security_connection_recv</span><span class="p">(</span><span class="n">iowa_security_session_t</span><span class="w"> </span><span class="n">securityS</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                  </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_security_connection_recv()</code> reads data on the underlying connection of a security session.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>securityS</em></dt>
+<dd>An iowa_security_session_t pointing to a security session.</dd>
+<dt><em>buffer</em></dt>
+<dd>A buffer to store the received data.</dd>
+<dt><em>length</em></dt>
+<dd>The number of bytes to read.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The number of bytes read or a negative number in case of error.</p>
+
+              
+
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="UtilsAPI.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Utils APIs" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Utils APIs
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="License.html" class="md-footer__link md-footer__link--next" aria-label="Next: IOWA License" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              IOWA License
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2020-2022 IoTerop
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    <a href="https://ioterop.com/" target="_blank" rel="noopener" title="Website" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M248 8C111.03 8 0 119.03 0 256s111.03 248 248 248 248-111.03 248-248S384.97 8 248 8zm82.29 357.6c-3.9 3.88-7.99 7.95-11.31 11.28-2.99 3-5.1 6.7-6.17 10.71-1.51 5.66-2.73 11.38-4.77 16.87l-17.39 46.85c-13.76 3-28 4.69-42.65 4.69v-27.38c1.69-12.62-7.64-36.26-22.63-51.25-6-6-9.37-14.14-9.37-22.63v-32.01c0-11.64-6.27-22.34-16.46-27.97-14.37-7.95-34.81-19.06-48.81-26.11-11.48-5.78-22.1-13.14-31.65-21.75l-.8-.72a114.792 114.792 0 0 1-18.06-20.74c-9.38-13.77-24.66-36.42-34.59-51.14 20.47-45.5 57.36-82.04 103.2-101.89l24.01 12.01C203.48 89.74 216 82.01 216 70.11v-11.3c7.99-1.29 16.12-2.11 24.39-2.42l28.3 28.3c6.25 6.25 6.25 16.38 0 22.63L264 112l-10.34 10.34c-3.12 3.12-3.12 8.19 0 11.31l4.69 4.69c3.12 3.12 3.12 8.19 0 11.31l-8 8a8.008 8.008 0 0 1-5.66 2.34h-8.99c-2.08 0-4.08.81-5.58 2.27l-9.92 9.65a8.008 8.008 0 0 0-1.58 9.31l15.59 31.19c2.66 5.32-1.21 11.58-7.15 11.58h-5.64c-1.93 0-3.79-.7-5.24-1.96l-9.28-8.06a16.017 16.017 0 0 0-15.55-3.1l-31.17 10.39a11.95 11.95 0 0 0-8.17 11.34c0 4.53 2.56 8.66 6.61 10.69l11.08 5.54c9.41 4.71 19.79 7.16 30.31 7.16s22.59 27.29 32 32h66.75c8.49 0 16.62 3.37 22.63 9.37l13.69 13.69a30.503 30.503 0 0 1 8.93 21.57 46.536 46.536 0 0 1-13.72 32.98zM417 274.25c-5.79-1.45-10.84-5-14.15-9.97l-17.98-26.97a23.97 23.97 0 0 1 0-26.62l19.59-29.38c2.32-3.47 5.5-6.29 9.24-8.15l12.98-6.49C440.2 193.59 448 223.87 448 256c0 8.67-.74 17.16-1.82 25.54L417 274.25z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://github.com/IOTEROP" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://twitter.com/ioteropcompany" target="_blank" rel="noopener" title="Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.ca141e46.min.js"}</script>
+    
+    
+      <script src="assets/javascripts/bundle.6baa0517.min.js"></script>
+      
+        <script src="js/print-site.js"></script>
+      
+    
+  </body>
+</html>

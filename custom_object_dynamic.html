@@ -13,7 +13,7 @@
     
     
       
-        <title>IOWA Reference</title>
+        <title>Dynamic Custom Object - IOWA Reference</title>
       
     
     
@@ -63,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#dynamic-custom-object" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -91,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Dynamic Custom Object
             
           </span>
         </div>
@@ -151,12 +156,10 @@
         
   
   
-    
-  
 
 
   <li class="md-tabs__item">
-    <a href="index.html" class="md-tabs__link md-tabs__link--active">
+    <a href="index.html" class="md-tabs__link">
       Home
     </a>
   </li>
@@ -193,13 +196,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="baseline_client.html" class="md-tabs__link">
+      <a href="baseline_client.html" class="md-tabs__link md-tabs__link--active">
         Samples
       </a>
     </li>
@@ -287,19 +292,11 @@
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="index.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
         Home
       </a>
-      
     </li>
   
 
@@ -588,12 +585,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
       
       
       
@@ -703,12 +702,14 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" checked>
       
       
       
@@ -743,11 +744,141 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="custom_object_dynamic.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Dynamic Custom Object
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="custom_object_dynamic.html" class="md-nav__link md-nav__link--active">
         Dynamic Custom Object
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#breakdown" class="md-nav__link">
+    Breakdown
+  </a>
+  
+    <nav class="md-nav" aria-label="Breakdown">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-pseudo-code" class="md-nav__link">
+    Client Pseudo Code
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-function" class="md-nav__link">
+    Main Function
+  </a>
+  
+    <nav class="md-nav" aria-label="Main Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialization" class="md-nav__link">
+    Initialization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-client-configuration" class="md-nav__link">
+    LwM2M Client Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-object-addition" class="md-nav__link">
+    Custom Object Addition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-server-declaration" class="md-nav__link">
+    LwM2M Server Declaration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-loop" class="md-nav__link">
+    "Main Loop"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleanup" class="md-nav__link">
+    Cleanup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-data-callback" class="md-nav__link">
+    Object Data Callback
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    Next Steps
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1300,6 +1431,128 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#breakdown" class="md-nav__link">
+    Breakdown
+  </a>
+  
+    <nav class="md-nav" aria-label="Breakdown">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-pseudo-code" class="md-nav__link">
+    Client Pseudo Code
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-function" class="md-nav__link">
+    Main Function
+  </a>
+  
+    <nav class="md-nav" aria-label="Main Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialization" class="md-nav__link">
+    Initialization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-client-configuration" class="md-nav__link">
+    LwM2M Client Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-object-addition" class="md-nav__link">
+    Custom Object Addition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-server-declaration" class="md-nav__link">
+    LwM2M Server Declaration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-loop" class="md-nav__link">
+    "Main Loop"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleanup" class="md-nav__link">
+    Cleanup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-data-callback" class="md-nav__link">
+    Object Data Callback
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    Next Steps
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -1314,14 +1567,141 @@
 
                 
 
-  <h1>Home</h1>
+<h1 id="dynamic-custom-object">Dynamic Custom Object</h1>
+<p>This is the <a href="custom_object_baseline.html">Custom Object Baseline Client</a> with dynamic Resource values. The Client still features the same custom LwM2M Object:</p>
+<p><em>ID:</em> <em>3200</em></p>
+<p><em>Single instance</em></p>
+<p><em>Resources:</em></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Type</th>
+<th>Operations</th>
+<th>Multiple</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5500</td>
+<td>Boolean</td>
+<td>R</td>
+<td>Single</td>
+<td>A read-only boolean value</td>
+</tr>
+<tr>
+<td>5750</td>
+<td>String</td>
+<td>R/W</td>
+<td>Single</td>
+<td>A writable string</td>
+</tr>
+<tr>
+<td>5503</td>
+<td>Integer</td>
+<td>R/W</td>
+<td>Single</td>
+<td>A writable integer value</td>
+</tr>
+</tbody>
+</table>
+<p>However, the values of the Boolean Resource (ID: 5500) and Integer Resource (ID: 5503) will change during the execution.</p>
+<p>The following API will be explained:</p>
+<ul>
+<li><code>iowa_client_notification_lock()</code></li>
+<li><code>iowa_client_object_resource_changed()</code></li>
+</ul>
+<h2 id="usage">Usage</h2>
+<p>The usage is the same as the Custom Object Baseline Client sample.</p>
+<p>If you set an Observation on the Object or the Object Instance, you will notice that the values of the Boolean Resource (ID: 5500) and Integer Resource (ID: 5503) are updated:</p>
+<p><img alt="Custom Object Dynamic Client" src="images/custom_object_dynamic_client.jpg" /></p>
+<p>After two minutes, <em>custom_object_dynamic_client</em> unregisters from the LwM2M Server.</p>
+<h2 id="breakdown">Breakdown</h2>
+<h3 id="client-pseudo-code">Client Pseudo Code</h3>
+<p>This is the pseudo code of Client main function:</p>
+<div class="highlight"><pre><span></span><code><span class="n">main</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Initialization</span>
+<span class="w">    </span><span class="n">iowa_init</span><span class="p">();</span><span class="w"></span>
 
-<p><img alt="IOWA" src="images/iowa_logo.png#center" /></p>
-<p style="text-align:center"><b>2022-05-Eval</b></p>
+<span class="w">    </span><span class="c1">// LwM2M Client configuration</span>
+<span class="w">    </span><span class="n">iowa_client_configure</span><span class="p">(</span><span class="n">CLIENT_NAME</span><span class="p">);</span><span class="w"></span>
 
-<p style="text-align:center">BY</p>
+<span class="w">    </span><span class="c1">// Custom Object addition</span>
+<span class="w">    </span><span class="n">iowa_client_add_custom_object</span><span class="p">(</span><span class="n">OBJECT_ID</span><span class="p">,</span><span class="w"> </span><span class="n">resourceDescription</span><span class="p">,</span><span class="w"> </span><span class="n">dataCallback</span><span class="p">);</span><span class="w"></span>
 
-<p><img alt="IoTerop" src="images/ioterop_logo.png#center" /></p>
+<span class="w">    </span><span class="c1">// LwM2M Server declaration</span>
+<span class="w">    </span><span class="n">iowa_client_add_server</span><span class="p">(</span><span class="n">SERVER_SHORT_ID</span><span class="p">,</span><span class="w"> </span><span class="n">SERVER_URI</span><span class="p">,</span><span class="w"> </span><span class="n">SERVER_LIFETIME</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// &quot;Main loop&quot;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="mi">120</span><span class="n">s</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">iowa_step</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">Invert</span><span class="w"> </span><span class="n">Boolean</span><span class="w"> </span><span class="n">value</span><span class="w"></span>
+<span class="w">        </span><span class="n">Increment</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">value</span><span class="w"></span>
+<span class="w">        </span><span class="n">iowa_client_notification_lock</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">iowa_client_object_resource_changed</span><span class="p">(</span><span class="n">BOOLEAN_RESOURCE_ID</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">iowa_client_object_resource_changed</span><span class="p">(</span><span class="n">INTEGER_RESOURCE_ID</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">iowa_client_notification_lock</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Cleanup</span>
+<span class="w">    </span><span class="n">iowa_client_remove_custom_object</span><span class="p">(</span><span class="n">OBJECT_ID</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">iowa_client_IPSO_remove_sensor</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="n">iowa_close</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>and the pseudo code of the Object data callback:</p>
+<div class="highlight"><pre><span></span><code><span class="n">dataCallback</span><span class="p">(</span><span class="n">operation</span><span class="p">,</span><span class="w"> </span><span class="n">targetedResources</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">each</span><span class="w"> </span><span class="n">targetedResources</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">operation</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">READ</span><span class="w"></span>
+<span class="w">            </span><span class="n">then</span><span class="w"> </span><span class="n">targetedResources</span><span class="p">.</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">resource</span><span class="w"> </span><span class="n">value</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">operation</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">WRITE</span><span class="w"></span>
+<span class="w">            </span><span class="n">then</span><span class="w"> </span><span class="n">resource</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">targetedResources</span><span class="p">.</span><span class="n">value</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h3 id="main-function">Main Function</h3>
+<h4 id="initialization">Initialization</h4>
+<p>This step is the same as in the Baseline Client sample.</p>
+<h4 id="lwm2m-client-configuration">LwM2M Client Configuration</h4>
+<p>This step is the same as in the Baseline Client sample.</p>
+<h4 id="custom-object-addition">Custom Object Addition</h4>
+<p>This step is the same as in the Custom Object Baseline Client sample.</p>
+<h4 id="lwm2m-server-declaration">LwM2M Server Declaration</h4>
+<p>This step is the same as in the Baseline Client sample.</p>
+<h4 id="main-loop">"Main Loop"</h4>
+<p>The Custom Object Baseline Client sample was letting IOWA run for two minutes before exiting. Here, during these two minutes, we let IOWA run for three seconds then we update the boolean and integer values.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">40</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">IOWA_COAP_NO_ERROR</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iowa_step</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">objectValues</span><span class="p">.</span><span class="n">booleanValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="n">objectValues</span><span class="p">.</span><span class="n">booleanValue</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">objectValues</span><span class="p">.</span><span class="n">integerValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">objectValues</span><span class="p">.</span><span class="n">integerValue</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">iowa_client_notification_lock</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">iowa_client_object_resource_changed</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span><span class="w"> </span><span class="n">SAMPLE_OBJECT_ID</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">SAMPLE_OBJECT_BOOLEAN_RES_ID</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">iowa_client_object_resource_changed</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span><span class="w"> </span><span class="n">SAMPLE_OBJECT_ID</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">SAMPLE_OBJECT_INTEGER_RES_ID</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">iowa_client_notification_lock</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>The call to <code>iowa_step()</code> is the same as in the Baseline Client sample with a different time value.</p>
+<p>We invert the boolean and increase the integer in our structure holding the Object values.</p>
+<p>The calls to <code>iowa_client_object_resource_changed()</code> inform IOWA that some resource values have changed. As always, the first argument is the IOWA context created in the Initialization step. The second, third, and fourth arguments are the Object ID, Instance ID, and Resource ID of the resource which value has changed. Here we inform IOWA that the values of Resources "/3200/5500" and "/3200/0/5503" has changed.</p>
+<p>If these Resources are under observation, either directly or because the Object or Object Instance are under observation, IOWA will first call the Object data callback to retrieve the values. Then IOWA will send a notification.</p>
+<p>Here we are calling <code>iowa_client_object_resource_changed()</code> twice. To prevent the generation of two separate notifications in the case the Object or Object Instance are under observation, we call <code>iowa_client_notification_lock()</code>.</p>
+<p>When <code>iowa_client_notification_lock()</code> is called with the second argument set to <code>true</code>, IOWA stops sending notifications (or Registration Update messages) until <code>iowa_client_notification_lock()</code> is called with the second argument set to <code>false</code>.</p>
+<h4 id="cleanup">Cleanup</h4>
+<p>This step is the same as in the Custom Object Baseline Client sample.</p>
+<h3 id="object-data-callback">Object Data Callback</h3>
+<p>The Object data callback is the same as in the Custom Object Baseline Client sample.</p>
+<h2 id="next-steps">Next Steps</h2>
+<p>The sample illustrates how to handle changes of the values of a custom LwM2M Object. The other custom object samples explain how to manage multiple instances of the custom LwM2M Object, or Resources with multiple Resource Instances.</p>
 
               
 
@@ -1335,15 +1715,30 @@
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
+        
+        <a href="custom_object_baseline.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Custom Object Basseline" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Custom Object Basseline
+            </div>
+          </div>
+        </a>
+      
       
         
-        <a href="Changelog.html" class="md-footer__link md-footer__link--next" aria-label="Next: Changelog" rel="next">
+        <a href="custom_object_multiple_instances.html" class="md-footer__link md-footer__link--next" aria-label="Next: Multiple Instance Custom Object" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Changelog
+              Multiple Instance Custom Object
             </div>
           </div>
           <div class="md-footer__button md-icon">

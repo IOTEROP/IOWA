@@ -13,7 +13,7 @@
     
     
       
-        <title>IOWA Reference</title>
+        <title>Multiple Instance Custom Object - IOWA Reference</title>
       
     
     
@@ -63,6 +63,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#multiple-instances-custom-object" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -91,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Multiple Instance Custom Object
             
           </span>
         </div>
@@ -151,12 +156,10 @@
         
   
   
-    
-  
 
 
   <li class="md-tabs__item">
-    <a href="index.html" class="md-tabs__link md-tabs__link--active">
+    <a href="index.html" class="md-tabs__link">
       Home
     </a>
   </li>
@@ -193,13 +196,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="baseline_client.html" class="md-tabs__link">
+      <a href="baseline_client.html" class="md-tabs__link md-tabs__link--active">
         Samples
       </a>
     </li>
@@ -287,19 +292,11 @@
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="index.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
         Home
       </a>
-      
     </li>
   
 
@@ -588,12 +585,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
       
       
       
@@ -703,12 +702,14 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" checked>
       
       
       
@@ -757,11 +758,134 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="custom_object_multiple_instances.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Multiple Instance Custom Object
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="custom_object_multiple_instances.html" class="md-nav__link md-nav__link--active">
         Multiple Instance Custom Object
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#breakdown" class="md-nav__link">
+    Breakdown
+  </a>
+  
+    <nav class="md-nav" aria-label="Breakdown">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-pseudo-code" class="md-nav__link">
+    Client Pseudo Code
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-function" class="md-nav__link">
+    Main Function
+  </a>
+  
+    <nav class="md-nav" aria-label="Main Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialization" class="md-nav__link">
+    Initialization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-client-configuration" class="md-nav__link">
+    LwM2M Client Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-object-addition" class="md-nav__link">
+    Custom Object Addition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-server-declaration" class="md-nav__link">
+    LwM2M Server Declaration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-loop" class="md-nav__link">
+    "Main Loop"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleanup" class="md-nav__link">
+    Cleanup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-data-callback" class="md-nav__link">
+    Object Data Callback
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1300,6 +1424,121 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#breakdown" class="md-nav__link">
+    Breakdown
+  </a>
+  
+    <nav class="md-nav" aria-label="Breakdown">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-pseudo-code" class="md-nav__link">
+    Client Pseudo Code
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-function" class="md-nav__link">
+    Main Function
+  </a>
+  
+    <nav class="md-nav" aria-label="Main Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialization" class="md-nav__link">
+    Initialization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-client-configuration" class="md-nav__link">
+    LwM2M Client Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-object-addition" class="md-nav__link">
+    Custom Object Addition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-server-declaration" class="md-nav__link">
+    LwM2M Server Declaration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main-loop" class="md-nav__link">
+    "Main Loop"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleanup" class="md-nav__link">
+    Cleanup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-data-callback" class="md-nav__link">
+    Object Data Callback
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -1314,14 +1553,199 @@
 
                 
 
-  <h1>Home</h1>
+<h1 id="multiple-instances-custom-object">Multiple Instances Custom Object</h1>
+<p>This is the <a href="custom_object_baseline.html">Custom Object Baseline Client</a> featuring multiple instances of the same custom LwM2M Object:</p>
+<p><em>ID:</em> <em>3200</em></p>
+<p><em>Multiple instances</em></p>
+<p><em>Resources:</em></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Type</th>
+<th>Operations</th>
+<th>Multiple</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5500</td>
+<td>Boolean</td>
+<td>R</td>
+<td>Single</td>
+<td>A read-only boolean value</td>
+</tr>
+<tr>
+<td>5750</td>
+<td>String</td>
+<td>R/W</td>
+<td>Single</td>
+<td>A writable string</td>
+</tr>
+<tr>
+<td>5503</td>
+<td>Integer</td>
+<td>R/W</td>
+<td>Single</td>
+<td>A writable integer value</td>
+</tr>
+</tbody>
+</table>
+<p>The following API will be explained:</p>
+<ul>
+<li><code>iowa_client_object_instance_changed()</code></li>
+</ul>
+<h2 id="usage">Usage</h2>
+<p>The usage is the same as the Custom Object Baseline Client sample.</p>
+<p>When registered to the LwM2M Server, you will notice that the <em>custom_object_multiple_instances</em> features two instances of the additional LwM2M Object described above:</p>
+<p><img alt="First" src="images/First.jpg" /></p>
+<p>After one minute, a third instance will appear:</p>
+<p><img alt="Second" src="images/Second.jpg" /></p>
+<p>Then, after thirty seconds, the first instance will disappear.</p>
+<p>After two minutes, <em>custom_object_multiple_instances</em> unregisters from the LwM2M Server.</p>
+<h2 id="breakdown">Breakdown</h2>
+<h3 id="client-pseudo-code">Client Pseudo Code</h3>
+<p>This is the pseudo code of Client main function:</p>
+<div class="highlight"><pre><span></span><code><span class="n">main</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Initialization</span>
+<span class="w">    </span><span class="n">iowa_init</span><span class="p">();</span><span class="w"></span>
 
-<p><img alt="IOWA" src="images/iowa_logo.png#center" /></p>
-<p style="text-align:center"><b>2022-05-Eval</b></p>
+<span class="w">    </span><span class="c1">// LwM2M Client configuration</span>
+<span class="w">    </span><span class="n">iowa_client_configure</span><span class="p">(</span><span class="n">CLIENT_NAME</span><span class="p">);</span><span class="w"></span>
 
-<p style="text-align:center">BY</p>
+<span class="w">    </span><span class="c1">// Custom Object addition</span>
+<span class="w">    </span><span class="n">iowa_client_add_custom_object</span><span class="p">(</span><span class="n">OBJECT_ID</span><span class="p">,</span><span class="w"> </span><span class="n">resourceDescription</span><span class="p">,</span><span class="w"> </span><span class="n">instanceIDs</span><span class="p">,</span><span class="w"> </span><span class="n">dataCallback</span><span class="p">);</span><span class="w"></span>
 
-<p><img alt="IoTerop" src="images/ioterop_logo.png#center" /></p>
+<span class="w">    </span><span class="c1">// LwM2M Server declaration</span>
+<span class="w">    </span><span class="n">iowa_client_add_server</span><span class="p">(</span><span class="n">SERVER_SHORT_ID</span><span class="p">,</span><span class="w"> </span><span class="n">SERVER_URI</span><span class="p">,</span><span class="w"> </span><span class="n">SERVER_LIFETIME</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// &quot;Main loop&quot;</span>
+<span class="w">    </span><span class="n">iowa_step</span><span class="p">(</span><span class="mi">60</span><span class="n">s</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Declare third instance</span>
+<span class="w">    </span><span class="n">iowa_client_object_instance_changed</span><span class="p">(</span><span class="n">OBJECT_ID</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="n">CREATE</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">iowa_step</span><span class="p">(</span><span class="mi">30</span><span class="n">s</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Declare third instance</span>
+<span class="w">    </span><span class="n">iowa_client_object_instance_changed</span><span class="p">(</span><span class="n">OBJECT_ID</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">DELETE</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">iowa_step</span><span class="p">(</span><span class="mi">30</span><span class="n">s</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Cleanup</span>
+<span class="w">    </span><span class="n">iowa_client_remove_custom_object</span><span class="p">(</span><span class="n">OBJECT_ID</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">iowa_client_IPSO_remove_sensor</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="n">iowa_close</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>and the pseudo code of the Object data callback:</p>
+<div class="highlight"><pre><span></span><code><span class="n">dataCallback</span><span class="p">(</span><span class="n">operation</span><span class="p">,</span><span class="w"> </span><span class="n">targetedResources</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">each</span><span class="w"> </span><span class="n">targetedResources</span><span class="w"></span>
+<span class="w">        </span><span class="n">find</span><span class="w"> </span><span class="n">matching</span><span class="w"> </span><span class="n">instance</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">operation</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">READ</span><span class="w"></span>
+<span class="w">            </span><span class="n">then</span><span class="w"> </span><span class="n">targetedResources</span><span class="p">.</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">instance</span><span class="o">/</span><span class="n">resource</span><span class="w"> </span><span class="n">value</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">operation</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">WRITE</span><span class="w"></span>
+<span class="w">            </span><span class="n">then</span><span class="w"> </span><span class="n">instance</span><span class="o">/</span><span class="n">resource</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">targetedResources</span><span class="p">.</span><span class="n">value</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h3 id="main-function">Main Function</h3>
+<h4 id="initialization">Initialization</h4>
+<p>This step is the same as in the Baseline Client sample.</p>
+<h4 id="lwm2m-client-configuration">LwM2M Client Configuration</h4>
+<p>This step is the same as in the Baseline Client sample.</p>
+<h4 id="custom-object-addition">Custom Object Addition</h4>
+<p>Here we add a custom Object to the LwM2M Client.</p>
+<div class="highlight"><pre><span></span><code><span class="n">sample_object_values_t</span><span class="w"> </span><span class="n">objectValues</span><span class="p">;</span><span class="w"></span>
+<span class="n">iowa_lwm2m_resource_desc_t</span><span class="w"> </span><span class="n">sample_object_resources</span><span class="p">[</span><span class="n">SAMPLE_RES_COUNT</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="mi">5500</span><span class="p">,</span><span class="w"> </span><span class="n">IOWA_LWM2M_TYPE_BOOLEAN</span><span class="p">,</span><span class="w"> </span><span class="n">IOWA_OPERATION_READ</span><span class="p">,</span><span class="w">                        </span><span class="n">IOWA_RESOURCE_FLAG_NONE</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="mi">5750</span><span class="p">,</span><span class="w"> </span><span class="n">IOWA_LWM2M_TYPE_STRING</span><span class="p">,</span><span class="w">  </span><span class="n">IOWA_OPERATION_READ</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">IOWA_OPERATION_WRITE</span><span class="p">,</span><span class="w"> </span><span class="n">IOWA_RESOURCE_FLAG_NONE</span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="mi">5503</span><span class="p">,</span><span class="w"> </span><span class="n">IOWA_LWM2M_TYPE_INTEGER</span><span class="p">,</span><span class="w"> </span><span class="n">IOWA_OPERATION_READ</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">IOWA_OPERATION_WRITE</span><span class="p">,</span><span class="w"> </span><span class="n">IOWA_RESOURCE_FLAG_NONE</span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="n">sample_instance_values_t</span><span class="w"> </span><span class="n">instanceValues</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span><span class="w"></span>
+<span class="kt">uint16_t</span><span class="w"> </span><span class="n">instanceIds</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span><span class="w"></span>
+
+<span class="n">instanceValues</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">   </span><span class="c1">// ID of the first instance</span>
+<span class="n">instanceValues</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">booleanValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<span class="n">instanceValues</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">integerValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"></span>
+<span class="n">instanceValues</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">stringValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strdup</span><span class="p">(</span><span class="s">&quot;First instance&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">instanceValues</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">   </span><span class="c1">// ID of the first instance</span>
+<span class="n">instanceValues</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">booleanValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+<span class="n">instanceValues</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">integerValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">34</span><span class="p">;</span><span class="w"></span>
+<span class="n">instanceValues</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">stringValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strdup</span><span class="p">(</span><span class="s">&quot;Second instance&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">instanceValues</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">   </span><span class="c1">// ID of the first instance</span>
+<span class="n">instanceValues</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">booleanValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<span class="n">instanceValues</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">integerValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">256</span><span class="p">;</span><span class="w"></span>
+<span class="n">instanceValues</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">stringValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strdup</span><span class="p">(</span><span class="s">&quot;Third instance&quot;</span><span class="p">);</span><span class="w"></span>
+
+
+<span class="n">instanceIds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">instanceValues</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">id</span><span class="p">;</span><span class="w"></span>
+<span class="n">instanceIds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">instanceValues</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">id</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iowa_client_add_custom_object</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                       </span><span class="n">SAMPLE_OBJECT_ID</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                       </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">instanceIds</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                       </span><span class="n">SAMPLE_RES_COUNT</span><span class="p">,</span><span class="w"> </span><span class="n">sample_object_resources</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                       </span><span class="n">sample_object_dataCallback</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                       </span><span class="nb">NULL</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                       </span><span class="nb">NULL</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                       </span><span class="o">&amp;</span><span class="n">instanceValues</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>The arguments to <code>iowa_client_add_custom_object()</code> are the same as in the Custom Object Baseline Client sample, except for the third and fourth ones.</p>
+<p>The third argument is the number of Instances this Object has, the fourth argument is the list of the IDs of these Instances. Note that the instance IDs do not need to match their index. This is why we have an <code>id</code> field in the sample_instance_values_t holding our values:</p>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">bool</span><span class="w">  </span><span class="n">booleanValue</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w">   </span><span class="n">integerValue</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">stringValue</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">sample_instance_values_t</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<h4 id="lwm2m-server-declaration">LwM2M Server Declaration</h4>
+<p>This step is the same as in the Baseline Client sample.</p>
+<h4 id="main-loop">"Main Loop"</h4>
+<p>Here after one minute we declare the presence of a third instance of the custom object:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Declare the third instance.</span>
+<span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iowa_client_object_instance_changed</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span><span class="w"> </span><span class="n">SAMPLE_OBJECT_ID</span><span class="p">,</span><span class="w"> </span><span class="n">instanceValues</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">IOWA_DM_CREATE</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>then we remove the first instance:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Remove the first instance.</span>
+<span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iowa_client_object_instance_changed</span><span class="p">(</span><span class="n">iowaH</span><span class="p">,</span><span class="w"> </span><span class="n">SAMPLE_OBJECT_ID</span><span class="p">,</span><span class="w"> </span><span class="n">instanceValues</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">IOWA_DM_DELETE</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>As always, the first argument to <code>iowa_client_object_instance_changed()</code> is the IOWA context created in the Initialization step.</p>
+<p>The second argument is the same ID of the Object as in the call to <em><code>iowa_client_add_custom_object()</code></em>.</p>
+<p>The fourth argument is the ID of the instance that is modified.</p>
+<p>The last argument is the nature of the modification:</p>
+<ul>
+<li><strong>IOWA_DM_CREATE</strong> if the instance was created.</li>
+<li><strong>IOWA_DM_DELETE</strong> if the instance was deleted.</li>
+</ul>
+<p>Note that this API only inform IOWA of the addition or removal of an instance. It does not invoke any callback of the custom object. It is the caller responsibility to ensure that the necessary data are created or freed. In this sample, we created in advance an array of three <code>sample_instance_values_t</code> to hold the data.</p>
+<h4 id="cleanup">Cleanup</h4>
+<p>This step is the same as in the Custom Object Baseline Client.</p>
+<h3 id="object-data-callback">Object Data Callback</h3>
+<p>This callback is very similar to the one in the Custom Object Baseline Client. The only difference is that we check  <code>dataP[i].instanceID</code> to find the matching <code>sample_instance_values_t</code> :</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">    </span><span class="o">||</span><span class="w"> </span><span class="n">dataP</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">instanceID</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">dataP</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">].</span><span class="n">instanceID</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">instanceIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">instanceValues</span><span class="p">[</span><span class="n">instanceIndex</span><span class="p">].</span><span class="n">id</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">dataP</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">instanceID</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">instanceIndex</span><span class="o">++</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// We only declared three instances so this should not happen</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">instanceIndex</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">IOWA_COAP_404_NOT_FOUND</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
 
               
 
@@ -1335,15 +1759,30 @@
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
+        
+        <a href="custom_object_dynamic.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Dynamic Custom Object" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Dynamic Custom Object
+            </div>
+          </div>
+        </a>
+      
       
         
-        <a href="Changelog.html" class="md-footer__link md-footer__link--next" aria-label="Next: Changelog" rel="next">
+        <a href="custom_object_multiple_resource_instances.html" class="md-footer__link md-footer__link--next" aria-label="Next: Multiple Resource Custom Object" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Changelog
+              Multiple Resource Custom Object
             </div>
           </div>
           <div class="md-footer__button md-icon">
