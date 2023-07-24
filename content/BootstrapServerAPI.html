@@ -9,19 +9,21 @@
       
       
       
+        <link rel="prev" href="ServerAPI.html">
       
-        <link rel="next" href="content/Changelog.html">
       
-      <link rel="icon" href="content/images/iowa_logo.png">
+        <link rel="next" href="CoapAPI.html">
+      
+      <link rel="icon" href="images/iowa_logo.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.19">
     
     
       
-        <title>IOWA Reference</title>
+        <title>Bootstrap Server APIs - IOWA Reference</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.eebd395e.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.eebd395e.min.css">
       
       
 
@@ -37,13 +39,13 @@
       
     
     
-      <link rel="stylesheet" href="css/print-site.css">
+      <link rel="stylesheet" href="../css/print-site.css">
     
-      <link rel="stylesheet" href="css/print-site-material.css">
+      <link rel="stylesheet" href="../css/print-site-material.css">
     
-      <link rel="stylesheet" href="ioterop.css">
+      <link rel="stylesheet" href="../ioterop.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -64,6 +66,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#bootstrap-server-mode-api-reference" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -74,9 +81,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="index.html" title="IOWA Reference" class="md-header__button md-logo" aria-label="IOWA Reference" data-md-component="logo">
+    <a href="../index.html" title="IOWA Reference" class="md-header__button md-logo" aria-label="IOWA Reference" data-md-component="logo">
       
-  <img src="content/images/iowa_logo.png" alt="logo">
+  <img src="images/iowa_logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -92,7 +99,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Bootstrap Server APIs
             
           </span>
         </div>
@@ -154,12 +161,10 @@
         
   
   
-    
-  
 
 
   <li class="md-tabs__item">
-    <a href="index.html" class="md-tabs__link md-tabs__link--active">
+    <a href="../index.html" class="md-tabs__link">
       Home
     </a>
   </li>
@@ -171,7 +176,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="content/Changelog.html" class="md-tabs__link">
+    <a href="Changelog.html" class="md-tabs__link">
       Changelog
     </a>
   </li>
@@ -186,7 +191,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="content/LwM2MOverview.html" class="md-tabs__link">
+      <a href="LwM2MOverview.html" class="md-tabs__link">
         User Manual
       </a>
     </li>
@@ -202,7 +207,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="content/baseline_client.html" class="md-tabs__link">
+      <a href="baseline_client.html" class="md-tabs__link">
         Samples
       </a>
     </li>
@@ -212,13 +217,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="content/AbstractionLayer.html" class="md-tabs__link">
+      <a href="AbstractionLayer.html" class="md-tabs__link md-tabs__link--active">
         API Reference
       </a>
     </li>
@@ -234,7 +241,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="content/License.html" class="md-tabs__link">
+      <a href="License.html" class="md-tabs__link">
         Licenses
       </a>
     </li>
@@ -247,7 +254,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="print_page.html" class="md-tabs__link">
+    <a href="../print_page.html" class="md-tabs__link">
       Printable version
     </a>
   </li>
@@ -274,9 +281,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="index.html" title="IOWA Reference" class="md-nav__button md-logo" aria-label="IOWA Reference" data-md-component="logo">
+    <a href="../index.html" title="IOWA Reference" class="md-nav__button md-logo" aria-label="IOWA Reference" data-md-component="logo">
       
-  <img src="content/images/iowa_logo.png" alt="logo">
+  <img src="images/iowa_logo.png" alt="logo">
 
     </a>
     IOWA Reference
@@ -290,19 +297,11 @@
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="index.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
         Home
       </a>
-      
     </li>
   
 
@@ -315,7 +314,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/Changelog.html" class="md-nav__link">
+      <a href="Changelog.html" class="md-nav__link">
         Changelog
       </a>
     </li>
@@ -357,7 +356,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/LwM2MOverview.html" class="md-nav__link">
+      <a href="LwM2MOverview.html" class="md-nav__link">
         LwM2M Overview
       </a>
     </li>
@@ -371,7 +370,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/Building.html" class="md-nav__link">
+      <a href="Building.html" class="md-nav__link">
         Building Samples
       </a>
     </li>
@@ -385,7 +384,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/Configuration.html" class="md-nav__link">
+      <a href="Configuration.html" class="md-nav__link">
         IOWA Configuration
       </a>
     </li>
@@ -399,7 +398,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/Security.html" class="md-nav__link">
+      <a href="Security.html" class="md-nav__link">
         Security
       </a>
     </li>
@@ -413,7 +412,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/Multithread.html" class="md-nav__link">
+      <a href="Multithread.html" class="md-nav__link">
         Multithread
       </a>
     </li>
@@ -427,7 +426,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/Bootstrap.html" class="md-nav__link">
+      <a href="Bootstrap.html" class="md-nav__link">
         Bootstrap
       </a>
     </li>
@@ -441,7 +440,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/DeviceUpdate.html" class="md-nav__link">
+      <a href="DeviceUpdate.html" class="md-nav__link">
         Device Update
       </a>
     </li>
@@ -455,7 +454,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/CustomObject.html" class="md-nav__link">
+      <a href="CustomObject.html" class="md-nav__link">
         Custom Objects
       </a>
     </li>
@@ -469,7 +468,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/Streamable.html" class="md-nav__link">
+      <a href="Streamable.html" class="md-nav__link">
         Streamable Resources
       </a>
     </li>
@@ -483,7 +482,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/ApplicationStorage.html" class="md-nav__link">
+      <a href="ApplicationStorage.html" class="md-nav__link">
         Application Storage
       </a>
     </li>
@@ -497,7 +496,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/Network.html" class="md-nav__link">
+      <a href="Network.html" class="md-nav__link">
         Network
       </a>
     </li>
@@ -511,7 +510,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/Porting.html" class="md-nav__link">
+      <a href="Porting.html" class="md-nav__link">
         Porting
       </a>
     </li>
@@ -525,7 +524,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/LoRaWAN.html" class="md-nav__link">
+      <a href="LoRaWAN.html" class="md-nav__link">
         LoRaWAN
       </a>
     </li>
@@ -566,7 +565,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/Object_Skeleton_Generator.html" class="md-nav__link">
+      <a href="Object_Skeleton_Generator.html" class="md-nav__link">
         Object Skeleton Generator
       </a>
     </li>
@@ -622,7 +621,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/baseline_client.html" class="md-nav__link">
+      <a href="baseline_client.html" class="md-nav__link">
         LwM2M Client Basics
       </a>
     </li>
@@ -663,7 +662,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/IPSO_client.html" class="md-nav__link">
+      <a href="IPSO_client.html" class="md-nav__link">
         IPSO Object Client
       </a>
     </li>
@@ -677,7 +676,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/bearer_selection_client.html" class="md-nav__link">
+      <a href="bearer_selection_client.html" class="md-nav__link">
         Bearer Selection Object
       </a>
     </li>
@@ -691,7 +690,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/mqtt_objects_client.html" class="md-nav__link">
+      <a href="mqtt_objects_client.html" class="md-nav__link">
         MQTT Objects
       </a>
     </li>
@@ -739,7 +738,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/custom_object_baseline.html" class="md-nav__link">
+      <a href="custom_object_baseline.html" class="md-nav__link">
         Custom Object Basseline
       </a>
     </li>
@@ -753,7 +752,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/custom_object_dynamic.html" class="md-nav__link">
+      <a href="custom_object_dynamic.html" class="md-nav__link">
         Dynamic Custom Object
       </a>
     </li>
@@ -767,7 +766,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/custom_object_multiple_instances.html" class="md-nav__link">
+      <a href="custom_object_multiple_instances.html" class="md-nav__link">
         Multiple Instance Custom Object
       </a>
     </li>
@@ -781,7 +780,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/custom_object_multiple_resource_instances.html" class="md-nav__link">
+      <a href="custom_object_multiple_resource_instances.html" class="md-nav__link">
         Multiple Resource Custom Object
       </a>
     </li>
@@ -795,7 +794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/streamable_resource_client.html" class="md-nav__link">
+      <a href="streamable_resource_client.html" class="md-nav__link">
         Streamable Resources Client
       </a>
     </li>
@@ -843,7 +842,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/fw_update_push_client.html" class="md-nav__link">
+      <a href="fw_update_push_client.html" class="md-nav__link">
         Firmware Update Client "Push" Method
       </a>
     </li>
@@ -857,7 +856,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/fw_update_pull_client.html" class="md-nav__link">
+      <a href="fw_update_pull_client.html" class="md-nav__link">
         Firmware Update Client "Pull" Method
       </a>
     </li>
@@ -871,7 +870,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/fw_coap_download_client.html" class="md-nav__link">
+      <a href="fw_coap_download_client.html" class="md-nav__link">
         Firmware Update Client with CoAP Download
       </a>
     </li>
@@ -885,7 +884,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/fw_coap_block_client.html" class="md-nav__link">
+      <a href="fw_coap_block_client.html" class="md-nav__link">
         Firmware Update Client with CoAP Block-Wise Transfer
       </a>
     </li>
@@ -933,7 +932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/bootstrap_client.html" class="md-nav__link">
+      <a href="bootstrap_client.html" class="md-nav__link">
         Bootstrap Client
       </a>
     </li>
@@ -947,7 +946,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/multithread_IPSO_client.html" class="md-nav__link">
+      <a href="multithread_IPSO_client.html" class="md-nav__link">
         Multithreaded Client
       </a>
     </li>
@@ -961,7 +960,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/device_info_client.html" class="md-nav__link">
+      <a href="device_info_client.html" class="md-nav__link">
         Device Info Client
       </a>
     </li>
@@ -975,7 +974,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/context_storage_client.html" class="md-nav__link">
+      <a href="context_storage_client.html" class="md-nav__link">
         Context Storage Client
       </a>
     </li>
@@ -989,7 +988,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/websockets_client.html" class="md-nav__link">
+      <a href="websockets_client.html" class="md-nav__link">
         WebSocket Client
       </a>
     </li>
@@ -1003,7 +1002,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/virtual_observe_client.html" class="md-nav__link">
+      <a href="virtual_observe_client.html" class="md-nav__link">
         Virtual Observe Client
       </a>
     </li>
@@ -1051,7 +1050,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/secure_client_mbedtls3.html" class="md-nav__link">
+      <a href="secure_client_mbedtls3.html" class="md-nav__link">
         Secure Client with Mbed TLS 3
       </a>
     </li>
@@ -1065,7 +1064,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/secure_client_mbedtls2.html" class="md-nav__link">
+      <a href="secure_client_mbedtls2.html" class="md-nav__link">
         Secure Client with Mbed TLS 2
       </a>
     </li>
@@ -1079,7 +1078,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/secure_client_tinydtls.html" class="md-nav__link">
+      <a href="secure_client_tinydtls.html" class="md-nav__link">
         Secure Client with tinydtls
       </a>
     </li>
@@ -1093,7 +1092,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/oscore_client_mbedtls.html" class="md-nav__link">
+      <a href="oscore_client_mbedtls.html" class="md-nav__link">
         OSCORE Client
       </a>
     </li>
@@ -1107,7 +1106,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/oscore_server_mbedtls.html" class="md-nav__link">
+      <a href="oscore_server_mbedtls.html" class="md-nav__link">
         OSCORE Server
       </a>
     </li>
@@ -1128,7 +1127,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/baseline_server.html" class="md-nav__link">
+      <a href="baseline_server.html" class="md-nav__link">
         LwM2M Server Basics
       </a>
     </li>
@@ -1142,7 +1141,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/legacy.html" class="md-nav__link">
+      <a href="legacy.html" class="md-nav__link">
         Legacy Samples
       </a>
     </li>
@@ -1162,14 +1161,16 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
       
       
       
@@ -1178,7 +1179,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           API Reference
@@ -1191,7 +1192,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/AbstractionLayer.html" class="md-nav__link">
+      <a href="AbstractionLayer.html" class="md-nav__link">
         System Abstraction Layer
       </a>
     </li>
@@ -1205,7 +1206,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/CommonAPI.html" class="md-nav__link">
+      <a href="CommonAPI.html" class="md-nav__link">
         Common APIs
       </a>
     </li>
@@ -1219,7 +1220,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/ClientAPI.html" class="md-nav__link">
+      <a href="ClientAPI.html" class="md-nav__link">
         Client APIs
       </a>
     </li>
@@ -1260,7 +1261,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/ObjectConnectivityMonitoring.html" class="md-nav__link">
+      <a href="ObjectConnectivityMonitoring.html" class="md-nav__link">
         Connectivity Monitoring (ID 4)
       </a>
     </li>
@@ -1274,7 +1275,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/ObjectFirmwareUpdate.html" class="md-nav__link">
+      <a href="ObjectFirmwareUpdate.html" class="md-nav__link">
         Firmware Update (ID 5)
       </a>
     </li>
@@ -1288,7 +1289,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/ObjectLocation.html" class="md-nav__link">
+      <a href="ObjectLocation.html" class="md-nav__link">
         Location (ID 6)
       </a>
     </li>
@@ -1302,7 +1303,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/ObjectConnectivityStatistics.html" class="md-nav__link">
+      <a href="ObjectConnectivityStatistics.html" class="md-nav__link">
         Connectivity Statistics (ID 7)
       </a>
     </li>
@@ -1316,7 +1317,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/ObjectSoftwareManagement.html" class="md-nav__link">
+      <a href="ObjectSoftwareManagement.html" class="md-nav__link">
         LwM2M Software Management (ID 9)
       </a>
     </li>
@@ -1330,7 +1331,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/ObjectCellularConnectivity.html" class="md-nav__link">
+      <a href="ObjectCellularConnectivity.html" class="md-nav__link">
         LwM2M Cellular Connectivity (ID 10)
       </a>
     </li>
@@ -1344,7 +1345,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/ObjectAPN.html" class="md-nav__link">
+      <a href="ObjectAPN.html" class="md-nav__link">
         LwM2M APN Connection Profile (ID 11)
       </a>
     </li>
@@ -1358,7 +1359,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/ObjectBearerSelection.html" class="md-nav__link">
+      <a href="ObjectBearerSelection.html" class="md-nav__link">
         LwM2M Bearer Selection (ID 13)
       </a>
     </li>
@@ -1372,7 +1373,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/ObjectSoftwareComponent.html" class="md-nav__link">
+      <a href="ObjectSoftwareComponent.html" class="md-nav__link">
         LwM2M Software Component (ID 14)
       </a>
     </li>
@@ -1386,7 +1387,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/ObjectDigitalOutput.html" class="md-nav__link">
+      <a href="ObjectDigitalOutput.html" class="md-nav__link">
         IPSO Digital Output (ID 3201)
       </a>
     </li>
@@ -1400,7 +1401,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/ObjectLightControl.html" class="md-nav__link">
+      <a href="ObjectLightControl.html" class="md-nav__link">
         IPSO Light Control (ID 3311)
       </a>
     </li>
@@ -1414,7 +1415,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/ObjectAccelerometer.html" class="md-nav__link">
+      <a href="ObjectAccelerometer.html" class="md-nav__link">
         IPSO Accelerometer (ID 3313)
       </a>
     </li>
@@ -1428,7 +1429,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/ObjectMagnetometer.html" class="md-nav__link">
+      <a href="ObjectMagnetometer.html" class="md-nav__link">
         IPSO Magnetometer (ID 3314)
       </a>
     </li>
@@ -1442,7 +1443,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/ObjectGyrometer.html" class="md-nav__link">
+      <a href="ObjectGyrometer.html" class="md-nav__link">
         IPSO Gyrometer (ID 3334)
       </a>
     </li>
@@ -1456,7 +1457,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/ObjectGPS.html" class="md-nav__link">
+      <a href="ObjectGPS.html" class="md-nav__link">
         IPSO Location a.k.a. GPS (ID 3336)
       </a>
     </li>
@@ -1470,7 +1471,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/ObjectDimmer.html" class="md-nav__link">
+      <a href="ObjectDimmer.html" class="md-nav__link">
         IPSO Dimmer (ID 3343)
       </a>
     </li>
@@ -1484,7 +1485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/ObjectAT.html" class="md-nav__link">
+      <a href="ObjectAT.html" class="md-nav__link">
         AT Command (ID 10251)
       </a>
     </li>
@@ -1505,7 +1506,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/ServerAPI.html" class="md-nav__link">
+      <a href="ServerAPI.html" class="md-nav__link">
         Server APIs
       </a>
     </li>
@@ -1517,11 +1518,21 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="content/BootstrapServerAPI.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="BootstrapServerAPI.html" class="md-nav__link md-nav__link--active">
         Bootstrap Server APIs
       </a>
+      
     </li>
   
 
@@ -1533,7 +1544,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/CoapAPI.html" class="md-nav__link">
+      <a href="CoapAPI.html" class="md-nav__link">
         CoAP APIs
       </a>
     </li>
@@ -1547,7 +1558,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/UtilsAPI.html" class="md-nav__link">
+      <a href="UtilsAPI.html" class="md-nav__link">
         Utils APIs
       </a>
     </li>
@@ -1561,7 +1572,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/SecurityAPI.html" class="md-nav__link">
+      <a href="SecurityAPI.html" class="md-nav__link">
         Security Implementation APIs
       </a>
     </li>
@@ -1602,7 +1613,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/Components.html" class="md-nav__link">
+      <a href="Components.html" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -1616,7 +1627,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/SecurityComponent.html" class="md-nav__link">
+      <a href="SecurityComponent.html" class="md-nav__link">
         Security
       </a>
     </li>
@@ -1630,7 +1641,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/LoggerAPI.html" class="md-nav__link">
+      <a href="LoggerAPI.html" class="md-nav__link">
         Logger
       </a>
     </li>
@@ -1651,7 +1662,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/DeprecatedAPI.html" class="md-nav__link">
+      <a href="DeprecatedAPI.html" class="md-nav__link">
         Deprecated APIs
       </a>
     </li>
@@ -1700,7 +1711,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/License.html" class="md-nav__link">
+      <a href="License.html" class="md-nav__link">
         IOWA License
       </a>
     </li>
@@ -1714,7 +1725,7 @@
   
   
     <li class="md-nav__item">
-      <a href="content/OpenSourceLicenses.html" class="md-nav__link">
+      <a href="OpenSourceLicenses.html" class="md-nav__link">
         OpenSource Licenses
       </a>
     </li>
@@ -1736,7 +1747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="print_page.html" class="md-nav__link">
+      <a href="../print_page.html" class="md-nav__link">
         Printable version
       </a>
     </li>
@@ -1760,6 +1771,8 @@
   
   
   
+    
+  
   
 </nav>
                   </div>
@@ -1773,7 +1786,7 @@
                 
 
 
-    <a href="print_page.html" title="Print Site" class="md-content__button md-icon">
+    <a href="../print_page.html" title="Print Site" class="md-content__button md-icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 3H6v4h12m1 5a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1m-3 7H8v-5h8m3-6H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3Z"/></svg>
     </a>
 
@@ -1782,14 +1795,11 @@
                   
 
 
-  <h1>Home</h1>
-
-<p><img alt="IOWA" src="content/images/iowa_logo.png#center" /></p>
-<p style="text-align:center"><b>2023-XX.develop</b></p>
-
-<p style="text-align:center">BY</p>
-
-<p><img alt="IoTerop" src="content/images/ioterop_logo.png#center" /></p>
+<h1 id="bootstrap-server-mode-api-reference">Bootstrap Server Mode API Reference</h1>
+<blockquote>
+<p><em>This feature is present only in the <a href="https://ioterop.com/iowa/">IOWA Full SDK</a>.</em></p>
+<p><em>Please <a href="https://info.ioterop.com/contact-products">Contact us</a></em></p>
+</blockquote>
 
 
 
@@ -1860,13 +1870,13 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "search.suggest", "search.highlight"], "search": "assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.220ee61c.min.js"></script>
+      <script src="../assets/javascripts/bundle.220ee61c.min.js"></script>
       
         
-          <script src="js/print-site.js"></script>
+          <script src="../js/print-site.js"></script>
         
       
     

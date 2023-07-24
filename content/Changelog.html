@@ -1,0 +1,2902 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../index.html">
+      
+      
+        <link rel="next" href="LwM2MOverview.html">
+      
+      <link rel="icon" href="images/iowa_logo.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.19">
+    
+    
+      
+        <title>Changelog - IOWA Reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.eebd395e.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/print-site.css">
+    
+      <link rel="stylesheet" href="../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../ioterop.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#changelog" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="IOWA Reference" class="md-header__button md-logo" aria-label="IOWA Reference" data-md-component="logo">
+      
+  <img src="images/iowa_logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            IOWA Reference
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Changelog
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../index.html" class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="Changelog.html" class="md-tabs__link md-tabs__link--active">
+      Changelog
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="LwM2MOverview.html" class="md-tabs__link">
+        User Manual
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="baseline_client.html" class="md-tabs__link">
+        Samples
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="AbstractionLayer.html" class="md-tabs__link">
+        API Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="License.html" class="md-tabs__link">
+        Licenses
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../print_page.html" class="md-tabs__link">
+      Printable version
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="IOWA Reference" class="md-nav__button md-logo" aria-label="IOWA Reference" data-md-component="logo">
+      
+  <img src="images/iowa_logo.png" alt="logo">
+
+    </a>
+    IOWA Reference
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Changelog
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="Changelog.html" class="md-nav__link md-nav__link--active">
+        Changelog
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2023-xxpreview1" class="md-nav__link">
+    2023-XX.preview1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2022-055" class="md-nav__link">
+    2022-05.5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2022-054" class="md-nav__link">
+    2022-05.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2022-053" class="md-nav__link">
+    2022-05.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2022-052" class="md-nav__link">
+    2022-05.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2022-051" class="md-nav__link">
+    2022-05.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2022-05" class="md-nav__link">
+    2022-05
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2022-01" class="md-nav__link">
+    2022-01
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2021-062" class="md-nav__link">
+    2021-06.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2021-061" class="md-nav__link">
+    2021-06.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2021-06" class="md-nav__link">
+    2021-06
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2021-01" class="md-nav__link">
+    2021-01
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-091" class="md-nav__link">
+    2020-09.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-09" class="md-nav__link">
+    2020-09
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-062" class="md-nav__link">
+    2020-06.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-061" class="md-nav__link">
+    2020-06.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-06" class="md-nav__link">
+    2020-06
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-036" class="md-nav__link">
+    2020-03.6
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-035" class="md-nav__link">
+    2020-03.5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-034" class="md-nav__link">
+    2020-03.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-033" class="md-nav__link">
+    2020-03.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-032" class="md-nav__link">
+    2020-03.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-031" class="md-nav__link">
+    2020-03.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-03" class="md-nav__link">
+    2020-03
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2019-121" class="md-nav__link">
+    2019-12.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2019-12" class="md-nav__link">
+    2019-12
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2019-08" class="md-nav__link">
+    2019-08
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2019-05" class="md-nav__link">
+    2019-05
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          User Manual
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          User Manual
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="LwM2MOverview.html" class="md-nav__link">
+        LwM2M Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Building.html" class="md-nav__link">
+        Building Samples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Configuration.html" class="md-nav__link">
+        IOWA Configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Security.html" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Multithread.html" class="md-nav__link">
+        Multithread
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Bootstrap.html" class="md-nav__link">
+        Bootstrap
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DeviceUpdate.html" class="md-nav__link">
+        Device Update
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CustomObject.html" class="md-nav__link">
+        Custom Objects
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Streamable.html" class="md-nav__link">
+        Streamable Resources
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ApplicationStorage.html" class="md-nav__link">
+        Application Storage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Network.html" class="md-nav__link">
+        Network
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Porting.html" class="md-nav__link">
+        Porting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="LoRaWAN.html" class="md-nav__link">
+        LoRaWAN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="0">
+          Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_14_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_14">
+          <span class="md-nav__icon md-icon"></span>
+          Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Object_Skeleton_Generator.html" class="md-nav__link">
+        Object Skeleton Generator
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="baseline_client.html" class="md-nav__link">
+        LwM2M Client Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+          LwM2M Objects Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          LwM2M Objects Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="IPSO_client.html" class="md-nav__link">
+        IPSO Object Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bearer_selection_client.html" class="md-nav__link">
+        Bearer Selection Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mqtt_objects_client.html" class="md-nav__link">
+        MQTT Objects
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          LwM2M Custom Objects Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          LwM2M Custom Objects Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_baseline.html" class="md-nav__link">
+        Custom Object Basseline
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_dynamic.html" class="md-nav__link">
+        Dynamic Custom Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_multiple_instances.html" class="md-nav__link">
+        Multiple Instance Custom Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_multiple_resource_instances.html" class="md-nav__link">
+        Multiple Resource Custom Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="streamable_resource_client.html" class="md-nav__link">
+        Streamable Resources Client
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+          Firmware Update Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Firmware Update Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_update_push_client.html" class="md-nav__link">
+        Firmware Update Client "Push" Method
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_update_pull_client.html" class="md-nav__link">
+        Firmware Update Client "Pull" Method
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_coap_download_client.html" class="md-nav__link">
+        Firmware Update Client with CoAP Download
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_coap_block_client.html" class="md-nav__link">
+        Firmware Update Client with CoAP Block-Wise Transfer
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+          LwM2M Advanced Client Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_5">
+          <span class="md-nav__icon md-icon"></span>
+          LwM2M Advanced Client Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bootstrap_client.html" class="md-nav__link">
+        Bootstrap Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="multithread_IPSO_client.html" class="md-nav__link">
+        Multithreaded Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="device_info_client.html" class="md-nav__link">
+        Device Info Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="context_storage_client.html" class="md-nav__link">
+        Context Storage Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="websockets_client.html" class="md-nav__link">
+        WebSocket Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="virtual_observe_client.html" class="md-nav__link">
+        Virtual Observe Client
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+          Security Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_6">
+          <span class="md-nav__icon md-icon"></span>
+          Security Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="secure_client_mbedtls3.html" class="md-nav__link">
+        Secure Client with Mbed TLS 3
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="secure_client_mbedtls2.html" class="md-nav__link">
+        Secure Client with Mbed TLS 2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="secure_client_tinydtls.html" class="md-nav__link">
+        Secure Client with tinydtls
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="oscore_client_mbedtls.html" class="md-nav__link">
+        OSCORE Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="oscore_server_mbedtls.html" class="md-nav__link">
+        OSCORE Server
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="baseline_server.html" class="md-nav__link">
+        LwM2M Server Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="legacy.html" class="md-nav__link">
+        Legacy Samples
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="AbstractionLayer.html" class="md-nav__link">
+        System Abstraction Layer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CommonAPI.html" class="md-nav__link">
+        Common APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ClientAPI.html" class="md-nav__link">
+        Client APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+          Objects APIs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          Objects APIs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectConnectivityMonitoring.html" class="md-nav__link">
+        Connectivity Monitoring (ID 4)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectFirmwareUpdate.html" class="md-nav__link">
+        Firmware Update (ID 5)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectLocation.html" class="md-nav__link">
+        Location (ID 6)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectConnectivityStatistics.html" class="md-nav__link">
+        Connectivity Statistics (ID 7)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectSoftwareManagement.html" class="md-nav__link">
+        LwM2M Software Management (ID 9)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectCellularConnectivity.html" class="md-nav__link">
+        LwM2M Cellular Connectivity (ID 10)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectAPN.html" class="md-nav__link">
+        LwM2M APN Connection Profile (ID 11)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectBearerSelection.html" class="md-nav__link">
+        LwM2M Bearer Selection (ID 13)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectSoftwareComponent.html" class="md-nav__link">
+        LwM2M Software Component (ID 14)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectDigitalOutput.html" class="md-nav__link">
+        IPSO Digital Output (ID 3201)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectLightControl.html" class="md-nav__link">
+        IPSO Light Control (ID 3311)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectAccelerometer.html" class="md-nav__link">
+        IPSO Accelerometer (ID 3313)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectMagnetometer.html" class="md-nav__link">
+        IPSO Magnetometer (ID 3314)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectGyrometer.html" class="md-nav__link">
+        IPSO Gyrometer (ID 3334)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectGPS.html" class="md-nav__link">
+        IPSO Location a.k.a. GPS (ID 3336)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectDimmer.html" class="md-nav__link">
+        IPSO Dimmer (ID 3343)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectAT.html" class="md-nav__link">
+        AT Command (ID 10251)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ServerAPI.html" class="md-nav__link">
+        Server APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="BootstrapServerAPI.html" class="md-nav__link">
+        Bootstrap Server APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CoapAPI.html" class="md-nav__link">
+        CoAP APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="UtilsAPI.html" class="md-nav__link">
+        Utils APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="SecurityAPI.html" class="md-nav__link">
+        Security Implementation APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_10" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_10" id="__nav_5_10_label" tabindex="0">
+          Components
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5_10">
+          <span class="md-nav__icon md-icon"></span>
+          Components
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Components.html" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="SecurityComponent.html" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="LoggerAPI.html" class="md-nav__link">
+        Logger
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DeprecatedAPI.html" class="md-nav__link">
+        Deprecated APIs
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          Licenses
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Licenses
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="License.html" class="md-nav__link">
+        IOWA License
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="OpenSourceLicenses.html" class="md-nav__link">
+        OpenSource Licenses
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../print_page.html" class="md-nav__link">
+        Printable version
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2023-xxpreview1" class="md-nav__link">
+    2023-XX.preview1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2022-055" class="md-nav__link">
+    2022-05.5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2022-054" class="md-nav__link">
+    2022-05.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2022-053" class="md-nav__link">
+    2022-05.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2022-052" class="md-nav__link">
+    2022-05.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2022-051" class="md-nav__link">
+    2022-05.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2022-05" class="md-nav__link">
+    2022-05
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2022-01" class="md-nav__link">
+    2022-01
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2021-062" class="md-nav__link">
+    2021-06.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2021-061" class="md-nav__link">
+    2021-06.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2021-06" class="md-nav__link">
+    2021-06
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2021-01" class="md-nav__link">
+    2021-01
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-091" class="md-nav__link">
+    2020-09.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-09" class="md-nav__link">
+    2020-09
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-062" class="md-nav__link">
+    2020-06.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-061" class="md-nav__link">
+    2020-06.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-06" class="md-nav__link">
+    2020-06
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-036" class="md-nav__link">
+    2020-03.6
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-035" class="md-nav__link">
+    2020-03.5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-034" class="md-nav__link">
+    2020-03.4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-033" class="md-nav__link">
+    2020-03.3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-032" class="md-nav__link">
+    2020-03.2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-031" class="md-nav__link">
+    2020-03.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2020-03" class="md-nav__link">
+    2020-03
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2019-121" class="md-nav__link">
+    2019-12.1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2019-12" class="md-nav__link">
+    2019-12
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2019-08" class="md-nav__link">
+    2019-08
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2019-05" class="md-nav__link">
+    2019-05
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+
+    <a href="../print_page.html" title="Print Site" class="md-content__button md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 3H6v4h12m1 5a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1m-3 7H8v-5h8m3-6H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3Z"/></svg>
+    </a>
+
+
+
+                  
+
+
+<h1 id="changelog">Changelog</h1>
+<h2 id="2023-xxpreview1">2023-XX.preview1</h2>
+<blockquote>
+<p>This is a preview release for prototyping purpose only. This changelog is subject to change.</p>
+</blockquote>
+<p><strong>New Features</strong></p>
+<ul>
+<li>When the last block of a response is sent to a LwM2M Server, IOWA now emits an event <a href="ClientAPI.html#iowa_event_type_t"><strong>IOWA_EVENT_RESPONSE_LAST_BLOCK_SENT</strong></a>.</li>
+<li>IOWA now features the Virtual Observe Notify Object (ID: 22) by enabling the flag <a href="Configuration.html#iowa_support_virtual_observe_notify_object"><strong>IOWA_SUPPORT_VIRTUAL_OBSERVE_NOTIFY_OBJECT</strong></a>.</li>
+<li>IOWA now supports the version 1.2 of the LightweightM2M protocol by setting the configuration flag <a href="Configuration.html#lwm2m_version_1_2_support"><strong>LWM2M_VERSION_1_2_SUPPORT</strong></a>.</li>
+<li>The LwM2M Registration may contain the list of supported data encoding formats by setting the configuration flag <a href="Configuration.html#lwm2m_registration_content_type_support"><strong>LWM2M_REGISTRATION_CONTENT_TYPE_SUPPORT</strong></a>.</li>
+</ul>
+<p><strong>Behaviour Changes</strong></p>
+<ul>
+<li>In the registration payload, the Object version is now indicated in a less optimized way to improve compatibility with legacy LwM2M Servers.</li>
+</ul>
+<p><strong>Samples Changes</strong></p>
+<ul>
+<li>New sample: <a href="context_storage_client.html">Context Storage Client</a> illustrating how to save and store the IOWA context for hibernating devices.</li>
+<li>New sample: <a href="virtual_observe_client.html">Virtual Observe Client</a> illustrating how to support the Virtual Observe Notify Object.</li>
+<li>Samples using Mbed TLS are now using versions 3.3.0 and 2.28.2.</li>
+<li>All samples are now using cmake version 3.16. </li>
+<li>In the sample <a href="baseline_server.html">Baseline Server</a>, the <code>iowa_monitor_callback_t</code> callback displays more details.</li>
+</ul>
+<p><strong>SDK Changes</strong></p>
+<ul>
+<li>The deprecated API <code>iowa_server_configuration_set()</code> was removed.</li>
+<li>The deprecated define <strong>INVALID_SENSOR_ID</strong> was removed.</li>
+</ul>
+<h2 id="2022-055">2022-05.5</h2>
+<blockquote>
+<p>This is a Long-Term Support release.</p>
+</blockquote>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix a bug where <a href="ClientAPI.html#iowa_client_send_data"><code>iowa_client_send_data()</code></a> and <a href="ClientAPI.html#iowa_client_send_sensor_data"><code>iowa_client_send_sensor_data()</code></a> were returning an error if a Registration Update was in progress.</li>
+<li>When a Registration Update is required, fix a bug where the connection to the LwM2M Server was not always automatically re-opened if previously closed.</li>
+<li>Fix a bug where required notifications were not immediately sent in a multhreaded environment after calling <a href="ClientAPI.html#iowa_client_notification_lock"><code>iowa_client_notification_lock()</code></a> with the <em>enter</em> argument set to <strong>false</strong>.</li>
+<li>Fix a bug where <a href="CommonAPI.html#iowa_clock_reset"><code>iowa_clock_reset()</code></a> could terminate the registration to the LwM2M Servers.</li>
+<li>Fix a bug where IOWA would return an error if the response payload to a Discover operation is larger than 1024 bytes.</li>
+</ul>
+<p><strong>Behavior Changes</strong></p>
+<ul>
+<li>In the Registration and Registration Update payload, remove some LwM2M Object version indications which were redundant with the LwM2M protocol version indication. </li>
+</ul>
+<h2 id="2022-054">2022-05.4</h2>
+<blockquote>
+<p>This is a Long-Term Support release.</p>
+</blockquote>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>When the configuration flag <a href="Configuration.html#iowa_storage_context_manual_heartbeat_on_load"><strong>IOWA_STORAGE_CONTEXT_MANUAL_HEARTBEAT_ON_LOAD</strong></a> is set, fix a possible null pointer dereference when calling some IOWA APIs after calling <a href="CommonAPI.html#iowa_load_context"><code>iowa_load_context()</code></a> but before calling <a href="ClientAPI.html#iowa_client_send_heartbeat"><code>iowa_client_send_heartbeat()</code></a> or <a href="CommonAPI.html#iowa_clock_reset"><code>iowa_clock_reset()</code></a>.</li>
+<li>Fix a possible invalid memory access during <a href="DeviceUpdate.html#software-activation">Software Activation</a> if the targeted <a href="ObjectSoftwareManagement.html">Software Management</a> Object Instance is not linked to at least one <a href="ObjectSoftwareComponent.html">Software Component</a> Object Instance.</li>
+<li>Fix a bug where the <a href="ObjectSoftwareManagement.html">Software Management</a> activation was not impacting all linked <a href="ObjectSoftwareComponent.html">Software Components</a>.</li>
+</ul>
+<h2 id="2022-053">2022-05.3</h2>
+<blockquote>
+<p>This is a Long-Term Support release.</p>
+</blockquote>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>When IOWA is used in Client mode, fix the saving and loading of the CoAP retransmission parameters of a LwM2M Server when using <a href="CommonAPI.html#iowa_save_context"><code>iowa_save_context()</code></a> and <a href="CommonAPI.html#iowa_load_context"><code>iowa_load_context()</code></a>.</li>
+<li>When IOWA is used in Client mode, when loading a LwM2M Server using <a href="CommonAPI.html#iowa_load_context"><code>iowa_load_context()</code></a>, use the default values of the CoAP retransmission parameters if they are not present in the context.</li>
+<li>The behaviour change in <a href="CommonAPI.html#iowa_load_context"><code>iowa_load_context()</code></a> from release 2022-05.2 is now under the configuration flag <a href="Configuration.html#iowa_storage_context_manual_heartbeat_on_load"><strong>IOWA_STORAGE_CONTEXT_MANUAL_HEARTBEAT_ON_LOAD</strong></a>.</li>
+</ul>
+<p><strong>SDK Changes</strong></p>
+<ul>
+<li>Add a new sample illustrating how to save and load the IOWA context: <a href="context_storage_client.html">Context Storage Client</a>.</li>
+</ul>
+<h2 id="2022-052">2022-05.2</h2>
+<blockquote>
+<p>This is a Long-Term Support release.</p>
+</blockquote>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix a bug where the error code was not set in the event details for events <a href="ClientAPI.html#iowa_event_type_t"><strong>IOWA_EVENT_REG_FAILED</strong></a> and <a href="ClientAPI.html#iowa_event_type_t"><strong>IOWA_EVENT_REG_UPDATE_FAILED</strong></a>.</li>
+<li>Fix a bug where <a href="CommonAPI.html#iowa_clock_reset"><code>iowa_clock_reset()</code></a> was not always considering current registrations.</li>
+<li>When IOWA is used in Server mode with OSCORE, fix an interoperability issue during the Security Context Derivation (aka "Appendix B.2").</li>
+<li>Fix a bug where <a href="ClientAPI.html#iowa_client_disable_server"><code>iowa_client_disable_server()</code></a> was not working as intended when the configuration flags <a href="Configuration.html#server"><strong>IOWA_SERVER_SUPPORT_RSC_DISABLE_TIMEOUT</strong></a> or <a href="Configuration.html#server"><strong>IOWA_SERVER_RSC_DISABLE_TIMEOUT_REMOVE</strong></a> are defined.</li>
+<li>Fix a possible memory leak when accessing timestamped values from the <a href="ClientAPI.html#ipso-objects">IPSO Objects</a>. </li>
+<li>When IOWA is used in Server mode, fix a bug where the data received from a Send operation was not always having the correct type.</li>
+<li>Fix a possible invalid memory access when receiving a Bootstrap-Discover command on an Object.</li>
+</ul>
+<p><strong>Behavior Changes</strong></p>
+<ul>
+<li><a href="CommonAPI.html#iowa_load_context"><code>iowa_load_context()</code></a> no longer automatically sends a Registration Update to loaded LwM2M Servers, leaving the control to the application which can call either <a href="ClientAPI.html#iowa_client_send_heartbeat"><code>iowa_client_send_heartbeat()</code></a> or <a href="CommonAPI.html#iowa_clock_reset"><code>iowa_clock_reset()</code></a>.</li>
+</ul>
+<p><strong>SDK Changes</strong></p>
+<ul>
+<li>IOWA SDK now provides an <a href="Object_Skeleton_Generator.html">Object Skeleton Generator</a> to ease the development of custom LwM2M Objects.  </li>
+</ul>
+<h2 id="2022-051">2022-05.1</h2>
+<blockquote>
+<p>This is a Long-Term Support release.</p>
+</blockquote>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix some interoperability issues on OSCORE when the partial IV is greater than 255.</li>
+<li>In the case of a decryption failure of an OSCORE protected request, fix a bug where IOWA was trying to protect a response.</li>
+<li>Fix a bug where IOWA was trying to decrypt a truncated OSCORE protected message.</li>
+<li>Fix a bug where some LwM2M Servers configured by a LwM2M Bootstrap Server were not using the right default CoAP timer values.</li>
+<li>Fix a possible out of bound access during a Read operation when the configuration flag <a href="Configuration.html#lwm2m_client_asynchronous_operation_support"><strong>LWM2M_CLIENT_ASYNCHRONOUS_OPERATION_SUPPORT</strong></a> is set.</li>
+<li>IOWA now correctly emits <a href="ClientAPI.html#iowa_event_t">registration related events</a> when <a href="AbstractionLayer.html#iowa_system_connection_open"><code>iowa_system_connection_open()</code></a> returns an error.</li>
+</ul>
+<p><strong>Behavior Changes</strong></p>
+<ul>
+<li>The API <a href="ClientAPI.html#iowa_client_disable_server"><code>iowa_client_disable_server()</code></a> can now be used to reset the state of LwM2M Server IOWA failed to register to. In such a case, IOWA will try to register again when the timeout expires. </li>
+</ul>
+<p><strong>SDK Changes</strong></p>
+<ul>
+<li>Simplify the retrieval of external libraries in the samples by using a direct download instead of a git clone.</li>
+</ul>
+<h2 id="2022-05">2022-05</h2>
+<blockquote>
+<p>This is a Long-Term Support release.</p>
+<p><strong>Upcoming Breaking Change</strong></p>
+<p>With the next release of IOWA, the configuration flags <a href="Configuration.html#IOWA_SECURITY_LAYER"><strong>IOWA_SECURITY_LAYER_TINYDTLS</strong></a>, <a href="Configuration.html#IOWA_SECURITY_LAYER"><strong>IOWA_SECURITY_LAYER_MBEDTLS</strong></a>, <a href="Configuration.html#IOWA_SECURITY_LAYER"><strong>IOWA_SECURITY_LAYER_MBEDTLS_PSK_ONLY</strong></a>, <a href="Configuration.html#IOWA_SECURITY_LAYER"><strong>IOWA_SECURITY_LAYER_MBEDTLS_OSCORE_ONLY</strong></a> will be deprecated. The configuration flag <a href="Configuration.html#IOWA_SECURITY_LAYER"><strong>IOWA_SECURITY_LAYER_USER</strong></a> will be the default.</p>
+<p>The samples <a href="secure_client_mbedtls3.html">secure_client_mbedtls3</a>, <a href="secure_client_mbedtls2.html">secure_client_mbedtls2</a>, and <a href="secure_client_tinydtls.html">secure_client_tinydtls</a> provides a feature equivalent integration with Mbed TLS and tinydtls. They also serve as a basis for integration with other TLS/DTLS libraries.</p>
+</blockquote>
+<p><strong>New Features</strong></p>
+<ul>
+<li>It is now possible to set the access rights of a LwM2M Server to all known Objects at once by calling <a href="ClientAPI.html#iowa_client_acl_rights_server_set"><code>iowa_client_acl_rights_server_set()</code></a> with <strong>IOWA_LWM2M_ID_ALL</strong> as the Object ID.</li>
+<li>Add a new API <a href="ClientAPI.html#iowa_client_get_server_configuration"><code>iowa_client_get_server_configuration()</code></a> to retrieve a LwM2M Server setting.</li>
+<li>More LwM2M Server settings are accessible, including the CoAP retransmission parameters. See <a href="ClientAPI.html#iowa_server_setting_id_t"><code>iowa_server_setting_id_t</code></a>.</li>
+<li>IOWA generates new events of type <strong>IOWA_EVENT_SERVER_SETTING_CHANGED</strong> when a LwM2M Server setting is modified by a LwM2M operation on the LwM2M Server Object. See <a href="ClientAPI.html#iowa_event_t"><code>iowa_event_t</code></a>.</li>
+<li>The provided implementations of the Location Object (ID: 6) and the IPSO Location Object (ID: 3336) have new APIs <a href="ObjectLocation.html#iowa_client_location_update_with_time"><code>iowa_client_location_update_with_time()</code></a>, <a href="ObjectLocation.html#iowa_client_location_update_full_with_time"><code>iowa_client_location_update_full_with_time()</code></a>, <a href="ObjectGPS.html#iowa_client_gps_update_location_with_time"><code>iowa_client_gps_update_location_with_time()</code></a>, and <a href="ObjectGPS.html#iowa_client_gps_update_location_full_with_time"><code>iowa_client_gps_update_location_full_with_time()</code></a> allowing the caller to specify the measurement timestamp.</li>
+<li>Add a new API <a href="CoapAPI.html#iowa_coap_peer_proxied_get">`iowa_coap_peer_proxied_get()</a> to perform a GET through a forward-proxy.</li>
+</ul>
+<p><strong>Breaking Change</strong></p>
+<ul>
+<li>The value <strong>IOWA_IPSO_LEVEL_CONTROL</strong> is no longer part of the enumeration <a href="ClientAPI.html#iowa_ipso_id_t"><code>iowa_IPSO_ID_t</code></a>. To manipulate an IPSO level sensor, please use the <a href="ObjectDimmer.html">IPSO Dimmer Object APIs</a>. Note that the IPSO Level Control Object was renamed "Dimmer" in the <a href="https://technical.openmobilealliance.org/OMNA/LwM2M/LwM2MRegistry.html">LwM2M Registry</a>.</li>
+</ul>
+<p><strong>Behavior Changes</strong></p>
+<ul>
+<li>When a Response is bigger than the connection MTU, and <a href="Configuration.html#additional-flags"><strong>IOWA_COAP_BLOCK_SUPPORT</strong></a> is defined, IOWA will now return the first block of the response instead of returning a 4.13 (Request Entity Too Large) code.</li>
+<li>The <a href="ClientAPI.html#iowa_server_info_t"><code>iowa_server_info_t</code></a> structure now contains the LwM2M protocol version used by the LwM2M Server.</li>
+</ul>
+<p><strong>SDK Changes</strong></p>
+<ul>
+<li>Some internal functions were renamed to avoid conflicts.</li>
+<li>Add three new samples illustrating how to integrate with a DTLS/TLS security library, one using <a href="secure_client_mbedtls3.html">Mbed TLS 3.1</a>, one using <a href="secure_client_mbedtls2.html">Mbed TLS 2.28</a>, and one using <a href="secure_client_tinydtls.html">tinydtls</a>.</li>
+<li>The sample <a href="custom_object_multiple_instances.html">custom_object_multiple_instances</a>, illustrating how to manage multiple instances of a custom LwM2M Object, was simplified and documented. </li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix a bug where corrupted data retrieved from the notification storage queues may lead to out-of-range memory accesses or value underflows.</li>
+<li>Fix a bug where a Notification bigger than the connection MTU was not correctly sent as the first block of a CoAP Block-Transfer.</li>
+<li>Fix a potential crash when handling an Observation on a multiple resource with no instance in Clients with no support of the Observe-Composite operation.</li>
+<li>Fix a bug where IOWA was returning an error to the LwM2M Server cancelling the Firmware Update process. The Firmware Update process was however cancelled correctly.</li>
+<li>Fix a bug where a Server lifetime or binding modified by calling <a href="ClientAPI.html#iowa_client_set_server_configuration"><code>iowa_client_set_server_configuration()</code></a> was not automatically saved when <a href="Configuration.html#iowa_storage_context_automatic_backup"><strong>IOWA_STORAGE_CONTEXT_AUTOMATIC_BACKUP</strong></a> is defined.</li>
+<li>Fix a bug where the Access Control List Object Instances where not correctly restored when loading a context. The saved access control rights were however still enforced.</li>
+</ul>
+<h2 id="2022-01">2022-01</h2>
+<p><strong>New Features</strong></p>
+<ul>
+<li>The <a href="ClientAPI.html#iowa_device_info_t"><code>iowa_device_info_t</code></a> structure now allows to set the "Memory Total" Resource (ID: 22) and "Memory Free" Resource (ID: 10) of the <a href="ClientAPI.html#device-object-resources">Device Object</a>.</li>
+<li>The <a href="ClientAPI.html#iowa_device_info_t"><code>iowa_device_info_t</code></a> structure now supports a new optional flag <strong>IOWA_DEVICE_RSC_EXTERNAL_INFO</strong> enabling the "ExtDevInfo" Resource (ID: 22) the <a href="LwM2MOverview.html#device-object">Device Object</a>. The content of this Resource can be modified by using the API <a href="ClientAPI.html#iowa_client_update_device_external_information"><code>iowa_client_update_device_external_information()</code></a>.</li>
+<li>The application can disable or enable a LwM2M Server using the APIs <a href="ClientAPI.html#iowa_client_disable_server"><code>iowa_client_disable_server()</code></a> and  <a href="ClientAPI.html#iowa_client_enable_server"><code>iowa_client_enable_server()</code></a>.</li>
+<li>IOWA implements non-standard features required to interact with the Verizon LwM2M Servers. To enable these features, the compilation flag <a href="Configuration.html#iowa_verizon_operator_support"><strong>IOWA_VERIZON_OPERATOR_SUPPORT</strong></a> must be set.</li>
+<li>Add a new API <a href="CoapAPI.html#iowa_coap_message_get_content_total_size"><code>iowa_coap_message_get_content_total_size()</code></a> to retrieve the content total size during a CoAP block-wise transfer.</li>
+<li><a href="ClientAPI.html#iowa_client_firmware_update_set_status"><code>iowa_client_firmware_update_set_status()</code></a> now accepts custom status codes.</li>
+<li>When using <a href="ClientAPImd#iowa_client_use_reliable_notifications">reliable notifications</a>, IOWA now emits events <strong>IOWA_EVENT_OBSERVATION_NOTIFICATION_ACKED</strong> and <strong>IOWA_EVENT_OBSERVATION_NOTIFICATION_FAILED</strong> to inform of the success or failure of the notification delivery.</li>
+<li>The <strong>IOWA_EVENT_REG_FAILED</strong> and <strong>IOWA_EVENT_REG_UPDATE_FAILED</strong> events now contain <a href="ClientAPI.html#iowa_event_t">details</a> on the reason of the failure.</li>
+<li>Add new APIs <a href="ClientAPI.html#iowa_client_object_get_values"><code>iowa_client_object_get_values()</code></a> and <a href="ClientAPI.html#iowa_client_object_release_values"><code>iowa_client_object_release_values()</code></a> allowing the client application to retrieve the values of readable Resources.</li>
+<li>Add support of CoAP over WebSocket transport, enabled by <a href="Configuration.html#Transports"><strong>IOWA_WEBSOCKET_SUPPORT</strong></a>. Note that this transport is not part of the LwM2M standard and may work only with <a href="https://ioterop.com/alaska/">IoTerop's ALASKA device management platform</a>.</li>
+</ul>
+<p><strong>Behavior Changes</strong></p>
+<ul>
+<li>The <a href="ClientAPI.html#iowa_server_info_t"><code>iowa_server_info_t</code></a> structure now contains the Security, Server, and OSCORE Object Instances used by the LwM2M Server account.</li>
+<li>For <a href="Streamable.html">streamable Resources</a>, the <a href="CommonAPI.html#iowa_lwm2m_data_t"><code>iowa_lwm2m_data_t</code></a> structure now has a <code>value::asBlock::totalSize</code> field.</li>
+<li>When called with the <strong>IOWA_FW_PACKAGE_RESET</strong> command, the <a href="ClientAPI.html#iowa_fw_write_callback_t"><code>iowa_fw_write_callback_t</code> </a> now indicates the total length in bytes of the Firmware Package if known.</li>
+<li>When called with the <strong>IOWA_SW_PKG_COMMAND_RESET</strong> command, the <a href="ClientAPI.html#iowa_sw_pkg_write_callback_t"><code>iowa_sw_pkg_write_callback_t</code> </a> now indicates the total length in bytes of the Software Package if known.</li>
+<li>When a LwM2M-Bootstrap Server or LwM2M Server's URI contains a path and/or a query part, these parts are included in the Bootstrap and Registration requests.</li>
+<li>The LwM2M Bootstrap-Request will now fail if the transmission was successful but no response was received after a delay set to EXCHANGE_LIFETIME from RFC7252.</li>
+<li>When receiving an Observation request with the same token and targets as an existing Observation, IOWA no longer emits an <strong>IOWA_EVENT_OBSERVATION_NOTIFICATION</strong> event.</li>
+</ul>
+<p><strong>SDK Changes</strong></p>
+<ul>
+<li>Add a new compilation setting <a href="Configuration.html#IOWA_LOG_BUFFER_LIMIT"><strong>IOWA_LOG_BUFFER_LIMIT</strong></a> to limit the number of bytes logged for memory buffers.</li>
+<li>Add a new sample <a href="device_info_client.html">device_info_client</a> illustrating how to modify the information exposed in the <a href="LwM2MOverview.html#device-object">Device Object</a>.</li>
+<li>Add a new sample <a href="fw_update_push_client.html">fw_update_push_client</a> illustrating how to enable the <a href="LwM2MOverview.html#firmware-update-object">Firmware Update Object</a> and support its <a href="DeviceUpdate.html#firmware-update">"push" method</a>.</li>
+<li>Add a new sample <a href="fw_update_pull_client.html">fw_update_pull_client</a> illustrating how to enable the <a href="LwM2MOverview.html#firmware-update-object">Firmware Update Object</a> and support its <a href="DeviceUpdate.html#firmware-update">"pull" method</a>.</li>
+<li>Add a new sample <a href="fw_coap_download_client.html">fw_coap_download_client</a> illustrating how to perform a CoAP GET using the <a href="CoapAPI.html">IOWA CoAP APIs</a>.</li>
+<li>Add a new sample <a href="fw_coap_block_client.html">fw_coap_block_client</a> illustrating how to handle CoAP block-wise transfers when receiving the response to a CoAP GET.</li>
+<li>Add a new sample <a href="websockets_client.html">websockets_client</a> illustrating the usage of the WebSocket transport.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix a bug where the event <strong>IOWA_EVENT_BS_PENDING</strong> was not always received when a Bootstrap HoldOff time was set.</li>
+<li>Fix a bug where the event <strong>IOWA_EVENT_REG_FAILED</strong> was not always received after a failed registration attempt.</li>
+<li>Fix a bug where the Resource Error Code (ID: 11) in the <a href="LwM2MOverview.html#device_object">Device Object</a> (ID: 3) was missing the user-defined error codes set by <a href="ClientAPI.html#iowa_client_set_device_error_code"><code>iowa_client_set_device_error_code()</code></a>.</li>
+<li>When TCP as a transport, fix a bug where the notification storage queue was not always fully flushed if <a href="ApplicationStorage.html#notification_storage">Notification storage</a> is enabled by <strong>LWM2M_STORAGE_QUEUE_PEEK_SUPPORT</strong>.</li>
+</ul>
+<h2 id="2021-062">2021-06.2</h2>
+<blockquote>
+<p>This is a Long-Term Support release.</p>
+</blockquote>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix a bug where an Observation loaded from a saved context was not correct if it was on a URI containing an ID greater than 256.</li>
+<li>Fix a bug where decoding a LwM2M CBOR payload containing an unknown Resource could be considered as a parsing error.</li>
+</ul>
+<h2 id="2021-061">2021-06.1</h2>
+<blockquote>
+<p>This is a Long-Term Support release.</p>
+</blockquote>
+<p><strong>Behavior Changes</strong></p>
+<ul>
+<li>The <a href="ClientAPI.html#iowa_server_info_t"><code>iowa_server_info_t</code></a> structure now contains the LwM2M Server status.</li>
+<li>During a Bootstrap, the event <a href="ClientAPI.html#iowa_event_type_t"><strong>IOWA_EVENT_BS_FINISHED</strong></a> is now generated after updating the LwM2M Servers list accessible throught <a href="ClientAPI.html#iowa_client_get_server_array"><code>iowa_client_get_server_array()</code></a>.</li>
+</ul>
+<p><strong>SDK Changes</strong></p>
+<ul>
+<li>Adding a new Security helper function <a href="SecurityAPI.html#iowa_security_session_get_connection"><code>iowa_security_session_get_connection()</code></a>.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix a bug where a CoAP RESET message received for a CoAP CONFIRMABLE Notification was not always interpreted as a Cancel Observation operation.</li>
+<li>Fix a bug in the Firmware Update Object "push" method where the last block of a package could be wrongly discarded. </li>
+</ul>
+<h2 id="2021-06">2021-06</h2>
+<blockquote>
+<p>This is a Long-Term Support release.</p>
+</blockquote>
+<p><strong>New Features</strong></p>
+<ul>
+<li>Add support of the LwM2M CBOR data format defined in the LwM2M 1.2 Technical Specification. This data format can be used with any version of the LwM2M protocol. See <a href="Configuration.html#lwm2m_support_lwm2m_cbor"><strong>LWM2M_SUPPORT_LWM2M_CBOR</strong></a>.</li>
+<li>Add support of the Bootstrap-Pack operation defined in the LwM2M 1.2 Technical Specification. See <a href="Configuration.html#lwm2m_bootstrap_pack_support"><strong>LWM2M_BOOTSTRAP_PACK_SUPPORT</strong></a>.</li>
+<li>Add a new system abstraction function <a href="AbstractionLayer.html#iowa_system_connection_open_server"><code>iowa_system_connection_open_server()</code></a>.</li>
+</ul>
+<p><strong>Behavior Changes</strong></p>
+<ul>
+<li>The memory used by stored CoAP Acknowledgements can now be limited by defining the compilation flag <a href="Configuration.html#additional-flags"><strong>IOWA_COAP_ACK_MEMORY_LIMIT</strong></a>.</li>
+<li>Better handling of an empty Package URI in the Firmware Update Object.</li>
+</ul>
+<p><strong>SDK Changes</strong></p>
+<ul>
+<li>New compilation flags related to optional Resources in IOWA-implemented LwM2M Object: <a href="Configuration.html#iowa_remove_all_optional_resources"><strong>IOWA_REMOVE_ALL_OPTIONAL_RESOURCES</strong></a> enables only the mandatory Resources. Then new compilation flags enable the optional Resources. This change is backward-compatible and previous flags, removing unwanted optional Resources, are still usable. See <a href="Configuration.html#object-resources">Object Resources</a>.</li>
+<li>The IOWA documentation is now in HTML format.</li>
+<li>Provide new samples which are simpler and focused on a particular use-case. The previous ones are still present in the <code>samples/legacy</code> folder.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Multiple fixes and improvements in the OSCORE feature following the OMA LwM2M testfest.</li>
+<li>Fix a bug where a <strong>COAP_EVENT_DISCONNECTED</strong> was generated when failing to receive data on a UDP connection.</li>
+<li>In mbedtls adaptation layer for the server-side, handle peer reconnecting with the same source IP address and port.</li>
+<li>In mbedtls adaptation layer, return the correct error code if no data is available on the connection.</li>
+<li>Fix a possible ghost socket on the server side when the security handshake failed.</li>
+<li>Fix a possible invalid memory access on the Bootstrap Server side when a Client aborts the bootstrap sequence then reconnects.</li>
+<li>Fix a possible wrong payload size when sending a CoAP request containing a Block2 option.</li>
+<li>Fix a bug where the version of an Object may appear twice in a Discover reply.</li>
+<li>Fix a bug related to the enabling of the Timeout Resource (ID: 3) of the AT Command Object (ID: 10251).</li>
+<li>Fix a bug where duplicated fields in a SenML JSON or SenML CBOR payload were not always detected.</li>
+<li>Fix a Server side bug where the expected type of the data values received from a Send operation was not checked correctly.</li>
+<li>Fix a bug in the IPSO Dimmer Object (ID: 3343) where the list of enabled optional Resources was not always correct.</li>
+</ul>
+<h2 id="2021-01">2021-01</h2>
+<p><strong>New Features</strong></p>
+<ul>
+<li>Add a new API <a href="ClientAPI.html#iowa_client_firmware_update_change_state"><code>iowa_client_firmware_update_change_state()</code></a> to set the Firmware Update state machine state after a reboot of the device.</li>
+<li>"Streamable" Resources are now writable. See  <a href="Streamable.html">Custom Object Streaming APIs</a> section.</li>
+<li>Add the possibility to set LwM2M custom Object version with <a href="ClientAPI.html#iowa_client_object_set_configuration"><code>iowa_client_object_set_configuration()</code></a>.</li>
+<li>It is now possible to declare an alternate path in the Client by setting the field <code>altPath</code> in the <a href="ClientAPI.html#iowa_device_info_t"><code>iowa_device_info_t</code></a>structure.</li>
+</ul>
+<p><strong>Behavior Changes</strong></p>
+<ul>
+<li>When the value of a Resource under Observation changes before the "Minimal Period" elapsed, a notification is no longer sent at the end of the "Minimal Period" delay.</li>
+<li>Before calling the <a href="ClientAPI.html#iowa_rwe_callback_t">data callback</a> of a custom Object for an <strong>IOWA_DM_READ</strong>, all values in the <code>iowa_lwm2m_data_t</code> are initialized to zero.</li>
+<li>Log output of buffer values (e.g. CoAP payload) is now done by 16-byte blocks instead of byte by byte.</li>
+<li>Better handling of the Replace and Partial Update variants of the Write operation on a custom Object Resource Instances.  See notes in the <a href="ClientAPI.html#iowa_rwe_callback_t"><code>iowa_RWE_callback_t()</code></a> description.</li>
+<li>When starting to send a large payload using CoAP block-transfer, IOWA now includes the Size1 or Size2 option.</li>
+<li>IOWA returns the correct error code when a LwM2M 1.1 Server performs the Write-Attributes operation on a non-existing Resource Instance.</li>
+<li>For LwM2M Client applications, when receiving a request using CoAP block-transfer not targeting a "streamable" resource, IOWA now takes care of the reassembly.</li>
+</ul>
+<p><strong>SDK Changes</strong></p>
+<ul>
+<li>Improved support of compilation on 8-bit architectures.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix a potential deadlock in <a href="ClientAPI.html#iowa_client_send_data"><code>iowa_client_send_data()</code></a>.</li>
+<li>Fix IOWA build when both <strong>MBEDTLS_SSL_DTLS_CONNECTION_ID</strong> and <strong>IOWA_THREAD_SUPPORT</strong> are enabled.</li>
+<li>Fix a bug where IOWA was not always complying with the Block2 CoAP option in a READ operation (i.e. CoAP GET).</li>
+<li>Fix a bug where IOWA could potentially send a SZX of 7, a reserved value, during a CoAP block-transfer.</li>
+<li>Fix a possible null pointer dereference when calling <a href="SecurityAPI.html#iowa_security_get_server_session"><code>iowa_security_get_server_session()</code></a> on a disconnected LwM2M Server.</li>
+<li>Fix a possible memory corruption during an Observe-Composite operation on Resources with incompatible attributes.</li>
+<li>Fix a bug where receiving an Observe operation with the same token as an existing Observation was creating a new Observation instead of replacing the existing one.</li>
+<li>Fix a possible buffer overflow during the data encoding in the legacy LwM2M 1.0 JSON format.</li>
+<li>Fix writing on the eDRX parameters Resources of the <a href="ClientAPI.html#cellular-connectivity-object-api">Cellular Connectivity Object</a>.</li>
+</ul>
+<h2 id="2020-091">2020-09.1</h2>
+<p><strong>Behavior Changes</strong></p>
+<ul>
+<li>When an Observation is set on asynchronous resources, the Client <a href="ClientAPI.html#iowa_event_callback_t">event callback</a> is called with an <a href="ClientAPI.html#iowa_event_type_t">IOWA_EVENT_READ</a> event.</li>
+<li>When using mbed TLS, the MTU is declared during the DTLS/TLS handshake.</li>
+</ul>
+<p><strong>SDK Changes</strong></p>
+<ul>
+<li><a href="DeprecatedAPI.html#iowa_server_configuration_set"><code>iowa_server_configuration_set()</code></a> is deprecated and renamed <a href="ClientAPI.html#iowa_client_set_server_configuration"><code>iowa_client_set_server_configuration()</code></a>.</li>
+<li><code>iowa_dimmer.h</code> can now be imported without importing first <code>iowa_ipso.h</code>.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix a possible core dump when IOWA reconnects a disconnected CoAP peer.</li>
+<li>Fix a bug where the Client was rejecting an Object Instance creation using TLV if the payload was not containing the new Object Instance ID.</li>
+<li>Fix a possible memory leak if the registration reply from the Server does not contain a location path.</li>
+<li>Avoid a compilation error when <a href="DeprecatedAPI.html#device-object">IOWA_DEVICE_RSC_FACTORY_RESET_REMOVE</a> is defined.</li>
+<li>When using mbed TLS, fix a bug preventing to send a payload larger than 16384 bytes over TLS.</li>
+</ul>
+<h2 id="2020-09">2020-09</h2>
+<p><strong>New Features</strong></p>
+<ul>
+<li>Add two APIs <a href="ClientAPI.html#iowa_client_get_server_count"><code>iowa_client_get_server_count()</code></a> and <a href="ClientAPI.html#iowa_client_get_server_array"><code>iowa_client_get_server_array()</code></a> to retrieve the bootstrapped and declared LwM2M Servers.</li>
+<li>Add an API <a href="DeprecatedAPI.html#iowa_server_configuration_set"><code>iowa_server_configuration_set()</code></a> to update the lifetime and the queue mode of a LwM2M Server.</li>
+<li>Add an API <a href="ClientAPI.html#iowa_client_update_device_information"><code>iowa_client_update_device_information()</code></a> to update the device information at runtime.</li>
+<li>Add a new API <a href="CommonAPI.html#iowa_clock_reset"><code>iowa_clock_reset()</code></a> to inform IOWA of clock issues.</li>
+<li>The API <a href="ClientAPI.html#iowa_client_set_device_error_code"><code>iowa_client_set_device_error_code()</code></a> now allow user-defined error codes.</li>
+</ul>
+<p><strong>Behavior Changes</strong></p>
+<ul>
+<li>For LwM2M Server applications, IOWA now takes care of the reassembly of CoAP block transfers.</li>
+<li>
+<p>Events <strong>IOWA_EVENT_OBSERVATION_STARTED</strong> and <strong>IOWA_EVENT_OBSERVATION_CANCELED</strong> are now emitted after having updated the internal IOWA context.</p>
+</li>
+<li>
+<p>CoAP block-wise transfers use the negotiated block size during all the block-wise transfer.</p>
+</li>
+<li>In the AT Command Object, the strings passed to <a href="ClientAPI.html#iowa_client_at_command_set_response"><code>iowa_client_at_command_set_response()</code></a> are appended to the existing ones instead of replacing them.</li>
+<li>In CoAP messages, URI-Path option is not included when URI is "/".</li>
+<li>In the LwM2M layer, MAX_TRANSMIT_WAIT has a duration of 20 seconds for TCP peers and 120 seconds for LoRaWAN peers.</li>
+<li>The return value of <a href="AbstractionLayer.html#iowa_system_security_data"><code>iowa_system_security_data()</code></a> is no longer checked when IOWA calls it for an <strong>IOWA_SEC_FREE</strong> operation.</li>
+<li>Add multiple parameters checks in Objects APIs.</li>
+<li>In <a href="ClientAPI.html#iowa_client_light_control_set_state"><code>iowa_client_light_control_set_state()</code></a>, <a href="AbstractionLayer.html#iowa_system_gettime"><code>iowa_system_gettime()</code></a> is called only if the resource "On Time" is enabled.</li>
+<li>The LwM2M Client now ignores unexpected CoAP responses.</li>
+</ul>
+<p><strong>SDK Changes</strong></p>
+<ul>
+<li>Remove Dimmer object from IPSO objects and add its own API.</li>
+<li>All <a href="ClientAPI.html#iowa_apn_connection_profile_details_t"><code>iowa_apn_connection_profile_details_t</code></a> integer members are now unsigned.</li>
+<li><a href="ClientAPI.html#iowa_device_time_info_t"><code>iowa_device_time_info_t::currentTime</code></a> was changed from <code>uint32_t</code> to <code>int32_t</code>.</li>
+<li>Included mbed TLS was updated to version 2.24.0.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix a bug when calling <a href="CommonAPI.html#iowa_flush_before_pause"><code>iowa_flush_before_pause()</code></a> on TCP connections.</li>
+<li>Fix a possible deadlock when calling <a href="AbstractionLayer.html#iowa_system_random_vector_generator"><code>iowa_system_random_vector_generator()</code></a>.</li>
+<li>Fix a possible core dump when reading a Resource Instance containing a nil value.</li>
+<li>Fix a buffer overflow in serialization of integer CoAP option with a number greater than 269.</li>
+<li>Fix a bug when parsing large RFC8323 COAP headers.</li>
+<li>For Bootstrap Server applications, fix a bug where the unexpected disconnection of a TCP Client may lead to an invalid read.</li>
+<li>Fix a potential invalid read if the Client fails to send its registration message.</li>
+<li>Fix a possible bug when generating a new token.</li>
+<li>Fix several bugs when the Client uses CoAP block transfers for the registration message.</li>
+<li>For LwM2M Server applications, fix a potential stack corruption when the connection type is one of UDP, SMS, or LoRaWAN, and when iowa_system_random_vector_generator() fails.</li>
+<li>Fix a possible memory leak when creating a new CoAP peer.</li>
+<li>Fix a possible bug when generating a new token.</li>
+<li>In several Objects, fix a potential invalid read when string Resources under Observation are modified repeatedly.</li>
+<li>In the Location and GPS Objects, fix a potential segmentation fault when allocating memory for a string value fails.</li>
+<li>Fix a possible memory leak when deleting an APN Object Instance.</li>
+<li>Fix a potential invalid free when calling <a href="ClientAPI.html#iowa_client_send_sensor_data"><code>iowa_client_send_sensor_data()</code></a>.</li>
+<li>Fix a Bootstrap-Delete bug when ACL are enabled.</li>
+</ul>
+<h2 id="2020-062">2020-06.2</h2>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix an interoperability bug in SenML JSON related to base64 encoding of opaque values.</li>
+<li>Fix a potential invalid read when deleting an ACL Object instance.</li>
+<li>Fix a potential memory leak when creating a new CoAP peer fails.</li>
+<li>Correct several conversion compiler warnings.</li>
+<li>Fix an offset error when parsing long CoAP over TCP headers.</li>
+<li>Fix interoperability issue with CoAP FETCH method when using Block-Transfer.</li>
+<li>Fix a possible memory leak when deleting an APN Object Instance.</li>
+</ul>
+<h2 id="2020-061">2020-06.1</h2>
+<p><strong>Behavior Changes</strong></p>
+<ul>
+<li>For RFC7252 CoAP connections, e.g. LwM2M over UDP, the initial message ID is now random (using <a href="AbstractionLayer.html#iowa_system_random_vector_generator"><code>iowa_system_random_vector_generator()</code></a>).</li>
+<li>The LwM2M Registration will now fail if the transmission was successful but no response was received after a delay set to EXCHANGE_LIFETIME from RFC7252.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix a bug when the Current Time resource was read asynchronously.</li>
+</ul>
+<h2 id="2020-06">2020-06</h2>
+<p><strong>New Features</strong></p>
+<ul>
+<li>Add support of the MQTT Broker Object (ID: 18330) and of the MQTT Publication Object (ID: 18831). See <a href="ClientAPI.html#mqtt-object-api">MQTT Object API</a>.</li>
+<li>The CoAP retransmission parameters can be modified at runtime. See <a href="CoapAPI.html#iowa_coap_peer_configuration_set"><code>iowa_coap_peer_configuration_set()</code></a>and <a href="CoapAPI.html#iowa_coap_peer_configuration_get"><code>iowa_coap_peer_configuration_get()</code></a>.</li>
+<li>New APIs to retrieve the CoAP peer associated to a LwM2M Server to ease usage of the previous APIs. See <a href="ClientAPI.html#iowa_client_get_server_coap_peer"><code>iowa_client_get_server_coap_peer()</code></a>and <a href="ClientAPI.html#iowa_client_get_bootstrap_server_coap_peer"><code>iowa_client_get_bootstrap_server_coap_peer()</code></a>.</li>
+<li>Support of the "Reset Error Code" Resource of the <a href="ClientAPI.html#Device Object">Device Object</a>.</li>
+<li>For Client applications, add a new event when a notification for an Observation was generated and is about to be sent. See <strong>IOWA_EVENT_OBSERVATION_NOTIFICATION</strong> in <a href="ClientAPI.html#iowa_event_type_t">iowa_event_type_t</a>.</li>
+<li>For Client applications, the events related to Observations now include the ID of the specific resource under observation if any.</li>
+<li>Introduce a new special value <strong>IOWA_DEVICE_TIME_SENSOR_ID</strong> of an <a href="CommonAPI.html#iowa_sensor_t"><code>iowa_sensor_t</code></a>to refer to the Current Time of the Device.</li>
+</ul>
+<p><strong>Behavior Changes</strong></p>
+<ul>
+<li>The API <a href="ClientAPI.html#iowa_client_notification_lock"><code>iowa_client_notification_lock()</code></a> now also prevents registration updates.</li>
+<li>The <strong>IOWA_EVENT_BS_PENDING</strong> event is emitted when connecting to the LwM2M Bootstrap Server instead of after receiving the reply to the Bootstrap-Request operation.</li>
+<li>The <strong>IOWA_EVENT_REG_REGISTERING</strong> event is emitted when connecting to the LwM2M Server instead of after sending the Registration message.</li>
+<li>Returned error codes for Object related APIs are more consistent.</li>
+<li>Stricter checks of the parameters passed to <a href="ClientAPI.html#iowa_client_ipso_add_sensor"><code>iowa_client_IPSO_add_sensor()</code></a>.</li>
+<li>Improved OSCORE support for a better interoperability.</li>
+</ul>
+<p><strong>SDK Changes</strong></p>
+<ul>
+<li><a href="ClientAPI.html#iowa_client_device_update_battery"><code>iowa_client_device_update_battery()</code></a>can only be called when IOWA is built WITHOUT the flag <strong>IOWA_DEVICE_RSC_BATTERY_REMOVE</strong>.</li>
+<li><a href="ClientAPI.html#iowa_client_add_device_power_source"><code>iowa_client_..._device_power_source()</code></a>can only be called when IOWA is built WITHOUT the flag <strong>IOWA_DEVICE_RSC_POWER_SOURCE_REMOVE</strong>.</li>
+<li>The file <code>src/core/iowa_comms.c</code> was removed.</li>
+<li><strong>INVALID_SENSOR_ID</strong> is deprecated and renamed <strong>IOWA_INVALID_SENSOR_ID</strong>.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix a bug where an intermediate runtime state of a LwM2M Server was saved when calling <a href="CommonAPI.html#iowa_save_context"><code>iowa_save_context()</code></a>, preventing resuming.</li>
+<li>Fix a bug when creating multiple Magnetometer instances with different resources.</li>
+<li>Fix a bug when creating multiple Light Control instances with different resources.</li>
+<li>Fix a bug when reading an unknown Resource Instance.</li>
+<li>Fix a possible memory leak if <code>iowa_coap_peer_new()</code> failed.</li>
+<li>Fix a possible segmentation fault when an Object Resource value is a nil-string.</li>
+<li>Fix a bug when receiving a COAP block-transfer message and neither <strong>IOWA_COAP_BLOCK_MINIMAL_SUPPORT</strong> nor <strong>IOWA_COAP_BLOCK_SUPPORT</strong> are defined.</li>
+<li>Fix a bug when updating Magnetometer Object's compass direction.</li>
+</ul>
+<h2 id="2020-036">2020-03.6</h2>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix a bug where an intermediate runtime state of a LwM2M Server was saved when calling <a href="CommonAPI.html#iowa_save_context"><code>iowa_save_context()</code></a>, preventing resumption.</li>
+</ul>
+<h2 id="2020-035">2020-03.5</h2>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix a bug where switching the resource "Notification Storing When Disabled or Offline" to false would stop the Notification queue flushing.</li>
+<li>Fix a bug where Notifications of canceled Observations were not always removed from the queue in peek mode, blocking other notifications.</li>
+</ul>
+<p><strong>Behavior Changes</strong></p>
+<ul>
+<li>When receiving an Execute operation with arguments, the LwM2M Client will assume the arguments are encoded using text/plain when the CoAP option content-type is not present.</li>
+</ul>
+<h2 id="2020-034">2020-03.4</h2>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix a race condition issue where simultaneous registration update may generate a registration update failure event.</li>
+</ul>
+<h2 id="2020-033">2020-03.3</h2>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix a memory leak when receiving a block transfer.</li>
+</ul>
+<h2 id="2020-032">2020-03.2</h2>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix a potential issue with the size of the last block of a streamable resource.</li>
+</ul>
+<h2 id="2020-031">2020-03.1</h2>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix a potential deadlock in iowa_client_object_set_mode() when the sensor ID was unknown.</li>
+<li>Fix a possible wrong behaviour in the FSM of the registration when the Device is registered on the Server but not connected on the Security level.</li>
+</ul>
+<h2 id="2020-03">2020-03</h2>
+<p><strong>New Features</strong></p>
+<ul>
+<li>For Client applications, add a new event when the <em>epmin</em> and <em>epmax</em> attributes are modified by the Server. See <strong>IOWA_EVENT_EVALUATION_PERIOD</strong> in <a href="ClientAPI.html#iowa_event_type_t">iowa_event_type_t</a>.</li>
+<li>Add new helper functions to convert an <code>iowa_sensor_t</code> to an <code>iowa_lwm2m_uri_t</code> and vice versa. See <a href="UtilsAPI.html#iowa_utils_uri_to_sensor"><code>iowa_utils_uri_to_sensor()</code></a>.</li>
+<li>Add a new event when the LwM2M Server requests a Read of a LwM2M Objects or custom LwM2M Objects resources which are defined as "asynchronous". See <a href="ClientAPI.html#iowa_client_object_set_mode"><code>iowa_client_object_set_mode()</code></a>and <strong>IOWA_EVENT_READ</strong> in <a href="ClientAPI.html#iowa_event_type_t">iowa_event_type_t</a>.</li>
+<li>In custom LwM2M Objects, resources can be defined as streamable. See <a href="ClientAPI.html#Custom Object Streaming APIs">Custom Object Streaming APIs</a>.</li>
+<li>Add support of the "Factory Reset" resource of the Device Object. See<a href="ClientAPI.html#iowa_client_factory_reset_callback_t"><code>iowa_client_factory_reset_callback_t</code></a>.</li>
+<li>Add a new CoAP API <a href="CoapAPI.html#iowa_coap_block_request_block_number"><code>iowa_coap_block_request_block_number()</code></a>to ease resuming of Firmware Update download.</li>
+<li>Add new helper functions to retrieve the security session associated to a LwM2M Server or a LwM2M Client. See <a href="SecurityAPI.html#iowa_security_get_server_session"><code>iowa_security_get_server_session()</code></a>.</li>
+<li>Expose IOWA linked list functions. See <a href="UtilsAPI.html#example-linked-list-usage">Example: Linked List usage</a>.</li>
+</ul>
+<p><strong>Behavior Changes</strong></p>
+<ul>
+<li>If the registration using LwM2M 1.1 fails, the Client tries to register using LwM2M 1.0.</li>
+<li>During the Bootstrap procedure, if the LwM2M Bootstrap Server did not provide the security credentials of a LwM2M Server, IOWA checks if credentials are known by the Application. See <a href="SecurityAPI.html#iowa_security_operation_t">iowa_security_operation_t</a>.</li>
+<li>There is now one notification storage queue per LwM2M Server instead of one per Observation. Unsent reliable notifications are no longer stored in memory.</li>
+<li><strong>IOWA_LWM2M_ID_ALL</strong> can be used as parameter in <a href="ClientAPI.html#iowa_client_set_notification_default_periods">`iowa_client_set_notification_default_periods()</a>.</li>
+<li><a href="ClientAPI.html#iowa_client_remove_server"><code>iowa_client_remove_server()</code></a>called with <strong>IOWA_LWM2M_ID_ALL</strong> as parameter, also removes bootstrapped LwM2M Servers.</li>
+<li>Better handling of NaN and Infinity floating-point values in CBOR.</li>
+</ul>
+<p><strong>SDK Changes</strong></p>
+<ul>
+<li>IOWA has now internal checks done by using the <code>assert()</code> macro.</li>
+<li>Add a new flag to use the libc <code>snprintf()</code> when converting to text large floating-point values. See <a href="ClientAPI.html#IOWA_USE_SNPRINTF">IOWA_USE_SNPRINTF</a>.</li>
+<li>Rename the header file "iowa_security_user.h", "iowa_security.h".</li>
+<li>Clean up cross inclusion of header files.</li>
+<li>Deprecate several compilation flags. See <a href="ClientAPI.html#Deprecated Compilation Flags">Deprecated Compilation Flags</a>.</li>
+<li>Remove some functions deprecated in previous releases: <code>iowa_client_add_lorawan_server()</code>, <code>iowa_server_dm_read()</code>, <code>iowa_server_dm_observe()</code>, <code>iowa_server_dm_observe_cancel()</code>, <code>iowa_server_dm_write()</code>, <code>iowa_server_dm_write_attributes()</code>, and <code>iowa_server_set_content_format()</code>.</li>
+<li>Prototype of <code>iowa_bearer_selection_update_state_callback_t</code>, <code>iowa_client_bearer_selection_update</code>, <code>iowa_client_cellular_connectivity_update</code>, <code>iowa_cellular_connectivity_update_state_callback_t</code> and <code>iowa_client_connectivity_monitoring_update</code> have been updated to use a pointer to access to the structure.</li>
+</ul>
+<p><strong>Bug Fixes</strong></p>
+<ul>
+<li>Fix a bug where the Client was not always resending its new LwM2M Object if a previous Registration Update failed.</li>
+<li>Fix a bug where the Client was not always resetting its internal registration sequence counters, when registering to a LwM2M 1.1 Server.</li>
+<li>Improve the Client registration process resilience to network disconnections.</li>
+<li>Fix text and JSON encoding of very large float values.</li>
+<li>Fix the usage of the URI query in <a href="CoapAPI.html#iowa_coap_peer_get"><code>iowa_coap_peer_get()</code></a>.</li>
+<li>Keep the previously declared LwM2M Bootstrap Server when failing to load a context snapshot containing a LwM2M Bootstrap Server.</li>
+<li>Fix pushing the firmware package with CoAP block which was rejected by the LwM2M Client.</li>
+<li>Fix an issue where modifying the Objects list or the lifetime during registration, or while disconnected, was not always triggering a Registration Update.</li>
+<li>Fix a possible derivation between the Registration timer and the Registration Update timer.</li>
+</ul>
+<h2 id="2019-121">2019-12.1</h2>
+<p><strong>Bug fixes</strong></p>
+<ul>
+<li>Allow the Context Storage feature to be built with Single Server mode.</li>
+<li>Use the correct defines to remove the resources UTC Offset and Timezone in the Device Object.</li>
+<li>Allow the ACL feature to be built with Single Server mode.</li>
+<li>Strengthen the checking of the loaded context version.</li>
+<li>Update the Power Source defines to reflect the version 1.1 of the Device Object.</li>
+</ul>
+<h2 id="2019-12">2019-12</h2>
+<p><strong>New Features</strong></p>
+<ul>
+<li>Add the possibility to choose LwM2M protocol version to support. See <a href="ClientAPI.html#LwM2M Version">LwM2M Version</a>.</li>
+<li>LwM2M 1.1: The LwM2M operations Read, Write, Write-Attribute, and Observe can target Resource Instances.</li>
+<li>LwM2M 1.1: Add support of the <em>epmin</em> and <em>epmax</em> notification attributes.</li>
+<li>LwM2M 1.1: Add support of the Read-Composite, Write-Composite, and Observe-Composite operations.</li>
+<li>LwM2M 1.1: Add support of the LwM2M 1.1 Send operation. See the samples <strong>samples/client_1_1</strong> and <strong>samples/server_1_1</strong>.</li>
+<li>LwM2M 1.1: Add support of the new registration conditions. See <a href="ClientAPI.html#iowa_client_set_server_registration_behaviour">iowa_client_set_server_registration_behaviour</a>.</li>
+<li>LwM2M 1.1: Add support of the resource type Unsigned Integer.</li>
+<li>LwM2M 1.1: Add support of the Bootstrap Trigger resource.</li>
+<li>LwM2M 1.1: Add support of the Bootstrap Read operation.</li>
+<li>Add new CoAP APIs to ease downloading during Firmware Update. See <a href="ClientAPI.html#CoAP API Reference">CoAP API Reference</a>and the sample <strong>samples/fw_update_client</strong>.</li>
+<li>Add support of the Access Control List Object. See <a href="ClientAPI.html#Access Control List Object API">Access Control List Object API</a>.</li>
+<li>Add support of the Error Code resource in the Device Object. See <a href="ClientAPI.html#iowa_client_set_device_error_code">iowa_client_set_device_error_code</a>.</li>
+<li>Add new API for the application to provide data to be saved with the IOWA context. See <a href="CommonAPI.html#iowa_backup_register_callback">iowa_backup_register_callback</a>.</li>
+<li>The runtime information can be stored, allowing the Client to resume its operations seamlessly. See <a href="ApplicationStorage.html#context-storage">Context Storage</a>.</li>
+</ul>
+<p><strong>Behavior Changes</strong></p>
+<ul>
+<li>Rework of the context storage feature: The format of the saved data has changed for a more flexible one.</li>
+<li>MSISDN can no longer be set on the Client side when SMS support is not enabled.</li>
+</ul>
+<p><strong>SDK Changes</strong></p>
+<ul>
+<li>The functions of the Security component are no longer exposed in the header file <em>iowa_security.h</em>. See <a href="ClientAPI.html#Security Component">Security Component</a>.</li>
+<li>Deprecated APIs: <code>iowa_client_add_lorawan_server()</code> and <code>iowa_server_set_content_format</code>.</li>
+</ul>
+<p><strong>Advanced Features</strong></p>
+<p>These features have not undergone full interoperability testings.</p>
+<ul>
+<li>LwM2M 1.1: Add support of OSCORE security. See <a href="Security.html">Security</a>.</li>
+</ul>
+<h2 id="2019-08">2019-08</h2>
+<p><strong>New Features</strong></p>
+<ul>
+<li>During Firmware Update Pushs, a time limit can be set for blocks reception. See the <a href="ClientAPI.html#&quot;Push&quot; method">"Push" method</a>section in <a href="ClientAPI.html#Device Update">Device Update</a>.</li>
+<li>New Client API to set the Bootstrap Hold Off Time. See <a href="ClientAPI.html#iowa_client_set_bootstrap_server_hold_off">iowa_client_set_bootstrap_server_hold_off</a>.</li>
+<li>New Server APIs to validate a Client registration (<a href="ClientAPI.html#iowa_server_set_verify_client_callback]">iowa_server_set_verify_client_callback</a>) and to close a connection to a Client (<a href="ClientAPI.html#iowa_server_close_client_connection]">iowa_server_close_client_connection</a>).</li>
+</ul>
+<p><strong>Behavior Changes</strong></p>
+<ul>
+<li>For LwM2M Clients, if <a href="ClientAPI.html#iowa_step">iowa_step</a>returns an error because no LwM2M Server can be reached, subsequent call to <a href="ClientAPI.html#iowa_step">iowa_step</a>, will retry to register to the known LwM2M Servers, instead of staying in the failed state.</li>
+<li>Changes were made to the <a href="ClientAPI.html#Context storage">Context storage</a>feature making the saved contexts no longer compatible with the one of the previous version.</li>
+<li>The "Binding" resource of the <a href="ClientAPI.html#Device Object">Device Object</a>is now dependent on the compilation flags.</li>
+</ul>
+<p><strong>SDK Changes</strong></p>
+<ul>
+<li>Change the way provide a custom security implementation. See <a href="ClientAPI.html#Providing your security implementation">Providing your security implementation</a>.</li>
+<li>The <a href="ClientAPI.html#iowa_lwm2m_data_t">iowa_lwm2m_data_t</a>definition no longer depends on the <a href="ClientAPI.html#LWM2M_SUPPORT_TIMESTAMP">LWM2M_SUPPORT_TIMESTAMP</a>compilation flag.</li>
+<li>More compilation flags were added to reduce the code footprint of the LwM2M Client version. See <a href="ClientAPI.html#Configuration">SDK Configuration</a>.</li>
+<li>Add a new log part to filter logs generated by LwM2M Objects. See <a href="ClientAPI.html#IOWA_LOG_LEVEL and IOWA_LOG_PART">IOWA_LOG_LEVEL and IOWA_LOG_PART</a>.</li>
+<li>Update the provided MbedTLS to version 2.18.1.</li>
+<li>Samples are now usable on Windows. See <a href="ClientAPI.html#Samples Compilation">Samples Compilation</a>.</li>
+</ul>
+<p><strong>Experimental Features</strong></p>
+<p>These features have not undergone interoperability testings. They are provided for prototyping purpose only.</p>
+<ul>
+<li>Add the possibility to choose LwM2M version to support.</li>
+<li>The LwM2M operations Read, Write, Write-Attribute, and Observe can target Resource Instances.</li>
+<li>Add support of the <em>epmin</em> and <em>epmax</em> notification attributes.</li>
+<li>Add support of the LwM2M 1.1 operations Read-Composite, Write-Composite, and Observe-Composite.</li>
+<li>Add support of the LwM2M 1.1 Send operation.</li>
+</ul>
+<h2 id="2019-05">2019-05</h2>
+<p><strong>New Features</strong></p>
+<ul>
+<li>Support of timestamped values in IPSO Objects and custom Objects. See <a href="ClientAPI.html#iowa_client_IPSO_update_values"><code>iowa_client_IPSO_update_values</code></a>and <a href="ClientAPI.html#Monitoring the temperature during a period">Custom Object</a>section.</li>
+<li>Support of SenML JSON, SenML CBOR and CBOR data encodings.</li>
+<li>Support of the <a href="ClientAPI.html#Software Management">Software Management Objects</a>for FOTA.</li>
+<li>Support of the power source and timezone information in the LwM2M Device Object. See <a href="ClientAPI.html#iowa_client_add_device_power_source"><code>iowa_client_add_device_power_source</code></a>and <a href="ClientAPI.html#iowa_client_update_device_time_information"><code>iowa_client_update_device_time_information</code></a>.</li>
+<li>Support of CoAP Block-Wise transfer for the Device Update push method. See <strong>IOWA_COAP_BLOCK_SUPPORT</strong> and <strong>IOWA_COAP_BLOCK_MINIMAL_SUPPORT</strong> in <a href="Configuration.html">IOWA Configuration</a>.</li>
+<li><strong>Experimental</strong> support of the TCP transport. This feature has not undergone interoperability testings.</li>
+</ul>
+<p><strong>Behavior Changes</strong></p>
+<ul>
+<li>In the custom Objects <a href="ClientAPI.html#iowa_rwe_callback_t">iowa_RWE_callback_t</a>, new operation <strong>IOWA_DM_FREE</strong> to allow the release of the memory potentially allocated when the callback was called with <strong>IOWA_DM_READ</strong>.</li>
+<li>In the security layer, the certificates are parsed in DER format.</li>
+<li>New APIs to manipulate the <a href="ClientAPI.html#APN Connection Profile Object">APN Connection Profile Object</a>. Previous ones are marked as deprecated but are still functional.</li>
+<li>The user application can implement its own log functions. See <a href="ClientAPI.html#Logger Component">Logger Component</a>.</li>
+</ul>
+<p><strong>SDK Changes</strong></p>
+<ul>
+<li>All iowa files had their name prepended with <code>iowa_</code> to avoid filename collisions on some build systems.</li>
+<li>Numerous compilation flags were added to reduce the code footprint of the LwM2M Client version. See <a href="ClientAPI.html#Configuration">SDK Configuration</a>.</li>
+<li>Using the Firmware Update feature now requires the definition of the compilation flag <strong>IOWA_SUPPORT_FIRMWARE_UPDATE_OBJECT</strong>. See <a href="ClientAPI.html#Firmware Update Object">Firmware Update Object</a>.</li>
+<li>APIs related to iowa-supported LwM2M Objects were moved in their separate header and source files. The header files are located in the "include/objects" folder.</li>
+<li><a href="ClientAPI.html#iowa_lwm2m_data_type_t"><code>iowa_lwm2m_data_type_t</code></a>enumeration was converted to a list of defines.</li>
+<li>the <code>const</code> keyword was added to several APIs arguments.</li>
+<li>Remove client build dependency on files object_connectivity_stats.c and object_light_control.c</li>
+<li>The abstraction layer function <code>iowa_system_connection_is_same_peer()</code> is no longer required.</li>
+</ul>
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2020-2023 IoTerop
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://ioterop.com/" target="_blank" rel="noopener" title="Website" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="m57.7 193 9.4 16.4c8.3 14.5 21.9 25.2 38 29.8l57.9 16.5c17.2 4.9 29 20.6 29 38.5v39.9c0 11 6.2 21 16 25.9s16 14.9 16 25.9v39c0 15.6 14.9 26.9 29.9 22.6 16.1-4.6 28.6-17.5 32.7-33.8l2.8-11.2c4.2-16.9 15.2-31.4 30.3-40l8.1-4.6c15-8.5 24.2-24.5 24.2-41.7v-8.3c0-12.7-5.1-24.9-14.1-33.9l-3.9-3.9c-9-9-21.2-14.1-33.9-14.1H257c-11.1 0-22.1-2.9-31.8-8.4l-34.5-19.7c-4.3-2.5-7.6-6.5-9.2-11.2-3.2-9.6 1.1-20 10.2-24.5l5.9-3c6.6-3.3 14.3-3.9 21.3-1.5l23.2 7.7c8.2 2.7 17.2-.4 21.9-7.5 4.7-7 4.2-16.3-1.2-22.8l-13.6-16.3c-10-12-9.9-29.5.3-41.3l15.7-18.3c8.8-10.3 10.2-25 3.5-36.7l-2.4-4.2c-3.5-.2-6.9-.3-10.4-.3-92.8 0-171.5 60.9-198.2 145zM464 256c0-36.8-9.6-71.4-26.4-101.5L412 164.8c-15.7 6.3-23.8 23.8-18.5 39.8l16.9 50.7c3.5 10.4 12 18.3 22.6 20.9l29.1 7.3c1.2-9 1.8-18.2 1.8-27.5zM0 256a256 256 0 1 1 512 0 256 256 0 1 1-512 0z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/IOTEROP" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://twitter.com/ioteropcompany" target="_blank" rel="noopener" title="Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+        
+          <script src="../js/print-site.js"></script>
+        
+      
+    
+  </body>
+</html>

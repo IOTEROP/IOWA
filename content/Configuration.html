@@ -1,0 +1,3732 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="Building.html">
+      
+      
+        <link rel="next" href="Security.html">
+      
+      <link rel="icon" href="images/iowa_logo.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.19">
+    
+    
+      
+        <title>IOWA Configuration - IOWA Reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.eebd395e.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/print-site.css">
+    
+      <link rel="stylesheet" href="../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../ioterop.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#configuration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="IOWA Reference" class="md-header__button md-logo" aria-label="IOWA Reference" data-md-component="logo">
+      
+  <img src="images/iowa_logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            IOWA Reference
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              IOWA Configuration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../index.html" class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="Changelog.html" class="md-tabs__link">
+      Changelog
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="LwM2MOverview.html" class="md-tabs__link md-tabs__link--active">
+        User Manual
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="baseline_client.html" class="md-tabs__link">
+        Samples
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="AbstractionLayer.html" class="md-tabs__link">
+        API Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="License.html" class="md-tabs__link">
+        Licenses
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../print_page.html" class="md-tabs__link">
+      Printable version
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="IOWA Reference" class="md-nav__button md-logo" aria-label="IOWA Reference" data-md-component="logo">
+      
+  <img src="images/iowa_logo.png" alt="logo">
+
+    </a>
+    IOWA Reference
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Changelog.html" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          User Manual
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          User Manual
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="LwM2MOverview.html" class="md-nav__link">
+        LwM2M Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Building.html" class="md-nav__link">
+        Building Samples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          IOWA Configuration
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="Configuration.html" class="md-nav__link md-nav__link--active">
+        IOWA Configuration
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#platform-configuration" class="md-nav__link">
+    Platform Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Platform Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_big_endian-and-lwm2m_little_endian" class="md-nav__link">
+    LWM2M_BIG_ENDIAN and LWM2M_LITTLE_ENDIAN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_buffer_size" class="md-nav__link">
+    IOWA_BUFFER_SIZE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_use_snprintf" class="md-nav__link">
+    IOWA_USE_SNPRINTF
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iowa-configuration" class="md-nav__link">
+    IOWA Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="IOWA Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transports" class="md-nav__link">
+    Transports
+  </a>
+  
+    <nav class="md-nav" aria-label="Transports">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#additional-flags" class="md-nav__link">
+    Additional Flags
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_abstraction_extension" class="md-nav__link">
+    IOWA_ABSTRACTION_EXTENSION
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_layer_support" class="md-nav__link">
+    IOWA_SECURITY_LAYER_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_log_level-and-iowa_log_part" class="md-nav__link">
+    IOWA_LOG_LEVEL and IOWA_LOG_PART
+  </a>
+  
+    <nav class="md-nav" aria-label="IOWA_LOG_LEVEL and IOWA_LOG_PART">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_log_buffer_limit" class="md-nav__link">
+    IOWA_LOG_BUFFER_LIMIT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_thread_support" class="md-nav__link">
+    IOWA_THREAD_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_storage_context_support" class="md-nav__link">
+    IOWA_STORAGE_CONTEXT_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_storage_context_automatic_backup" class="md-nav__link">
+    IOWA_STORAGE_CONTEXT_AUTOMATIC_BACKUP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_storage_context_manual_heartbeat_on_load" class="md-nav__link">
+    IOWA_STORAGE_CONTEXT_MANUAL_HEARTBEAT_ON_LOAD
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_config_skip_system_function_check" class="md-nav__link">
+    IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_config_skip_args_check" class="md-nav__link">
+    IOWA_CONFIG_SKIP_ARGS_CHECK
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_logger_user" class="md-nav__link">
+    IOWA_LOGGER_USER
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_peer_identifier_size" class="md-nav__link">
+    IOWA_PEER_IDENTIFIER_SIZE
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lwm2m-configuration" class="md-nav__link">
+    LwM2M Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="LwM2M Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-role" class="md-nav__link">
+    LwM2M Role
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-version" class="md-nav__link">
+    LwM2M Version
+  </a>
+  
+    <nav class="md-nav" aria-label="LwM2M Version">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_version_1_0_remove" class="md-nav__link">
+    LWM2M_VERSION_1_0_REMOVE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_version_1_1_support" class="md-nav__link">
+    LWM2M_VERSION_1_1_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_version_1_2_support" class="md-nav__link">
+    LWM2M_VERSION_1_2_SUPPORT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_bootstrap" class="md-nav__link">
+    LWM2M_BOOTSTRAP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_bootstrap_pack_support" class="md-nav__link">
+    LWM2M_BOOTSTRAP_PACK_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-data-encoding" class="md-nav__link">
+    LwM2M Data Encoding
+  </a>
+  
+    <nav class="md-nav" aria-label="LwM2M Data Encoding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_support_json" class="md-nav__link">
+    LWM2M_SUPPORT_JSON
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_support_senml_json" class="md-nav__link">
+    LWM2M_SUPPORT_SENML_JSON
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_support_cbor" class="md-nav__link">
+    LWM2M_SUPPORT_CBOR
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_support_senml_cbor" class="md-nav__link">
+    LWM2M_SUPPORT_SENML_CBOR
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_support_lwm2m_cbor" class="md-nav__link">
+    LWM2M_SUPPORT_LWM2M_CBOR
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_support_tlv" class="md-nav__link">
+    LWM2M_SUPPORT_TLV
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_registration_content_type_support" class="md-nav__link">
+    LWM2M_REGISTRATION_CONTENT_TYPE_SUPPORT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_storage_queue_support" class="md-nav__link">
+    LWM2M_STORAGE_QUEUE_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_storage_queue_peek_support" class="md-nav__link">
+    LWM2M_STORAGE_QUEUE_PEEK_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_support_timestamp" class="md-nav__link">
+    LWM2M_SUPPORT_TIMESTAMP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_altpath_support" class="md-nav__link">
+    LWM2M_ALTPATH_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_client_incoming_connection_support" class="md-nav__link">
+    LWM2M_CLIENT_INCOMING_CONNECTION_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_client_asynchronous_operation_support" class="md-nav__link">
+    LWM2M_CLIENT_ASYNCHRONOUS_OPERATION_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#composite-operations" class="md-nav__link">
+    Composite operations
+  </a>
+  
+    <nav class="md-nav" aria-label="Composite operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_read_composite_support" class="md-nav__link">
+    LWM2M_READ_COMPOSITE_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_observe_composite_support" class="md-nav__link">
+    LWM2M_OBSERVE_COMPOSITE_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_write_composite_support" class="md-nav__link">
+    LWM2M_WRITE_COMPOSITE_SUPPORT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_data_push_support" class="md-nav__link">
+    LWM2M_DATA_PUSH_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-standard-features-configuration" class="md-nav__link">
+    Non-Standard Features Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Non-Standard Features Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_verizon_operator_support" class="md-nav__link">
+    IOWA_VERIZON_OPERATOR_SUPPORT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objects-configuration" class="md-nav__link">
+    Objects Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Objects Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#oma-objects" class="md-nav__link">
+    OMA Objects
+  </a>
+  
+    <nav class="md-nav" aria-label="OMA Objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_support_access_control_list_object" class="md-nav__link">
+    IOWA_SUPPORT_ACCESS_CONTROL_LIST_OBJECT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_support_bearer_selection_object" class="md-nav__link">
+    IOWA_SUPPORT_BEARER_SELECTION_OBJECT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_support_firmware_update_object" class="md-nav__link">
+    IOWA_SUPPORT_FIRMWARE_UPDATE_OBJECT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_firmware_update_max_block_interval" class="md-nav__link">
+    IOWA_FIRMWARE_UPDATE_MAX_BLOCK_INTERVAL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_support_software_component_object" class="md-nav__link">
+    IOWA_SUPPORT_SOFTWARE_COMPONENT_OBJECT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_support_software_management_object" class="md-nav__link">
+    IOWA_SUPPORT_SOFTWARE_MANAGEMENT_OBJECT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_support_virtual_observe_notify_object" class="md-nav__link">
+    IOWA_SUPPORT_VIRTUAL_OBSERVE_NOTIFY_OBJECT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-resources" class="md-nav__link">
+    Object Resources
+  </a>
+  
+    <nav class="md-nav" aria-label="Object Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_remove_all_optional_resources" class="md-nav__link">
+    IOWA_REMOVE_ALL_OPTIONAL_RESOURCES
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apn-connection-profile" class="md-nav__link">
+    APN Connection Profile
+  </a>
+  
+    <nav class="md-nav" aria-label="APN Connection Profile">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-mode" class="md-nav__link">
+    Default Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-all-mode" class="md-nav__link">
+    Remove All Mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bearer-selection" class="md-nav__link">
+    Bearer Selection
+  </a>
+  
+    <nav class="md-nav" aria-label="Bearer Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-mode_1" class="md-nav__link">
+    Default Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-all-mode_1" class="md-nav__link">
+    Remove All Mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellular-connectivity" class="md-nav__link">
+    Cellular Connectivity
+  </a>
+  
+    <nav class="md-nav" aria-label="Cellular Connectivity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-mode_2" class="md-nav__link">
+    Default Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-all-mode_2" class="md-nav__link">
+    Remove All Mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connectivity-monitoring" class="md-nav__link">
+    Connectivity Monitoring
+  </a>
+  
+    <nav class="md-nav" aria-label="Connectivity Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-mode_3" class="md-nav__link">
+    Default Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-all-mode_3" class="md-nav__link">
+    Remove All Mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device" class="md-nav__link">
+    Device
+  </a>
+  
+    <nav class="md-nav" aria-label="Device">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-mode_4" class="md-nav__link">
+    Default Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-all-mode_4" class="md-nav__link">
+    Remove All Mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server" class="md-nav__link">
+    Server
+  </a>
+  
+    <nav class="md-nav" aria-label="Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-mode_5" class="md-nav__link">
+    Default Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-all-mode_5" class="md-nav__link">
+    Remove All Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-values" class="md-nav__link">
+    Default Values
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#light-control" class="md-nav__link">
+    Light Control
+  </a>
+  
+    <nav class="md-nav" aria-label="Light Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-mode_6" class="md-nav__link">
+    Default Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-all-mode_6" class="md-nav__link">
+    Remove All Mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Security.html" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Multithread.html" class="md-nav__link">
+        Multithread
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Bootstrap.html" class="md-nav__link">
+        Bootstrap
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DeviceUpdate.html" class="md-nav__link">
+        Device Update
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CustomObject.html" class="md-nav__link">
+        Custom Objects
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Streamable.html" class="md-nav__link">
+        Streamable Resources
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ApplicationStorage.html" class="md-nav__link">
+        Application Storage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Network.html" class="md-nav__link">
+        Network
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Porting.html" class="md-nav__link">
+        Porting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="LoRaWAN.html" class="md-nav__link">
+        LoRaWAN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="0">
+          Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_14_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_14">
+          <span class="md-nav__icon md-icon"></span>
+          Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Object_Skeleton_Generator.html" class="md-nav__link">
+        Object Skeleton Generator
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="baseline_client.html" class="md-nav__link">
+        LwM2M Client Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+          LwM2M Objects Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          LwM2M Objects Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="IPSO_client.html" class="md-nav__link">
+        IPSO Object Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bearer_selection_client.html" class="md-nav__link">
+        Bearer Selection Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mqtt_objects_client.html" class="md-nav__link">
+        MQTT Objects
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          LwM2M Custom Objects Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          LwM2M Custom Objects Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_baseline.html" class="md-nav__link">
+        Custom Object Basseline
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_dynamic.html" class="md-nav__link">
+        Dynamic Custom Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_multiple_instances.html" class="md-nav__link">
+        Multiple Instance Custom Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_multiple_resource_instances.html" class="md-nav__link">
+        Multiple Resource Custom Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="streamable_resource_client.html" class="md-nav__link">
+        Streamable Resources Client
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+          Firmware Update Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Firmware Update Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_update_push_client.html" class="md-nav__link">
+        Firmware Update Client "Push" Method
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_update_pull_client.html" class="md-nav__link">
+        Firmware Update Client "Pull" Method
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_coap_download_client.html" class="md-nav__link">
+        Firmware Update Client with CoAP Download
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_coap_block_client.html" class="md-nav__link">
+        Firmware Update Client with CoAP Block-Wise Transfer
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+          LwM2M Advanced Client Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_5">
+          <span class="md-nav__icon md-icon"></span>
+          LwM2M Advanced Client Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bootstrap_client.html" class="md-nav__link">
+        Bootstrap Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="multithread_IPSO_client.html" class="md-nav__link">
+        Multithreaded Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="device_info_client.html" class="md-nav__link">
+        Device Info Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="context_storage_client.html" class="md-nav__link">
+        Context Storage Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="websockets_client.html" class="md-nav__link">
+        WebSocket Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="virtual_observe_client.html" class="md-nav__link">
+        Virtual Observe Client
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+          Security Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_6">
+          <span class="md-nav__icon md-icon"></span>
+          Security Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="secure_client_mbedtls3.html" class="md-nav__link">
+        Secure Client with Mbed TLS 3
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="secure_client_mbedtls2.html" class="md-nav__link">
+        Secure Client with Mbed TLS 2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="secure_client_tinydtls.html" class="md-nav__link">
+        Secure Client with tinydtls
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="oscore_client_mbedtls.html" class="md-nav__link">
+        OSCORE Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="oscore_server_mbedtls.html" class="md-nav__link">
+        OSCORE Server
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="baseline_server.html" class="md-nav__link">
+        LwM2M Server Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="legacy.html" class="md-nav__link">
+        Legacy Samples
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="AbstractionLayer.html" class="md-nav__link">
+        System Abstraction Layer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CommonAPI.html" class="md-nav__link">
+        Common APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ClientAPI.html" class="md-nav__link">
+        Client APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+          Objects APIs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          Objects APIs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectConnectivityMonitoring.html" class="md-nav__link">
+        Connectivity Monitoring (ID 4)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectFirmwareUpdate.html" class="md-nav__link">
+        Firmware Update (ID 5)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectLocation.html" class="md-nav__link">
+        Location (ID 6)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectConnectivityStatistics.html" class="md-nav__link">
+        Connectivity Statistics (ID 7)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectSoftwareManagement.html" class="md-nav__link">
+        LwM2M Software Management (ID 9)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectCellularConnectivity.html" class="md-nav__link">
+        LwM2M Cellular Connectivity (ID 10)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectAPN.html" class="md-nav__link">
+        LwM2M APN Connection Profile (ID 11)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectBearerSelection.html" class="md-nav__link">
+        LwM2M Bearer Selection (ID 13)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectSoftwareComponent.html" class="md-nav__link">
+        LwM2M Software Component (ID 14)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectDigitalOutput.html" class="md-nav__link">
+        IPSO Digital Output (ID 3201)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectLightControl.html" class="md-nav__link">
+        IPSO Light Control (ID 3311)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectAccelerometer.html" class="md-nav__link">
+        IPSO Accelerometer (ID 3313)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectMagnetometer.html" class="md-nav__link">
+        IPSO Magnetometer (ID 3314)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectGyrometer.html" class="md-nav__link">
+        IPSO Gyrometer (ID 3334)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectGPS.html" class="md-nav__link">
+        IPSO Location a.k.a. GPS (ID 3336)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectDimmer.html" class="md-nav__link">
+        IPSO Dimmer (ID 3343)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectAT.html" class="md-nav__link">
+        AT Command (ID 10251)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ServerAPI.html" class="md-nav__link">
+        Server APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="BootstrapServerAPI.html" class="md-nav__link">
+        Bootstrap Server APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CoapAPI.html" class="md-nav__link">
+        CoAP APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="UtilsAPI.html" class="md-nav__link">
+        Utils APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="SecurityAPI.html" class="md-nav__link">
+        Security Implementation APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_10" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_10" id="__nav_5_10_label" tabindex="0">
+          Components
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5_10">
+          <span class="md-nav__icon md-icon"></span>
+          Components
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Components.html" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="SecurityComponent.html" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="LoggerAPI.html" class="md-nav__link">
+        Logger
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DeprecatedAPI.html" class="md-nav__link">
+        Deprecated APIs
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          Licenses
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Licenses
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="License.html" class="md-nav__link">
+        IOWA License
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="OpenSourceLicenses.html" class="md-nav__link">
+        OpenSource Licenses
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../print_page.html" class="md-nav__link">
+        Printable version
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#platform-configuration" class="md-nav__link">
+    Platform Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Platform Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_big_endian-and-lwm2m_little_endian" class="md-nav__link">
+    LWM2M_BIG_ENDIAN and LWM2M_LITTLE_ENDIAN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_buffer_size" class="md-nav__link">
+    IOWA_BUFFER_SIZE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_use_snprintf" class="md-nav__link">
+    IOWA_USE_SNPRINTF
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iowa-configuration" class="md-nav__link">
+    IOWA Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="IOWA Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transports" class="md-nav__link">
+    Transports
+  </a>
+  
+    <nav class="md-nav" aria-label="Transports">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#additional-flags" class="md-nav__link">
+    Additional Flags
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_abstraction_extension" class="md-nav__link">
+    IOWA_ABSTRACTION_EXTENSION
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_layer_support" class="md-nav__link">
+    IOWA_SECURITY_LAYER_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_log_level-and-iowa_log_part" class="md-nav__link">
+    IOWA_LOG_LEVEL and IOWA_LOG_PART
+  </a>
+  
+    <nav class="md-nav" aria-label="IOWA_LOG_LEVEL and IOWA_LOG_PART">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_log_buffer_limit" class="md-nav__link">
+    IOWA_LOG_BUFFER_LIMIT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_thread_support" class="md-nav__link">
+    IOWA_THREAD_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_storage_context_support" class="md-nav__link">
+    IOWA_STORAGE_CONTEXT_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_storage_context_automatic_backup" class="md-nav__link">
+    IOWA_STORAGE_CONTEXT_AUTOMATIC_BACKUP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_storage_context_manual_heartbeat_on_load" class="md-nav__link">
+    IOWA_STORAGE_CONTEXT_MANUAL_HEARTBEAT_ON_LOAD
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_config_skip_system_function_check" class="md-nav__link">
+    IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_config_skip_args_check" class="md-nav__link">
+    IOWA_CONFIG_SKIP_ARGS_CHECK
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_logger_user" class="md-nav__link">
+    IOWA_LOGGER_USER
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_peer_identifier_size" class="md-nav__link">
+    IOWA_PEER_IDENTIFIER_SIZE
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lwm2m-configuration" class="md-nav__link">
+    LwM2M Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="LwM2M Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-role" class="md-nav__link">
+    LwM2M Role
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-version" class="md-nav__link">
+    LwM2M Version
+  </a>
+  
+    <nav class="md-nav" aria-label="LwM2M Version">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_version_1_0_remove" class="md-nav__link">
+    LWM2M_VERSION_1_0_REMOVE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_version_1_1_support" class="md-nav__link">
+    LWM2M_VERSION_1_1_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_version_1_2_support" class="md-nav__link">
+    LWM2M_VERSION_1_2_SUPPORT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_bootstrap" class="md-nav__link">
+    LWM2M_BOOTSTRAP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_bootstrap_pack_support" class="md-nav__link">
+    LWM2M_BOOTSTRAP_PACK_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m-data-encoding" class="md-nav__link">
+    LwM2M Data Encoding
+  </a>
+  
+    <nav class="md-nav" aria-label="LwM2M Data Encoding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_support_json" class="md-nav__link">
+    LWM2M_SUPPORT_JSON
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_support_senml_json" class="md-nav__link">
+    LWM2M_SUPPORT_SENML_JSON
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_support_cbor" class="md-nav__link">
+    LWM2M_SUPPORT_CBOR
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_support_senml_cbor" class="md-nav__link">
+    LWM2M_SUPPORT_SENML_CBOR
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_support_lwm2m_cbor" class="md-nav__link">
+    LWM2M_SUPPORT_LWM2M_CBOR
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_support_tlv" class="md-nav__link">
+    LWM2M_SUPPORT_TLV
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_registration_content_type_support" class="md-nav__link">
+    LWM2M_REGISTRATION_CONTENT_TYPE_SUPPORT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_storage_queue_support" class="md-nav__link">
+    LWM2M_STORAGE_QUEUE_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_storage_queue_peek_support" class="md-nav__link">
+    LWM2M_STORAGE_QUEUE_PEEK_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_support_timestamp" class="md-nav__link">
+    LWM2M_SUPPORT_TIMESTAMP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_altpath_support" class="md-nav__link">
+    LWM2M_ALTPATH_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_client_incoming_connection_support" class="md-nav__link">
+    LWM2M_CLIENT_INCOMING_CONNECTION_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_client_asynchronous_operation_support" class="md-nav__link">
+    LWM2M_CLIENT_ASYNCHRONOUS_OPERATION_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#composite-operations" class="md-nav__link">
+    Composite operations
+  </a>
+  
+    <nav class="md-nav" aria-label="Composite operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_read_composite_support" class="md-nav__link">
+    LWM2M_READ_COMPOSITE_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_observe_composite_support" class="md-nav__link">
+    LWM2M_OBSERVE_COMPOSITE_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_write_composite_support" class="md-nav__link">
+    LWM2M_WRITE_COMPOSITE_SUPPORT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lwm2m_data_push_support" class="md-nav__link">
+    LWM2M_DATA_PUSH_SUPPORT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-standard-features-configuration" class="md-nav__link">
+    Non-Standard Features Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Non-Standard Features Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_verizon_operator_support" class="md-nav__link">
+    IOWA_VERIZON_OPERATOR_SUPPORT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objects-configuration" class="md-nav__link">
+    Objects Configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="Objects Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#oma-objects" class="md-nav__link">
+    OMA Objects
+  </a>
+  
+    <nav class="md-nav" aria-label="OMA Objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_support_access_control_list_object" class="md-nav__link">
+    IOWA_SUPPORT_ACCESS_CONTROL_LIST_OBJECT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_support_bearer_selection_object" class="md-nav__link">
+    IOWA_SUPPORT_BEARER_SELECTION_OBJECT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_support_firmware_update_object" class="md-nav__link">
+    IOWA_SUPPORT_FIRMWARE_UPDATE_OBJECT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_firmware_update_max_block_interval" class="md-nav__link">
+    IOWA_FIRMWARE_UPDATE_MAX_BLOCK_INTERVAL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_support_software_component_object" class="md-nav__link">
+    IOWA_SUPPORT_SOFTWARE_COMPONENT_OBJECT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_support_software_management_object" class="md-nav__link">
+    IOWA_SUPPORT_SOFTWARE_MANAGEMENT_OBJECT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_support_virtual_observe_notify_object" class="md-nav__link">
+    IOWA_SUPPORT_VIRTUAL_OBSERVE_NOTIFY_OBJECT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-resources" class="md-nav__link">
+    Object Resources
+  </a>
+  
+    <nav class="md-nav" aria-label="Object Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_remove_all_optional_resources" class="md-nav__link">
+    IOWA_REMOVE_ALL_OPTIONAL_RESOURCES
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apn-connection-profile" class="md-nav__link">
+    APN Connection Profile
+  </a>
+  
+    <nav class="md-nav" aria-label="APN Connection Profile">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-mode" class="md-nav__link">
+    Default Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-all-mode" class="md-nav__link">
+    Remove All Mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bearer-selection" class="md-nav__link">
+    Bearer Selection
+  </a>
+  
+    <nav class="md-nav" aria-label="Bearer Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-mode_1" class="md-nav__link">
+    Default Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-all-mode_1" class="md-nav__link">
+    Remove All Mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cellular-connectivity" class="md-nav__link">
+    Cellular Connectivity
+  </a>
+  
+    <nav class="md-nav" aria-label="Cellular Connectivity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-mode_2" class="md-nav__link">
+    Default Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-all-mode_2" class="md-nav__link">
+    Remove All Mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connectivity-monitoring" class="md-nav__link">
+    Connectivity Monitoring
+  </a>
+  
+    <nav class="md-nav" aria-label="Connectivity Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-mode_3" class="md-nav__link">
+    Default Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-all-mode_3" class="md-nav__link">
+    Remove All Mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device" class="md-nav__link">
+    Device
+  </a>
+  
+    <nav class="md-nav" aria-label="Device">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-mode_4" class="md-nav__link">
+    Default Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-all-mode_4" class="md-nav__link">
+    Remove All Mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server" class="md-nav__link">
+    Server
+  </a>
+  
+    <nav class="md-nav" aria-label="Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-mode_5" class="md-nav__link">
+    Default Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-all-mode_5" class="md-nav__link">
+    Remove All Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-values" class="md-nav__link">
+    Default Values
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#light-control" class="md-nav__link">
+    Light Control
+  </a>
+  
+    <nav class="md-nav" aria-label="Light Control">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-mode_6" class="md-nav__link">
+    Default Mode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remove-all-mode_6" class="md-nav__link">
+    Remove All Mode
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+
+    <a href="../print_page.html" title="Print Site" class="md-content__button md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 3H6v4h12m1 5a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1m-3 7H8v-5h8m3-6H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3Z"/></svg>
+    </a>
+
+
+
+                  
+
+
+<h1 id="configuration">Configuration</h1>
+<p>IOWA relies on the compilation flags described below to enable or disable features. These compilation flags can be set in the header file <code>iowa_config.h</code>. Every source file of IOWA includes this header file.</p>
+<p>To create your product, a template is provided in the <code>include</code> folder.</p>
+<h2 id="platform-configuration">Platform Configuration</h2>
+<h3 id="lwm2m_big_endian-and-lwm2m_little_endian">LWM2M_BIG_ENDIAN and LWM2M_LITTLE_ENDIAN</h3>
+<p>Define one and only one of these two to specify the endianness of your platform.</p>
+<h3 id="iowa_buffer_size">IOWA_BUFFER_SIZE</h3>
+<p>When using a packet switching transport (e.g. UDP), IOWA stores the received data in a static buffer. <strong>IOWA_BUFFER_SIZE</strong> defines the size in bytes of this static buffer. Note that for the WebSocket transport, IOWA uses a dynamically allocated buffer instead of a static one.</p>
+<h3 id="iowa_use_snprintf">IOWA_USE_SNPRINTF</h3>
+<p>When using a text content format, IOWA uses snprintf to serialize float which absolute value is greater than INT64_MAX.</p>
+<h2 id="iowa-configuration">IOWA Configuration</h2>
+<h3 id="transports">Transports</h3>
+<p>IOWA can support various transports. These transports are enabled by defining the following:</p>
+<dl>
+<dt><strong>IOWA_UDP_SUPPORT</strong></dt>
+<dd>Support for UDP transport. URI scheme is in the form "coap://" or "coaps://". This transport requires <a href="Configuration.html#IOWA_BUFFER_SIZE"><strong>IOWA_BUFFER_SIZE</strong></a> to be defined.</dd>
+<dt><strong>IOWA_TCP_SUPPORT</strong></dt>
+<dd>Support for TCP transport. URI scheme is in the form "coap+tcp://" or "coaps+tcp://".</dd>
+<dt><strong>IOWA_WEBSOCKET_SUPPORT</strong></dt>
+<dd>Support for WebSocket transport. URI scheme is in the form "coap+ws://" or "coaps+ws://". This transport requires <a href="Configuration.html#IOWA_BUFFER_SIZE"><strong>IOWA_BUFFER_SIZE</strong></a> to be defined. Note that this transport is not part of the LwM2M standard and may work only with <a href="https://ioterop.com/alaska/">IoTerop's ALASKA device management platform</a>.</dd>
+<dt><strong>IOWA_SMS_SUPPORT</strong></dt>
+<dd>Support for SMS transport. URI scheme is in the form "coap+sms://" for text SMS or "sms://" for binary SMS. This transport requires <a href="Configuration.html#IOWA_BUFFER_SIZE"><strong>IOWA_BUFFER_SIZE</strong></a> to be defined.</dd>
+<dt><strong>IOWA_LORAWAN_SUPPORT</strong></dt>
+<dd>Support for LoRaWAN transport. URI scheme is in the form "lorawan://". This transport requires <a href="Configuration.html#IOWA_BUFFER_SIZE"><strong>IOWA_BUFFER_SIZE</strong></a> to be defined.</dd>
+</dl>
+<h5 id="additional-flags">Additional Flags</h5>
+<dl>
+<dt><strong>IOWA_COAP_BLOCK_SUPPORT</strong></dt>
+<dd>Support for full packet fragmentation at CoAP level as defined in RFC 7959 "Block-Wise Transfers in the Constrained Application Protocol (CoAP)".</dd>
+<dt><strong>IOWA_COAP_BLOCK_MINIMAL_SUPPORT</strong></dt>
+<dd>Support for reassembly of fragmented packets at CoAP level. Automatically defined with <strong>IOWA_COAP_BLOCK_SUPPORT</strong>. Useful for constrained devices using the "Push" method of <a href="DeviceUpdate.html">Device Update</a>.</dd>
+<dt><strong>IOWA_COAP_OSCORE_SUPPORT</strong></dt>
+<dd>Support for security at the CoAP message level using Object Security for Constrained RESTful Environments (RFC 8613).</dd>
+<dt><strong>IOWA_COAP_ACK_MEMORY_LIMIT</strong></dt>
+<dd>Define a limit in bytes for the memory used by CoAP Acknowledgements stored for potential re-transmissions e.g. <code>#define IOWA_COAP_ACK_MEMORY_LIMIT 1024</code>. Useful for memory constrained devices. Note that CoAP Acknowledgements are stored only until <a href="https://tools.ietf.org/html/rfc7252#section-4.8.2">MAX_TRANSMIT_WAIT</a> has expired.</dd>
+</dl>
+<h3 id="iowa_abstraction_extension">IOWA_ABSTRACTION_EXTENSION</h3>
+<p>IOWA will use the new system abstraction function <a href="AbstractionLayer.html#iowa_system_connection_open_server"><code>iowa_system_connection_open_server()</code></a> instead of <a href="AbstractionLayer.html#iowa_system_connection_open"><code>iowa_system_connection_open()</code></a>.</p>
+<h3 id="iowa_security_layer_support">IOWA_SECURITY_LAYER_SUPPORT</h3>
+<p>IOWA will use DTLS/TLS to secure communication between LwM2M Clients and Servers. The abstraction functions described in <a href="Security.html#providing-your-security-implementation">Providing your security implementation</a> must be implemented.</p>
+<p>If security is in use, the platform abstraction functions <a href="AbstractionLayer.html#iowa_system_security_data"><code>iowa_system_security_data()</code></a> and <a href="AbstractionLayer.html#iowa_system_random_vector_generator"><code>iowa_system_random_vector_generator()</code></a> must be implemented.</p>
+<h3 id="iowa_log_level-and-iowa_log_part">IOWA_LOG_LEVEL and IOWA_LOG_PART</h3>
+<p>These defines configure the traces provided by IOWA. Obviously, having more traces increase the code footprint of IOWA. Note that all traces are provided to the platform abstraction function <a href="AbstractionLayer.html#iowa_system_trace"><code>iowa_system_trace()</code></a>.</p>
+<p><strong>IOWA_LOG_LEVEL</strong> possible values are:</p>
+<ul>
+<li><strong>IOWA_LOG_LEVEL_NONE</strong>: No traces are generated. This is the default value if <strong>IOWA_LOG_LEVEL</strong> is not defined.</li>
+<li><strong>IOWA_LOG_LEVEL_ERROR</strong>: Only the most critical errors are reported like calling IOWA APIs with wrong parameters or memory allocation failures.</li>
+<li><strong>IOWA_LOG_LEVEL_WARNING</strong>: Recoverable errors are also reported.</li>
+<li><strong>IOWA_LOG_LEVEL_INFO</strong>: IOWA reports information on major steps of its execution. This is the recommended setting during integration.</li>
+<li><strong>IOWA_LOG_LEVEL_TRACE</strong>: IOWA reports every step of its execution. It is advised to use this value only to provide details when contacting the support.</li>
+</ul>
+<p><strong>IOWA_LOG_PART</strong> is useful to restrict traces to some components of IOWA. It is a combination of the following:</p>
+<ul>
+<li><strong>IOWA_PART_BASE</strong> IOWA APIs and execution.</li>
+<li><strong>IOWA_PART_COAP</strong> the CoAP layer.</li>
+<li><strong>IOWA_PART_COMM</strong> the communication handling.</li>
+<li><strong>IOWA_PART_DATA</strong> the serialization/deserialization payload packet handling.</li>
+<li><strong>IOWA_PART_LWM2M</strong> the Lightweight M2M layer.</li>
+<li><strong>IOWA_PART_OBJECT</strong> the object layer.</li>
+<li><strong>IOWA_PART_SECURITY</strong> the security layer.</li>
+<li><strong>IOWA_PART_SYSTEM</strong> the platform abstraction layer.</li>
+</ul>
+<p>Additionally, <strong>IOWA_PART_ALL</strong> is defined as enabling traces of all components. This is the default value if <strong>IOWA_LOG_PART</strong> is not defined.</p>
+<h4 id="iowa_log_buffer_limit">IOWA_LOG_BUFFER_LIMIT</h4>
+<p>By default, when logging a buffer, IOWA logs all the content. To limit the outputs, set this define to a numerical value, e.g.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#define IOWA_LOG_BUFFER_LIMIT 512</span>
+</code></pre></div>
+<h3 id="iowa_thread_support">IOWA_THREAD_SUPPORT</h3>
+<p>When using IOWA in a multithreaded system, defining <strong>IOWA_THREAD_SUPPORT</strong> enables thread safety in IOWA.</p>
+<p>This feature requires the platform abstraction functions <a href="AbstractionLayer.html#iowa_system_connection_interrupt_select"><code>iowa_system_connection_interrupt_select()</code></a>, <a href="AbstractionLayer.html#iowa_system_mutex_lock"><code>iowa_system_mutex_lock()</code></a>, and <a href="AbstractionLayer.html#iowa_system_mutex_unlock"><code>iowa_system_mutex_unlock()</code></a> to be implemented.</p>
+<h3 id="iowa_storage_context_support">IOWA_STORAGE_CONTEXT_SUPPORT</h3>
+<p>IOWA can save and restore its context through the APIs <a href="CommonAPI.html#iowa_save_context"><code>iowa_save_context()</code></a>, <a href="CommonAPI.html#iowa_save_context_snapshot"><code>iowa_save_context_snapshot()</code></a> and <a href="CommonAPI.html#iowa_load_context"><code>iowa_load_context()</code></a>. This feature requires this compilation flag to be set.</p>
+<p>This feature allows external data to be saved and restored with the context through callback. Callbacks can be added and deleted through the APIs <a href="CommonAPI.html#iowa_backup_register_callback"><code>iowa_backup_register_callback()</code></a> and <a href="CommonAPI.html#iowa_backup_deregister_callback"><code>iowa_backup_deregister_callback()</code></a>.</p>
+<p>This feature requires the platform abstraction functions <a href="AbstractionLayer.html#iowa_system_store_context"><code>iowa_system_store_context()</code></a> and <a href="AbstractionLayer.html#iowa_system_retrieve_context"><code>iowa_system_retrieve_context()</code></a> to be implemented.</p>
+<h3 id="iowa_storage_context_automatic_backup">IOWA_STORAGE_CONTEXT_AUTOMATIC_BACKUP</h3>
+<p>When this flag is set, IOWA would save the LwM2M Client context after every modification by a LwM2M Server or LwM2M Bootstrap Server. This feature does not save the server's runtime information. This is only relevant when IOWA is in Client mode and requires <strong>IOWA_STORAGE_CONTEXT_SUPPORT</strong> to be set.</p>
+<h3 id="iowa_storage_context_manual_heartbeat_on_load">IOWA_STORAGE_CONTEXT_MANUAL_HEARTBEAT_ON_LOAD</h3>
+<p>By default, <a href="CommonAPI.html#iowa_load_context"><code>iowa_load_context()</code></a> automatically sends a Registration Update to loaded LwM2M Servers the Client is registered to. When this flag is enabled, <a href="CommonAPI.html#iowa_load_context"><code>iowa_load_context()</code></a> only opens the connection to the registered LwM2M Servers. The application can decide to call either <a href="ClientAPI.html#iowa_client_send_heartbeat"><code>iowa_client_send_heartbeat()</code></a> or <a href="CommonAPI.html#iowa_clock_reset"><code>iowa_clock_reset()</code></a>.</p>
+<h3 id="iowa_config_skip_system_function_check">IOWA_CONFIG_SKIP_SYSTEM_FUNCTION_CHECK</h3>
+<p>This define allows disabling system function checks such as memory allocation. It assumes that system functions can not fail. This define is useful to reduce the code footprint.</p>
+<h3 id="iowa_config_skip_args_check">IOWA_CONFIG_SKIP_ARGS_CHECK</h3>
+<p>This define allows disabling check functions' arguments. It assumes that the functions' arguments are valid. This define is useful to reduce the code footprint.</p>
+<h3 id="iowa_logger_user">IOWA_LOGGER_USER</h3>
+<p>This define allows implementing your Logger's functions. If not defined, use the IOWA Logger implementation.</p>
+<p>If this define is set, the platform abstraction functions <a href="LoggerAPI.html#iowa_log"><code>iowa_log()</code></a>, <a href="LoggerAPI.html#iowa_log_arg"><code>iowa_log_arg()</code></a>, <a href="LoggerAPI.html#iowa_log_buffer"><code>iowa_log_buffer()</code></a> and <a href="LoggerAPI.html#iowa_log_arg_buffer"><code>iowa_log_arg_buffer()</code></a> must be implemented.</p>
+<h3 id="iowa_peer_identifier_size">IOWA_PEER_IDENTIFIER_SIZE</h3>
+<p>This is only relevant when IOWA is in Server and/or Bootstrap Server mode. This define is used to set the maximum size of the peer identifier on the network. This is used when the endpoint name is not found in the registration payload and the stack calls <a href="AbstractionLayer.html#iowa_system_connection_get_peer_identifier"><code>iowa_system_connection_get_peer_identifier</code></a>.</p>
+<h2 id="lwm2m-configuration">LwM2M Configuration</h2>
+<h3 id="lwm2m-role">LwM2M Role</h3>
+<p>Lightweight M2M defines three possible roles for the elements of a LwM2M system: Client, Server, or Bootstrap Server. You can define the role of your device by defining one of
+<strong>LWM2M_CLIENT_MODE</strong>, <strong>LWM2M_SERVER_MODE</strong>, or <strong>LWM2M_BOOTSTRAP_SERVER_MODE</strong>.</p>
+<h3 id="lwm2m-version">LwM2M Version</h3>
+<h4 id="lwm2m_version_1_0_remove">LWM2M_VERSION_1_0_REMOVE</h4>
+<p>This disables the default Lightweight M2M version of this stack: LwM2M version 1.0.</p>
+<h4 id="lwm2m_version_1_1_support">LWM2M_VERSION_1_1_SUPPORT</h4>
+<p>This enables the support of LwM2M version 1.1.</p>
+<h4 id="lwm2m_version_1_2_support">LWM2M_VERSION_1_2_SUPPORT</h4>
+<p>This enables the support of LwM2M version 1.2.</p>
+<h3 id="lwm2m_bootstrap">LWM2M_BOOTSTRAP</h3>
+<p>This is only relevant when IOWA is in Client mode. This allows the LwM2M Client to be configured by a LwM2M Bootstrap Server.</p>
+<h3 id="lwm2m_bootstrap_pack_support">LWM2M_BOOTSTRAP_PACK_SUPPORT</h3>
+<p>This is only relevant when IOWA is Bootstrap Server mode, or in Client mode with <strong>LWM2M_BOOTSTRAP</strong> set. This enables the Bootstrap-Pack operation defined in the LightweightM2M 1.2 specification. The Bootstrap-Pack operation allows to configure a LwM2M Client in a single exchange. In Client mode, when bootstrapping, IOWA will first send a Bootstrap-Pack request. If the request fails, IOWA will then initiate a Bootstrap sequence. </p>
+<h3 id="lwm2m-data-encoding">LwM2M Data Encoding</h3>
+<h4 id="lwm2m_support_json">LWM2M_SUPPORT_JSON</h4>
+<p>This enables the support of JSON encoding for LwM2M payload. This support is optional for LwM2M Clients and mandatory for LwM2M Servers. Thus, the feature is enabled automatically when <strong>LWM2M_SERVER_MODE</strong> or <strong>LWM2M_BOOTSTRAP_SERVER_MODE</strong> are set. Note that JSON is a verbose encoding in LwM2M.</p>
+<p>Note that JSON encoding is deprecated in LwM2M 1.1.</p>
+<h4 id="lwm2m_support_senml_json">LWM2M_SUPPORT_SENML_JSON</h4>
+<p>This enables the support of SenML JSON encoding for LwM2M 1.1 payload. This support is optional for LwM2M Clients and mandatory for LwM2M Servers:</p>
+<ul>
+<li>For LwM2M Clients, at least one of the following format must be supported: SenML CBOR or SenML JSON if <strong>LWM2M_VERSION_1_1_SUPPORT</strong> is set.</li>
+<li>For LwM2M Servers, the support is enabled automatically when <strong>LWM2M_SERVER_MODE</strong> or <strong>LWM2M_BOOTSTRAP_SERVER_MODE</strong> are set.</li>
+</ul>
+<p>Note that SenML JSON is a verbose encoding in LwM2M.</p>
+<h4 id="lwm2m_support_cbor">LWM2M_SUPPORT_CBOR</h4>
+<p>This enables the support of CBOR encoding for LwM2M 1.1 payloads containing a single resource value. This support is optional for LwM2M Clients and mandatory for LwM2M Servers. This support is enabled automatically when <strong>LWM2M_SERVER_MODE</strong> or <strong>LWM2M_BOOTSTRAP_SERVER_MODE</strong> are set.</p>
+<h4 id="lwm2m_support_senml_cbor">LWM2M_SUPPORT_SENML_CBOR</h4>
+<p>This enables the support of SenML CBOR encoding for LwM2M 1.1 payload. This support is optional for LwM2M Clients and mandatory for LwM2M Servers:</p>
+<ul>
+<li>For LwM2M Clients, at least one of the following format must be supported: SenML CBOR or SenML JSON if <strong>LWM2M_VERSION_1_1_SUPPORT</strong> or <strong>LWM2M_VERSION_1_2_SUPPORT</strong> is set.</li>
+<li>For LwM2M Servers, the support is enabled automatically when <strong>LWM2M_SERVER_MODE</strong> or <strong>LWM2M_BOOTSTRAP_SERVER_MODE</strong> are set.</li>
+</ul>
+<h4 id="lwm2m_support_lwm2m_cbor">LWM2M_SUPPORT_LWM2M_CBOR</h4>
+<p>This enables the support of LwM2M CBOR encoding for LwM2M 1.2 payload. This support is optional for LwM2M Clients and mandatory for LwM2M Servers. For LwM2M Servers, the support is enabled automatically when <strong>LWM2M_SERVER_MODE</strong> or <strong>LWM2M_BOOTSTRAP_SERVER_MODE</strong> are set.</p>
+<h4 id="lwm2m_support_tlv">LWM2M_SUPPORT_TLV</h4>
+<p>This enables the support of TLV encoding for LwM2M payload.</p>
+<p>This support is mandatory in LwM2M 1.0, this means that this feature is automatically set if <strong>LWM2M_VERSION_1_0_REMOVE</strong> is NOT set.</p>
+<p>In LwM2M 1.1 and later, this support is optional for LwM2M Clients and mandatory for LwM2M Servers. Thus, the feature is enabled automatically when <strong>LWM2M_SERVER_MODE</strong> or <strong>LWM2M_BOOTSTRAP_SERVER_MODE</strong> are set if <strong>LWM2M_VERSION_1_0_REMOVE</strong> is set.</p>
+<p>Note that TLV encoding is deprecated in LwM2M 1.1.</p>
+<h4 id="lwm2m_registration_content_type_support">LWM2M_REGISTRATION_CONTENT_TYPE_SUPPORT</h4>
+<p>When this flag is set, the LwM2M Registration will contain the list of data encoding formats supported by the LwM2M Client. For instance, a Client supporting SenML JSON and SenML CBOR would have:
+<div class="highlight"><pre><span></span><code>&lt;/&gt;;ct=&quot;110 112&quot;,&lt;/1/0&gt;,&lt;/3/0&gt;
+</code></pre></div></p>
+<h3 id="lwm2m_storage_queue_support">LWM2M_STORAGE_QUEUE_SUPPORT</h3>
+<p>When a LwM2M Server observing some resources is not reachable, the LwM2M Client stores the notifications until the connectivity is restored. By default, IOWA stores the last notifications in memory. When this flag is set, IOWA discharges the storage of these notifications to the platform.</p>
+<p>This feature requires the system abstraction functions <a href="AbstractionLayer.html#iowa_system_queue_create"><code>iowa_system_queue_create()</code></a>, <a href="AbstractionLayer.html#iowa_system_queue_enqueue"><code>iowa_system_queue_enqueue()</code></a>, <a href="AbstractionLayer.html#iowa_system_queue_dequeue"><code>iowa_system_queue_dequeue()</code></a>, and <a href="AbstractionLayer.html#iowa_system_queue_delete"><code>iowa_system_queue_delete()</code></a> to be implemented.</p>
+<h3 id="lwm2m_storage_queue_peek_support">LWM2M_STORAGE_QUEUE_PEEK_SUPPORT</h3>
+<p>When a LwM2M Server observing some resources is not reachable, the LwM2M Client stores the notifications until the connectivity is restored. By default, IOWA stores the last notifications in memory. When this flag is set, IOWA discharges the storage of these notifications to the platform. New version using a peek/remove mechanism instead of a dequeue mechanism.</p>
+<p>This feature requires the system abstraction functions <a href="AbstractionLayer.html#iowa_system_queue_create"><code>iowa_system_queue_create()</code></a>, <a href="AbstractionLayer.html#iowa_system_queue_enqueue"><code>iowa_system_queue_enqueue()</code></a>, <a href="AbstractionLayer.html#iowa_system_queue_peek"><code>iowa_system_queue_peek()</code></a>, <a href="AbstractionLayer.html#iowa_system_queue_remove"><code>iowa_system_queue_remove()</code></a>, and <a href="AbstractionLayer.html#iowa_system_queue_delete"><code>iowa_system_queue_delete()</code></a> to be implemented.</p>
+<h3 id="lwm2m_support_timestamp">LWM2M_SUPPORT_TIMESTAMP</h3>
+<p>This enables the support of the timestamp for notifications. Timestamp can only be used with the following Content format:</p>
+<ul>
+<li>JSON with <a href="Configuration.html#lwm2m_support_json"><strong>LWM2M_SUPPORT_JSON</strong></a></li>
+<li>SenML JSON with <a href="Configuration.html#lwm2m_support_senml_json"><strong>LWM2M_SUPPORT_SENML_JSON</strong></a></li>
+<li>SenML CBOR with <a href="Configuration.html#lwm2m_support_senml_cbor"><strong>LWM2M_SUPPORT_SENML_CBOR</strong></a></li>
+</ul>
+<h3 id="lwm2m_altpath_support">LWM2M_ALTPATH_SUPPORT</h3>
+<p>By default, the LwM2M Objects are located under the root path. However, devices might be hosting other CoAP Resources on an endpoint, and there may be the need to place LwM2M Objects under an alternate path.</p>
+<p>This define allows the use of the Alternate Path. For LwM2M Servers, the support is enabled automatically when <strong>LWM2M_SERVER_MODE</strong> is set.</p>
+<h3 id="lwm2m_client_incoming_connection_support">LWM2M_CLIENT_INCOMING_CONNECTION_SUPPORT</h3>
+<p>This is only relevant when IOWA is in Client mode. When set, this define enables the <a href="ClientAPI.html#iowa_client_new_incoming_connection"><code>iowa_client_new_incoming_connection()</code></a> API.</p>
+<h3 id="lwm2m_client_asynchronous_operation_support">LWM2M_CLIENT_ASYNCHRONOUS_OPERATION_SUPPORT</h3>
+<p>This is only relevant when IOWA is in Client mode. When this compilation flag is activated, operations on LwM2M Objects can be declared as asynchronous. See <a href="ClientAPI.html#iowa_client_object_set_mode"><code>iowa_client_object_set_mode()</code></a>.</p>
+<h3 id="composite-operations">Composite operations</h3>
+<p>The composite operations are automatically enabled when <strong>LWM2M_SERVER_MODE</strong> and <strong>LWM2M_VERSION_1_1_SUPPORT</strong> are set.</p>
+<p>Those features require that either <strong>LWM2M_SUPPORT_SENML_JSON</strong>, <strong>LWM2M_SUPPORT_SENML_CBOR</strong>, or <strong>LWM2M_SUPPORT_LWM2M_CBOR</strong> are set.</p>
+<h4 id="lwm2m_read_composite_support">LWM2M_READ_COMPOSITE_SUPPORT</h4>
+<p>This enables the support of the Read-Composite operation defined in LwM2M 1.1.</p>
+<h4 id="lwm2m_observe_composite_support">LWM2M_OBSERVE_COMPOSITE_SUPPORT</h4>
+<p>This enables the support of Observe-Composite operation and Read-Composite operation defined in LwM2M 1.1. This means that <strong>LWM2M_READ_COMPOSITE_SUPPORT</strong> will be automatically set.</p>
+<h4 id="lwm2m_write_composite_support">LWM2M_WRITE_COMPOSITE_SUPPORT</h4>
+<p>This enables the support of the Write-Composite operation defined in LwM2M 1.1.</p>
+<h3 id="lwm2m_data_push_support">LWM2M_DATA_PUSH_SUPPORT</h3>
+<p>This enables the support of data push operation defined in LwM2M 1.1. This feature requires that either <strong>LWM2M_SUPPORT_SENML_JSON</strong>, <strong>LWM2M_SUPPORT_SENML_CBOR</strong>, or <strong>LWM2M_SUPPORT_LWM2M_CBOR</strong> are set.</p>
+<h3 id="non-standard-features-configuration">Non-Standard Features Configuration</h3>
+<h4 id="iowa_verizon_operator_support">IOWA_VERIZON_OPERATOR_SUPPORT</h4>
+<p>This enables the non-standard features required to interact with the Verizon LwM2M Servers. Namely:</p>
+<ul>
+<li>The out-of-band message (SMS Registration Update Trigger) can trigger a reboot or a factory reset in addition to the standard registration update.</li>
+<li>If a LwM2M Server performs a Write operation on the Package URI Resource (ID: 1) of the Firmware Update object (ID: 5) while the state is Downloading or Updating, IOWA will reply with a 4.00 (Bad Request) error code.</li>
+<li>IOWA will accept Write operations on the LwM2M Server Object's Resource Binding (/1/x/7). </li>
+<li>The Server Object (ID: 1) presents a Resource with ID 30000 with two Resource Instances:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Resource ID</th>
+<th>Resource Instance ID</th>
+<th>Operations</th>
+<th>Default value</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IsRegistered</td>
+<td>30000</td>
+<td>0</td>
+<td>R/W</td>
+<td>0</td>
+<td>Integer</td>
+<td>After the successful registration with the DM server, the device shall set IsRegistered = 1 to indicate the device is registered with the DM server.</td>
+</tr>
+<tr>
+<td>ClientHoldOffTimer</td>
+<td>30000</td>
+<td>1</td>
+<td>R</td>
+<td>30 Sec</td>
+<td>Integer</td>
+<td>The time the device must wait before attempting registration with the DM server</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Note that a LwM2M Client with this flag set will wait for the "ClientHoldOffTimer" to expire before trying to register to a LwM2M Server.</p>
+</blockquote>
+<h2 id="objects-configuration">Objects Configuration</h2>
+<h3 id="oma-objects">OMA Objects</h3>
+<h4 id="iowa_support_access_control_list_object">IOWA_SUPPORT_ACCESS_CONTROL_LIST_OBJECT</h4>
+<p>This enables the support of the Access Control List OMA Object. Refer to the <a href="LwM2MOverview.html#access-control-list-object">Access Control List Object</a> for details.</p>
+<h4 id="iowa_support_bearer_selection_object">IOWA_SUPPORT_BEARER_SELECTION_OBJECT</h4>
+<p>This enables the support of the Bearer Selection OMA Object. Refer to the <a href="LwM2MOverview.html#bearer-selection-object">Bearer selection Object</a> for details.</p>
+<h4 id="iowa_support_firmware_update_object">IOWA_SUPPORT_FIRMWARE_UPDATE_OBJECT</h4>
+<p>This enables the support of the Firmware Update OMA Object. Refer to the <a href="LwM2MOverview.html#firmware-update-object">Firmware Update Object</a> for details.</p>
+<h4 id="iowa_firmware_update_max_block_interval">IOWA_FIRMWARE_UPDATE_MAX_BLOCK_INTERVAL</h4>
+<p>When the LwM2M Client supports the "Push" method of <a href="DeviceUpdate.html">Device Update</a>, and  <strong>IOWA_COAP_BLOCK_MINIMAL_SUPPORT</strong>, this defines the maximum time in seconds to wait between blocks before considering the connection as lost.</p>
+<h4 id="iowa_support_software_component_object">IOWA_SUPPORT_SOFTWARE_COMPONENT_OBJECT</h4>
+<p>This enables the support of the Software Component OMA Object. Refer to the <a href="LwM2MOverview.html#software-component-object">Software Component Object</a> for details.</p>
+<h4 id="iowa_support_software_management_object">IOWA_SUPPORT_SOFTWARE_MANAGEMENT_OBJECT</h4>
+<p>This enables the support of the Software Management OMA Object. Refer to the <a href="LwM2MOverview.html#software-management-object">Software Management Object</a> for details.</p>
+<h4 id="iowa_support_virtual_observe_notify_object">IOWA_SUPPORT_VIRTUAL_OBSERVE_NOTIFY_OBJECT</h4>
+<p>This enables the support of the Virtual Observe Notify OMA Object. Refer to the sample <a href="virtual_observe_client.html">Virtual Observe Client</a> for details.</p>
+<h3 id="object-resources">Object Resources</h3>
+<p>By default, all the resources of an IOWA-implemented Object are enabled. The optional Resources can be removed by using the compilation flags in the form <code>IOWA_&lt;OBJECT&gt;_RSC_&lt;RESOURCE&gt;_REMOVE</code>.</p>
+<h4 id="iowa_remove_all_optional_resources">IOWA_REMOVE_ALL_OPTIONAL_RESOURCES</h4>
+<p>This flag removes all the optional Resources in the IOWA-implemented Objects. Optional Resources can be enabled by using the compilation flags in the form <code>IOWA_&lt;OBJECT&gt;_SUPPORT_RSC_&lt;RESOURCE&gt;</code>.</p>
+<h4 id="apn-connection-profile">APN Connection Profile</h4>
+<h5 id="default-mode">Default Mode</h5>
+<ul>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_APN_REMOVE</strong>: Disable the resource "APN" (ID: 1)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_AUTO_SELECT_APN_DEVICE_REMOVE</strong>: Disable the resource "Auto select APN by device" (ID: 2)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_ENABLE_STATUS_REMOVE</strong>: Disable the resource "Enable status" (ID: 3)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_USER_NAME_REMOVE</strong>: Disable the resource "Username" (ID: 5)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_SECRET_REMOVE</strong>: Disable the resource "Secret" (ID: 6)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_RECONNECT_SCHEDULE_REMOVE</strong>: Disable the resource "Reconnect Schedule" (ID: 7)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_VALIDITY_REMOVE</strong>: Disable the resource "Validity (MCC, MNC)" (ID: 8)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_CONN_ESTABLISHMENT_TIME_REMOVE</strong>: Disable the resource "Connection establishment time" (ID: 9)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_CONN_ESTABLISHMENT_RESULT_REMOVE</strong>: Disable the resource "Connection establishment result" (ID: 10)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_CONN_ESTABLISHMENT_REJECT_CAUSE_REMOVE</strong>: Disable the resource "Connection establishment reject cause" (ID: 11)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_CONNECTION_END_TIME_REMOVE</strong>: Disable the resource "Connection end time" (ID: 12)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_TOTAL_BYTES_SENT_REMOVE</strong>: Disable the resource "TotalBytesSent" (ID: 13)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_TOTAL_BYTES_RECEIVED_REMOVE</strong>: Disable the resource "TotalBytesReceived" (ID: 14)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_IP_ADDRESS_REMOVE</strong>: Disable the resource "IP address" (ID: 15)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_PREFIX_LENGTH_REMOVE</strong>: Disable the resource "Prefix length" (ID: 16)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_SUBNET_MASK_REMOVE</strong>: Disable the resource "Subnet mask" (ID: 17)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_GATEWAY_REMOVE</strong>: Disable the resource "Gateway" (ID: 18)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_PRIMARY_DNS_ADDRESS_REMOVE</strong>: Disable the resource "Primary DNS address" (ID: 19)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_SECONDARY_DNS_ADDRESS_REMOVE</strong>: Disable the resource "Secondary DNS address" (ID: 20)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_QCI_REMOVE</strong>: Disable the resource "QCI" (ID: 21)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_TOTAL_PACKETS_SENT_REMOVE</strong>: Disable the resource "TotalPacketsSent" (ID: 23)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_PDN_TYPE_REMOVE</strong>: Disable the resource "PDN Type" (ID: 24)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_RSC_APN_RATE_CONTROL_REMOVE</strong>: Disable the resource "APN Rate Control" (ID: 25)</li>
+</ul>
+<h5 id="remove-all-mode">Remove All Mode</h5>
+<p>When <a href="Configuration.html#iowa_remove_all_optional_resources"><strong>IOWA_REMOVE_ALL_OPTIONAL_RESOURCES</strong></a> is defined.</p>
+<ul>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_APN</strong>: Enable the resource "APN" (ID: 1)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_AUTO_SELECT_APN_DEVICE</strong>: Enable the resource "Auto select APN by device" (ID: 2)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_ENABLE_STATUS</strong>: Enable the resource "Enable status" (ID: 3)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_USER_NAME</strong>: Enable the resource "Username" (ID: 5)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_SECRET</strong>: Enable the resource "Secret" (ID: 6)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_RECONNECT_SCHEDULE</strong>: Enable the resource "Reconnect Schedule" (ID: 7)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_VALIDITY</strong>: Enable the resource "Validity (MCC, MNC)" (ID: 8)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_CONN_ESTABLISHMENT_TIME</strong>: Enable the resource "Connection establishment time" (ID: 9)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_CONN_ESTABLISHMENT_RESULT</strong>: Enable the resource "Connection establishment result" (ID: 10)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_CONN_ESTABLISHMENT_REJECT_CAUSE</strong>: Enable the resource "Connection establishment reject cause" (ID: 11)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_CONNECTION_END_TIME</strong>: Enable the resource "Connection end time" (ID: 12)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_TOTAL_BYTES_SENT</strong>: Enable the resource "TotalBytesSent" (ID: 13)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_TOTAL_BYTES_RECEIVED</strong>: Enable the resource "TotalBytesReceived" (ID: 14)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_IP_ADDRESS</strong>: Enable the resource "IP address" (ID: 15)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_PREFIX_LENGTH</strong>: Enable the resource "Prefix length" (ID: 16)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_SUBNET_MASK</strong>: Enable the resource "Subnet mask" (ID: 17)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_GATEWAY</strong>: Enable the resource "Gateway" (ID: 18)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_PRIMARY_DNS_ADDRESS</strong>: Enable the resource "Primary DNS address" (ID: 19)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_SECONDARY_DNS_ADDRESS</strong>: Enable the resource "Secondary DNS address" (ID: 20)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_QCI</strong>: Enable the resource "QCI" (ID: 21)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_TOTAL_PACKETS_SENT</strong>: Enable the resource "TotalPacketsSent" (ID: 23)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_PDN_TYPE</strong>: Enable the resource "PDN Type" (ID: 24)</li>
+<li><strong>IOWA_APN_CONNECTION_PROFILE_SUPPORT_RSC_APN_RATE_CONTROL</strong>: Enable the resource "APN Rate Control" (ID: 25)</li>
+</ul>
+<h4 id="bearer-selection">Bearer Selection</h4>
+<p>Those defines are only relevant if <strong>IOWA_SUPPORT_BEARER_SELECTION_OBJECT</strong> is set.</p>
+<h5 id="default-mode_1">Default Mode</h5>
+<ul>
+<li><strong>IOWA_BEARER_SELECTION_RSC_PREFERRED_COMM_BEARER_REMOVE</strong>: Disable the resource "Preferred Communications Bearer" (ID: 0)</li>
+<li><strong>IOWA_BEARER_SELECTION_RSC_ACCEPTABLE_RSSI_GSM_REMOVE</strong>: Disable the resource "Acceptable RSSI (GSM)" (ID: 1)</li>
+<li><strong>IOWA_BEARER_SELECTION_RSC_ACCEPTABLE_RSCP_UMTS_REMOVE</strong>: Disable the resource "Acceptable RSCP (UMTS)" (ID: 2)</li>
+<li><strong>IOWA_BEARER_SELECTION_RSC_ACCEPTABLE_RSRP_LTE_REMOVE</strong>: Disable the resource "Acceptable RSRP (LTE)" (ID: 3)</li>
+<li><strong>IOWA_BEARER_SELECTION_RSC_ACCEPTABLE_RSSI_EV_DO_REMOVE</strong>: Disable the resource "Acceptable RSSI (1xEV-DO)" (ID: 4)</li>
+<li><strong>IOWA_BEARER_SELECTION_RSC_CELL_LOCK_LIST_REMOVE</strong>: Disable the resource "Cell lock list" (ID: 5)</li>
+<li><strong>IOWA_BEARER_SELECTION_RSC_OPERATOR_LIST_REMOVE</strong>: Disable the resource "Operator list" (ID: 6)</li>
+<li><strong>IOWA_BEARER_SELECTION_RSC_OPERATOR_LIST_MODE_REMOVE</strong>: Disable the resource "Operator list mode" (ID: 7)</li>
+<li><strong>IOWA_BEARER_SELECTION_RSC_AVAILABLE_PLMNS_REMOVE</strong>: Disable the resource "List of available PLMNs" (ID: 8)</li>
+<li><strong>IOWA_BEARER_SELECTION_RSC_ACCEPTABLE_RSRP_NB_IOT_REMOVE</strong>: Disable the resource "Acceptable RSRP (NB-IoT" (ID: 10)</li>
+<li><strong>IOWA_BEARER_SELECTION_RSC_PLMN_SEARCH_TIMER_REMOVE</strong>: Disable the resource "Higher Priority PLMN Search Timer" (ID: 11)</li>
+<li><strong>IOWA_BEARER_SELECTION_RSC_ATTACH_WO_PDN_CONNECTION_REMOVE</strong>: Disable the resource "Attach without PDN connection" (ID: 12)</li>
+</ul>
+<h5 id="remove-all-mode_1">Remove All Mode</h5>
+<p>When <a href="Configuration.html#iowa_remove_all_optional_resources"><strong>IOWA_REMOVE_ALL_OPTIONAL_RESOURCES</strong></a> is defined.</p>
+<p>At least one of these defines must be set as this Object composed of only optional Resources.</p>
+<ul>
+<li><strong>IOWA_BEARER_SELECTION_SUPPORT_RSC_PREFERRED_COMM_BEARER</strong>: Enable the resource "Preferred Communications Bearer" (ID: 0)</li>
+<li><strong>IOWA_BEARER_SELECTION_SUPPORT_RSC_ACCEPTABLE_RSSI_GSM</strong>: Enable the resource "Acceptable RSSI (GSM)" (ID: 1)</li>
+<li><strong>IOWA_BEARER_SELECTION_SUPPORT_RSC_ACCEPTABLE_RSCP_UMTS</strong>: Enable the resource "Acceptable RSCP (UMTS)" (ID: 2)</li>
+<li><strong>IOWA_BEARER_SELECTION_SUPPORT_RSC_ACCEPTABLE_RSRP_LTE</strong>: Enable the resource "Acceptable RSRP (LTE)" (ID: 3)</li>
+<li><strong>IOWA_BEARER_SELECTION_SUPPORT_RSC_ACCEPTABLE_RSSI_EV_DO</strong>: Enable the resource "Acceptable RSSI (1xEV-DO)" (ID: 4)</li>
+<li><strong>IOWA_BEARER_SELECTION_SUPPORT_RSC_CELL_LOCK_LIST</strong>: Enable the resource "Cell lock list" (ID: 5)</li>
+<li><strong>IOWA_BEARER_SELECTION_SUPPORT_RSC_OPERATOR_LIST</strong>: Enable the resource "Operator list" (ID: 6)</li>
+<li><strong>IOWA_BEARER_SELECTION_SUPPORT_RSC_OPERATOR_LIST_MODE</strong>: Enable the resource "Operator list mode" (ID: 7)</li>
+<li><strong>IOWA_BEARER_SELECTION_SUPPORT_RSC_AVAILABLE_PLMNS</strong>: Enable the resource "List of available PLMNs" (ID: 8)</li>
+<li><strong>IOWA_BEARER_SELECTION_SUPPORT_RSC_ACCEPTABLE_RSRP_NB_IOT</strong>: Enable the resource "Acceptable RSRP (NB-IoT" (ID: 10)</li>
+<li><strong>IOWA_BEARER_SELECTION_SUPPORT_RSC_PLMN_SEARCH_TIMER</strong>: Enable the resource "Higher Priority PLMN Search Timer" (ID: 11)</li>
+<li><strong>IOWA_BEARER_SELECTION_SUPPORT_RSC_ATTACH_WO_PDN_CONNECTION</strong>: Enable the resource "Attach without PDN connection" (ID: 12)</li>
+</ul>
+<h4 id="cellular-connectivity">Cellular Connectivity</h4>
+<h5 id="default-mode_2">Default Mode</h5>
+<ul>
+<li><strong>IOWA_CELLULAR_CONNECTIVITY_RSC_SMSC_ADDRESS_REMOVE</strong>: Disable the resource "SMSC address" (ID: 0)</li>
+<li><strong>IOWA_CELLULAR_CONNECTIVITY_RSC_DISABLE_RADIO_PERIOD_REMOVE</strong>: Disable the resource "Disable radio period" (ID: 1)</li>
+<li><strong>IOWA_CELLULAR_CONNECTIVITY_RSC_MODULE_ACTIVATION_CODE_REMOVE</strong>: Disable the resource "Module activation code" (ID: 2)</li>
+<li><strong>IOWA_CELLULAR_CONNECTIVITY_RSC_PSM_TIMER_REMOVE</strong>: Disable the resource "PSM Timer" (ID: 4)</li>
+<li><strong>IOWA_CELLULAR_CONNECTIVITY_RSC_ACTIVE_TIMER_REMOVE</strong>: Disable the resource "Active Timer" (ID: 5)</li>
+<li><strong>IOWA_CELLULAR_CONNECTIVITY_RSC_PLMN_RATE_CONTROL_REMOVE</strong>: Disable the resource "Serving PLMN Rate control" (ID: 6)</li>
+<li><strong>IOWA_CELLULAR_CONNECTIVITY_RSC_EDRX_PARAM_IU_MODE_REMOVE</strong>: Disable the resource "eDRX parameters for Iu mode" (ID: 7)</li>
+<li><strong>IOWA_CELLULAR_CONNECTIVITY_RSC_EDRX_PARAM_WB_S1_MODE_REMOVE</strong>: Disable the resource "eDRX parameters for WB-S1 mode" (ID: 8)</li>
+<li><strong>IOWA_CELLULAR_CONNECTIVITY_RSC_EDRX_PARAM_NB_S1_MODE_REMOVE</strong>: Disable the resource "eDRX parameters for NB-S1 mode" (ID: 9)</li>
+<li><strong>IOWA_CELLULAR_CONNECTIVITY_RSC_EDRX_PARAM_A_GB_MODE_REMOVE</strong>: Disable the resource "eDRX parameters for A/Gb mode" (ID: 10)</li>
+</ul>
+<h5 id="remove-all-mode_2">Remove All Mode</h5>
+<p>When <a href="Configuration.html#iowa_remove_all_optional_resources"><strong>IOWA_REMOVE_ALL_OPTIONAL_RESOURCES</strong></a> is defined.</p>
+<ul>
+<li><strong>IOWA_CELLULAR_CONNECTIVITY_SUPPORT_RSC_SMSC_ADDRESS</strong>: Enable the resource "SMSC address" (ID: 0)</li>
+<li><strong>IOWA_CELLULAR_CONNECTIVITY_SUPPORT_RSC_DISABLE_RADIO_PERIOD</strong>: Enable the resource "Disable radio period" (ID: 1)</li>
+<li><strong>IOWA_CELLULAR_CONNECTIVITY_SUPPORT_RSC_MODULE_ACTIVATION_CODE</strong>: Enable the resource "Module activation code" (ID: 2)</li>
+<li><strong>IOWA_CELLULAR_CONNECTIVITY_SUPPORT_RSC_PSM_TIMER</strong>: Enable the resource "PSM Timer" (ID: 4)</li>
+<li><strong>IOWA_CELLULAR_CONNECTIVITY_SUPPORT_RSC_ACTIVE_TIMER</strong>: Enable the resource "Active Timer" (ID: 5)</li>
+<li><strong>IOWA_CELLULAR_CONNECTIVITY_SUPPORT_RSC_PLMN_RATE_CONTROL</strong>: Enable the resource "Serving PLMN Rate control" (ID: 6)</li>
+<li><strong>IOWA_CELLULAR_CONNECTIVITY_SUPPORT_RSC_EDRX_PARAM_IU_MODE</strong>: Enable the resource "eDRX parameters for Iu mode" (ID: 7)</li>
+<li><strong>IOWA_CELLULAR_CONNECTIVITY_SUPPORT_RSC_EDRX_PARAM_WB_S1_MODE</strong>: Enable the resource "eDRX parameters for WB-S1 mode" (ID: 8)</li>
+<li><strong>IOWA_CELLULAR_CONNECTIVITY_SUPPORT_RSC_EDRX_PARAM_NB_S1_MODE</strong>: Enable the resource "eDRX parameters for NB-S1 mode" (ID: 9)</li>
+<li><strong>IOWA_CELLULAR_CONNECTIVITY_SUPPORT_RSC_EDRX_PARAM_A_GB_MODE</strong>: Enable the resource "eDRX parameters for A/Gb mode" (ID: 10)</li>
+</ul>
+<h4 id="connectivity-monitoring">Connectivity Monitoring</h4>
+<h5 id="default-mode_3">Default Mode</h5>
+<ul>
+<li><strong>IOWA_CONNECTIVITY_MONITORING_RSC_LINK_QUALITY_REMOVE</strong>: Disable the resource "Link Quality" (ID: 3)</li>
+<li><strong>IOWA_CONNECTIVITY_MONITORING_RSC_ROUTER_IP_ADDR_REMOVE</strong>: Disable the resource "Router IP Addresses" (ID: 5)</li>
+<li><strong>IOWA_CONNECTIVITY_MONITORING_RSC_LINK_USAGE_REMOVE</strong>: Disable the resource "Link Utilization" (ID: 6)</li>
+<li><strong>IOWA_CONNECTIVITY_MONITORING_RSC_APN_REMOVE</strong>: Disable the resource "APN" (ID: 7)</li>
+<li><strong>IOWA_CONNECTIVITY_MONITORING_RSC_CELL_ID_REMOVE</strong>: Disable the resource "Cell ID" (ID: 8)</li>
+<li><strong>IOWA_CONNECTIVITY_MONITORING_RSC_SMNC_REMOVE</strong>: Disable the resource "SMNC" (ID: 9)</li>
+<li><strong>IOWA_CONNECTIVITY_MONITORING_RSC_SMCC_REMOVE</strong>: Disable the resource "SMCC" (ID: 10)</li>
+<li><strong>IOWA_CONNECTIVITY_MONITORING_RSC_SINR_REMOVE</strong>: Disable the resource "SINR" (ID: 11)</li>
+<li><strong>IOWA_CONNECTIVITY_MONITORING_RSC_LAC_REMOVE</strong>: Disable the resource "LAC" (ID: 12)</li>
+<li><strong>IOWA_CONNECTIVITY_MONITORING_RSC_CELVL_REMOVE</strong>: Disable the resource "CELVL" (ID: 13)</li>
+</ul>
+<h5 id="remove-all-mode_3">Remove All Mode</h5>
+<p>When <a href="Configuration.html#iowa_remove_all_optional_resources"><strong>IOWA_REMOVE_ALL_OPTIONAL_RESOURCES</strong></a> is defined.</p>
+<ul>
+<li><strong>IOWA_CONNECTIVITY_MONITORING_SUPPORT_RSC_LINK_QUALITY</strong>: Disable the resource "Link Quality" (ID: 3)</li>
+<li><strong>IOWA_CONNECTIVITY_MONITORING_SUPPORT_RSC_ROUTER_IP_ADDR</strong>: Disable the resource "Router IP Addresses" (ID: 5)</li>
+<li><strong>IOWA_CONNECTIVITY_MONITORING_SUPPORT_RSC_LINK_USAGE</strong>: Disable the resource "Link Utilization" (ID: 6)</li>
+<li><strong>IOWA_CONNECTIVITY_MONITORING_SUPPORT_RSC_APN</strong>: Disable the resource "APN" (ID: 7)</li>
+<li><strong>IOWA_CONNECTIVITY_MONITORING_SUPPORT_RSC_CELL_ID</strong>: Disable the resource "Cell ID" (ID: 8)</li>
+<li><strong>IOWA_CONNECTIVITY_MONITORING_SUPPORT_RSC_SMNC</strong>: Disable the resource "SMNC" (ID: 9)</li>
+<li><strong>IOWA_CONNECTIVITY_MONITORING_SUPPORT_RSC_SMCC</strong>: Disable the resource "SMCC" (ID: 10)</li>
+<li><strong>IOWA_CONNECTIVITY_MONITORING_RSC_SINR_REMOVE</strong>: Disable the resource "SINR" (ID: 11)</li>
+<li><strong>IOWA_CONNECTIVITY_MONITORING_RSC_LAC_REMOVE</strong>: Disable the resource "LAC" (ID: 12)</li>
+<li><strong>IOWA_CONNECTIVITY_MONITORING_RSC_CELVL_REMOVE</strong>: Disable the resource "CELVL" (ID: 13)</li>
+</ul>
+<h4 id="device">Device</h4>
+<h5 id="default-mode_4">Default Mode</h5>
+<ul>
+<li><strong>IOWA_DEVICE_RSC_MANUFACTURER_REMOVE</strong>: Disable the resource "Manufacturer" (ID: 0)</li>
+<li><strong>IOWA_DEVICE_RSC_MODEL_NUMBER_REMOVE</strong>: Disable the resource "Model Number" (ID: 1)</li>
+<li><strong>IOWA_DEVICE_RSC_SERIAL_NUMBER_REMOVE</strong>: Disable the resource "Serial Number" (ID: 2)</li>
+<li><strong>IOWA_DEVICE_RSC_FIRMWARE_VERSION_REMOVE</strong>: Disable the resource "Firmware Version" (ID: 3)</li>
+<li><strong>IOWA_DEVICE_RSC_FACTORY_RESET_REMOVE</strong>: Disable the resource "Factory Reset" (ID: 5)</li>
+<li><strong>IOWA_DEVICE_RSC_POWER_SOURCE_REMOVE</strong>: Disable the resources "Available Power Sources" (ID: 6), "Power Source Voltage" (ID: 7) and "Power Source Current" (ID: 8)</li>
+<li><strong>IOWA_DEVICE_RSC_BATTERY_REMOVE</strong>: Disable the resources "Battery Level" (ID: 9) and "Battery Status" (ID: 20)</li>
+<li><strong>IOWA_DEVICE_RSC_RESET_ERROR_REMOVE</strong>: Disable the resource "Reset Error Code" (ID: 12)</li>
+<li><strong>IOWA_DEVICE_RSC_CURRENT_TIME_REMOVE</strong>: Disable the resource "Current Time" (ID: 13)</li>
+<li><strong>IOWA_DEVICE_RSC_UTC_OFFSET_REMOVE</strong>: Disable the resource "UTC Offset" (ID: 14)</li>
+<li><strong>IOWA_DEVICE_RSC_TIMEZONE_REMOVE</strong>: Disable the resource "Timezone" (ID: 15)</li>
+<li><strong>IOWA_DEVICE_RSC_DEVICE_TYPE_REMOVE</strong>: Disable the resource "Device Type" (ID: 17)</li>
+<li><strong>IOWA_DEVICE_RSC_HARDWARE_VERSION_REMOVE</strong>: Disable the resource "Hardware Version" (ID: 18)</li>
+<li><strong>IOWA_DEVICE_RSC_SOFTWARE_VERSION_REMOVE</strong>: Disable the resource "Software Version" (ID: 19)</li>
+<li><strong>IOWA_DEVICE_RSC_MEMORY_TOTAL_REMOVE</strong>: Disable the resource "Memory Total" (ID: 21)</li>
+<li><strong>IOWA_DEVICE_RSC_MEMORY_FREE_REMOVE</strong>: Disable the resource "Memory Free" (ID: 10)</li>
+<li><strong>IOWA_DEVICE_RSC_EXTERNAL_INFO_REMOVE</strong>: Disable the resource "ExtDevInfo" (ID: 22)</li>
+</ul>
+<h5 id="remove-all-mode_4">Remove All Mode</h5>
+<p>When <a href="Configuration.html#iowa_remove_all_optional_resources"><strong>IOWA_REMOVE_ALL_OPTIONAL_RESOURCES</strong></a> is defined.</p>
+<ul>
+<li><strong>IOWA_DEVICE_SUPPORT_RSC_MANUFACTURER</strong>: Enable the resource "Manufacturer" (ID: 0)</li>
+<li><strong>IOWA_DEVICE_SUPPORT_RSC_MODEL_NUMBER</strong>: Enable the resource "Model Number" (ID: 1)</li>
+<li><strong>IOWA_DEVICE_SUPPORT_RSC_SERIAL_NUMBER</strong>: Enable the resource "Serial Number" (ID: 2)</li>
+<li><strong>IOWA_DEVICE_SUPPORT_RSC_FIRMWARE_VERSION</strong>: Enable the resource "Firmware Version" (ID: 3)</li>
+<li><strong>IOWA_DEVICE_SUPPORT_RSC_FACTORY_RESET</strong>: Enable the resource "Factory Reset" (ID: 5)</li>
+<li><strong>IOWA_DEVICE_SUPPORT_RSC_POWER_SOURCE</strong>: Enable the resources "Available Power Sources" (ID: 6), "Power Source Voltage" (ID: 7) and "Power Source Current" (ID: 8)</li>
+<li><strong>IOWA_DEVICE_SUPPORT_RSC_BATTERY</strong>: Enable the resources "Battery Level" (ID: 9) and "Battery Status" (ID: 20)</li>
+<li><strong>IOWA_DEVICE_SUPPORT_RSC_RESET_ERROR</strong>: Enable the resource "Reset Error Code" (ID: 12)</li>
+<li><strong>IOWA_DEVICE_SUPPORT_RSC_CURRENT_TIME</strong>: Enable the resource "Current Time" (ID: 13)</li>
+<li><strong>IOWA_DEVICE_SUPPORT_RSC_UTC_OFFSET</strong>: Enable the resource "UTC Offset" (ID: 14)</li>
+<li><strong>IOWA_DEVICE_SUPPORT_RSC_TIMEZONE</strong>: Enable the resource "Timezone" (ID: 15)</li>
+<li><strong>IOWA_DEVICE_SUPPORT_RSC_DEVICE_TYPE</strong>: Enable the resource "Device Type" (ID: 17)</li>
+<li><strong>IOWA_DEVICE_SUPPORT_RSC_HARDWARE_VERSION</strong>: Enable the resource "Hardware Version" (ID: 18)</li>
+<li><strong>IOWA_DEVICE_SUPPORT_RSC_SOFTWARE_VERSION</strong>: Enable the resource "Software Version" (ID: 19)</li>
+<li><strong>IOWA_DEVICE_SUPPORT_RSC_MEMORY_TOTAL</strong>: Enable the resource "Memory Total" (ID: 21)</li>
+<li><strong>IOWA_DEVICE_SUPPORT_RSC_MEMORY_FREE</strong>: Enable the resource "Memory Free" (ID: 10)</li>
+<li><strong>IOWA_DEVICE_SUPPORT_RSC_EXTERNAL_INFO</strong>: Enable the resource "ExtDevInfo" (ID: 22)</li>
+</ul>
+<h4 id="server">Server</h4>
+<h5 id="default-mode_5">Default Mode</h5>
+<ul>
+<li><strong>IOWA_SERVER_RSC_DISABLE_TIMEOUT_REMOVE</strong>: Disable resources "Disable" (ID: 4) and "Disable Timeout" (ID: 5)</li>
+<li><strong>IOWA_SERVER_RSC_DEFAULT_PERIODS_REMOVE</strong>: Disable resources "Default Minimum Period" (ID: 2) and "Default Maximum Period" (ID: 3)</li>
+<li><strong>IOWA_SERVER_RSC_BOOTSTRAP_TRIGGER_REMOVE</strong>: Disable the resource "Bootstrap-Request Trigger" (ID: 9). This resource is also disabled when <strong>LWM2M_BOOTSTRAP</strong> is not defined.</li>
+<li><strong>IOWA_SERVER_RSC_REGISTRATION_BEHAVIOUR_REMOVE</strong>: Disable resources "Registration Priority Order" (ID: 13), "Initial Registration Delay Timer" (ID: 14), "Registration Failure Block" (ID: 15) and "Bootstrap on Registration Failure" (ID: 16). These resources are also disabled when <strong>LWM2M_VERSION_1_1_SUPPORT</strong> is not defined.</li>
+<li><strong>IOWA_SERVER_RSC_COMMUNICATION_ATTEMPTS_REMOVE</strong>: Disable resources "Communication Retry Count" (ID: 17), "Communication Retry Timer" (ID: 18), "Communication Sequence Delay Timer" (ID: 19) and "Communication Sequence Retry Count" (ID: 20). These resources are also disabled when <strong>LWM2M_VERSION_1_1_SUPPORT</strong> is not defined.</li>
+<li><strong>IOWA_SERVER_RSC_MUTE_SEND_REMOVE</strong>: Disable resources "Mute Send" (ID: 23). Only relevant when LWM2M_DATA_PUSH_SUPPORT is set.</li>
+</ul>
+<h5 id="remove-all-mode_5">Remove All Mode</h5>
+<p>When <a href="Configuration.html#iowa_remove_all_optional_resources"><strong>IOWA_REMOVE_ALL_OPTIONAL_RESOURCES</strong></a> is defined.</p>
+<ul>
+<li><strong>IOWA_SERVER_SUPPORT_RSC_DISABLE_TIMEOUT</strong>: Enable resources "Disable" (ID: 4) and "Disable Timeout" (ID: 5)</li>
+<li><strong>IOWA_SERVER_SUPPORT_RSC_DEFAULT_PERIODS</strong>: Enable resources "Default Minimum Period" (ID: 2) and "Default Maximum Period" (ID: 3)</li>
+<li><strong>IOWA_SERVER_SUPPORT_RSC_BOOTSTRAP_TRIGGER</strong>: Enable the resource "Bootstrap-Request Trigger" (ID: 9). This resource is available only if <strong>LWM2M_BOOTSTRAP</strong> is defined.</li>
+<li><strong>IOWA_SERVER_SUPPORT_RSC_REGISTRATION_BEHAVIOUR</strong>: Enable resources "Registration Priority Order" (ID: 13), "Initial Registration Delay Timer" (ID: 14), "Registration Failure Block" (ID: 15) and "Bootstrap on Registration Failure" (ID: 16). These resources are available only if <strong>LWM2M_VERSION_1_1_SUPPORT</strong> is defined.</li>
+<li><strong>IOWA_SERVER_SUPPORT_RSC_COMMUNICATION_ATTEMPTS</strong>: Enable resources "Communication Retry Count" (ID: 17), "Communication Retry Timer" (ID: 18), "Communication Sequence Delay Timer" (ID: 19) and "Communication Sequence Retry Count" (ID: 20). These resources are available only if <strong>LWM2M_VERSION_1_1_SUPPORT</strong> is defined.</li>
+<li><strong>IOWA_SERVER_SUPPORT_RSC_MUTE_SEND</strong>: Enable resources "Mute Send" (ID: 23). This resource is available only if <strong>LWM2M_DATA_PUSH_SUPPORT</strong> is defined.</li>
+</ul>
+<h5 id="default-values">Default Values</h5>
+<p>As well, some resources contain default value which can be updated using the following defines:</p>
+<ul>
+<li><strong>IOWA_SERVER_RSC_DISABLE_TIMEOUT_DEFAULT_VALUE</strong>: Update default resource value of "Disable Timeout" (ID: 5). Only relevant if <strong>IOWA_SERVER_SUPPORT_RSC_DISABLE_TIMEOUT</strong> is defined.</li>
+<li><strong>IOWA_SERVER_RSC_STORING_DEFAULT_VALUE</strong>: Update default resource value of "Notification Storing When Disabled or Offline" (ID: 6)</li>
+<li><strong>IOWA_SERVER_RSC_MUTE_SEND_DEFAULT_VALUE</strong>: Update default resource value of "Mute Send" (ID: 23). Only relevant if <strong>IOWA_SERVER_SUPPORT_RSC_MUTE_SEND</strong> is defined.</li>
+</ul>
+<h4 id="light-control">Light Control</h4>
+<h5 id="default-mode_6">Default Mode</h5>
+<ul>
+<li><strong>IOWA_LIGHT_CONTROL_RSC_DIMMER_REMOVE</strong>: Disable the resource "Dimmer" (ID: 5851)</li>
+<li><strong>IOWA_LIGHT_CONTROL_RSC_ON_TIME_REMOVE</strong>: Disable the resource "On time" (ID: 5852)</li>
+<li><strong>IOWA_LIGHT_CONTROL_RSC_CUMULATIVE_ACTIVE_POWER_REMOVE</strong>: Disable the resource "Cumulative active power" (ID: 5805)</li>
+<li><strong>IOWA_LIGHT_CONTROL_RSC_POWER_FACTOR_REMOVE</strong>: Disable the resource "Power factor" (ID: 5820)</li>
+<li><strong>IOWA_LIGHT_CONTROL_RSC_COLOUR_REMOVE</strong>: Disable the resources "Colour" (ID: 5706) and "Sensor Units" (ID: 5701)</li>
+</ul>
+<h5 id="remove-all-mode_6">Remove All Mode</h5>
+<p>When <a href="Configuration.html#iowa_remove_all_optional_resources"><strong>IOWA_REMOVE_ALL_OPTIONAL_RESOURCES</strong></a> is defined.</p>
+<ul>
+<li><strong>IOWA_LIGHT_CONTROL_SUPPORT_RSC_DIMMER</strong>: Enable the resource "Dimmer" (ID: 5851)</li>
+<li><strong>IOWA_LIGHT_CONTROL_SUPPORT_RSC_ON_TIME</strong>: Enable the resource "On time" (ID: 5852)</li>
+<li><strong>IOWA_LIGHT_CONTROL_SUPPORT_RSC_CUMULATIVE_ACTIVE_POWER</strong>: Enable the resource "Cumulative active power" (ID: 5805)</li>
+<li><strong>IOWA_LIGHT_CONTROL_SUPPORT_RSC_POWER_FACTOR</strong>: Enable the resource "Power factor" (ID: 5820)</li>
+<li><strong>IOWA_LIGHT_CONTROL_SUPPORT_RSC_COLOUR</strong>: Enable the resources "Colour" (ID: 5706) and "Sensor Units" (ID: 5701)</li>
+</ul>
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2020-2023 IoTerop
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://ioterop.com/" target="_blank" rel="noopener" title="Website" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="m57.7 193 9.4 16.4c8.3 14.5 21.9 25.2 38 29.8l57.9 16.5c17.2 4.9 29 20.6 29 38.5v39.9c0 11 6.2 21 16 25.9s16 14.9 16 25.9v39c0 15.6 14.9 26.9 29.9 22.6 16.1-4.6 28.6-17.5 32.7-33.8l2.8-11.2c4.2-16.9 15.2-31.4 30.3-40l8.1-4.6c15-8.5 24.2-24.5 24.2-41.7v-8.3c0-12.7-5.1-24.9-14.1-33.9l-3.9-3.9c-9-9-21.2-14.1-33.9-14.1H257c-11.1 0-22.1-2.9-31.8-8.4l-34.5-19.7c-4.3-2.5-7.6-6.5-9.2-11.2-3.2-9.6 1.1-20 10.2-24.5l5.9-3c6.6-3.3 14.3-3.9 21.3-1.5l23.2 7.7c8.2 2.7 17.2-.4 21.9-7.5 4.7-7 4.2-16.3-1.2-22.8l-13.6-16.3c-10-12-9.9-29.5.3-41.3l15.7-18.3c8.8-10.3 10.2-25 3.5-36.7l-2.4-4.2c-3.5-.2-6.9-.3-10.4-.3-92.8 0-171.5 60.9-198.2 145zM464 256c0-36.8-9.6-71.4-26.4-101.5L412 164.8c-15.7 6.3-23.8 23.8-18.5 39.8l16.9 50.7c3.5 10.4 12 18.3 22.6 20.9l29.1 7.3c1.2-9 1.8-18.2 1.8-27.5zM0 256a256 256 0 1 1 512 0 256 256 0 1 1-512 0z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/IOTEROP" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://twitter.com/ioteropcompany" target="_blank" rel="noopener" title="Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+        
+          <script src="../js/print-site.js"></script>
+        
+      
+    
+  </body>
+</html>

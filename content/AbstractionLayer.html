@@ -1,0 +1,3412 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="legacy.html">
+      
+      
+        <link rel="next" href="CommonAPI.html">
+      
+      <link rel="icon" href="images/iowa_logo.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.19">
+    
+    
+      
+        <title>System Abstraction Layer - IOWA Reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.eebd395e.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/print-site.css">
+    
+      <link rel="stylesheet" href="../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../ioterop.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#system-abstraction-layer" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="IOWA Reference" class="md-header__button md-logo" aria-label="IOWA Reference" data-md-component="logo">
+      
+  <img src="images/iowa_logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            IOWA Reference
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              System Abstraction Layer
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../index.html" class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="Changelog.html" class="md-tabs__link">
+      Changelog
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="LwM2MOverview.html" class="md-tabs__link">
+        User Manual
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="baseline_client.html" class="md-tabs__link">
+        Samples
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="AbstractionLayer.html" class="md-tabs__link md-tabs__link--active">
+        API Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="License.html" class="md-tabs__link">
+        Licenses
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../print_page.html" class="md-tabs__link">
+      Printable version
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="IOWA Reference" class="md-nav__button md-logo" aria-label="IOWA Reference" data-md-component="logo">
+      
+  <img src="images/iowa_logo.png" alt="logo">
+
+    </a>
+    IOWA Reference
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Changelog.html" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          User Manual
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          User Manual
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="LwM2MOverview.html" class="md-nav__link">
+        LwM2M Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Building.html" class="md-nav__link">
+        Building Samples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Configuration.html" class="md-nav__link">
+        IOWA Configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Security.html" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Multithread.html" class="md-nav__link">
+        Multithread
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Bootstrap.html" class="md-nav__link">
+        Bootstrap
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DeviceUpdate.html" class="md-nav__link">
+        Device Update
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CustomObject.html" class="md-nav__link">
+        Custom Objects
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Streamable.html" class="md-nav__link">
+        Streamable Resources
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ApplicationStorage.html" class="md-nav__link">
+        Application Storage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Network.html" class="md-nav__link">
+        Network
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Porting.html" class="md-nav__link">
+        Porting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="LoRaWAN.html" class="md-nav__link">
+        LoRaWAN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_14" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_14" id="__nav_3_14_label" tabindex="0">
+          Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_14_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_14">
+          <span class="md-nav__icon md-icon"></span>
+          Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Object_Skeleton_Generator.html" class="md-nav__link">
+        Object Skeleton Generator
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="baseline_client.html" class="md-nav__link">
+        LwM2M Client Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+          LwM2M Objects Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          LwM2M Objects Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="IPSO_client.html" class="md-nav__link">
+        IPSO Object Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bearer_selection_client.html" class="md-nav__link">
+        Bearer Selection Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mqtt_objects_client.html" class="md-nav__link">
+        MQTT Objects
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          LwM2M Custom Objects Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          LwM2M Custom Objects Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_baseline.html" class="md-nav__link">
+        Custom Object Basseline
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_dynamic.html" class="md-nav__link">
+        Dynamic Custom Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_multiple_instances.html" class="md-nav__link">
+        Multiple Instance Custom Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="custom_object_multiple_resource_instances.html" class="md-nav__link">
+        Multiple Resource Custom Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="streamable_resource_client.html" class="md-nav__link">
+        Streamable Resources Client
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+          Firmware Update Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Firmware Update Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_update_push_client.html" class="md-nav__link">
+        Firmware Update Client "Push" Method
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_update_pull_client.html" class="md-nav__link">
+        Firmware Update Client "Pull" Method
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_coap_download_client.html" class="md-nav__link">
+        Firmware Update Client with CoAP Download
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fw_coap_block_client.html" class="md-nav__link">
+        Firmware Update Client with CoAP Block-Wise Transfer
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+          LwM2M Advanced Client Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_5">
+          <span class="md-nav__icon md-icon"></span>
+          LwM2M Advanced Client Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="bootstrap_client.html" class="md-nav__link">
+        Bootstrap Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="multithread_IPSO_client.html" class="md-nav__link">
+        Multithreaded Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="device_info_client.html" class="md-nav__link">
+        Device Info Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="context_storage_client.html" class="md-nav__link">
+        Context Storage Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="websockets_client.html" class="md-nav__link">
+        WebSocket Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="virtual_observe_client.html" class="md-nav__link">
+        Virtual Observe Client
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+          Security Samples
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_6">
+          <span class="md-nav__icon md-icon"></span>
+          Security Samples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="secure_client_mbedtls3.html" class="md-nav__link">
+        Secure Client with Mbed TLS 3
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="secure_client_mbedtls2.html" class="md-nav__link">
+        Secure Client with Mbed TLS 2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="secure_client_tinydtls.html" class="md-nav__link">
+        Secure Client with tinydtls
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="oscore_client_mbedtls.html" class="md-nav__link">
+        OSCORE Client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="oscore_server_mbedtls.html" class="md-nav__link">
+        OSCORE Server
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="baseline_server.html" class="md-nav__link">
+        LwM2M Server Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="legacy.html" class="md-nav__link">
+        Legacy Samples
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          System Abstraction Layer
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="AbstractionLayer.html" class="md-nav__link md-nav__link--active">
+        System Abstraction Layer
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#presentation" class="md-nav__link">
+    Presentation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-types" class="md-nav__link">
+    Data types
+  </a>
+  
+    <nav class="md-nav" aria-label="Data types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_connection_type_t" class="md-nav__link">
+    iowa_connection_type_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_operation_t" class="md-nav__link">
+    iowa_security_operation_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_psk_data_t" class="md-nav__link">
+    iowa_psk_data_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_certificate_data_t" class="md-nav__link">
+    iowa_certificate_data_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_rpk_data_t" class="md-nav__link">
+    iowa_rpk_data_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_oscore_data_t" class="md-nav__link">
+    iowa_oscore_data_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_data_t" class="md-nav__link">
+    iowa_security_data_t
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    API
+  </a>
+  
+    <nav class="md-nav" aria-label="API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_malloc" class="md-nav__link">
+    iowa_system_malloc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_free" class="md-nav__link">
+    iowa_system_free
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_gettime" class="md-nav__link">
+    iowa_system_gettime
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_reboot" class="md-nav__link">
+    iowa_system_reboot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_trace" class="md-nav__link">
+    iowa_system_trace
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_connection_open" class="md-nav__link">
+    iowa_system_connection_open
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_connection_open_server" class="md-nav__link">
+    iowa_system_connection_open_server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_connection_send" class="md-nav__link">
+    iowa_system_connection_send
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_connection_get_peer_identifier" class="md-nav__link">
+    iowa_system_connection_get_peer_identifier
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_connection_recv" class="md-nav__link">
+    iowa_system_connection_recv
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_connection_select" class="md-nav__link">
+    iowa_system_connection_select
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_connection_interrupt_select" class="md-nav__link">
+    iowa_system_connection_interrupt_select
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_connection_close" class="md-nav__link">
+    iowa_system_connection_close
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_queue_create" class="md-nav__link">
+    iowa_system_queue_create
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_queue_delete" class="md-nav__link">
+    iowa_system_queue_delete
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_queue_enqueue" class="md-nav__link">
+    iowa_system_queue_enqueue
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_queue_dequeue" class="md-nav__link">
+    iowa_system_queue_dequeue
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_queue_peek" class="md-nav__link">
+    iowa_system_queue_peek
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_queue_remove" class="md-nav__link">
+    iowa_system_queue_remove
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_queue_backup" class="md-nav__link">
+    iowa_system_queue_backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_queue_restore" class="md-nav__link">
+    iowa_system_queue_restore
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_store_context" class="md-nav__link">
+    iowa_system_store_context
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_retrieve_context" class="md-nav__link">
+    iowa_system_retrieve_context
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_mutex_lock" class="md-nav__link">
+    iowa_system_mutex_lock
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_mutex_unlock" class="md-nav__link">
+    iowa_system_mutex_unlock
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_random_vector_generator" class="md-nav__link">
+    iowa_system_random_vector_generator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_security_data" class="md-nav__link">
+    iowa_system_security_data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CommonAPI.html" class="md-nav__link">
+        Common APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ClientAPI.html" class="md-nav__link">
+        Client APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+          Objects APIs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          Objects APIs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectConnectivityMonitoring.html" class="md-nav__link">
+        Connectivity Monitoring (ID 4)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectFirmwareUpdate.html" class="md-nav__link">
+        Firmware Update (ID 5)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectLocation.html" class="md-nav__link">
+        Location (ID 6)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectConnectivityStatistics.html" class="md-nav__link">
+        Connectivity Statistics (ID 7)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectSoftwareManagement.html" class="md-nav__link">
+        LwM2M Software Management (ID 9)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectCellularConnectivity.html" class="md-nav__link">
+        LwM2M Cellular Connectivity (ID 10)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectAPN.html" class="md-nav__link">
+        LwM2M APN Connection Profile (ID 11)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectBearerSelection.html" class="md-nav__link">
+        LwM2M Bearer Selection (ID 13)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectSoftwareComponent.html" class="md-nav__link">
+        LwM2M Software Component (ID 14)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectDigitalOutput.html" class="md-nav__link">
+        IPSO Digital Output (ID 3201)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectLightControl.html" class="md-nav__link">
+        IPSO Light Control (ID 3311)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectAccelerometer.html" class="md-nav__link">
+        IPSO Accelerometer (ID 3313)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectMagnetometer.html" class="md-nav__link">
+        IPSO Magnetometer (ID 3314)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectGyrometer.html" class="md-nav__link">
+        IPSO Gyrometer (ID 3334)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectGPS.html" class="md-nav__link">
+        IPSO Location a.k.a. GPS (ID 3336)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectDimmer.html" class="md-nav__link">
+        IPSO Dimmer (ID 3343)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ObjectAT.html" class="md-nav__link">
+        AT Command (ID 10251)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ServerAPI.html" class="md-nav__link">
+        Server APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="BootstrapServerAPI.html" class="md-nav__link">
+        Bootstrap Server APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="CoapAPI.html" class="md-nav__link">
+        CoAP APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="UtilsAPI.html" class="md-nav__link">
+        Utils APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="SecurityAPI.html" class="md-nav__link">
+        Security Implementation APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_10" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_10" id="__nav_5_10_label" tabindex="0">
+          Components
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5_10">
+          <span class="md-nav__icon md-icon"></span>
+          Components
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Components.html" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="SecurityComponent.html" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="LoggerAPI.html" class="md-nav__link">
+        Logger
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DeprecatedAPI.html" class="md-nav__link">
+        Deprecated APIs
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          Licenses
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Licenses
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="License.html" class="md-nav__link">
+        IOWA License
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="OpenSourceLicenses.html" class="md-nav__link">
+        OpenSource Licenses
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../print_page.html" class="md-nav__link">
+        Printable version
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#presentation" class="md-nav__link">
+    Presentation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-types" class="md-nav__link">
+    Data types
+  </a>
+  
+    <nav class="md-nav" aria-label="Data types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_connection_type_t" class="md-nav__link">
+    iowa_connection_type_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_operation_t" class="md-nav__link">
+    iowa_security_operation_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_psk_data_t" class="md-nav__link">
+    iowa_psk_data_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_certificate_data_t" class="md-nav__link">
+    iowa_certificate_data_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_rpk_data_t" class="md-nav__link">
+    iowa_rpk_data_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_oscore_data_t" class="md-nav__link">
+    iowa_oscore_data_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_security_data_t" class="md-nav__link">
+    iowa_security_data_t
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    API
+  </a>
+  
+    <nav class="md-nav" aria-label="API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_malloc" class="md-nav__link">
+    iowa_system_malloc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_free" class="md-nav__link">
+    iowa_system_free
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_gettime" class="md-nav__link">
+    iowa_system_gettime
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_reboot" class="md-nav__link">
+    iowa_system_reboot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_trace" class="md-nav__link">
+    iowa_system_trace
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_connection_open" class="md-nav__link">
+    iowa_system_connection_open
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_connection_open_server" class="md-nav__link">
+    iowa_system_connection_open_server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_connection_send" class="md-nav__link">
+    iowa_system_connection_send
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_connection_get_peer_identifier" class="md-nav__link">
+    iowa_system_connection_get_peer_identifier
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_connection_recv" class="md-nav__link">
+    iowa_system_connection_recv
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_connection_select" class="md-nav__link">
+    iowa_system_connection_select
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_connection_interrupt_select" class="md-nav__link">
+    iowa_system_connection_interrupt_select
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_connection_close" class="md-nav__link">
+    iowa_system_connection_close
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_queue_create" class="md-nav__link">
+    iowa_system_queue_create
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_queue_delete" class="md-nav__link">
+    iowa_system_queue_delete
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_queue_enqueue" class="md-nav__link">
+    iowa_system_queue_enqueue
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_queue_dequeue" class="md-nav__link">
+    iowa_system_queue_dequeue
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_queue_peek" class="md-nav__link">
+    iowa_system_queue_peek
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_queue_remove" class="md-nav__link">
+    iowa_system_queue_remove
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_queue_backup" class="md-nav__link">
+    iowa_system_queue_backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_queue_restore" class="md-nav__link">
+    iowa_system_queue_restore
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_store_context" class="md-nav__link">
+    iowa_system_store_context
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_retrieve_context" class="md-nav__link">
+    iowa_system_retrieve_context
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_mutex_lock" class="md-nav__link">
+    iowa_system_mutex_lock
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_mutex_unlock" class="md-nav__link">
+    iowa_system_mutex_unlock
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_random_vector_generator" class="md-nav__link">
+    iowa_system_random_vector_generator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iowa_system_security_data" class="md-nav__link">
+    iowa_system_security_data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+
+
+    <a href="../print_page.html" title="Print Site" class="md-content__button md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 3H6v4h12m1 5a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1m-3 7H8v-5h8m3-6H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3Z"/></svg>
+    </a>
+
+
+
+                  
+
+
+<h1 id="system-abstraction-layer">System Abstraction Layer</h1>
+<p>The functions explained below are defined inside the file <em>include/iowa_platform.h</em>.</p>
+<h2 id="presentation">Presentation</h2>
+<p>To port IOWA to your platform, you have to implement the following functions.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">iowa_system_malloc</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">iowa_system_free</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pointer</span><span class="p">);</span>
+
+<span class="kt">int32_t</span><span class="w"> </span><span class="nf">iowa_system_gettime</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">iowa_system_connection_send</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">connP</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">iowa_system_connection_recv</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">connP</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">iowa_system_connection_select</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="n">connArray</span><span class="p">,</span>
+<span class="w">                                  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">connCount</span><span class="p">,</span>
+<span class="w">                                  </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">timeout</span><span class="p">,</span>
+<span class="w">                                  </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">iowa_system_connection_close</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">connP</span><span class="p">,</span>
+<span class="w">                                  </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p>If you are implementing a LwM2M Client, you also have to implement these functions:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">iowa_system_reboot</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">userData</span><span class="p">);</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">iowa_system_connection_open</span><span class="p">(</span><span class="n">iowa_connection_type_t</span><span class="w"> </span><span class="n">type</span><span class="p">,</span>
+<span class="w">                                   </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span>
+<span class="w">                                   </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">port</span><span class="p">,</span>
+<span class="w">                                   </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p>These other functions are optional to implement. See Below.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">iowa_system_trace</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">format</span><span class="p">,</span>
+<span class="w">                       </span><span class="kt">va_list</span><span class="w"> </span><span class="n">varArgs</span><span class="p">);</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">iowa_system_queue_create</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">iowa_system_queue_delete</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">queueP</span><span class="p">,</span>
+<span class="w">                              </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">iowa_system_queue_enqueue</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">queueP</span><span class="p">,</span>
+<span class="w">                              </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span>
+<span class="w">                              </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">,</span>
+<span class="w">                              </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+
+<span class="kt">size_t</span><span class="w"> </span><span class="nf">iowa_system_queue_dequeue</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">queueP</span><span class="p">,</span>
+<span class="w">                                 </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span>
+<span class="w">                                 </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">,</span>
+<span class="w">                                 </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+
+<span class="kt">size_t</span><span class="w"> </span><span class="nf">iowa_system_queue_peek</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">queueP</span><span class="p">,</span>
+<span class="w">                              </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span>
+<span class="w">                              </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">,</span>
+<span class="w">                              </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">iowa_system_queue_remove</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">queueP</span><span class="p">,</span>
+<span class="w">                              </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+
+<span class="kt">size_t</span><span class="w"> </span><span class="nf">iowa_system_queue_backup</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">queueP</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">userData</span><span class="p">);</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">iowa_system_queue_restore</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">userData</span><span class="p">);</span>
+
+<span class="kt">size_t</span><span class="w"> </span><span class="nf">iowa_system_store_context</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">bufferP</span><span class="p">,</span>
+<span class="w">                                 </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">,</span>
+<span class="w">                                 </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">userData</span><span class="p">);</span>
+
+<span class="kt">size_t</span><span class="w"> </span><span class="nf">iowa_system_retrieve_context</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">**</span><span class="n">bufferP</span><span class="p">,</span>
+<span class="w">                                    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">userData</span><span class="p">);</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">iowa_system_connection_interrupt_select</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">iowa_system_mutex_lock</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">iowa_system_mutex_unlock</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+
+<span class="kt">size_t</span><span class="w"> </span><span class="nf">iowa_system_connection_get_peer_identifier</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">connP</span><span class="p">,</span>
+<span class="w">                                                  </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">addrP</span><span class="p">,</span>
+<span class="w">                                                  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">,</span>
+<span class="w">                                                  </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">iowa_system_random_vector_generator</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">randomBuffer</span><span class="p">,</span>
+<span class="w">                                        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span>
+<span class="w">                                        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">userData</span><span class="p">);</span>
+
+<span class="n">iowa_status_t</span><span class="w"> </span><span class="nf">iowa_system_security_data</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">peerIdentity</span><span class="p">,</span>
+<span class="w">                                        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">peerIdentityLen</span><span class="p">,</span>
+<span class="w">                                        </span><span class="n">iowa_security_operation_t</span><span class="w"> </span><span class="n">securityOp</span><span class="p">,</span>
+<span class="w">                                        </span><span class="n">iowa_security_data_t</span><span class="w"> </span><span class="o">*</span><span class="n">securityDataP</span><span class="p">,</span>
+<span class="w">                                        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">userDataP</span><span class="p">);</span>
+</code></pre></div>
+<hr />
+<h2 id="data-types">Data types</h2>
+<h3 id="iowa_connection_type_t">iowa_connection_type_t</h3>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">IOWA_CONN_UNDEFINED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="n">IOWA_CONN_DATAGRAM</span><span class="p">,</span>
+<span class="w">    </span><span class="n">IOWA_CONN_STREAM</span><span class="p">,</span>
+<span class="w">    </span><span class="n">IOWA_CONN_LORAWAN</span><span class="p">,</span>
+<span class="w">    </span><span class="n">IOWA_CONN_SMS</span><span class="p">,</span>
+<span class="w">    </span><span class="n">IOWA_CONN_WEBSOCKET</span>
+<span class="p">}</span><span class="w"> </span><span class="n">iowa_connection_type_t</span><span class="p">;</span>
+</code></pre></div>
+<p>This is an enumeration of the following values:</p>
+<dl>
+<dt>IOWA_CONN_UNDEFINED</dt>
+<dd>Connection type is unknown.</dd>
+<dt>IOWA_CONN_DATAGRAM</dt>
+<dd>UDP connection.</dd>
+<dt>IOWA_CONN_STREAM</dt>
+<dd>TCP connection.</dd>
+<dt>IOWA_CONN_LORAWAN</dt>
+<dd>LoRaWAN transport.</dd>
+<dt>IOWA_CONN_SMS</dt>
+<dd>SMS transport.</dd>
+<dt>IOWA_CONN_WEBSOCKET</dt>
+<dd>WebSocket transport.</dd>
+</dl>
+<h3 id="iowa_security_operation_t">iowa_security_operation_t</h3>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">IOWA_SEC_READ</span><span class="p">,</span>
+<span class="w">    </span><span class="n">IOWA_SEC_FREE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">IOWA_SEC_CREATE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">IOWA_SEC_DELETE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">IOWA_SEC_CHECK</span>
+<span class="p">}</span><span class="w"> </span><span class="n">iowa_security_operation_t</span><span class="p">;</span>
+</code></pre></div>
+<p>The <code>iowa_security_operation_t</code> enumeration is used to tell which security operation is requested when the function <code>iowa_system_security_data</code> is called.</p>
+<dl>
+<dt>IOWA_SEC_READ</dt>
+<dd>Read security keys from the Application.</dd>
+<dt>IOWA_SEC_FREE</dt>
+<dd>Free the data allocated if any in the security structure. Always call after <strong>IOWA_SEC_READ</strong>.</dd>
+<dt>IOWA_SEC_CREATE</dt>
+<dd>Add security keys to the Application.</dd>
+<dt>IOWA_SEC_DELETE</dt>
+<dd>Remove security keys from the Application.</dd>
+<dt>IOWA_SEC_CHECK</dt>
+<dd>Check if the security keys are present on the Application.</dd>
+</dl>
+<h3 id="iowa_psk_data_t">iowa_psk_data_t</h3>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">identity</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w">   </span><span class="n">identityLen</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">privateKey</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w">   </span><span class="n">privateKeyLen</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">iowa_psk_data_t</span><span class="p">;</span>
+</code></pre></div>
+<p>The <code>iowa_psk_data_t</code> structure is used to store the identity / private key pair information.</p>
+<dl>
+<dt>identity</dt>
+<dd>Identity associated with the private key.</dd>
+<dt>identityLen</dt>
+<dd>Length of the identity.</dd>
+<dt>privateKey</dt>
+<dd>Private key associated with the identity.</dd>
+<dt>privateKeyLen</dt>
+<dd>Length of the private key.</dd>
+</dl>
+<h3 id="iowa_certificate_data_t">iowa_certificate_data_t</h3>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">caCertificate</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w">   </span><span class="n">caCertificateLen</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">certificate</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w">   </span><span class="n">certificateLen</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">privateKey</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w">   </span><span class="n">privateKeyLen</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">iowa_certificate_data_t</span><span class="p">;</span>
+</code></pre></div>
+<p>The <code>iowa_certificate_data_t</code> structure is used to store information related to a certificate.</p>
+<dl>
+<dt>caCertificate</dt>
+<dd>Certificate authority used to generate the certificate. Must respect the DER (Distinguished Encoding Rules) format.</dd>
+<dt>caCertificateLen</dt>
+<dd>Length of the certificate authority.</dd>
+<dt>certificate</dt>
+<dd>Certificate. Must respect the DER (Distinguished Encoding Rules) format.</dd>
+<dt>certificateLen</dt>
+<dd>Length of the certificate.</dd>
+<dt>privateKey</dt>
+<dd>Private key used to generate the certificate. Must respect the DER (Distinguished Encoding Rules) format.</dd>
+<dt>privateKeyLen</dt>
+<dd>Length of the private key.</dd>
+</dl>
+<h3 id="iowa_rpk_data_t">iowa_rpk_data_t</h3>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">publicKeyX</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w">   </span><span class="n">publicKeyXLen</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">publicKeyY</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w">   </span><span class="n">publicKeyYLen</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">privateKey</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w">   </span><span class="n">privateKeyLen</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">iowa_rpk_data_t</span><span class="p">;</span>
+</code></pre></div>
+<p>The <code>iowa_rpk_data_t</code> structure is used to store information related to raw public key information. Supported public keys must use the fixed curve <em>secp256r1</em>.</p>
+<dl>
+<dt>publicKeyX</dt>
+<dd>Public key X coordinate.</dd>
+<dt>publicKeyXLen</dt>
+<dd>Length of the public key X coordinate.</dd>
+<dt>publicKeyY</dt>
+<dd>Public key Y coordinate.</dd>
+<dt>publicKeyYLen</dt>
+<dd>Length of the public key Y coordinate.</dd>
+<dt>privateKey</dt>
+<dd>Private key used to generate the public key.</dd>
+<dt>privateKeyLen</dt>
+<dd>Length of the private key.</dd>
+</dl>
+<h3 id="iowa_oscore_data_t">iowa_oscore_data_t</h3>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">senderId</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w">   </span><span class="n">senderIdLen</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">recipientId</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w">   </span><span class="n">recipientIdLen</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">masterSecret</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w">   </span><span class="n">masterSecretLen</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">iowa_oscore_data_t</span><span class="p">;</span>
+</code></pre></div>
+<p>The <code>iowa_oscore_data_t</code> structure is used to store information related to OSCORE key information.</p>
+<dl>
+<dt>senderId</dt>
+<dd>ID to use to protect sent CoAP messages.</dd>
+<dt>senderIdLen</dt>
+<dd>Length of the Sender ID.</dd>
+<dt>recipientId</dt>
+<dd>ID to use to verify received CoAP messages..</dd>
+<dt>recipientIdLen</dt>
+<dd>Length of the Recipient ID.</dd>
+<dt>masterSecret</dt>
+<dd>Private key associated to the Sender ID and Recipient ID.</dd>
+<dt>masterSecretLen</dt>
+<dd>Length of the Master Secret.</dd>
+</dl>
+<h3 id="iowa_security_data_t">iowa_security_data_t</h3>
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">iowa_security_mode_t</span><span class="w"> </span><span class="n">securityMode</span><span class="p">;</span>
+<span class="w">    </span><span class="k">union</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">iowa_psk_data_t</span><span class="w">         </span><span class="n">pskData</span><span class="p">;</span>
+<span class="w">        </span><span class="n">iowa_certificate_data_t</span><span class="w"> </span><span class="n">certData</span><span class="p">;</span>
+<span class="w">        </span><span class="n">iowa_rpk_data_t</span><span class="w">         </span><span class="n">rpkData</span><span class="p">;</span>
+<span class="w">        </span><span class="n">iowa_oscore_data_t</span><span class="w">      </span><span class="n">oscoreData</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="n">protocol</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">iowa_security_data_t</span><span class="p">;</span>
+</code></pre></div>
+<p>The <code>iowa_security_data_t</code> structure is used to create, delete, read and free security data.</p>
+<dl>
+<dt>securityMode</dt>
+<dd>Security mode to determine the data in the union structure.</dd>
+<dt>protocol.pskData</dt>
+<dd>Pre-shared key data.</dd>
+<dt>protocol.certData</dt>
+<dd>Certificate data.</dd>
+<dt>protocol.rpkData</dt>
+<dd>Raw public key data.</dd>
+<dt>protocol.oscoreData</dt>
+<dd>Object Security for CORE key data.</dd>
+</dl>
+<hr />
+<h2 id="api">API</h2>
+<h3 id="iowa_system_malloc">iowa_system_malloc</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">iowa_system_malloc</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_malloc()</code> could map directly to C standard library <code>malloc()</code>. It allocates a memory block.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>size</em></dt>
+<dd>The size in bytes of the requested memory block.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>A pointer to the allocated memory or NULL in case of error.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Note</strong></p>
+<p>This function is required by IOWA.</p>
+<hr />
+<h3 id="iowa_system_free">iowa_system_free</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">iowa_system_free</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pointer</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_free()</code> could map directly to C standard library <code>free()</code>. It releases a memory block previously allocated by <a href="AbstractionLayer.html#iowa_system_malloc"><code>iowa_system_malloc()</code></a>.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>pointer</em></dt>
+<dd>A pointer to the memory block to release.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>None.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required by IOWA.</p>
+<p>From C standard, no action should occur if <em>pointer</em> argument is a null pointer. This is how the function <code>free()</code> from C standard library behaves. However, some compilers or implementations do not respect this standard. So it can be necessary when implementing <code>iowa_system_free()</code> to check if the argument <em>pointer</em> is nil.</p>
+<hr />
+<h3 id="iowa_system_gettime">iowa_system_gettime</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">int32_t</span><span class="w"> </span><span class="nf">iowa_system_gettime</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_gettime()</code> is used by IOWA to determine the time elapsed.</p>
+<p><strong>Return Value</strong></p>
+<p>The number of seconds elapsed since a point of origin or a negative number in case of error.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required by IOWA.</p>
+<p>If you are using the GPS or the Location object, this function will be used to timestamp the measure. In this case, the point of origin must be Epoch.</p>
+<p>Else, the point of origin (Epoch, system boot, etc...) does not matter as this function is used only to determine the elapsed time between consecutive calls.</p>
+<p>There is no safeguard if <code>iowa_system_gettime()</code> returns a value inferior to the one returned in a previous call.</p>
+<hr />
+<h3 id="iowa_system_reboot">iowa_system_reboot</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">iowa_system_reboot</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_reboot()</code> starts a system reboot.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>userData</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>None.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required only for LwM2M Clients.</p>
+<p>This feature is required by the Lightweight M2M protocol. However, a LwM2M device can be functional without it and this function can be a stub.</p>
+<hr />
+<h3 id="iowa_system_trace">iowa_system_trace</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">iowa_system_trace</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">format</span><span class="p">,</span>
+<span class="w">                       </span><span class="kt">va_list</span><span class="w"> </span><span class="n">varArgs</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_trace()</code> outputs the logs when the stack is built with <strong>IOWA_WITH_LOGS</strong>.</p>
+<p>It can be mapped directly to <code>vprintf()</code>.</p>
+<p><strong>Return Value</strong></p>
+<p>None.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required by IOWA only when logs are activated. See <a href="Configuration.html#iowa_log_level-and-iowa_log_part">IOWA_LOG_LEVEL and IOWA_LOG_PART</a>.</p>
+<p>IOWA takes care of freeing <em>varArgs</em> after this call returns.</p>
+<p>To print a single line on the output, this function can be called multiple times. This has an impact when the flag <strong>IOWA_THREAD_SUPPORT</strong> is enabled. Several calls of <a href="AbstractionLayer.html#iowa_system_trace"><code>iowa_system_trace()</code></a> can occur from different threads at the same time. And thus, the output can be ruined. The implementation of this function must be thread safe.</p>
+<hr />
+<h3 id="iowa_system_connection_open">iowa_system_connection_open</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">iowa_system_connection_open</span><span class="p">(</span><span class="n">iowa_connection_type_t</span><span class="w"> </span><span class="n">type</span><span class="p">,</span>
+<span class="w">                                   </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span>
+<span class="w">                                   </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">port</span><span class="p">,</span>
+<span class="w">                                   </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_connection_open()</code> opens a connection to a host.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>type</em></dt>
+<dd>The type of connection to open.</dd>
+<dt><em>hostname</em></dt>
+<dd>The hostname of the peer to connect to.</dd>
+<dt><em>port</em></dt>
+<dd>The port to connect to. It may be NULL depending on the provided server URL.</dd>
+<dt><em>userData</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>A pointer to a user-defined type or NULL in case of error.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required only for LwM2M Clients.</p>
+<p>When IOWA is used as a LwM2M Client, it calls this function to connect to the LwM2M Servers. See the <a href="ClientAPI.html#iowa_client_add_server"><code>iowa_client_add_server()</code></a> API.</p>
+<hr />
+<h3 id="iowa_system_connection_open_server">iowa_system_connection_open_server</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">iowa_system_connection_open_server</span><span class="p">(</span><span class="n">iowa_connection_type_t</span><span class="w"> </span><span class="n">type</span><span class="p">,</span>
+<span class="w">                                          </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">hostname</span><span class="p">,</span>
+<span class="w">                                          </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">port</span><span class="p">,</span>
+<span class="w">                                          </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">ssid</span><span class="p">,</span>
+<span class="w">                                          </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_connection_open_server()</code> opens a connection to a host.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>type</em></dt>
+<dd>The type of connection to open.</dd>
+<dt><em>hostname</em></dt>
+<dd>The hostname of the peer to connect to.</dd>
+<dt><em>port</em></dt>
+<dd>The port to connect to. It may be NULL depending on the provided server URL.</dd>
+<dt><em>ssid</em></dt>
+<dd>The Short Server ID of the LwM2M Server to connect to, <code>0</code> if the connection is to the LwM2M Bootstrap-Server, or <strong>IOWA_LWM2M_ID_ALL</strong> if the connection is not to a LwM2M Server.</dd>
+<dt><em>userData</em></dt>
+<dd>The argument passed to [<code>iowa_init()</code>][iowa_init].</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>A pointer to a user-defined type or NULL in case of error.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required only for LwM2M Clients when <a href="Configuration.html#iowa_abstraction_extension"><strong>IOWA_ABSTRACTION_EXTENSION</strong></a> is defined.</p>
+<p>When IOWA is used as a LwM2M Client, it calls this function to connect to the LwM2M Servers. See the [<code>iowa_client_add_server()</code>][iowa_client_add_server] API.</p>
+<hr />
+<h3 id="iowa_system_connection_send">iowa_system_connection_send</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">iowa_system_connection_send</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">connP</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_connection_send()</code> sends a buffer on a connection.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>connP</em></dt>
+<dd>The connection as returned by <a href="AbstractionLayer.html#iowa_system_connection_open"><code>iowa_system_connection_open()</code></a>.</dd>
+<dt><em>buffer</em></dt>
+<dd>The data to send.</dd>
+<dt><em>length</em></dt>
+<dd>The length of the data in bytes.</dd>
+<dt><em>userData</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The number of bytes sent or a negative number in case of error.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required by IOWA.</p>
+<p>On packet switched networks (eg. UDP), if <em>length</em> is bigger than the MTU, it is advised to not try to send the buffer and return the MTU.</p>
+<hr />
+<h3 id="iowa_system_connection_get_peer_identifier">iowa_system_connection_get_peer_identifier</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">size_t</span><span class="w"> </span><span class="nf">iowa_system_connection_get_peer_identifier</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">connP</span><span class="p">,</span>
+<span class="w">                                                  </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">addrP</span><span class="p">,</span>
+<span class="w">                                                  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">,</span>
+<span class="w">                                                  </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_connection_get_peer_identifier()</code> returns a unique identifier for the peer of a connection (e.g. IP address, LoRaWAN DevEUI, SMS MSISDN).</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>connP</em></dt>
+<dd>The connection as returned by <a href="AbstractionLayer.html#iowa_system_connection_open"><code>iowa_system_connection_open()</code></a>.</dd>
+<dt><em>addrP</em></dt>
+<dd>A pre-allocated buffer to store the identifier.</dd>
+<dt><em>length</em></dt>
+<dd>The length of <em>addrP</em> in bytes.</dd>
+<dt><em>userData</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The number of bytes of the identifier or 0 in case of error.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required only if IOWA is built with the <a href="Configuration.html#iowa_security_layer_support">IOWA_SECURITY_LAYER_SUPPORT</a> flag.</p>
+<p>This is used when the endpoint name has not been found in the registration payload.</p>
+<hr />
+<h3 id="iowa_system_connection_recv">iowa_system_connection_recv</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">iowa_system_connection_recv</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">connP</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_connection_recv()</code> reads data from a connection in a non-blocking way.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>connP</em></dt>
+<dd>The connection as returned by <a href="AbstractionLayer.html#iowa_system_connection_open"><code>iowa_system_connection_open()</code></a>.</dd>
+<dt><em>buffer</em></dt>
+<dd>A buffer to store the received data.</dd>
+<dt><em>length</em></dt>
+<dd>The length of the buffer in bytes.</dd>
+<dt><em>userData</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The number of received bytes or a negative number in case of error.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Note</strong></p>
+<p>This function is required by IOWA.</p>
+<hr />
+<h3 id="iowa_system_connection_select">iowa_system_connection_select</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">iowa_system_connection_select</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="n">connArray</span><span class="p">,</span>
+<span class="w">                                  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">connCount</span><span class="p">,</span>
+<span class="w">                                  </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">timeout</span><span class="p">,</span>
+<span class="w">                                  </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_connection_select()</code> monitors a list of connections for incoming data during the specified time.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>connArray</em></dt>
+<dd>An array of connections as returned by <a href="AbstractionLayer.html#iowa_system_connection_open"><code>iowa_system_connection_open()</code></a>.</dd>
+<dt><em>connCount</em></dt>
+<dd>The number of elements of connArray. This may be zero.</dd>
+<dt><em>timeout</em></dt>
+<dd>The time to wait for data in seconds. This may be zero.</dd>
+<dt><em>userData</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+<dt><strong>Return Value</strong></dt>
+<dd>
+<p>either:</p>
+</dd>
+<dd>
+<ul>
+<li>a positive number if data are available.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li>zero if the time elapsed.</li>
+</ul>
+</dd>
+<dd>
+<ul>
+<li>a negative number in case of error.</li>
+</ul>
+</dd>
+</dl>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required by IOWA.</p>
+<p>If data are available on one or more connections, <code>iowa_system_connection_select()</code> must modify the <em>connArray</em> elements :</p>
+<ul>
+<li>If data are available on a connection the matching element in <em>connArray</em> is left untouched.</li>
+<li>If no data are available, the matching element is set to NULL.
+  If the timeout is reached (or in case of error), there is no need to modify the <em>connArray</em> elements.</li>
+</ul>
+<p>When the application needs to be very responsive, this function is a good place to monitor application specific events without using a very short timeout in <a href="CommonAPI.html#iowa_step"><code>iowa_step()</code></a>. For instance, the sample server waits for keyboard events here.</p>
+<p>It is possible that IOWA calls <code>iowa_system_connection_select()</code> with a timeout of zero. In this case, <code>iowa_system_connection_select()</code> must not return an error, and should check if some data are already available on one of the connections.</p>
+<p>It is also possible that IOWA calls <code>iowa_system_connection_select()</code> with no connections. In this case, <code>iowa_system_connection_select()</code> must not return an error, and should return after the timeout, which may also be zero, expires. This can occur when opening a connection to a LwM2M Server failed and IOWA is configured to wait a specific time before retrying to connect to the LwM2M Server.</p>
+<hr />
+<h3 id="iowa_system_connection_interrupt_select">iowa_system_connection_interrupt_select</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">iowa_system_connection_interrupt_select</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p>A call to <code>iowa_system_connection_interrupt_select()</code> makes <a href="AbstractionLayer.html#iowa_system_connection_select"><code>iowa_system_connection_select()</code></a> return immediately if it is currently running.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>userData</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>None.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required only if IOWA is built with the <strong>IOWA_MULTITHREAD_SUPPORT</strong> flag.</p>
+<p>The value returned by <a href="AbstractionLayer.html#iowa_system_connection_select"><code>iowa_system_connection_select()</code></a> is zero. Calling <code>iowa_system_connection_interrupt_select()</code> is considered as a preemptive timeout for <a href="AbstractionLayer.html#iowa_system_connection_select"><code>iowa_system_connection_select()</code></a>.</p>
+<hr />
+<h3 id="iowa_system_connection_close">iowa_system_connection_close</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">iowa_system_connection_close</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">connP</span><span class="p">,</span>
+<span class="w">                                  </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_connection_close()</code> closes a connection.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>connP</em></dt>
+<dd>The connection as returned by <a href="AbstractionLayer.html#iowa_system_connection_open"><code>iowa_system_connection_open()</code></a>.</dd>
+<dt><em>userData</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>None.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Note</strong></p>
+<p>This function is required by IOWA.</p>
+<hr />
+<h3 id="iowa_system_queue_create">iowa_system_queue_create</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">iowa_system_queue_create</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_queue_create()</code> creates a storage queue to offload data from the memory.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>userData</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>A pointer to a user-defined type or NULL in case of error.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required only if IOWA is built with the <strong>LWM2M_STORAGE_QUEUE_SUPPORT</strong> or <strong>LWM2M_STORAGE_QUEUE_PEEK_SUPPORT</strong> flags.</p>
+<p>The storage queue must store data as separate entities and not as a stream. Ideally, this is a FIFO.</p>
+<hr />
+<h3 id="iowa_system_queue_delete">iowa_system_queue_delete</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">iowa_system_queue_delete</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">queueP</span><span class="p">,</span>
+<span class="w">                             </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_queue_delete()</code> closes a storage queue.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>queueP</em></dt>
+<dd>A storage queue as returned by <a href="AbstractionLayer.html#iowa_system_queue_create"><code>iowa_system_queue_create()</code></a>.</dd>
+<dt><em>userData</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>None.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required only if IOWA is built with the <strong>LWM2M_STORAGE_QUEUE_SUPPORT</strong> or <strong>LWM2M_STORAGE_QUEUE_PEEK_SUPPORT</strong> flags.</p>
+<hr />
+<h3 id="iowa_system_queue_enqueue">iowa_system_queue_enqueue</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">iowa_system_queue_enqueue</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">queueP</span><span class="p">,</span>
+<span class="w">                              </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span>
+<span class="w">                              </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">,</span>
+<span class="w">                              </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_queue_enqueue()</code> stores data in a storage queue.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>queueP</em></dt>
+<dd>A storage queue as returned by <a href="AbstractionLayer.html#iowa_system_queue_create"><code>iowa_system_queue_create()</code></a>.</dd>
+<dt><em>buffer</em></dt>
+<dd>The data to store.</dd>
+<dt><em>length</em></dt>
+<dd>The length of the data in bytes.</dd>
+<dt><em>userData</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The number of stored bytes or a negative number in case of error.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required only if IOWA is built with the <strong>LWM2M_STORAGE_QUEUE_SUPPORT</strong> or <strong>LWM2M_STORAGE_QUEUE_PEEK_SUPPORT</strong> flags.</p>
+<p>The data must be stored as a single entity.</p>
+<hr />
+<h3 id="iowa_system_queue_dequeue">iowa_system_queue_dequeue</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">size_t</span><span class="w"> </span><span class="nf">iowa_system_queue_dequeue</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">queueP</span><span class="p">,</span>
+<span class="w">                                 </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span>
+<span class="w">                                 </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">,</span>
+<span class="w">                                 </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_queue_dequeue()</code> retrieves an entity from a storage queue or, the provided buffer is too small, it returns the size of the next entity to retrieve.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>queueP</em></dt>
+<dd>A storage queue as returned by <a href="AbstractionLayer.html#iowa_system_queue_create"><code>iowa_system_queue_create()</code></a>.</dd>
+<dt><em>buffer</em></dt>
+<dd>A buffer to store the retrieved data. This can be nil.</dd>
+<dt><em>length</em></dt>
+<dd>The length of the buffer in bytes. This can be zero.</dd>
+<dt><em>userData</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The size in bytes of retrieved entity or zero if the queue is empty or in case of error.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required only if IOWA is built with the <strong>LWM2M_STORAGE_QUEUE_SUPPORT</strong> flag.</p>
+<p>If the provided buffer is nil or too small to contain the entity to retrieve, the entity is not removed from the queue.</p>
+<hr />
+<h3 id="iowa_system_queue_peek">iowa_system_queue_peek</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">size_t</span><span class="w"> </span><span class="nf">iowa_system_queue_peek</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">queueP</span><span class="p">,</span>
+<span class="w">                              </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span>
+<span class="w">                              </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">,</span>
+<span class="w">                              </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_queue_peek()</code> peeks an entity from a storage queue or, if the provided buffer is too small, it returns the size of the next entity to peek.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>queueP</em></dt>
+<dd>A storage queue as returned by <a href="AbstractionLayer.html#iowa_system_queue_create"><code>iowa_system_queue_create()</code></a>.</dd>
+<dt><em>buffer</em></dt>
+<dd>A buffer to store the retrieved data. This can be nil.</dd>
+<dt><em>length</em></dt>
+<dd>The length of the buffer in bytes. This can be zero.</dd>
+<dt><em>userData</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The size in bytes of peeked entity or zero if the queue is empty or in case of error.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required only if IOWA is built with the <strong>LWM2M_STORAGE_QUEUE_PEEK_SUPPORT</strong> flag.</p>
+<hr />
+<h3 id="iowa_system_queue_remove">iowa_system_queue_remove</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">iowa_system_queue_remove</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">queueP</span><span class="p">,</span>
+<span class="w">                              </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_queue_remove()</code> removes the first entity of a storage queue.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>queueP</em></dt>
+<dd>A storage queue as returned by <a href="AbstractionLayer.html#iowa_system_queue_create"><code>iowa_system_queue_create()</code></a>.</dd>
+<dt><em>userData</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>None.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required only if IOWA is built with the <strong>LWM2M_STORAGE_QUEUE_PEEK_SUPPORT</strong> flag.</p>
+<hr />
+<h3 id="iowa_system_queue_backup">iowa_system_queue_backup</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">size_t</span><span class="w"> </span><span class="nf">iowa_system_queue_backup</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">queueP</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_queue_backup()</code> returns a blob of data necessary to recreate a storage queue, or if the provided buffer is too small, the size of this blob of data.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>queueP</em></dt>
+<dd>A storage queue as returned by <a href="AbstractionLayer.html#iowa_system_queue_create"><code>iowa_system_queue_create()</code></a>.</dd>
+<dt><em>buffer</em></dt>
+<dd>A buffer to store the blob of data. This can be nil.</dd>
+<dt><em>length</em></dt>
+<dd>The length of <em>buffer</em> in bytes. This can be zero.</dd>
+<dt><em>userData</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The size in bytes of the blob of data to save or zero in case of error.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required only if IOWA is built with the <strong>IOWA_STORAGE_CONTEXT_SUPPORT</strong> flag and with the <strong>LWM2M_STORAGE_QUEUE_SUPPORT</strong> or <strong>LWM2M_STORAGE_QUEUE_PEEK_SUPPORT</strong> flags.</p>
+<hr />
+<h3 id="iowa_system_queue_restore">iowa_system_queue_restore</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">iowa_system_queue_restore</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_queue_restore()</code> recreates a storage queue from a blob of data.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>buffer</em></dt>
+<dd>A buffer containing the blob of data returned by <a href="AbstractionLayer.html#iowa_system_queue_backup"><code>iowa_system_queue_backup()</code></a>.</dd>
+<dt><em>length</em></dt>
+<dd>The length of <em>buffer</em> in bytes.</dd>
+<dt><em>userData</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>A pointer to a user-defined type or NULL in case of error.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required only if IOWA is built with the <strong>IOWA_STORAGE_CONTEXT_SUPPORT</strong> flag and with the <strong>LWM2M_STORAGE_QUEUE_SUPPORT</strong> or <strong>LWM2M_STORAGE_QUEUE_PEEK_SUPPORT</strong> flags.</p>
+<hr />
+<h3 id="iowa_system_store_context">iowa_system_store_context</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">size_t</span><span class="w"> </span><span class="nf">iowa_system_store_context</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">bufferP</span><span class="p">,</span>
+<span class="w">                                 </span><span class="kt">size_t</span><span class="w"> </span><span class="n">length</span><span class="p">,</span>
+<span class="w">                                 </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_store_context()</code> stores the IOWA context.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>bufferP</em></dt>
+<dd>The destination buffer.</dd>
+<dt><em>length</em></dt>
+<dd>Length of the buffer.</dd>
+<dt><em>userData</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The number of stored bytes or a zero in case of error.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required only if IOWA is built with the <strong>IOWA_STORAGE_CONTEXT_SUPPORT</strong> flag.</p>
+<hr />
+<h3 id="iowa_system_retrieve_context">iowa_system_retrieve_context</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">size_t</span><span class="w"> </span><span class="nf">iowa_system_retrieve_context</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">**</span><span class="n">bufferP</span><span class="p">,</span>
+<span class="w">                                    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_retrieve_context()</code> retrieves an IOWA context.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>bufferP</em></dt>
+<dd>The buffer containing the retrieved data.</dd>
+<dt><em>userData</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>The size in bytes of retrieved data or zero if there is nothing or in case of error.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<ul>
+<li>This function is required only if IOWA is built with the <strong>IOWA_STORAGE_CONTEXT_SUPPORT</strong> flag.</li>
+<li><em>bufferP</em> must be allocated by the function. The buffer will next be freed by IOWA internally.</li>
+</ul>
+<hr />
+<h3 id="iowa_system_mutex_lock">iowa_system_mutex_lock</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">iowa_system_mutex_lock</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_mutex_lock()</code> locks a mutex for the current thread.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>userData</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>None.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required only if IOWA is built with the <strong>IOWA_MULTITHREAD_SUPPORT</strong> flag.</p>
+<p>IOWA uses only one mutex.</p>
+<hr />
+<h3 id="iowa_system_mutex_unlock">iowa_system_mutex_unlock</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">iowa_system_mutex_unlock</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_mutex_unlock()</code> releases a mutex.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>userData</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>None.</p>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required only if IOWA is built with the <strong>IOWA_MULTITHREAD_SUPPORT</strong> flag.</p>
+<p>IOWA uses only one mutex.</p>
+<hr />
+<h3 id="iowa_system_random_vector_generator">iowa_system_random_vector_generator</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">iowa_system_random_vector_generator</span><span class="p">(</span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">randomBuffer</span><span class="p">,</span>
+<span class="w">                                        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span>
+<span class="w">                                        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">userData</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_random_vector_generator()</code> stores random values to a preallocated vector.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>randomBuffer</em></dt>
+<dd>The generated random vector.</dd>
+<dt><em>size</em></dt>
+<dd>The size of the vector.</dd>
+<dt><em>userData</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<p>A code indicating if the vector has been generated:</p>
+<ul>
+<li>0 if the vector has been generated successfully.</li>
+<li>Another value if an error occurred.</li>
+</ul>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required only if IOWA is built with the <a href="Configuration.html#iowa_security_layer_support">IOWA_SECURITY_LAYER_SUPPORT</a> flag.</p>
+<hr />
+<h3 id="iowa_system_security_data">iowa_system_security_data</h3>
+<p><strong>Prototype</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">iowa_status_t</span><span class="w"> </span><span class="nf">iowa_system_security_data</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">peerIdentity</span><span class="p">,</span>
+<span class="w">                                        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">peerIdentityLen</span><span class="p">,</span>
+<span class="w">                                        </span><span class="n">iowa_security_operation_t</span><span class="w"> </span><span class="n">securityOp</span><span class="p">,</span>
+<span class="w">                                        </span><span class="n">iowa_security_data_t</span><span class="w"> </span><span class="o">*</span><span class="n">securityDataP</span><span class="p">,</span>
+<span class="w">                                        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">userDataP</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Description</strong></p>
+<p><code>iowa_system_security_data()</code> is a function used by the security layer to CREATE, DELETE or READ the security data.</p>
+<p><strong>Arguments</strong></p>
+<dl>
+<dt><em>peerIdentity</em></dt>
+<dd>The identity associating to the peer (can be a URI on client side, or the PSK identity on server side, etc).</dd>
+<dt><em>peerIdentitySize</em></dt>
+<dd>Size of the identity.</dd>
+<dt><em>securityOp</em></dt>
+<dd>The security operation.</dd>
+<dt><em>securityDataP</em></dt>
+<dd>The security data.</dd>
+<dt><em>userDataP</em></dt>
+<dd>The argument passed to <a href="CommonAPI.html#iowa_init"><code>iowa_init()</code></a>.</dd>
+</dl>
+<p><strong>Return Value</strong></p>
+<dl>
+<dt>IOWA_COAP_NO_ERROR</dt>
+<dd>success.</dd>
+<dt>IOWA_COAP_404_NOT_FOUND</dt>
+<dd>the security data based on <em>peerIdentity</em> has not been found (only when the security operation is not <code>IOWA_SEC_CREATE</code>).</dd>
+<dt>IOWA_COAP_406_NOT_ACCEPTABLE</dt>
+<dd>the security data based on <em>peerIdentity</em> already exists (only when the security operation is <code>IOWA_SEC_CREATE</code>).</dd>
+<dt>IOWA_COAP_500_INTERNAL_SERVER_ERROR</dt>
+<dd>a memory allocation failed.</dd>
+</dl>
+<p><strong>Header File</strong></p>
+<p>iowa_platform.h</p>
+<p><strong>Notes</strong></p>
+<p>This function is required only if IOWA is built with the <a href="Configuration.html#iowa_security_layer_support">IOWA_SECURITY_LAYER_SUPPORT</a> flag or the <a href="Configuration.html#iowa_coap_oscore_support"><strong>IOWA_COAP_OSCORE_SUPPORT</strong></a> flag.</p>
+<p>The <strong>IOWA_SEC_DELETE</strong> operation is only used if a <strong>IOWA_SEC_CREATE</strong> operation happened. The <strong>IOWA_SEC_CREATE</strong> operation is only used on bootstrapping.</p>
+<p>Regarding the memory allocation:</p>
+<ul>
+<li>On a <strong>IOWA_SEC_CREATE</strong> operation, the data is allocated by the stack. So the deallocation MUST not be done by the application.</li>
+<li>On a <strong>IOWA_SEC_READ</strong> operation, the data if needed is allocated by the application. The stack does not deallocate it. That's why after a <strong>IOWA_SEC_READ</strong> operation, the function <code>iowa_system_security_data</code> is called with <strong>IOWA_SEC_FREE</strong> to allow the application to deallocate the memory if needed.</li>
+</ul>
+<p><em>peerIdentity</em> is always a character string encoded in UTF-8 without the Null-terminated string:</p>
+<ul>
+<li>On a LwM2M Client, this is the LwM2M Server URI or the Bootstrap Server URI.</li>
+<li>On Server, this is Client Hint Identity.</li>
+</ul>
+
+
+
+
+
+                
+
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2020-2023 IoTerop
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://ioterop.com/" target="_blank" rel="noopener" title="Website" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="m57.7 193 9.4 16.4c8.3 14.5 21.9 25.2 38 29.8l57.9 16.5c17.2 4.9 29 20.6 29 38.5v39.9c0 11 6.2 21 16 25.9s16 14.9 16 25.9v39c0 15.6 14.9 26.9 29.9 22.6 16.1-4.6 28.6-17.5 32.7-33.8l2.8-11.2c4.2-16.9 15.2-31.4 30.3-40l8.1-4.6c15-8.5 24.2-24.5 24.2-41.7v-8.3c0-12.7-5.1-24.9-14.1-33.9l-3.9-3.9c-9-9-21.2-14.1-33.9-14.1H257c-11.1 0-22.1-2.9-31.8-8.4l-34.5-19.7c-4.3-2.5-7.6-6.5-9.2-11.2-3.2-9.6 1.1-20 10.2-24.5l5.9-3c6.6-3.3 14.3-3.9 21.3-1.5l23.2 7.7c8.2 2.7 17.2-.4 21.9-7.5 4.7-7 4.2-16.3-1.2-22.8l-13.6-16.3c-10-12-9.9-29.5.3-41.3l15.7-18.3c8.8-10.3 10.2-25 3.5-36.7l-2.4-4.2c-3.5-.2-6.9-.3-10.4-.3-92.8 0-171.5 60.9-198.2 145zM464 256c0-36.8-9.6-71.4-26.4-101.5L412 164.8c-15.7 6.3-23.8 23.8-18.5 39.8l16.9 50.7c3.5 10.4 12 18.3 22.6 20.9l29.1 7.3c1.2-9 1.8-18.2 1.8-27.5zM0 256a256 256 0 1 1 512 0 256 256 0 1 1-512 0z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/IOTEROP" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://twitter.com/ioteropcompany" target="_blank" rel="noopener" title="Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+        
+          <script src="../js/print-site.js"></script>
+        
+      
+    
+  </body>
+</html>
