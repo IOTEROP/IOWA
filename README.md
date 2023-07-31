@@ -59,25 +59,30 @@ With this code, you can jump into LwM2M and validate the build and the execution
 | Python Binding                     | :x:                             | :heavy_check_mark:                                      |
 | LwM2M Object Code Generation Tool  | :x:                             | :heavy_check_mark:                                      |
 
-## IOWA SDK Samples
+### Sdk samples available on this repository
 
-Several samples are provided in this repository. Each comes with its own README explaining its usage and presenting a break down of the code.
+| Category | Sample name | Purpose |
+| --- | --- | --- |
+| Basic samples | **01-baseline_client** | For creating a working LwM2M Client with IOWA |
+| Basic samples | **02-IPSO_client** | How to add an IPSO temperature sensor Object |
+| Custom Object | **03-custom_object_baseline_client** | How to add a simple custom LwM2M Object |
+| Custom Object | **04-custom_object_dynamic** | How to make the values exposed by the custom Object dynamic |
+| | |  |
+| _Full SDK only_ | __01-multithread_IPSO_client__ |_This sample demonstrates the multi-thread support (full SDK only)_ |
 
-* **01-baseline_client:** a minimal LwM2M Client connecting to one LwM2M Server and featuring only the mandatory LwM2M Objects.
 
-* **02-IPSO_client:** a LwM2M Client featuring an IPSO Temperature Object (ID: 3303) using IOWA built-in implementation.
-
-* **03-custom_object_baseline:** a LwM2M Client featuring an additional custom LwM2M Object.
-
-* **04-custom_object_dynamic:** same as 03-custom_object_baseline with dynamic Resource values.
-
-* **05-custom_object_multiple_instances:** a LwM2M Client featuring multiple instances of the same custom LwM2M Object.
-
-* **06-custom_object_multiple_resource_instances:** a LwM2M Client featuring a custom LwM2M Object with a multiple Resource.
-
-* **07-secure_client_mbedtls3:** a LwM2M Client using [Mbed TLS 3.1.0](https://github.com/Mbed-TLS/mbedtls) to secure its exchanges with the LwM2M Server. Note that this sample requires some editing before running as explained in its README.
-
-* **08-secure_client_tinydtls:** a LwM2M Client using [tinydtls](https://github.com/eclipse/tinydtls) to secure its exchanges with the LwM2M Server. Note that this sample does not build on Windows platforms. Also note that this sample requires some editing before running as explained in its README.
+### Extra IOWA Sdk samples (available on request)
+| Category | Sample name | Purpose |
+| --- | --- | --- |
+| _Full SDK only_ | secure_client |  How to use secure communications. |
+| _Full SDK only_ | fwupdate_push_client |  How to receive Firmware Updates in push mode. |
+| _Full SDK only_ | fwupdate_pull_client |  How to receive Firmware Updates in pull mode. This sample demonstrates the CoAP APIs. |
+| _Full SDK only_ | timestamp_IPSO |  How to timestamp values in IPSO sensors. |
+| _Full SDK only_ | timestamp_custom_objects |  How to timestamp values in custom LwM2M Objects. |
+| _Full SDK only_ | streamable_resources |  How to work with large values like images or file contents. |
+| _Full SDK only_ | asynchronous_resources |  How to work with time consuming value retrieval. |
+| _Full SDK only_ | low_MTU_client  |  How to use adapt to limited network MTU. |
+| _Full SDK only_ | adaptive_client |  How to adapt to degraded network conditions by modifying the CoAP timers. |
 
 ## QuickStart Guide
 
