@@ -1,18 +1,17 @@
 ![IOWA Logo](.images/IoTerop_logo.jpg)
 
-# IOWA Evaluation SDK
+[![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg?label=Documentation&style=for-the-badge)](https://ioterop.github.io/IOWA/)
 
-This repository contains an evaluation version of [IoTerop's IOWA LwM2M stack](https://ioterop.com/iowa/), illustrating how to use the LwM2M SDK.
+# IOWA public code
 
-> Please note:
-> 
-> **Neither the SDK nor the samples are open source software but commercial software.**
-> 
-> This code MUST NOT be used in a commercial product and is for evaluation ONLY. This code is provided as-is, under the associated license (see LICENSE.txt).
-> 
-> **Want to buy the IOWA Commercial Version? [Contact Us About Our Products](https://info.ioterop.com/contact-products).**
+This repository contains a public version of [IOWA LwM2M stack](https://ioterop.com/iowa/), illustrating how to use the LwM2M library.
 
-With this code, you can jump into the Lightweight M2M protocol and validate the build and the execution of the IOWA stack on your device, but with some limitations:
+**Documentation** could be found here: [https://ioterop.github.io/IOWA/](https://ioterop.github.io/IOWA/)
+
+_This code is provided *as-is*, under the associated licence (./LICENSE.txt).
+(This code should not be used in a commercial product and is for personal evaluation ONLY)_
+
+With this code, you can jump into LwM2M and validate the build and the execution of the IOWA stack on your device, but with some limitations:
 
 |                                    | IOWA Eval SDK                   | [IOWA Full SDK](https://ioterop.com/iowa/)              |
 | ---------------------------------- | ------------------------------- | ------------------------------------------------------- |
