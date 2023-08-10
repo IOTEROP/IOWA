@@ -1,4 +1,4 @@
-![IOWA Logo](../.images/iowa_logo.png)
+![IOWA Logo](./.images/iowa_logo.png)
 
 # IOWA SDK
 
