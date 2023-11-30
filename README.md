@@ -92,7 +92,11 @@ With this code, you can jump into LwM2M and validate the build and the execution
 
 ## QuickStart Guide
 
-All the samples can be built/run on Windows and Linux. Other platforms and OS are available in [IoTerop's GitHub](https://github.com/IOTEROP).
+All the samples can be built/run on Windows and Linux. Other platforms and OS are available in:
+
+[![Ioterop Github](https://img.shields.io/badge/Ioterop's%20Github-gray)](https://github.com/IOTEROP/)
+
+
 
 If you prefer, a Docker version is available in the *docker* folder.
 
@@ -186,7 +190,7 @@ Visual Studio version must be at least 2017 for the CMake support.
 </p -->
 You can interact with the samples or your device with **ALASKA Platform**
 
-Click on the button below to jump to the *Alaska Platfrom*
+Click on the button below to jump to the *ALASKA Platform*
 
 [![Ioterop ALASKA DM Platform](https://img.shields.io/badge/ALASKA%20Free%20Account-201a3B?style=for-the-badge)](https://alaska.ioterop.com/)
 
