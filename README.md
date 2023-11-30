@@ -1,12 +1,16 @@
 ![IOWA Logo](.images/IoTerop_logo.jpg)
 
-[![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg?label=Documentation&style=for-the-badge)](https://ioterop.github.io/IOWA/)
+[![Ioterop IOWA](https://img.shields.io/badge/IOWA-34c0eb?style=for-the-badge)](https://ioterop.com/iowa) 
+[![Ioterop ALASKA DM Platform](https://img.shields.io/badge/ALASKA-201a3B?style=for-the-badge)](https://ioterop.com/alaska)
 
 # IOWA public code
 
 This repository contains a public version of [IOWA LwM2M stack](https://ioterop.com/iowa/), illustrating how to use the LwM2M library.
 
-**Documentation** could be found here: [https://ioterop.github.io/IOWA/](https://ioterop.github.io/IOWA/)
+Don't forget to have a look at the [**Documentation**](https://ioterop.github.io/IOWA/):
+
+[![IOWA Doc](https://img.shields.io/website-up-down-green-red/http/shields.io.svg?label=Documentation&style=for-the-badge)](https://ioterop.github.io/IOWA/)
+
 
 _This code is provided *as-is*, under the associated licence (./LICENSE.txt).
 (This code should not be used in a commercial product and is for personal evaluation ONLY)_
@@ -67,8 +71,9 @@ With this code, you can jump into LwM2M and validate the build and the execution
 | Basic samples | **02-IPSO_client** | How to add an IPSO temperature sensor Object |
 | Custom Object | **03-custom_object_baseline_client** | How to add a simple custom LwM2M Object |
 | Custom Object | **04-custom_object_dynamic** | How to make the values exposed by the custom Object dynamic |
-| | |  |
-| _Full SDK only_ | __01-multithread_IPSO_client__ |_This sample demonstrates the multi-thread support (full SDK only)_ |
+| Custom Object | **06-custom_object_multiple_rsc_inst** | Another custom object sample, multiple resources, multiples instances |
+| Secure client | **07-secure_client_mbedtls3** | Sample client with PSK security over mbedtls3 |
+| Secure client | **08-secure_client_tinydtls** | Sample client with PSK security with tinydtls |
 
 
 ### Extra IOWA Sdk samples (available on request)
@@ -83,6 +88,7 @@ With this code, you can jump into LwM2M and validate the build and the execution
 | _Full SDK only_ | asynchronous_resources |  How to work with time consuming value retrieval. |
 | _Full SDK only_ | low_MTU_client  |  How to use adapt to limited network MTU. |
 | _Full SDK only_ | adaptive_client |  How to adapt to degraded network conditions by modifying the CoAP timers. |
+| |  And many more ... |
 
 ## QuickStart Guide
 
@@ -144,10 +150,10 @@ To compile the *08-secure_client_tinydtls* sample, you will also need `git` to b
 
 ##### Using Visual Studio Code
 
-1. Install the Microsoft C++ compiler as explained here: https://docs.microsoft.com/en-us/cpp/build/building-on-the-command-line?view=vs-2019
-    1. Select the "Build Tools for Visual Studio 2019".
+1. Install the Microsoft C++ compiler as explained here: https://docs.microsoft.com/en-us/cpp/build/building-on-the-command-line?view=vs-2022
+    1. Select the "Build Tools for Visual Studio 2022".
     2. In the Installer, make sure the following optional features are checked:
-        * MSVC v142 - VS 2019 C++ x64/x86 build tools (Note that the version may differ)
+        * MSVC v142 - VS 2022 C++ x64/x86 build tools (Note that the version may differ)
         * Windows 10 SDK
         * C++ CMake tools for Windows
 2. Install Visual Studio Code from https://code.visualstudio.com/
@@ -170,13 +176,21 @@ Visual Studio version must be at least 2017 for the CMake support.
 2. In the "Solution Explorer" windows, right-click on "CMakeList.txt" and choose "Set as Startup Item".
 3. In the Visual Studio menu bar, go to "Build", "Build All"
 
-### IOWA Connecticut Server
 
-You can interact with the samples or your device using the [Ioterop Connecticut server](https://iowa-server.ioterop.com). This server can get/send commands/data with your device and validate the way your code runs.
-(*Connecticut* is the LwM2M Ioterop test server where your device will be connected. This is one solution among others (e.g.: [ALASKA platform](https://ioterop.com/alaska/), ...).
+## IOWA ALASKA Device Management Platform
 
-## Let's Get Programming
+<!-- p align="center">
+ <a href="https://ioterop.com/alaska">
+    <img src=".images/alaska.png" alt="example badge" style="vertical-align:top margin:6px 4px"   width="20%">
+  </a> 
+</p -->
+You can interact with the samples or your device with **ALASKA Platform**
 
-------------------------------------------------------------
+Click on the button below to jump to the *Alaska Platfrom*
 
-![IoTerop Logo](.images/IoTerop_logo.jpg)
+[![Ioterop ALASKA DM Platform](https://img.shields.io/badge/ALASKA%20Free%20Account-201a3B?style=for-the-badge)](https://alaska.ioterop.com/)
+
+## Let's Get Programming !
+
+
+

@@ -1,6 +1,6 @@
 /**********************************************
  *
- * Copyright (c) 2016-2020 IoTerop.
+ * Copyright (c) 2016-2023 IoTerop.
  * All rights reserved.
  *
  * This program and the accompanying materials
@@ -32,14 +32,18 @@
 #endif
 
 // LwM2M Server details
-#define SERVER_SHORT_ID 1234
-#define SERVER_LIFETIME   50
-#define SERVER_URI      "coap://iowa-server.ioterop.com"      // to connect to IoTerop's Connecticut test server
+#include "sample_env.h"         // Sample Config file
 
-// As this sample does not use security, the LwM2M Server relies only
-// on the endpoint name to identify the LwM2M Client. Thus we need an
-// unique name. This function generates one from your computer ID on
-// Linux or from your "C:" volume serial number on Windows.
+#define SERVER_URI SAMPLE_SERVER_URI
+#define SERVER_SHORT_ID SAMPLE_SERVER_SHORT_ID
+#define SERVER_LIFETIME SAMPLE_SERVER_LIFETIME
+#define IOWA_DEVICE_NAME SAMPLE_ENDPOINT_NAME
+
+#define MAX_ENDPOINT_NAME_SIZE  64
+
+// If the IOWA_DEVICE_NAME is not defined, this unction will generates 
+// a unique one from your computer ID on Linux or from 
+// your "C:" volume serial number on Windows.
 static void prv_generate_unique_name(char *name)
 {
 #ifdef _WIN32
@@ -53,7 +57,7 @@ static void prv_generate_unique_name(char *name)
 #endif
 
 #ifdef IOWA_DEVICE_NAME
-    sprintf(name, IOWA_DEVICE_NAME "_%ld", id);
+    strncpy(name, IOWA_DEVICE_NAME, MAX_ENDPOINT_NAME_SIZE);
 #else
     sprintf(name, "IOWA_sample_client_%ld", id);
 #endif
@@ -65,7 +69,7 @@ int main(int argc,
 {
     iowa_context_t iowaH;
     iowa_status_t result;
-    char endpoint_name[64];
+    char endpoint_name[MAX_ENDPOINT_NAME_SIZE+1];
     iowa_device_info_t devInfo;
     iowa_sensor_t sensorId;
     int i;

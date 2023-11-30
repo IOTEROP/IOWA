@@ -22,6 +22,7 @@ add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/03-custom_object_baseline)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/04-custom_object_dynamic)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/05-custom_object_multiple_instances)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/06-custom_object_multiple_resource_instances)
+
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/07-secure_client_mbedtls3)
 if (NOT WIN32)
     add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/08-secure_client_tinydtls)

@@ -23,7 +23,7 @@ At launch, *baseline_client* displays the URI of the LwM2M Server it connects to
 $ ./Evaluation_SDK_Samples/01-baseline_client/baseline_client
 This a simple LwM2M Client.
 
-Registering to the LwM2M server at "coap://iowa-server.ioterop.com" under the Endpoint name "IOWA_sample_client_8323329".
+Registering to the LwM2M server at "coap://datagram-no-sec-ingress.alaska.ioterop.com" under the Endpoint name "IOWA_sample_client_8323329".
 Use Ctrl-C to stop.
 ```
 
@@ -31,7 +31,7 @@ It then registers to the LwM2M Server. You should see it in the "Clients List" o
 
 ![Client registered](images/baseline_client.jpg)
 
-> We are using IoTerop's [CONNECTicut](https://iowa-server.ioterop.com/) testing server. The procedures are similar using other servers.
+> We are using IoTerop's [ALASKA](https://alaska.ioterop.com/) testing server. The procedures are similar using other servers.
 
 Two LwM2M Objects are visible to the LwM2M Server: the Server Object (ID: 1) configuring parameters associated to the LwM2M Server, and the Device Object (ID: 3) describing the device.
 
@@ -111,10 +111,24 @@ The last argument is an optional event callback explained in another sample.
 
 Finally, to configure a LwM2M Server on the Client, the API `iowa_client_add_server()` has to be called.
 
+
+Please take note that all the specific settings are defined in separated config file (see **sample_env.h**)
 ```c
-#define SERVER_SHORT_ID 1234
-#define SERVER_LIFETIME   50
-#define SERVER_URI      "coap://iowa-server.ioterop.com"
+// Device name
+#define SAMPLE_ENDPOINT_NAME       "MyTestDevice"
+
+// LwM2M Server details
+#define SAMPLE_SERVER_URI          "coap://datagram-no-sec-ingress.alaska.ioterop.com"
+#define SAMPLE_SERVER_SHORT_ID     1234
+#define SAMPLE_SERVER_LIFETIME     50
+```
+And these settings are used in *main.c* :
+
+
+```c
+#define SERVER_SHORT_ID SAMPLE_SERVER_SHORT_ID
+#define SERVER_LIFETIME   SAMPLE_SERVER_LIFETIME
+#define SERVER_URI      SAMPLE_SERVER_URI
 
 result = iowa_client_add_server(iowaH, SERVER_SHORT_ID, SERVER_URI, SERVER_LIFETIME, 0, IOWA_SEC_NONE);
 ```
@@ -123,7 +137,9 @@ The first argument is the IOWA context created in the first step.
 
 The second argument is an numeric identifier of the LwM2M Server. This identifier is named "Short Server ID" in the LwM2M protocol. Other IOWA APIs use this identifier to reference the LwM2M Server.
 
-The third argument is the LwM2M Server URI. By default the baseline Client has been configured to use IoTerop's [CONNECTicut](https://iowa-server.ioterop.com/) testing server. You can change the URI to point to other LwM2M Servers like the Eclipse's [Leshan test server sandbox](https://leshan.eclipseprojects.io/#/clients), or a locally deployed LwM2M Server.
+ The third argument is the LwM2M Server URI. By default the baseline Client has been configured to use IoTerop's [ALASKA](https://alaska.ioterop.com/) testing server. 
+
+**_NOTE_**```📝```  *Don't forget to provision your device on [ALASKA](https://alaska.ioterop.com/) platform to be able to interact with it. Please refer to ALASKA documentation.*
 
 The fourth argument is the registration lifetime in seconds. The LwM2M lifetime is the validity period of a LwM2M Client registration to the LwM2M Server. When this lifetime expires, the Server considers the Client as unreachable. Regularly, the Client sends Registration Update messages to the Server to renew its registration validity period.
 
