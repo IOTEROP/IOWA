@@ -1,7 +1,9 @@
 /* Specifc sample values */
 
 // Device detail
-#define SAMPLE_ENDPOINT_NAME       "MyTestDevice"
+
+// NOTE: This name should be unique. Could be a serial number, an IMEI, etc...
+#define SAMPLE_ENDPOINT_NAME       "prod123456"
 
 // LwM2M Server details
 #define SAMPLE_SERVER_URI          "coap://datagram-no-sec-ingress.alaska.ioterop.com"
