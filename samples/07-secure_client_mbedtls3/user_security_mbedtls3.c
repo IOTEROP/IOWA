@@ -372,7 +372,7 @@ static int prv_mbedtlsGetDelay(void *userDataP)
         return PRV_MBEDTLS_TIMER_CANCELLED;
     }
 
-    if ((currentTime - internalsP->startTime) > internalsP->timeout)
+    if ((uint32_t) (currentTime - internalsP->startTime) > internalsP->timeout)
     {
         IOWA_LOG_TRACE(IOWA_PART_SECURITY, "Timer expired.");
         return PRV_MBEDTLS_TIMER_EXPIRED;

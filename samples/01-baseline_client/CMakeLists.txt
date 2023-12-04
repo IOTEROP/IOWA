@@ -39,4 +39,5 @@ endif()
 
 if (WIN32)
     set(CMAKE_C_FLAGS_DEBUG "/ZI")
+    add_definitions("/wd4267 /wd4334") 
 endif()

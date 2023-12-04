@@ -55,7 +55,7 @@ iowa_status_t sample_object_dataCallback(iowa_dm_operation_t operation,
             }
             else if (operation == IOWA_DM_WRITE)
             {
-                objectValuesP->integerValue = dataP[i].value.asInteger;
+                objectValuesP->integerValue = (int) dataP[i].value.asInteger;
             }
             break;
 

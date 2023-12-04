@@ -26,6 +26,7 @@
 #include <stdlib.h>
 #include <string.h>
 #ifdef _WIN32
+#pragma warning(disable : 4996)
 #include <windows.h>
 #else
 #include <unistd.h>
@@ -127,7 +128,7 @@ int main(int argc,
     for (i = 0; i < 40 && result == IOWA_COAP_NO_ERROR; i++)
     {
         result = iowa_step(iowaH, 3);
-        result = iowa_client_IPSO_update_value(iowaH, sensorId, 20 + i%4);
+        result = iowa_client_IPSO_update_value(iowaH, sensorId, (float)20 + i%4);
     }
 
 cleanup:

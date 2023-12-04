@@ -98,10 +98,10 @@ void * iowa_system_connection_open(iowa_connection_type_t type,
     s = -1;
     for (p = servinfo; p != NULL && s == -1; p = p->ai_next)
     {
-        s = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
+        s = (int) socket(p->ai_family, p->ai_socktype, p->ai_protocol);
         if (s >= 0)
         {
-            if (-1 == connect(s, p->ai_addr, p->ai_addrlen))
+            if (-1 == connect(s, p->ai_addr, (int) p->ai_addrlen))
             {
 #ifdef _WIN32
                 closesocket(s);
@@ -155,7 +155,7 @@ int iowa_system_connection_send(void *connP,
 
     connectionP = (sample_connection_t *)connP;
 
-    nbSent = send(connectionP->sock, buffer, length, 0);
+    nbSent = send(connectionP->sock, buffer, (int) length, 0);
 
     return nbSent;
 }
@@ -173,12 +173,12 @@ int iowa_system_connection_recv(void *connP,
 
     connectionP = (sample_connection_t *)connP;
 
-    numBytes = recv(connectionP->sock, buffer, length, 0);
+    numBytes = recv(connectionP->sock, buffer, (int) length, 0);
 #ifdef _WIN32
     if (numBytes == -1
         && WSAGetLastError() == WSAEMSGSIZE)
     {
-        numBytes = length;
+        numBytes = (int) length;
     }
 #endif
 
@@ -217,7 +217,7 @@ int iowa_system_connection_select(void **connArray,
     size_t i;
     int result;
     int maxFd;
-    int fd;
+    //int fd;
 
 #ifdef _WIN32
     // On Windows systems, a select() with no sockets will return an error.

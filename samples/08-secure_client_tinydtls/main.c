@@ -25,6 +25,7 @@
 #include <stdlib.h>
 #include <string.h>
 #ifdef _WIN32
+#pragma warning(disable : 4996)
 #include <windows.h>
 #else
 #include <unistd.h>

@@ -75,16 +75,16 @@ iowa_status_t sample_object_dataCallback(iowa_dm_operation_t operation,
                 switch (dataP[i].resInstanceID)
                 {
                 case 1:
-                    objectValuesP->integerValueRes1 = dataP[i].value.asInteger;
+                    objectValuesP->integerValueRes1 = (int) dataP[i].value.asInteger;
                     break;
                 case 2:
-                    objectValuesP->integerValueRes2 = dataP[i].value.asInteger;
+                    objectValuesP->integerValueRes2 = (int) dataP[i].value.asInteger;
                     break;
                 case 3:
-                    objectValuesP->integerValueRes3 = dataP[i].value.asInteger;
+                    objectValuesP->integerValueRes3 = (int) dataP[i].value.asInteger;
                     break;
                 case 6:
-                    objectValuesP->integerValueRes6 = dataP[i].value.asInteger;
+                    objectValuesP->integerValueRes6 = (int) dataP[i].value.asInteger;
                     break;
                 default:
                     // Should not happen

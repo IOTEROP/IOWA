@@ -27,3 +27,7 @@ add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/07-secure_client_mbedtls3)
 if (NOT WIN32)
     add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/08-secure_client_tinydtls)
 endif()
+
+if(MSVC)
+    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+endif()

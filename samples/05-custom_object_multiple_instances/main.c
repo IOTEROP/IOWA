@@ -25,6 +25,7 @@
 #include <stdlib.h>
 #include <string.h>
 #ifdef _WIN32
+#pragma warning(disable : 4996)
 #include <windows.h>
 #else
 #include <unistd.h>
@@ -33,6 +34,8 @@
 // Header file containing the definition of the sample custom Object
 #include "sample_object.h"
 
+// LwM2M Server details
+#include "sample_env.h" // Sample Config file
 #define SERVER_URI SAMPLE_SERVER_URI
 #define SERVER_SHORT_ID SAMPLE_SERVER_SHORT_ID
 #define SERVER_LIFETIME SAMPLE_SERVER_LIFETIME
