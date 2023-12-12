@@ -20,7 +20,7 @@ When registered to the LwM2M Server, you will notice that the *IPSO_client* feat
 
 *IPSO_client* updates the "Sensor Value" each three seconds, cycling between the values 20, 21, 22, and 23.
 
-If you set up an Observation on this Object, the basic view will present such a graph:
+If you set up an Observation on this Object, the basic view will present such a screen, with the sensor value (in green) changing from 20 to 23 :
 
 ![IPSO Temperature graph](images/IPSO_client_graph.jpg)
 
