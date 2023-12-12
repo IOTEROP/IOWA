@@ -14,7 +14,7 @@ The *IOWA Evaluation SDK* is intended to let users get a hands experience of how
 
 To read more about the [IOWA SDKs](https://ioterop.com/iowa/).
 
-To get the [Full IOWA SDK specification sheet](https://cdn2.hubspot.net/hubfs/1727672/IOWA%20brochure.pdf).
+To get the [Full IOWA SDK specification sheet](https://1727672.fs1.hubspotusercontent-na1.net/hubfs/1727672/Brochures/IoTerop%20IOWA%20Brochure%20D6.pdf).
 
 ------------------------------------------------------------
 
