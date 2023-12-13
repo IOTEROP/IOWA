@@ -13,9 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: run-ghrs
-        # Define the stats repository
         uses: jgehrcke/github-repo-stats@RELEASE
         with:
-        repository: IOTEROP/repo-stats
+          # Define the stats repository
+          repository: IOTEROP/repo-stats
           ghtoken: ${{ secrets.ghrs_github_api_token }}
 
